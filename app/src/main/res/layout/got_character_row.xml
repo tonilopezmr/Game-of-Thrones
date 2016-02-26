@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/row_height">
+
+    <ImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <View
+        android:id="@+id/ivGradient"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/row_gradient_height"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/row_gradient"
+        />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textColor="@android:color/white"
+        />
+</RelativeLayout>
