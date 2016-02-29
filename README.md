@@ -37,7 +37,7 @@ Your task as Android Developer is **clone** or **fork** this repository into one
 3. Add parallax effect into detail page
 
 ###### Once you've finished
-1. Notify by email to npatarino@idealista.com
+1. Notify by email to rrhh@idealista.com
 2. Have a rest after this "beautiful" code
 
 #License
