@@ -11,8 +11,6 @@ import es.npatarino.android.gotchallenge.view.adapters.SectionsPagerAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
-    SectionsPagerAdapter spa;
-    ViewPager vp;
     Toolbar toolbar;
     TabLayout tabLayout;
 
@@ -24,33 +22,41 @@ public class HomeActivity extends AppCompatActivity {
         initUi();
     }
 
-    public SectionsPagerAdapter getSpa() {
-        return spa;
-    }
-
-    public void setSpa(SectionsPagerAdapter spa) {
-        this.spa = spa;
-    }
-
-    public ViewPager getVp() {
-        return vp;
-    }
-
-    public void setVp(ViewPager vp) {
-        this.vp = vp;
-    }
-
-
     public void initUi() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setSpa(new SectionsPagerAdapter(getSupportFragmentManager()));
 
-        setVp((ViewPager) findViewById(R.id.container));
-        getVp().setAdapter(getSpa());
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(getVp());
+        setupTabs();
     }
 
+    private void setupTabs() {
+        final ViewPager  viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_word_list);
+        tabLayout.getTabAt(0).setText("");
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group_list);
+        tabLayout.getTabAt(1).setText("");
+        tabLayout.getTabAt(1).getIcon().mutate().setAlpha(125);
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                tab.getIcon().mutate().setAlpha(255);
+                viewPager.setCurrentItem(tab.getPosition(), true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.getIcon().mutate().setAlpha(125);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+    }
 }

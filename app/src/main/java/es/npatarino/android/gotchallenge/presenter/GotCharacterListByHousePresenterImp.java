@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouse;
+import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.UseCase;
 import es.npatarino.android.gotchallenge.view.DetailView;
 
@@ -16,7 +16,7 @@ public class GotCharacterListByHousePresenterImp implements GotCharacterListByHo
     private DetailView<List<GoTCharacter>> view;
     private UseCase<GoTHouse, List<GoTCharacter>> useCase;
 
-    public GotCharacterListByHousePresenterImp(GetCharactersByHouse useCase) {
+    public GotCharacterListByHousePresenterImp(GetCharactersByHouseUseCase useCase) {
         this.useCase = useCase;
     }
 

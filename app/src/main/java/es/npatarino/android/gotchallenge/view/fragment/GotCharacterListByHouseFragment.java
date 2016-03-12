@@ -20,7 +20,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepository;
-import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouse;
+import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenterImp;
 import es.npatarino.android.gotchallenge.view.DetailView;
@@ -54,7 +54,7 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
         GotCharacterRepository repository = new GotCharacterRepository();
-        GetCharactersByHouse charactersByHouse = new GetCharactersByHouse(executor, mainThread, repository);
+        GetCharactersByHouseUseCase charactersByHouse = new GetCharactersByHouseUseCase(executor, mainThread, repository);
         gotCharacterListByHousePresenter = new GotCharacterListByHousePresenterImp(charactersByHouse);
         gotCharacterListByHousePresenter.setView(this);
         gotCharacterListByHousePresenter.init(house);
