@@ -25,4 +25,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'com.github.tonilopezmr:interactorexecutor:2.0'
 }

@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge;
+package es.npatarino.android.gotchallenge.view.activities;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.io.IOException;
 import java.net.URL;
+
+import es.npatarino.android.gotchallenge.R;
 
 public class DetailActivity extends AppCompatActivity {
 
