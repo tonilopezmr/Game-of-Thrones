@@ -32,6 +32,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
+                android:transitionName="character.image"
                 app:layout_collapseMode="parallax"/>
 
 

@@ -6,7 +6,7 @@
         android:id="@+id/ivBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:transitionName="character.image"/>
 
     <View
         android:id="@+id/ivGradient"

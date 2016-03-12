@@ -14,6 +14,7 @@ public class DetailActivity extends AppCompatActivity {
 
 
     private static final String TAG = "DetailActivity";
+    public static final String CHARACTER_IMAGE = "character.image";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

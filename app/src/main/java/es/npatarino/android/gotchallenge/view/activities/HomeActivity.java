@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -221,11 +223,11 @@ public class HomeActivity extends AppCompatActivity {
     static class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private final List<GoTCharacter> gcs;
-        private Activity a;
+        private Activity activity;
 
         public GoTAdapter(Activity activity) {
             this.gcs = new ArrayList<>();
-            a = activity;
+            this.activity = activity;
         }
 
         void addAll(Collection<GoTCharacter> collection) {
@@ -241,18 +243,26 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-            GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
-            gotCharacterViewHolder.render(gcs.get(position));
-            ((GotCharacterViewHolder) holder).imp.setOnClickListener(new View.OnClickListener() {
+            final GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
+            final GoTCharacter character = gcs.get(position);
+            gotCharacterViewHolder.render(character);
+            final GotCharacterViewHolder viewHolder =((GotCharacterViewHolder) holder);
+            viewHolder.imp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    Intent intent = new Intent(((GotCharacterViewHolder) holder).itemView.getContext(), DetailActivity.class);
-                    intent.putExtra("description", gcs.get(position).getDescription());
-                    intent.putExtra("name", gcs.get(position).getName());
-                    intent.putExtra("imageUrl", gcs.get(position).getImageUrl());
-                    ((GotCharacterViewHolder) holder).itemView.getContext().startActivity(intent);
+                    moveToDetailActivity(gotCharacterViewHolder, character);
                 }
             });
+        }
+
+        private void moveToDetailActivity(GotCharacterViewHolder viewHolder, GoTCharacter character){
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, DetailActivity.CHARACTER_IMAGE);
+
+            Intent intent = new Intent(viewHolder.itemView.getContext(), DetailActivity.class);
+            intent.putExtra("description", character.getDescription());
+            intent.putExtra("name", character.getName());
+            intent.putExtra("imageUrl", character.getImageUrl());
+            ActivityCompat.startActivity(activity, intent, options.toBundle());
         }
 
         @Override
