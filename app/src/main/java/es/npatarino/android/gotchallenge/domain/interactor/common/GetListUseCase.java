@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package es.npatarino.android.gotchallenge.domain.interactor;
+package es.npatarino.android.gotchallenge.domain.interactor.common;
 
 import com.tonilopezmr.interactorexecutor.Interactor;
+
+import java.util.List;
 
 /**
  * @author Antonio López.
  */
-public interface UseCase<T> extends Interactor {
+public interface GetListUseCase<T> extends Interactor {
 
-    interface Callback<T> {
-        void onSuccess(T entity);
+    interface Callback<T>{
+        void onListLoaded(List<T> entityList);
         void onError(Exception exception);
     }
 
-    void execute(T entity, final Callback<T> callback);
+    void execute(final Callback<T> callback);
 }

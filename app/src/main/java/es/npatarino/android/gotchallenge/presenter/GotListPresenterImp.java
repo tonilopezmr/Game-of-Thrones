@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.presenter;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.view.ViewList;
 
 /**

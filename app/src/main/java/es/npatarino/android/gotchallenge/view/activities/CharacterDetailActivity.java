@@ -4,26 +4,25 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.view.fragment.DescriptionFragment;
 
-public class DetailActivity extends AppCompatActivity {
-
+public class CharacterDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailActivity";
     public static final String CHARACTER_IMAGE = "character.image";
+
+    ImageView ivp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        final ImageView ivp = (ImageView) findViewById(R.id.iv_photo);
-        final TextView tvn = (TextView) findViewById(R.id.tv_name);
-        final TextView tvd = (TextView) findViewById(R.id.tv_description);
+        ivp = (ImageView) findViewById(R.id.iv_photo);
 
         final String d = getIntent().getStringExtra("description");
         final String n = getIntent().getStringExtra("name");
@@ -36,8 +35,14 @@ public class DetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        DescriptionFragment descriptionFragment = new DescriptionFragment();
+        descriptionFragment.setName(n);
+        descriptionFragment.setDescription(d);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_layout, descriptionFragment, "descriptionFragment")
+                .commitAllowingStateLoss();
+
         Picasso.with(getApplicationContext()).load(i).into(ivp);
-        tvn.setText(n);
-        tvd.setText(d);
     }
 }

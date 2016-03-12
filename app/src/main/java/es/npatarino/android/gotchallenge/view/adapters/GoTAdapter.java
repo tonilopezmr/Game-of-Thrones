@@ -19,7 +19,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.view.activities.DetailActivity;
+import es.npatarino.android.gotchallenge.view.activities.CharacterDetailActivity;
 
 /**
  * @author Antonio López.
@@ -60,9 +60,9 @@ public class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void moveToDetailActivity(GotCharacterViewHolder viewHolder, GoTCharacter character){
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, DetailActivity.CHARACTER_IMAGE);
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, CharacterDetailActivity.CHARACTER_IMAGE);
 
-        Intent intent = new Intent(viewHolder.itemView.getContext(), DetailActivity.class);
+        Intent intent = new Intent(viewHolder.itemView.getContext(), CharacterDetailActivity.class);
         intent.putExtra("description", character.getDescription());
         intent.putExtra("name", character.getName());
         intent.putExtra("imageUrl", character.getImageUrl());

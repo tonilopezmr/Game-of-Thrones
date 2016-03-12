@@ -18,27 +18,29 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
+import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepository;
-import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
-import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCaseImp;
-import es.npatarino.android.gotchallenge.presenter.GotListPresenterImp;
-import es.npatarino.android.gotchallenge.presenter.ListPresenter;
-import es.npatarino.android.gotchallenge.view.ViewList;
+import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouse;
+import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
+import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenterImp;
+import es.npatarino.android.gotchallenge.view.DetailView;
 import es.npatarino.android.gotchallenge.view.adapters.GoTAdapter;
 import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
 
 /**
  * @author Antonio López.
  */
-public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> {
+
+public class GotCharacterListByHouseFragment extends Fragment implements DetailView<List<GoTCharacter>> {
 
     private static final String TAG = "GoTListFragment";
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
-    private ListPresenter<GoTCharacter> gotCharacterListPresenter;
     private GoTAdapter adp;
+    private GotCharacterListByHousePresenter gotCharacterListByHousePresenter;
+    private GoTHouse house;
 
-    public GoTListFragment() {
+    public GotCharacterListByHouseFragment() {
     }
 
     @Override
@@ -52,19 +54,17 @@ public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> 
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
         GotCharacterRepository repository = new GotCharacterRepository();
-        GetListUseCase<GoTCharacter> goTCharacterGetListUseCase = new GetListUseCaseImp<>(executor, mainThread, repository);
-        gotCharacterListPresenter = new GotListPresenterImp<>(goTCharacterGetListUseCase);
-        gotCharacterListPresenter.setView(this);
-        gotCharacterListPresenter.init();
+        GetCharactersByHouse charactersByHouse = new GetCharactersByHouse(executor, mainThread, repository);
+        gotCharacterListByHousePresenter = new GotCharacterListByHousePresenterImp(charactersByHouse);
+        gotCharacterListByHousePresenter.setView(this);
+        gotCharacterListByHousePresenter.init(house);
         return rootView;
     }
 
-    @Override
-    public void showList(List<GoTCharacter> list) {
-        adp.addAll(list);
-        adp.notifyDataSetChanged();
-        pb.hide();
+    public void setHouse(GoTHouse house) {
+        this.house = house;
     }
+
 
     @Override
     public void initUi() {
@@ -77,5 +77,12 @@ public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> 
     @Override
     public void error() {
         Toast.makeText(getActivity().getApplicationContext(), "ERRRRRORRR ONEEE", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void show(List<GoTCharacter> list) {
+        adp.addAll(list);
+        adp.notifyDataSetChanged();
+        pb.hide();
     }
 }

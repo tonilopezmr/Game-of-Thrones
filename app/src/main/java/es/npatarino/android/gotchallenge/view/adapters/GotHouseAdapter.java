@@ -1,6 +1,9 @@
 package es.npatarino.android.gotchallenge.view.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +18,8 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.view.activities.CharacterDetailActivity;
+import es.npatarino.android.gotchallenge.view.activities.HouseDetailActivity;
 
 /**
  * @author Antonio López.
@@ -22,12 +27,13 @@ import es.npatarino.android.gotchallenge.domain.GoTHouse;
 public class GoTHouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<GoTHouse> gcs;
-    private Activity a;
+    private Activity activity;
 
     public GoTHouseAdapter(Activity activity) {
         this.gcs = new ArrayList<>();
-        a = activity;
+        this.activity = activity;
     }
+
 
     public void addAll(Collection<GoTHouse> collection) {
         for (int i = 0; i < collection.size(); i++) {
@@ -37,13 +43,31 @@ public class GoTHouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new GotCharacterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.got_house_row, parent, false));
+        return new GotHouseViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.got_house_row, parent, false));
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
-        gotCharacterViewHolder.render(gcs.get(position));
+        final GotHouseViewHolder gotCharacterViewHolder = (GotHouseViewHolder) holder;
+        GotHouseViewHolder gotHouseViewHolder = (GotHouseViewHolder) holder;
+        final GoTHouse house = gcs.get(position);
+        gotCharacterViewHolder.render(house);
+        gotHouseViewHolder.imp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                moveToDetailActivity(gotCharacterViewHolder, house);
+            }
+        });
+    }
+
+    private void moveToDetailActivity(GotHouseViewHolder viewHolder, GoTHouse house){
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, CharacterDetailActivity.CHARACTER_IMAGE);
+
+        Intent intent = new Intent(viewHolder.itemView.getContext(), HouseDetailActivity.class);
+        intent.putExtra("id", house.getHouseId());
+        intent.putExtra("name", house.getHouseName());
+        intent.putExtra("imageUrl", house.getHouseImageUrl());
+        ActivityCompat.startActivity(activity, intent, options.toBundle());
     }
 
     @Override
@@ -51,12 +75,12 @@ public class GoTHouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return gcs.size();
     }
 
-    class GotCharacterViewHolder extends RecyclerView.ViewHolder {
+    class GotHouseViewHolder extends RecyclerView.ViewHolder {
 
         private static final String TAG = "GotCharacterViewHolder";
         ImageView imp;
 
-        public GotCharacterViewHolder(View itemView) {
+        public GotHouseViewHolder(View itemView) {
             super(itemView);
             imp = (ImageView) itemView.findViewById(R.id.ivBackground);
         }

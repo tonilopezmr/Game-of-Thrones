@@ -11,7 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.activities.DetailActivity"
+            android:name=".view.activities.CharacterDetailActivity"
+            android:parentActivityName=".view.activities.HomeActivity">
+        </activity>
+        <activity
+            android:name=".view.activities.HouseDetailActivity"
             android:parentActivityName=".view.activities.HomeActivity">
         </activity>
         <activity

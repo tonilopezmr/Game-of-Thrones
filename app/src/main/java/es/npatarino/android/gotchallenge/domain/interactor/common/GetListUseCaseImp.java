@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.npatarino.android.gotchallenge.domain.interactor;
+package es.npatarino.android.gotchallenge.domain.interactor.common;
 
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;

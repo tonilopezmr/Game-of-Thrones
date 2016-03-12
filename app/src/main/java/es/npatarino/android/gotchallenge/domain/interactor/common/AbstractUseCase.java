@@ -14,34 +14,35 @@
  * limitations under the License.
  */
 
-package es.npatarino.android.gotchallenge.domain.interactor;
+package es.npatarino.android.gotchallenge.domain.interactor.common;
 
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 
-
 /**
  * @author Antonio López.
  */
-public abstract class AbstractGetListUseCase<T> implements GetListUseCase<T>{
+public abstract class AbstractUseCase<T, C> implements UseCase<T, C> {
 
     protected Executor executor;
     protected MainThread mainThread;
 
-    protected Callback<T> callback;
+    protected Callback<C> callback;
+    protected T entity;
 
-    public AbstractGetListUseCase(Executor executor, MainThread mainThread) {
+    public AbstractUseCase(Executor executor, MainThread mainThread) {
         this.executor = executor;
         this.mainThread = mainThread;
     }
 
     @Override
-    public void execute(final Callback<T> callback) {
-        if (callback == null) {
+    public void execute(T entity, final Callback<C> callback) {
+        if (callback == null){
             throw new IllegalArgumentException("Callback parameter can't be null");
         }
 
         this.callback = callback;
-        this.executor.run(this);
+        this.entity = entity;
+        executor.run(this);
     }
 }
