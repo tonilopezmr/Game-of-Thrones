@@ -2,8 +2,6 @@ package es.npatarino.android.gotchallenge.view.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -277,25 +273,8 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             public void render(final GoTCharacter goTCharacter) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        URL url = null;
-                        try {
-                            url = new URL(goTCharacter.getImageUrl());
-                            final Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                            a.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    imp.setImageBitmap(bmp);
-                                    tvn.setText(goTCharacter.getName());
-                                }
-                            });
-                        } catch (IOException e) {
-                            Log.e(TAG, e.getLocalizedMessage());
-                        }
-                    }
-                }).start();
+                Picasso.with(imp.getContext()).load(goTCharacter.getImageUrl()).into(imp);
+                tvn.setText(goTCharacter.getName());
             }
         }
 
@@ -344,24 +323,7 @@ public class HomeActivity extends AppCompatActivity {
             }
 
             public void render(final GoTHouse goTHouse) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        URL url = null;
-                        try {
-                            url = new URL(goTHouse.getHouseImageUrl());
-                            final Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                            a.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    imp.setImageBitmap(bmp);
-                                }
-                            });
-                        } catch (IOException e) {
-                            Log.e(TAG, e.getLocalizedMessage());
-                        }
-                    }
-                }).start();
+                Picasso.with(imp.getContext()).load(goTHouse.getHouseImageUrl()).into(imp);
             }
         }
 
