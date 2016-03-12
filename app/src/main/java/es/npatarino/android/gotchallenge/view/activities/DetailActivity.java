@@ -32,7 +32,7 @@ public class DetailActivity extends AppCompatActivity {
         final String n = getIntent().getStringExtra("name");
         final String i = getIntent().getStringExtra("imageUrl");
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.t);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(n);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
