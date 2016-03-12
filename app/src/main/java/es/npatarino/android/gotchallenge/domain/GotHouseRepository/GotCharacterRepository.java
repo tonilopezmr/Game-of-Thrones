@@ -9,9 +9,11 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
+import es.npatarino.android.gotchallenge.domain.GoTHouse;
 
 /**
  * @author Antonio López.
@@ -38,4 +40,29 @@ public class GotCharacterRepository implements Repository<GoTCharacter> {
         final List<GoTCharacter> characters = new Gson().fromJson(response.toString(), listType);
         return characters;
     }
+
+    public GoTCharacter read(GoTCharacter entity) throws Exception {
+        List<GoTCharacter> characters = getList();
+        GoTCharacter character = null;
+        for (int i = 0, size = characters.size(); i < size && character==null; i++){
+            GoTCharacter item = characters.get(i);
+            if (item.getName().equals(entity.getName())){
+                character = item;
+            }
+        }
+        return character;
+    }
+
+    public List<GoTCharacter> read(GoTHouse house) throws Exception{
+        List<GoTCharacter> characters = getList();
+        Iterator<GoTCharacter> iterator = characters.iterator();
+        while (iterator.hasNext()){
+            GoTCharacter character = iterator.next();
+            if (!character.getHouseId().equals(house.getHouseId())){
+                iterator.remove();
+            }
+        }
+        return characters;
+    }
+
 }

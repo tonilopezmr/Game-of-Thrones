@@ -35,7 +35,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepository;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotHousesRepository;
+import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotHouseRepository;
 import es.npatarino.android.gotchallenge.domain.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.GetListUseCaseImp;
 import es.npatarino.android.gotchallenge.presenter.GotListPresenterImp;
@@ -159,7 +159,7 @@ public class HomeActivity extends AppCompatActivity {
             //dagger everywhere
             Executor executor = new ThreadExecutor();
             MainThread mainThread = new MainThreadImp();
-            GotHousesRepository repository = new GotHousesRepository();
+            GotHouseRepository repository = new GotHouseRepository();
             GetListUseCase<GoTHouse> goTHouseGetListUseCase = new GetListUseCaseImp<>(executor, mainThread, repository);
             gotCharacterListPresenter = new GotListPresenterImp<>(goTHouseGetListUseCase);
             gotCharacterListPresenter.setView(this);

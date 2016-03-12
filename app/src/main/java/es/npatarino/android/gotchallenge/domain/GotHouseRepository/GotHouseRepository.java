@@ -9,11 +9,11 @@ import es.npatarino.android.gotchallenge.domain.GoTHouse;
 /**
  * @author Antonio López.
  */
-public class GotHousesRepository implements Repository<GoTHouse>{
+public class GotHouseRepository implements Repository<GoTHouse>{
     
     private GotCharacterRepository repository;
 
-    public GotHousesRepository() {
+    public GotHouseRepository() {
         repository = new GotCharacterRepository();
     }
 
