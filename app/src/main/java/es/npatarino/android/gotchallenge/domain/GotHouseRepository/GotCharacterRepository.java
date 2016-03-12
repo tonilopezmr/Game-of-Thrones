@@ -38,17 +38,4 @@ public class GotCharacterRepository implements Repository<GoTCharacter> {
         final List<GoTCharacter> characters = new Gson().fromJson(response.toString(), listType);
         return characters;
     }
-
-    @Override
-    public GoTCharacter readById(GoTCharacter entity) throws Exception {
-        List<GoTCharacter> characters = getList();
-        GoTCharacter character = null;
-        for (int i = 0, size = characters.size(); i < size && character==null; i++){
-            GoTCharacter item = characters.get(i);
-            if (item.getName().equals(entity.getName())){
-                character = item;
-            }
-        }
-        return character;
-    }
 }

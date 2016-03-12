@@ -42,17 +42,4 @@ public class GotHousesRepository implements Repository<GoTHouse>{
         }
         return hs;
     }
-
-    @Override
-    public GoTHouse readById(GoTHouse entity) throws Exception {
-        List<GoTHouse> hs = getList();
-        GoTHouse house = null;
-        for (int i = 0, size = hs.size(); i < size && house==null; i++){
-            GoTHouse item = hs.get(i);
-            if (item.getHouseId().equals(entity.getHouseId())){
-                house = item;
-            }
-        }
-        return house;
-    }
 }
