@@ -22,8 +22,14 @@ public class GotCharacterRepository implements Repository<GoTCharacter> {
 
     @Override
     public List<GoTCharacter> getList() throws Exception {
-        String url = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000/characters";
+        StringBuffer response = getCharactersFromUrl();
 
+        Type listType = new TypeToken<ArrayList<GoTCharacter>>() {}.getType();
+        return new Gson().fromJson(response.toString(), listType);
+    }
+
+    protected StringBuffer getCharactersFromUrl() throws Exception {
+        String url = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000/characters";
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -35,22 +41,13 @@ public class GotCharacterRepository implements Repository<GoTCharacter> {
         }
         in.close();
 
-        Type listType = new TypeToken<ArrayList<GoTCharacter>>() {
-        }.getType();
-        final List<GoTCharacter> characters = new Gson().fromJson(response.toString(), listType);
-        return characters;
+        return response;
     }
 
     public GoTCharacter read(GoTCharacter entity) throws Exception {
         List<GoTCharacter> characters = getList();
-        GoTCharacter character = null;
-        for (int i = 0, size = characters.size(); i < size && character==null; i++){
-            GoTCharacter item = characters.get(i);
-            if (item.getName().equals(entity.getName())){
-                character = item;
-            }
-        }
-        return character;
+        int index =  characters.indexOf(entity);
+        return index == -1? null :  characters.get(index);
     }
 
     public List<GoTCharacter> read(GoTHouse house) throws Exception{

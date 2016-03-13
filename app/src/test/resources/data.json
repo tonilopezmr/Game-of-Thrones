@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Tyrion Lannister",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/8462e9de-a1f6-4333-a83b-2cf1f1521827.jpg",
+	"description": "In A Game of Thrones (1996), Tyrion is introduced as the third and youngest child of wealthy and powerful Tywin Lannister, the former Hand of the King. Tyrion's elder sister Cersei is the Queen of Westeros by virtue of her marriage to King Robert Baratheon, and Cersei's male twin Jaime is one of the Kingsguard, the royal security detail. Described as an ugly ('for all the world like a gargoyle'), malformed dwarf with mismatched green and black eyes, Tyrion possesses the pale blond hair of a Lannister but has a complicated relationship with the rest of them.",
+    "houseImageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/lannister.jpg",
+    "houseId": "50fab25b",
+    "houseName": "House Lannister"
+  },
+  {
+    "name": "Daenerys Targaryen",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/c8533a36-5e15-4a57-baed-fc87f7eba578.jpg",
+	"description": "Daenerys Targaryen is the daughter of King Aerys II Targaryen (also referred to as The Mad King) and his sister-wife Rhaella, and is one of the last survivors of House Targaryen. She serves as the third-person narrator of thirty-one chapters throughout A Game of Thrones, A Clash of Kings, A Storm of Swords, and A Dance with Dragons. She is the only monarch or claimant of such given point of view chapters in the novels. Thirteen years before the events of the series, she was born in the midst of a storm, earning her the nickname 'Stormborn'. Shortly thereafter, Daenerys and her brother Viserys fled to Braavos; Rhaella had died in childbirth. They spent the following years wandering the Free Cities.",
+    "houseImageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/targaryen.jpg",
+    "houseId": "78faa61d",
+    "houseName": "House Targaryen"
+  }, {
+    "name": "Stannis Baratheon",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/ab65609e-7b73-40b7-bb58-dbc4cc9d308a.jpg",
+	"description": "Stannis Baratheon is the younger brother of King Robert and older brother of Renly. He is portrayed as a brooding and humorless man with a harsh sense of justice and an obsession with slights both real and imagined. He is regarded as a skilled but overcautious military commander.",
+    "houseImageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/baratheon.jpg",
+    "houseId": "8b7f8fd5",
+    "houseName": "House Baratheon"
+  },  {
+    "name": "Theon Greyjoy",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/9101b27d-00ba-42ae-91e3-e954241ff74a.jpg",
+	"description": "Theon Greyjoy is the only living son, and heir apparent of Balon Greyjoy. He is the third-person narrator for thirteen chapters throughout A Clash of Kings and A Dance with Dragons. He is arrogant, cocky, and proud. Ten years before the events of the series, he was taken hostage by Eddard Stark to be executed if Balon displeased the king. Theon was raised at Winterfell with the Stark children and became a close friend to Robb Stark in particular.",
+    "houseImageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/greyjoy.jpg",
+    "houseId": "2cfa54d2",
+    "houseName": "House Greyjoy"
+  },  {
+    "name": "Khal Drogo",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg",
+	"description": "Drogo is a khal, or chieftain, of the Dothraki people and is often referred to with his full title, Khal Drogo. Drogo is a powerful warlord and feared warrior. He marries Daenerys Targaryen and subsequently grows to love her. He promises to retake the Seven Kingdoms for her after she survives an assassination attempt. He raids a Lhazareen village to take slaves to fund the planned invasion. After the fight was over he was challenged to a fight by one of his ko who believed him unworthy to continue leading the Khalasar, as it appeared the Khal was obeying the orders of a woman.",
+    "houseImageUrl": "",
+    "houseId": "",
+    "houseName": ""
+  }, {
+  "name": "Arya Stark",
+  "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/a7fdcfc9-60a3-4095-b50b-50b20ab3250a.jpg",
+  "description": "Arya is the third child and younger daughter of Eddard and Catelyn Stark. She has five siblings: older brother Robb, younger brothers Bran and Rickon, older sister Sansa, and the eldest of the group, illegitimate half-brother Jon Snow. In direct contrast to Sansa, Arya shows no interest in dancing, singing, and sewing, and revels in fighting and exploring, much to the chagrin of her mother and tutor Septa Mordane. She is particularly close to her bastard half-brother Jon Snow, who encourages her to learn to fight and gives her Needle (her sword). Throughout her travels, Arya displays great resourcefulness and cunning, and becomes increasingly ruthless.",
+  "houseImageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/stark.jpg",
+  "houseId": "f96537a9",
+  "houseName": "House Stark"
+  }, {
+    "name": "Eddard Stark",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/69eba4f3-9443-41e1-bd9c-6f7a9f521f1f.jpg",
+	"description": "In A Game of Thrones (1996), Ned Stark is the virtuous and honorable patriarch of House Stark and the father of six children. The moral compass of the story, he is content to remain far from courtly intrigues and is unwavering in his view of loyalty and honor. His family name, Stark, serves as an indication of his resistance to moral compromise, but his boundaries are increasingly tested over the course of the novel. Finding himself a key player in the escalating political intrigue of King's Landing, Ned struggles as his own sense of honor draws him into corrupt goings-on at court. As the story progresses, he begins to see the importance of moral and practical compromises to achieve a just end, and is ultimately forced to choose between the safety of his family and doing what is right.",
+    "houseImageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/stark.jpg",
+    "houseId": "f96537a9",
+    "houseName": "House Stark"
+  },  {
+    "name": "Margaery Tyrell",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/31c8d7fb-2e66-45af-a1a2-da6032d5356c.jpg",
+	"description": "Margaery is the only daughter of Alerie Hightower and Mace Tyrell, the Lord of Highgarden in the Reach. Her older brothers are the heir Willas, Garlan and Loras the Knight of Flowers, who is a member of the Kingsguard. One of the wealthiest and most powerful families in Westeros, House Tyrell is actually guided by the willful Lady Olenna, Mace's mother, who has arranged Margaery's marriages and mentors her in politics and court intrigue.",
+    "houseImageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/tyrell.jpg",
+    "houseId": "f47fe47c",
+    "houseName": "House Tyrell"
+  }, {
+    "name": "Oberyn Martell",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/1807e12a-b95b-44c4-a750-044d8b0a87ae.jpg",
+	"description": "Oberyn Martell is the youngest brother of Doran Martell. He is a hot-headed, forceful, and lustful man with a quick wit and a barbed tongue. He is a formidable fighter and is called the Red Viper because it is rumored he poisons his weapons. He has traveled the world, founded a mercenary company, and briefly studied at the Citadel, which trains Maesters. He has eight illegitimate daughters, collectively known as the Sand Snakes. He was very close to his older sister Elia, and seeks revenge for her death.",
+    "houseImageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/martell.jpg",
+    "houseId": "a22fd891",
+    "houseName": ""
+  }, {
+    "name": "Bronn",
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/da56296b-f9fe-4693-8137-f79166b852cf.jpg",
+	"description": "Bronn is sarcastic, with a black sense of humor, and a pragmatic, amoral philosophy for life. However, he is not completely heartless, nor is he sadistic. He openly expresses sympathy to Tyrion after making the pragmatic decision not to champion him during his second trial by combat. After Tyrion asks him if he would murder an innocent baby in front of her mother without question, Bronn denies it and claims that he would ask for a price, implying that he would demand a very high price for such a despicable deed. Despite Bronn's avaricious nature, which is sneered at by more honorable knights, he is a skilled and dangerous fighter.",
+    "houseImageUrl": "",
+    "houseId": "",
+    "houseName": ""
+  }
+]

@@ -12,6 +12,10 @@ public class GoTCharacter {
     private String houseName;
     private String houseId;
 
+    public GoTCharacter() {
+        name = "";
+    }
+
     public String getName() {
         return name;
     }
@@ -60,4 +64,19 @@ public class GoTCharacter {
         this.houseId = houseId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GoTCharacter that = (GoTCharacter) o;
+
+        return name.equals(that.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }
