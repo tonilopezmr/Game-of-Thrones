@@ -26,6 +26,7 @@ public class GotCharacterRepositoryTest {
     private static final GoTCharacter KHAL_DROGO = new GoTCharacter();
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
+    private static final GoTHouse INVENTED_HOUSE = new GoTHouse();
 
     GotCharacterRepository repository;
 
@@ -35,15 +36,27 @@ public class GotCharacterRepositoryTest {
     }
 
     @Test public void
-    should_get_all_characters() throws Exception {
+    should_return_all_characters() throws Exception {
         List<GoTCharacter> list = repository.getList();
 
         assertThat(list.size(), is(10));
     }
 
+    @Test(expected = Exception.class)
+    public void
+    should_throw_an_exception_when_the_data_is_not_well() throws Exception {
+        GotCharacterRepository repository = new TestableGotCharacterRepository(){
+            @Override
+            protected StringBuffer getCharactersFromUrl() throws Exception {
+                return new StringBuffer("IS NOT WEEEEELLLL JSONNN ;)");
+            }
+        };
+        List<GoTCharacter> list = repository.getList();
+    }
+
     @Test
     public void
-    should_get_characters_by_house() throws Exception {
+    should_return_characters_by_house() throws Exception {
         GoTHouse house = STARK_HOUSE;
         house.setHouseId(STARK_ID);
         house.setHouseName(STARK_NAME);
@@ -54,7 +67,16 @@ public class GotCharacterRepositoryTest {
 
     @Test
     public void
-    should_get_character() throws Exception {
+    should_not_return_any_character_when_house_are_not() throws Exception {
+        GoTHouse house = INVENTED_HOUSE;
+
+        List<GoTCharacter> list = repository.read(house);
+        assertThat(list.size(), is(0));
+    }
+
+    @Test
+    public void
+    should_return_character() throws Exception {
         GoTCharacter gotCharacter = KHAL_DROGO;
         gotCharacter.setName(KHAL_DROGO_NAME);
         gotCharacter.setImageUrl(KHAL_DROGO_URL);
@@ -66,7 +88,7 @@ public class GotCharacterRepositoryTest {
 
     @Test
     public void
-    should_not_get_any_character() throws Exception {
+    should_not_return_any_character() throws Exception {
         GoTCharacter gotCharacter = ANYONE;
 
         GoTCharacter character = repository.read(gotCharacter);
