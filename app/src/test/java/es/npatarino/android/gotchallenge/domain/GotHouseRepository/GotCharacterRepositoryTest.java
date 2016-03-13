@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.ResourceHelper;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 
@@ -27,13 +26,12 @@ public class GotCharacterRepositoryTest {
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
     private static final GoTHouse INVENTED_HOUSE = new GoTHouse();
-    private static final String END_POINT = "data.json";
 
     GotCharacterRepository repository;
 
     @Before
     public void setUp() throws Exception {
-        repository = new TestableGotCharacterRepository(END_POINT);
+        repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository();
     }
 
     @Test public void
@@ -46,7 +44,7 @@ public class GotCharacterRepositoryTest {
     @Test(expected = Exception.class)
     public void
     should_throw_an_exception_when_the_data_is_not_well() throws Exception {
-        GotCharacterRepository repository = new TestableGotCharacterRepository(END_POINT){
+        GotCharacterRepository repository = new TestableGotCharacterRepository(null){
             @Override
             protected StringBuffer getCharactersFromUrl(String endPoint) throws Exception {
                 return new StringBuffer("IS NOT WEEEEELLLL JSONNN ;)");
@@ -94,20 +92,6 @@ public class GotCharacterRepositoryTest {
 
         GoTCharacter character = repository.read(gotCharacter);
         assertNull(character);
-    }
-
-    private class TestableGotCharacterRepository extends GotCharacterRepository {
-
-        public TestableGotCharacterRepository(String endPoint) {
-            super(null,endPoint);
-        }
-
-        @Override
-        protected StringBuffer getCharactersFromUrl(String endPoint) throws Exception {
-            ResourceHelper resHelper = new ResourceHelper();
-            return resHelper.getContentFromFile(endPoint);
-        }
-
     }
 
 }
