@@ -35,4 +35,20 @@ public class GoTHouse {
     public void setHouseId(String houseId) {
         this.houseId = houseId;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GoTHouse goTHouse = (GoTHouse) o;
+
+        return houseId.equals(goTHouse.houseId);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return houseId.hashCode();
+    }
 }

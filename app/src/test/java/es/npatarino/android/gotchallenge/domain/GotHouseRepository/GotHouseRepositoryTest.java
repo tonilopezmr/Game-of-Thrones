@@ -15,12 +15,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class GotHouseRepositoryTest {
 
-    GotCharacterRepository EMPTY_CHARACTER_REPOSITORY = new TestableGotCharacterRepository(null){
-        @Override
-        protected StringBuffer getCharactersFromUrl(String endPoint) throws Exception {
-            return new StringBuffer("[]");
-        }
-    };
+
+    private static final String EMPTY_DATA_ENDPOINT = "empty_data.json";
+
+    GotCharacterRepository EMPTY_CHARACTER_REPOSITORY = new TestableGotCharacterRepository(EMPTY_DATA_ENDPOINT);
     GotHouseRepository repository;
 
     @Before
@@ -42,6 +40,4 @@ public class GotHouseRepositoryTest {
 
         assertThat(list.size(), is(7));
     }
-
-
 }

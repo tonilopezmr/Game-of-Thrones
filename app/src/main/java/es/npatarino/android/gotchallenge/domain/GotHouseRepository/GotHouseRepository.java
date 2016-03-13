@@ -22,23 +22,24 @@ public class GotHouseRepository implements Repository<GoTHouse>{
         List<GoTCharacter> characters = repository.getList();
         ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
         for (int i = 0; i < characters.size(); i++) {
-            boolean b = false;
-            for (int j = 0; j < hs.size(); j++) {
-                if (hs.get(j).getHouseName().equalsIgnoreCase(characters.get(i).getHouseName())) {
-                    b = true;
-                }
-            }
-            if (!b) {
-                if (characters.get(i).getHouseId() != null && !characters.get(i).getHouseId().isEmpty()) {
-                    GoTHouse h = new GoTHouse();
-                    h.setHouseId(characters.get(i).getHouseId());
-                    h.setHouseName(characters.get(i).getHouseName());
-                    h.setHouseImageUrl(characters.get(i).getHouseImageUrl());
-                    hs.add(h);
-                    b = false;
-                }
+            GoTCharacter goTCharacter = characters.get(i);
+            GoTHouse goTHouse = getHouseFromCharacter(goTCharacter);
+            if (!hs.contains(goTHouse) && isValidHouse(goTHouse)) {
+                hs.add(goTHouse);
             }
         }
         return hs;
+    }
+
+    private boolean isValidHouse(GoTHouse house) {
+        return house.getHouseId() != null && !house.getHouseId().isEmpty();
+    }
+
+    private GoTHouse getHouseFromCharacter(GoTCharacter goTCharacter) {
+        GoTHouse h = new GoTHouse();
+        h.setHouseId(goTCharacter.getHouseId());
+        h.setHouseName(goTCharacter.getHouseName());
+        h.setHouseImageUrl(goTCharacter.getHouseImageUrl());
+        return h;
     }
 }

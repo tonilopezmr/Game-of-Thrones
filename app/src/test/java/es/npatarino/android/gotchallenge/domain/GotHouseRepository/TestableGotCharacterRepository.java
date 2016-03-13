@@ -7,7 +7,7 @@ import es.npatarino.android.gotchallenge.ResourceHelper;
  */
 public class TestableGotCharacterRepository extends GotCharacterRepository {
 
-    private static final String END_POINT = "data.json";
+    private static final String END_POINT = "normal_data.json";
 
     public TestableGotCharacterRepository(String endPoint) {
         super(null, endPoint);
