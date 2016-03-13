@@ -26,6 +26,7 @@ import es.npatarino.android.gotchallenge.presenter.ListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
 import es.npatarino.android.gotchallenge.view.adapters.GoTAdapter;
 import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
+import okhttp3.OkHttpClient;
 
 /**
  * @author Antonio López.
@@ -51,7 +52,8 @@ public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> 
         //dagger everywhere
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
-        GotCharacterRepository repository = new GotCharacterRepository();
+        String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
+        GotCharacterRepository repository = new GotCharacterRepository(new OkHttpClient(), endPoint);
         GetListUseCase<GoTCharacter> goTCharacterGetListUseCase = new GetListUseCaseImp<>(executor, mainThread, repository);
         gotCharacterListPresenter = new GotListPresenterImp<>(goTCharacterGetListUseCase);
         gotCharacterListPresenter.setView(this);

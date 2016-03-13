@@ -26,6 +26,7 @@ import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresen
 import es.npatarino.android.gotchallenge.view.DetailView;
 import es.npatarino.android.gotchallenge.view.adapters.GoTAdapter;
 import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
+import okhttp3.OkHttpClient;
 
 /**
  * @author Antonio López.
@@ -53,7 +54,8 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
         //dagger everywhere
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
-        GotCharacterRepository repository = new GotCharacterRepository();
+        String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
+        GotCharacterRepository repository = new GotCharacterRepository(new OkHttpClient(), endPoint);
         GetCharactersByHouseUseCase charactersByHouse = new GetCharactersByHouseUseCase(executor, mainThread, repository);
         gotCharacterListByHousePresenter = new GotCharacterListByHousePresenterImp(charactersByHouse);
         gotCharacterListByHousePresenter.setView(this);

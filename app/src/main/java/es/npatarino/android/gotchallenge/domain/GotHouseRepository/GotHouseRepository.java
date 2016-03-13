@@ -13,10 +13,9 @@ public class GotHouseRepository implements Repository<GoTHouse>{
     
     private GotCharacterRepository repository;
 
-    public GotHouseRepository() {
-        repository = new GotCharacterRepository();
+    public GotHouseRepository(GotCharacterRepository repository) {
+        this.repository = repository;
     }
-
 
     @Override
     public List<GoTHouse> getList() throws Exception {

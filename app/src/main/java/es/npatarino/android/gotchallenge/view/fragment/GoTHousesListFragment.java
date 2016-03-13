@@ -18,6 +18,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepository;
 import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotHouseRepository;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCaseImp;
@@ -26,6 +27,7 @@ import es.npatarino.android.gotchallenge.presenter.ListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
 import es.npatarino.android.gotchallenge.view.adapters.GoTHouseAdapter;
 import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
+import okhttp3.OkHttpClient;
 
 /**
  * @author Antonio López.
@@ -51,7 +53,9 @@ public class GoTHousesListFragment extends Fragment implements ViewList<GoTHouse
         //dagger everywhere
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
-        GotHouseRepository repository = new GotHouseRepository();
+        String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
+        GotCharacterRepository characterRepository = new GotCharacterRepository(new OkHttpClient(), endPoint);
+        GotHouseRepository repository = new GotHouseRepository(characterRepository);
         GetListUseCase<GoTHouse> goTHouseGetListUseCase = new GetListUseCaseImp<>(executor, mainThread, repository);
         gotCharacterListPresenter = new GotListPresenterImp<>(goTHouseGetListUseCase);
         gotCharacterListPresenter.setView(this);
