@@ -21,14 +21,18 @@ public class GotHouseRepository implements Repository<GoTHouse>{
     public List<GoTHouse> getList() throws Exception {
         List<GoTCharacter> characters = repository.getList();
         ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
-        for (int i = 0; i < characters.size(); i++) {
+        for (int i = 0, size = characters.size(); i < size; i++) {
             GoTCharacter goTCharacter = characters.get(i);
             GoTHouse goTHouse = getHouseFromCharacter(goTCharacter);
-            if (!hs.contains(goTHouse) && isValidHouse(goTHouse)) {
-                hs.add(goTHouse);
-            }
+            addHouseInList(goTHouse, hs);
         }
         return hs;
+    }
+
+    private void addHouseInList(GoTHouse goTHouse, ArrayList<GoTHouse> hs) {
+        if (isValidHouse(goTHouse) && !hs.contains(goTHouse)) {
+            hs.add(goTHouse);
+        }
     }
 
     private boolean isValidHouse(GoTHouse house) {
