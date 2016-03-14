@@ -27,15 +27,15 @@ import static org.hamcrest.core.AllOf.allOf;
  */
 
 @RunWith(AndroidJUnit4.class) @LargeTest
-public class CharacterDetailActivityTest {
+public class DetailActivityTest {
 
     private static final GoTCharacter KHAL_DROGO = new GoTCharacter();
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
     private static final String KHAL_DROGO_DESCRIPTION = "Any description is good";
 
-    @Rule public ActivityTestRule<CharacterDetailActivity> activityTestRule =
-            new ActivityTestRule<>(CharacterDetailActivity.class,true, false);
+    @Rule public ActivityTestRule<DetailActivity> activityTestRule =
+            new ActivityTestRule<>(DetailActivity.class,true, false);
 
     @Before
     public void setUp() throws Exception {
@@ -77,7 +77,7 @@ public class CharacterDetailActivityTest {
         return gotCharacter;
     }
 
-    private CharacterDetailActivity startActivity(GoTCharacter character) {
+    private DetailActivity startActivity(GoTCharacter character) {
         Intent intent = new Intent();
         intent.putExtra("description", character.getDescription());
         intent.putExtra("name", character.getName());

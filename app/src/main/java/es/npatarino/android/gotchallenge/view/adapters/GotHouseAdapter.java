@@ -18,7 +18,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.view.activities.HouseDetailActivity;
+import es.npatarino.android.gotchallenge.view.activities.DetailActivity;
 
 /**
  * @author Antonio López.
@@ -61,12 +61,12 @@ public class GoTHouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void moveToDetailActivity(GotHouseViewHolder viewHolder, GoTHouse house){
         ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, HouseDetailActivity.HOUSE_IMAGE);
+                ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, DetailActivity.HOUSE_IMAGE);
 
-        Intent intent = new Intent(viewHolder.itemView.getContext(), HouseDetailActivity.class);
-        intent.putExtra("id", house.getHouseId());
-        intent.putExtra("name", house.getHouseName());
-        intent.putExtra("imageUrl", house.getHouseImageUrl());
+        Intent intent = new Intent(viewHolder.itemView.getContext(), DetailActivity.class);
+        intent.putExtra(DetailActivity.HOUSE_ID, house.getHouseId());
+        intent.putExtra(DetailActivity.NAME, house.getHouseName());
+        intent.putExtra(DetailActivity.IMAGE_URL, house.getHouseImageUrl());
         ActivityCompat.startActivity(activity, intent, options.toBundle());
     }
 
