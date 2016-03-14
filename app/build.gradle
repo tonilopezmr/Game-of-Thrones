@@ -10,6 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
         release {
@@ -17,11 +18,36 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+configurations.all {
+    resolutionStrategy.force 'com.android.support:support-annotations:23.0.1'
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    androidTestCompile 'org.mockito:mockito-core:1.10.19'
+    compile 'org.glassfish:javax.annotation:10.0-b28'
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+    androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.1')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
+        exclude group: 'javax.inject', module: 'javax.inject'
+        exclude group: 'com.squareup', module: 'javawriter'
+    }
+    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
+        exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'support-v4'
+    }
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.code.gson:gson:2.2.4'

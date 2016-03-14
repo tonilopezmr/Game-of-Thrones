@@ -60,7 +60,8 @@ public class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void moveToDetailActivity(GotCharacterViewHolder viewHolder, GoTCharacter character){
-        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, CharacterDetailActivity.CHARACTER_IMAGE);
+        ActivityOptionsCompat options =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, CharacterDetailActivity.CHARACTER_IMAGE);
 
         Intent intent = new Intent(viewHolder.itemView.getContext(), CharacterDetailActivity.class);
         intent.putExtra("description", character.getDescription());

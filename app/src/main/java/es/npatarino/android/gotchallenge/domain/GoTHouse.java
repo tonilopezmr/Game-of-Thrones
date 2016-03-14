@@ -12,6 +12,10 @@ public class GoTHouse {
     private String houseName;
     private String houseId;
 
+    public GoTHouse() {
+        this.houseId = "";
+    }
+
     public String getHouseImageUrl() {
         return houseImageUrl;
     }

@@ -46,8 +46,8 @@ public class GoTHousesListFragment extends Fragment implements ViewList<GoTHouse
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        rv = (RecyclerView) rootView.findViewById(R.id.rv);
-        pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.pb);
+        rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
         initUi();
 
         //dagger everywhere

@@ -10,6 +10,7 @@ import es.npatarino.android.gotchallenge.domain.GoTHouse;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
@@ -77,6 +78,7 @@ public class GotCharacterRepositoryTest {
         gotCharacter.setImageUrl(KHAL_DROGO_URL);
 
         GoTCharacter character = repository.read(gotCharacter);
+        assertNotNull(character);
         assertEquals(character.getName(), gotCharacter.getName());
         assertEquals(character.getImageUrl(), gotCharacter.getImageUrl());
     }
