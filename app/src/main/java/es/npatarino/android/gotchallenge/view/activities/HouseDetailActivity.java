@@ -1,5 +1,6 @@
 package es.npatarino.android.gotchallenge.view.activities;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +18,7 @@ import es.npatarino.android.gotchallenge.view.fragment.GotCharacterListByHouseFr
 public class HouseDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "DetailActivity";
+    public static final String HOUSE_IMAGE = "house.image";
 
     ImageView ivp;
 
@@ -26,6 +28,8 @@ public class HouseDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         ivp = (ImageView) findViewById(R.id.iv_photo);
+
+        initImageView(ivp);
 
         final String id = getIntent().getStringExtra("id");
         final String n = getIntent().getStringExtra("name");
@@ -50,5 +54,11 @@ public class HouseDetailActivity extends AppCompatActivity {
                 .commitAllowingStateLoss();
 
         Picasso.with(getApplicationContext()).load(i).into(ivp);
+    }
+
+    private static void initImageView(ImageView ivp) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ivp.setTransitionName(HOUSE_IMAGE);
+        }
     }
 }
