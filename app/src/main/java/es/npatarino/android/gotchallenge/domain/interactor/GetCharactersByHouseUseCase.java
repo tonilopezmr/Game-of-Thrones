@@ -7,7 +7,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.interactor.common.AbstractUseCase;
 
 /**
@@ -16,9 +16,9 @@ import es.npatarino.android.gotchallenge.domain.interactor.common.AbstractUseCas
 
 public class GetCharactersByHouseUseCase extends AbstractUseCase<GoTHouse, List<GoTCharacter>> {
 
-    private GotCharacterRepository repository;
+    private GotCharacterRepositoryImp repository;
 
-    public GetCharactersByHouseUseCase(Executor executor, MainThread mainThread, GotCharacterRepository repository) {
+    public GetCharactersByHouseUseCase(Executor executor, MainThread mainThread, GotCharacterRepositoryImp repository) {
         super(executor, mainThread);
         this.repository = repository;
     }

@@ -29,7 +29,7 @@ public class GotCharacterRepositoryTest {
     private static final GoTHouse INVENTED_HOUSE = new GoTHouse();
     private static final String INVALID_DATA_ENDPOINT = "invalid_data.json";
 
-    GotCharacterRepository repository;
+    GotCharacterRepositoryImp repository;
 
     @Before
     public void setUp() throws Exception {
@@ -46,7 +46,7 @@ public class GotCharacterRepositoryTest {
     @Test(expected = Exception.class)
     public void
     should_throw_an_exception_when_the_data_is_not_well() throws Exception {
-        GotCharacterRepository repository = new TestableGotCharacterRepository(INVALID_DATA_ENDPOINT);
+        GotCharacterRepositoryImp repository = new TestableGotCharacterRepository(INVALID_DATA_ENDPOINT);
         List<GoTCharacter> list = repository.getList();
     }
 

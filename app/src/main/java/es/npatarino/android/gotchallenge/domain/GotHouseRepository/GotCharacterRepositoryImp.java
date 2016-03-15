@@ -17,12 +17,12 @@ import okhttp3.Response;
 /**
  * @author Antonio López.
  */
-public class GotCharacterRepository implements Repository<GoTCharacter> {
+public class GotCharacterRepositoryImp implements Repository<GoTCharacter> {
 
     private OkHttpClient client;
     private String endPoint;
 
-    public GotCharacterRepository(OkHttpClient client, String endPoint) {
+    public GotCharacterRepositoryImp(OkHttpClient client, String endPoint) {
         this.client = client;
         this.endPoint = endPoint;
     }

@@ -18,7 +18,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCaseImp;
 import es.npatarino.android.gotchallenge.presenter.GotListPresenterImp;
@@ -53,7 +53,7 @@ public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> 
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
         String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
-        GotCharacterRepository repository = new GotCharacterRepository(new OkHttpClient(), endPoint);
+        GotCharacterRepositoryImp repository = new GotCharacterRepositoryImp(new OkHttpClient(), endPoint);
         GetListUseCase<GoTCharacter> goTCharacterGetListUseCase = new GetListUseCaseImp<>(executor, mainThread, repository);
         gotCharacterListPresenter = new GotListPresenterImp<>(goTCharacterGetListUseCase);
         gotCharacterListPresenter.setView(this);

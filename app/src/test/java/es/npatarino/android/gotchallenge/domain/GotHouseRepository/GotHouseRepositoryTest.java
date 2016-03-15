@@ -18,17 +18,17 @@ public class GotHouseRepositoryTest {
 
     private static final String EMPTY_DATA_ENDPOINT = "empty_data.json";
 
-    GotCharacterRepository EMPTY_CHARACTER_REPOSITORY = new TestableGotCharacterRepository(EMPTY_DATA_ENDPOINT);
-    GotHouseRepository repository;
+    GotCharacterRepositoryImp EMPTY_CHARACTER_REPOSITORY = new TestableGotCharacterRepository(EMPTY_DATA_ENDPOINT);
+    GotHouseRepositoryImp repository;
 
     @Before
     public void setUp() throws Exception {
-        repository = new GotHouseRepository(TestableGotCharacterRepository.provideTestableGotCharacterRepository());
+        repository = new GotHouseRepositoryImp(TestableGotCharacterRepository.provideTestableGotCharacterRepository());
     }
 
     @Test public void
     should_not_return_any_house() throws Exception {
-        repository = new GotHouseRepository(EMPTY_CHARACTER_REPOSITORY);
+        repository = new GotHouseRepositoryImp(EMPTY_CHARACTER_REPOSITORY);
         List<GoTHouse> list = repository.getList();
 
         assertThat(list.size(), is(0));

@@ -5,7 +5,7 @@ import es.npatarino.android.gotchallenge.ResourceHelper;
 /**
  * @author Antonio López.
  */
-public class TestableGotCharacterRepository extends GotCharacterRepository {
+public class TestableGotCharacterRepository extends GotCharacterRepositoryImp {
 
     private static final String END_POINT = "normal_data.json";
 

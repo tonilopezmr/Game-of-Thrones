@@ -19,7 +19,7 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenterImp;
@@ -55,7 +55,7 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
         Executor executor = new ThreadExecutor();
         MainThread mainThread = new MainThreadImp();
         String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
-        GotCharacterRepository repository = new GotCharacterRepository(new OkHttpClient(), endPoint);
+        GotCharacterRepositoryImp repository = new GotCharacterRepositoryImp(new OkHttpClient(), endPoint);
         GetCharactersByHouseUseCase charactersByHouse = new GetCharactersByHouseUseCase(executor, mainThread, repository);
         gotCharacterListByHousePresenter = new GotCharacterListByHousePresenterImp(charactersByHouse);
         gotCharacterListByHousePresenter.setView(this);
