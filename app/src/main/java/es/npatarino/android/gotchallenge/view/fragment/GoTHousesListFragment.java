@@ -10,24 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.MainThread;
-import com.tonilopezmr.interactorexecutor.ThreadExecutor;
-
 import java.util.List;
 
+import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotHouseRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
-import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCaseImp;
-import es.npatarino.android.gotchallenge.presenter.GotListPresenterImp;
 import es.npatarino.android.gotchallenge.presenter.ListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
 import es.npatarino.android.gotchallenge.view.adapters.GoTHouseAdapter;
-import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
-import okhttp3.OkHttpClient;
 
 /**
  * @author Antonio López.
@@ -38,29 +28,41 @@ public class GoTHousesListFragment extends Fragment implements ViewList<GoTHouse
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
     private GoTHouseAdapter adp;
-    private ListPresenter<GoTHouse> gotCharacterListPresenter;
+
+
+    ListPresenter<GoTHouse> gotHouseListPresenter;
 
     public GoTHousesListFragment() {
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+        initDagger();
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
         initUi();
 
         //dagger everywhere
-        Executor executor = new ThreadExecutor();
-        MainThread mainThread = new MainThreadImp();
-        String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
-        GotCharacterRepositoryImp characterRepository = new GotCharacterRepositoryImp(new OkHttpClient(), endPoint);
-        GotHouseRepositoryImp repository = new GotHouseRepositoryImp(characterRepository);
-        GetListUseCase<GoTHouse> goTHouseGetListUseCase = new GetListUseCaseImp<>(executor, mainThread, repository);
-        gotCharacterListPresenter = new GotListPresenterImp<>(goTHouseGetListUseCase);
-        gotCharacterListPresenter.setView(this);
-        gotCharacterListPresenter.init();
+//        Executor executor = new ThreadExecutor();
+//        MainThread mainThread = new MainThreadImp();
+//        String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
+//        GotCharacterRepositoryImp characterRepository = new GotCharacterRepositoryImp(new OkHttpClient(), endPoint);
+//        GotHouseRepositoryImp repository = new GotHouseRepositoryImp(characterRepository);
+//        GetListUseCase<GoTHouse> goTHouseGetListUseCase = new GetListUseCaseImp<>(executor, mainThread, repository);
+//        gotCharacterListPresenter = new GotListPresenterImp<>(goTHouseGetListUseCase);
+        gotHouseListPresenter.setView(this);
+        gotHouseListPresenter.init();
         return rootView;
+    }
+
+    private void initDagger() {
+        GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
+//        DaggerHousesComponent.builder()
+//                .appComponent(app.getAppComponent())
+//                .activityModule(new ActivityModule(getActivity()))
+//                .housesModule(new HousesModule())
+//                .build().inject(this);
     }
 
     @Override

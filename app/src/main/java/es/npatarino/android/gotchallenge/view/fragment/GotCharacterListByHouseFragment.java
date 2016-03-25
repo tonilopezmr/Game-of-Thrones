@@ -10,23 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.MainThread;
-import com.tonilopezmr.interactorexecutor.ThreadExecutor;
-
 import java.util.List;
 
+import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
-import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenterImp;
 import es.npatarino.android.gotchallenge.view.DetailView;
 import es.npatarino.android.gotchallenge.view.adapters.GoTAdapter;
-import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
-import okhttp3.OkHttpClient;
 
 /**
  * @author Antonio López.
@@ -38,29 +32,43 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
     private GoTAdapter adp;
-    private GotCharacterListByHousePresenter gotCharacterListByHousePresenter;
     private GoTHouse house;
+
+
+    GotCharacterListByHousePresenter gotCharacterListByHousePresenter;
+
 
     public GotCharacterListByHouseFragment() {
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+        initDagger();
+
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
         initUi();
 
         //dagger everywhere
-        Executor executor = new ThreadExecutor();
-        MainThread mainThread = new MainThreadImp();
-        String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
-        GotCharacterRepositoryImp repository = new GotCharacterRepositoryImp(new OkHttpClient(), endPoint);
-        GetCharactersByHouseUseCase charactersByHouse = new GetCharactersByHouseUseCase(executor, mainThread, repository);
-        gotCharacterListByHousePresenter = new GotCharacterListByHousePresenterImp(charactersByHouse);
+        //Executor executor = new ThreadExecutor();
+        //MainThread mainThread = new MainThreadImp();
+        //String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
+        //GotCharacterRepositoryImp repository = new GotCharacterRepositoryImp(new OkHttpClient(), endPoint);
+        //GetCharactersByHouseUseCase charactersByHouse = new GetCharactersByHouseUseCase(executor, mainThread, repository);
+        //gotCharacterListByHousePresenter = new GotCharacterListByHousePresenterImp(charactersByHouse);
         gotCharacterListByHousePresenter.setView(this);
         gotCharacterListByHousePresenter.init(house);
         return rootView;
+    }
+
+    private void initDagger() {
+        GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
+        DaggerCharactersComponent.builder()
+                .appComponent(app.getAppComponent())
+                .activityModule(new ActivityModule(getActivity()))
+                .charactersModule(new CharactersModule())
+                .build().inject(this);
     }
 
     public void setHouse(GoTHouse house) {
