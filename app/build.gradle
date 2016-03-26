@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
@@ -58,4 +68,5 @@ dependencies {
     compile 'org.glassfish:javax.annotation:10.0-b28'
     apt 'com.google.dagger:dagger-compiler:2.0.2'
     testCompile 'com.google.dagger:dagger-compiler:2.0.2'
+    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.5'
 }

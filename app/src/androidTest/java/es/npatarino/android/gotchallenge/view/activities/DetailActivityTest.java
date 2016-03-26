@@ -1,28 +1,32 @@
 package es.npatarino.android.gotchallenge.view.activities;
 
 import android.content.Intent;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
+import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
+import es.npatarino.android.gotchallenge.di.AppComponent;
+import es.npatarino.android.gotchallenge.di.AppModule;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepositoryImp;
+import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static es.npatarino.android.gotchallenge.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
 import static es.npatarino.android.gotchallenge.matchers.ToolbarMatcher.onToolbarWithTitle;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
@@ -37,15 +41,22 @@ public class DetailActivityTest {
 
     private static final int NUMBER_OF_CHARACTERS = 3;
 
+    @Rule public DaggerMockRule<AppComponent> daggerRule =
+            new DaggerMockRule<>(AppComponent.class, new AppModule()).set(
+                    new DaggerMockRule.ComponentSetter<AppComponent>() {
+                        @Override public void setComponent(AppComponent component) {
+                            GotChallengeApplication app =
+                                    (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()
+                                            .getTargetContext()
+                                            .getApplicationContext();
+                            app.setComponent(component);
+                        }
+                    });
+
     @Rule public ActivityTestRule<DetailActivity> activityTestRule =
             new ActivityTestRule<>(DetailActivity.class,true, false);
 
     @Mock GotCharacterRepositoryImp repository;
-
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-    }
 
     @Test public void
     should_character_name_as_toolbar_tittle() throws Exception {
@@ -82,6 +93,15 @@ public class DetailActivityTest {
         startActivity(house);
 
         onView(withId(R.id.content_loading_progress_bar)).check(matches(not(isDisplayed())));
+    }
+
+    @Test public void
+    should_show_an_specific_number_of_characters() throws Exception{
+        GoTHouse house = TestUtils.defaultGotHouse();
+        when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
+
+        startActivity(house);
+        onView(withId(R.id.recycler_view)).check(matches(recyclerViewHasItemCount(NUMBER_OF_CHARACTERS)));
     }
 
     @Test public void
