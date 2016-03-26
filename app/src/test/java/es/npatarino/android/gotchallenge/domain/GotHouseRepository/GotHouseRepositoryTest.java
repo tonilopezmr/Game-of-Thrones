@@ -15,15 +15,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class GotHouseRepositoryTest {
 
-
     private static final String EMPTY_DATA_ENDPOINT = "empty_data.json";
+    private static final String VALID_DATA_END_POINT = "normal_data.json";
 
     GotCharacterRepositoryImp EMPTY_CHARACTER_REPOSITORY = new TestableGotCharacterRepository(EMPTY_DATA_ENDPOINT);
     GotHouseRepositoryImp repository;
 
     @Before
     public void setUp() throws Exception {
-        repository = new GotHouseRepositoryImp(TestableGotCharacterRepository.provideTestableGotCharacterRepository());
+        repository = new GotHouseRepositoryImp(TestableGotCharacterRepository.provideTestableGotCharacterRepository(VALID_DATA_END_POINT));
     }
 
     @Test public void

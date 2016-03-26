@@ -28,12 +28,13 @@ public class GotCharacterRepositoryTest {
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
     private static final GoTHouse INVENTED_HOUSE = new GoTHouse();
     private static final String INVALID_DATA_ENDPOINT = "invalid_data.json";
+    private static final String VALID_DATA_ENDPOINT = "normal_data.json";
 
     GotCharacterRepositoryImp repository;
 
     @Before
     public void setUp() throws Exception {
-        repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository();
+        repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository(VALID_DATA_ENDPOINT);
     }
 
     @Test public void
@@ -46,7 +47,7 @@ public class GotCharacterRepositoryTest {
     @Test(expected = Exception.class)
     public void
     should_throw_an_exception_when_the_data_is_not_well() throws Exception {
-        GotCharacterRepositoryImp repository = new TestableGotCharacterRepository(INVALID_DATA_ENDPOINT);
+        GotCharacterRepositoryImp repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository(INVALID_DATA_ENDPOINT);
         List<GoTCharacter> list = repository.getList();
     }
 

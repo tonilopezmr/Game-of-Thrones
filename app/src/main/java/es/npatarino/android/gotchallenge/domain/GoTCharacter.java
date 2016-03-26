@@ -13,7 +13,6 @@ public class GoTCharacter {
     private String houseId;
 
     public GoTCharacter() {
-        name = "";
     }
 
     public String getName() {
@@ -69,14 +68,14 @@ public class GoTCharacter {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoTCharacter that = (GoTCharacter) o;
+        GoTCharacter character = (GoTCharacter) o;
 
-        return name.equals(that.name);
+        return name != null ? name.equals(character.name) : character.name == null;
 
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return name != null ? name.hashCode() : 0;
     }
 }

@@ -13,7 +13,6 @@ public class GoTHouse {
     private String houseId;
 
     public GoTHouse() {
-        this.houseId = "";
     }
 
     public String getHouseImageUrl() {
@@ -45,10 +44,9 @@ public class GoTHouse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoTHouse goTHouse = (GoTHouse) o;
+        GoTHouse house = (GoTHouse) o;
 
-        return houseId.equals(goTHouse.houseId);
-
+        return houseId != null ? houseId.equals(house.houseId) : house.houseId == null;
     }
 
     @Override
