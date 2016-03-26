@@ -12,10 +12,15 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.di.components.DaggerHousesComponent;
+import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.di.modules.HousesModule;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.presenter.ListPresenter;
+import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
 import es.npatarino.android.gotchallenge.view.adapters.GoTHouseAdapter;
 
@@ -29,8 +34,8 @@ public class GoTHousesListFragment extends Fragment implements ViewList<GoTHouse
     private ContentLoadingProgressBar pb;
     private GoTHouseAdapter adp;
 
-
-    ListPresenter<GoTHouse> gotHouseListPresenter;
+    @Inject
+    HouseListPresenter gotHouseListPresenter;
 
     public GoTHousesListFragment() {
     }
@@ -58,11 +63,11 @@ public class GoTHousesListFragment extends Fragment implements ViewList<GoTHouse
 
     private void initDagger() {
         GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
-//        DaggerHousesComponent.builder()
-//                .appComponent(app.getAppComponent())
-//                .activityModule(new ActivityModule(getActivity()))
-//                .housesModule(new HousesModule())
-//                .build().inject(this);
+        DaggerHousesComponent.builder()
+                .appComponent(app.getAppComponent())
+                .activityModule(new ActivityModule(getActivity()))
+                .housesModule(new HousesModule())
+                .build().inject(this);
     }
 
     @Override

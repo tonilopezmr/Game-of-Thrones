@@ -12,8 +12,11 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.di.components.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
@@ -34,7 +37,7 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
     private GoTAdapter adp;
     private GoTHouse house;
 
-
+    @Inject
     GotCharacterListByHousePresenter gotCharacterListByHousePresenter;
 
 

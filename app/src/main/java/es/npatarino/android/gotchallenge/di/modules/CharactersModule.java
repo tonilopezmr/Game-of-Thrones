@@ -13,7 +13,10 @@ import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterR
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCaseImp;
-import es.npatarino.android.gotchallenge.presenter.GotListPresenterImp;
+import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
+import es.npatarino.android.gotchallenge.presenter.CharacterListPresenterImp;
+import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
+import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenterImp;
 
 /**
  * @author Antonio López.
@@ -37,7 +40,13 @@ public class CharactersModule {
 
     @Provides
     @Activity
-    public GotListPresenterImp<GoTCharacter> provideGotCharacterListPresenter(@Named("character")GetListUseCase<GoTCharacter> characterGetListUseCase){
-        return new GotListPresenterImp<>(characterGetListUseCase);
+    public CharacterListPresenter provideGotCharacterListPresenter(@Named("character")GetListUseCase<GoTCharacter> characterGetListUseCase){
+        return new CharacterListPresenterImp(characterGetListUseCase);
+    }
+
+    @Provides
+    @Activity
+    public GotCharacterListByHousePresenter provideGotCharacterListByHousePresenter(GetCharactersByHouseUseCase useCase){
+        return new GotCharacterListByHousePresenterImp(useCase);
     }
 }

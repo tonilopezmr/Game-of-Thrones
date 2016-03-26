@@ -13,7 +13,8 @@ import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterR
 import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotHouseRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCaseImp;
-import es.npatarino.android.gotchallenge.presenter.GotListPresenterImp;
+import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
+import es.npatarino.android.gotchallenge.presenter.HouseListPresenterImp;
 
 /**
  * @author Antonio López.
@@ -35,7 +36,7 @@ import es.npatarino.android.gotchallenge.presenter.GotListPresenterImp;
 
     @Provides
     @Activity
-    public GotListPresenterImp<GoTHouse> provideGotHouseListPresenter(@Named("house") GetListUseCase<GoTHouse> houseGetListUseCase){
-        return new GotListPresenterImp<>(houseGetListUseCase);
+    public HouseListPresenter provideGotHouseListPresenter(@Named("house") GetListUseCase<GoTHouse> houseGetListUseCase){
+        return new HouseListPresenterImp(houseGetListUseCase);
     }
 }

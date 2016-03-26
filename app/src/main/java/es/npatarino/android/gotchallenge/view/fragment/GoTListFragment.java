@@ -12,12 +12,15 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.di.components.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.presenter.ListPresenter;
+import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
 import es.npatarino.android.gotchallenge.view.adapters.GoTAdapter;
 
@@ -31,8 +34,8 @@ public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> 
     private ContentLoadingProgressBar pb;
     private GoTAdapter adp;
 
-
-    ListPresenter<GoTCharacter> gotCharacterListPresenter;
+    @Inject
+    CharacterListPresenter gotCharacterListPresenter;
 
 
     public GoTListFragment() {

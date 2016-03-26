@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.presenter;
+package es.npatarino.android.gotchallenge.presenter.common;
 
 
 import es.npatarino.android.gotchallenge.view.View;
