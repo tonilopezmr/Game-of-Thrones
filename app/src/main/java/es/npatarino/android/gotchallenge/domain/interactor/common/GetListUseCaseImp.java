@@ -21,7 +21,7 @@ import com.tonilopezmr.interactorexecutor.MainThread;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.Repository;
+import es.npatarino.android.gotchallenge.domain.repository.Repository;
 
 /**
  * @author Antonio López.

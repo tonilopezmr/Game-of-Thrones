@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.domain.GotHouseRepository;
+package es.npatarino.android.gotchallenge.domain.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

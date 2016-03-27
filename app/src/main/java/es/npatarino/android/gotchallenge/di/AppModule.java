@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
 import okhttp3.OkHttpClient;
 

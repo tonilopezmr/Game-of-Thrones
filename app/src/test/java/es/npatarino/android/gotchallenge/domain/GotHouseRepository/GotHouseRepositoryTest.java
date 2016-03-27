@@ -6,6 +6,8 @@ import org.junit.Test;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.repository.GotHouseRepositoryImp;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

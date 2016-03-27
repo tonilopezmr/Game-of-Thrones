@@ -7,6 +7,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;

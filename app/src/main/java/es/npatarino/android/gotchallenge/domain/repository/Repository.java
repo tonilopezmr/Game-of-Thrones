@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.npatarino.android.gotchallenge.domain.GotHouseRepository;
+package es.npatarino.android.gotchallenge.domain.repository;
 
 import java.util.List;
 

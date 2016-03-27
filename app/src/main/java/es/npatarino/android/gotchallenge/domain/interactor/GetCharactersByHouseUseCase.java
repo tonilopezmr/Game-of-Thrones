@@ -7,7 +7,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.GotHouseRepository.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.interactor.common.AbstractUseCase;
 
 /**

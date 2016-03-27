@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.domain.GotHouseRepository;
+package es.npatarino.android.gotchallenge.domain.repository;
 
 import java.util.ArrayList;
 import java.util.List;
