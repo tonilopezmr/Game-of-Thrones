@@ -21,6 +21,6 @@ import java.util.List;
 /**
  * @author Antonio López.
  */
-public interface Repository<T> {
+public interface ListRepository<T> {
     List<T> getList() throws Exception;
 }

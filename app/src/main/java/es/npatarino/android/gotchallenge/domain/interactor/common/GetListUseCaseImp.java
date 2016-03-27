@@ -21,16 +21,16 @@ import com.tonilopezmr.interactorexecutor.MainThread;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.repository.Repository;
+import es.npatarino.android.gotchallenge.domain.repository.ListRepository;
 
 /**
  * @author Antonio López.
  */
 public class GetListUseCaseImp<T> extends AbstractGetListUseCase<T> implements GetListUseCase<T> {
 
-    protected Repository repository;
+    protected ListRepository repository;
 
-    public GetListUseCaseImp(Executor executor, MainThread mainThread, Repository<T> repository) {
+    public GetListUseCaseImp(Executor executor, MainThread mainThread, ListRepository<T> repository) {
         super(executor, mainThread);
         this.repository = repository;
     }

@@ -8,7 +8,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
 import okhttp3.OkHttpClient;
 
@@ -40,7 +41,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public GotCharacterRepositoryImp provideGotCharacterRepository(OkHttpClient okHttpClient) {
+    public GotCharacterRepository provideGotCharacterRepository(OkHttpClient okHttpClient) {
         return new GotCharacterRepositoryImp(okHttpClient, END_POINT);
     }
 }

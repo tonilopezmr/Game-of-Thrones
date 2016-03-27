@@ -1,19 +1,21 @@
-package es.npatarino.android.gotchallenge.domain.repository;
+package es.npatarino.android.gotchallenge.data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.repository.GotHouseRepository;
 
 /**
  * @author Antonio López.
  */
-public class GotHouseRepositoryImp implements Repository<GoTHouse>{
+public class GotHouseRepositoryImp implements GotHouseRepository {
     
-    private GotCharacterRepositoryImp repository;
+    private GotCharacterRepository repository;
 
-    public GotHouseRepositoryImp(GotCharacterRepositoryImp repository) {
+    public GotHouseRepositoryImp(GotCharacterRepository repository) {
         this.repository = repository;
     }
 

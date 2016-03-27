@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.domain.repository;
+package es.npatarino.android.gotchallenge.data;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -10,6 +10,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -17,7 +18,7 @@ import okhttp3.Response;
 /**
  * @author Antonio López.
  */
-public class GotCharacterRepositoryImp implements Repository<GoTCharacter> {
+public class GotCharacterRepositoryImp implements GotCharacterRepository {
 
     private OkHttpClient client;
     private String endPoint;
@@ -45,12 +46,14 @@ public class GotCharacterRepositoryImp implements Repository<GoTCharacter> {
         return new StringBuffer(response.body().string());
     }
 
+    @Override
     public GoTCharacter read(GoTCharacter entity) throws Exception {
         List<GoTCharacter> characters = getList();
         int index =  characters.indexOf(entity);
         return index == -1? null :  characters.get(index);
     }
 
+    @Override
     public List<GoTCharacter> read(GoTHouse house) throws Exception{
         List<GoTCharacter> characters = getList();
         Iterator<GoTCharacter> iterator = characters.iterator();

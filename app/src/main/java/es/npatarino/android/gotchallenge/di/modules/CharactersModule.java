@@ -9,10 +9,10 @@ import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCaseImp;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.presenter.CharacterListPresenterImp;
 import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
@@ -27,14 +27,14 @@ public class CharactersModule {
 
     @Provides
     @Activity
-    public GetCharactersByHouseUseCase provideCharactersByHouseUseCase(Executor executor, MainThread mainThread, GotCharacterRepositoryImp repository){
+    public GetCharactersByHouseUseCase provideCharactersByHouseUseCase(Executor executor, MainThread mainThread, GotCharacterRepository repository){
         return new GetCharactersByHouseUseCase(executor, mainThread, repository);
     }
 
     @Provides
     @Activity
     @Named("character")
-    public GetListUseCase<GoTCharacter> provideGotCharacterListUseCase(Executor executor, MainThread mainThread, GotCharacterRepositoryImp repository){
+    public GetListUseCase<GoTCharacter> provideGotCharacterListUseCase(Executor executor, MainThread mainThread, GotCharacterRepository repository){
         return new GetListUseCaseImp<>(executor, mainThread, repository);
     }
 

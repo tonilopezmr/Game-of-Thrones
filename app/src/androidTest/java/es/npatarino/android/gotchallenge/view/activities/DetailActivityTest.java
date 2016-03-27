@@ -18,7 +18,7 @@ import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -56,7 +56,7 @@ public class DetailActivityTest {
     @Rule public ActivityTestRule<DetailActivity> activityTestRule =
             new ActivityTestRule<>(DetailActivity.class,true, false);
 
-    @Mock GotCharacterRepositoryImp repository;
+    @Mock GotCharacterRepository repository;
 
     @Test public void
     should_character_name_as_toolbar_tittle() throws Exception {

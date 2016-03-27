@@ -1,7 +1,7 @@
 package es.npatarino.android.gotchallenge.domain.GotHouseRepository;
 
 import es.npatarino.android.gotchallenge.ResourceHelper;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 
 /**
  * @author Antonio López.

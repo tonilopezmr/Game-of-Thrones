@@ -7,12 +7,13 @@ import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
+import es.npatarino.android.gotchallenge.data.GotHouseRepositoryImp;
 import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.repository.GotHouseRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCaseImp;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.repository.GotHouseRepository;
 import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.presenter.HouseListPresenterImp;
 
@@ -23,14 +24,14 @@ import es.npatarino.android.gotchallenge.presenter.HouseListPresenterImp;
 
     @Provides
     @Activity
-    public GotHouseRepositoryImp provideGotHouseRepository(GotCharacterRepositoryImp repositoryImp){
+    public GotHouseRepository provideGotHouseRepository(GotCharacterRepository repositoryImp){
         return new GotHouseRepositoryImp(repositoryImp);
     }
 
     @Provides
     @Activity
     @Named("house")
-    public GetListUseCase<GoTHouse> provideGotHouseListUseCase(Executor executor, MainThread mainThread, GotHouseRepositoryImp repository){
+    public GetListUseCase<GoTHouse> provideGotHouseListUseCase(Executor executor, MainThread mainThread, GotHouseRepository repository){
         return new GetListUseCaseImp<>(executor, mainThread, repository);
     }
 
