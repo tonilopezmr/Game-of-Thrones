@@ -42,6 +42,6 @@ public class AppModule {
     @Provides
     @Singleton
     public GotCharacterRepository provideGotCharacterRepository(OkHttpClient okHttpClient) {
-        return new GotCharacterRepositoryImp(okHttpClient, END_POINT);
+        return new GotCharacterRepositoryImp(okHttpClient, END_POINT, null);
     }
 }

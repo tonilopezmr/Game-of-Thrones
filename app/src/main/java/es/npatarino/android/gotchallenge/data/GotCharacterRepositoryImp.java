@@ -22,10 +22,12 @@ public class GotCharacterRepositoryImp implements GotCharacterRepository {
 
     private OkHttpClient client;
     private String endPoint;
+    private final GotCharacterJsonMapper characterJsonMapper;
 
-    public GotCharacterRepositoryImp(OkHttpClient client, String endPoint) {
+    public GotCharacterRepositoryImp(OkHttpClient client, String endPoint, GotCharacterJsonMapper jsonMapper) {
         this.client = client;
         this.endPoint = endPoint;
+        this.characterJsonMapper = jsonMapper;
     }
 
     @Override
