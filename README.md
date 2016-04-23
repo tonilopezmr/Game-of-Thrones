@@ -5,6 +5,8 @@ Cloned from [https://github.com/idealista-tech/got-challenge-for-android](https:
 
 I have participated in challenge and I will continue improving!
 
+-![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]  
+
 #License
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,8 +24,4 @@ limitations under the License.
 [ScreenshotListCharacters]: ./art/ScreenshotListCharacters.png
 [ScreenshotListHouses]: ./art/ScreenshotListHouses.png
 [ScreenshotDetail]: ./art/ScreenshotDetail.png
-[ActivityLink]: http://developer.android.com/intl/es/guide/components/activities.html
-[FragmentLink]: http://developer.android.com/intl/es/guide/components/fragments.html
 [GameOfThronesLink]: http://www.imdb.com/title/tt0944947/
-[ViewPagerLink]: http://developer.android.com/intl/es/training/animation/screen-slide.html
-[npatarino]: https://github.com/npatarino
