@@ -1,5 +1,7 @@
 package es.npatarino.android.gotchallenge.data;
 
+import android.util.Log;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,6 +30,8 @@ public class GotCharacterRepositoryImp implements GotCharacterRepository {
     @Override
     public List<GoTCharacter> getList() throws Exception {
         StringBuffer response = getCharactersFromUrl(endPoint);
+
+        Log.i("JSON", response.toString());
 
         return characterJsonMapper.transformList(response.toString());
     }

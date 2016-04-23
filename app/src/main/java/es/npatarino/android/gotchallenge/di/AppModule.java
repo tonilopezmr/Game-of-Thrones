@@ -21,7 +21,7 @@ import okhttp3.OkHttpClient;
 @Module
 public class AppModule {
 
-    private static final String END_POINT = "https://github.com/tonilopezmr/Game-of-Thrones/blob/master/app/src/test/resources/data.json";
+    private static final String END_POINT = "https://raw.githubusercontent.com/tonilopezmr/Game-of-Thrones/master/app/src/test/resources/data.json";
 
     @Provides
     @Singleton
