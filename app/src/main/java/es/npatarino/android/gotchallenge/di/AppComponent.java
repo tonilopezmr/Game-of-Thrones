@@ -6,6 +6,7 @@ import com.tonilopezmr.interactorexecutor.MainThread;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
 import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import okhttp3.OkHttpClient;
 
@@ -18,5 +19,6 @@ public interface AppComponent {
     Executor executor();
     MainThread mainThread();
     OkHttpClient okHttpClient();
+    GotCharacterJsonMapper gotCharacterJsonMapper();
     GotCharacterRepository gotCharacterRepository();
 }

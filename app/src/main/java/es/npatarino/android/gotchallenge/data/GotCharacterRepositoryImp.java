@@ -1,10 +1,5 @@
 package es.npatarino.android.gotchallenge.data;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,14 +29,12 @@ public class GotCharacterRepositoryImp implements GotCharacterRepository {
     public List<GoTCharacter> getList() throws Exception {
         StringBuffer response = getCharactersFromUrl(endPoint);
 
-        Type listType = new TypeToken<ArrayList<GoTCharacter>>() {}.getType();
-        return new Gson().fromJson(response.toString(), listType);
+        return characterJsonMapper.transformList(response.toString());
     }
 
     protected StringBuffer getCharactersFromUrl(String endPoint) throws Exception {
-        String url = endPoint.concat("/characters");
         Request request = new Request.Builder()
-                .url(url)
+                .url(endPoint)
                 .build();
 
         Response response = client.newCall(request).execute();

@@ -1,5 +1,6 @@
 package es.npatarino.android.gotchallenge.di;
 
+import com.google.gson.Gson;
 import com.tonilopezmr.interactorexecutor.Executor;
 import com.tonilopezmr.interactorexecutor.MainThread;
 import com.tonilopezmr.interactorexecutor.ThreadExecutor;
@@ -8,6 +9,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
 import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
@@ -19,7 +21,7 @@ import okhttp3.OkHttpClient;
 @Module
 public class AppModule {
 
-    private static final String END_POINT = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
+    private static final String END_POINT = "https://github.com/tonilopezmr/Game-of-Thrones/blob/master/app/src/test/resources/data.json";
 
     @Provides
     @Singleton
@@ -41,7 +43,13 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public GotCharacterRepository provideGotCharacterRepository(OkHttpClient okHttpClient) {
-        return new GotCharacterRepositoryImp(okHttpClient, END_POINT, null);
+    public GotCharacterJsonMapper provideGotCharacterJsonMapper(){
+        return new GotCharacterJsonMapper(new Gson());
+    }
+
+    @Provides
+    @Singleton
+    public GotCharacterRepository provideGotCharacterRepository(OkHttpClient okHttpClient, GotCharacterJsonMapper jsonMapper) {
+        return new GotCharacterRepositoryImp(okHttpClient, END_POINT, jsonMapper);
     }
 }
