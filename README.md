@@ -1,48 +1,9 @@
-# Game of Thrones for Android Challenge
-
-###!! Not Finisheddddddd!!
+# Game of Thrones for Android 
 
 
-Android developers face challenges almost everyday during development: performance, security, backwards compatibility, testing... And mainly refactoring for it's own or legacy code. 
-This repository contains a project to face an small challenge where the developer should add some new features, detect (and implement) patterns, add tests, re-think the architecture and do a clean code.
+Cloned from [https://github.com/idealista-tech/got-challenge-for-android](https://github.com/idealista-tech/got-challenge-for-android) and refactored.
 
-Game of Thrones for Android Challenge offers an app using an API to get data for [Game of Thrones][GameOfThronesLink] tv show. It's ready to run, it's working, but the code need to be improved. That's your challenge!
-
-## Getting started
-
-This repository contains an Android app that retrieve a list of some [Game of Thrones][GameOfThronesLink]' characters from an API. The app shows a list of the houses of the characters, the characters themselves and a detail description of each one.
-
-This behaviour it's done in two diffent [Activities][ActivityLink], one for the two lists and other for details of the character:
-
-![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]  
-* ``HomeActivity`` contains two [Fragments][FragmentLink] in a [ViewPager][ViewPagerLink]
-  * `GoTListFragment` shows a list of some the this tv show's characters.
-  * `GoTHousesListFragment` shows a list of the noble houses of the characters 
-
-* ``DetailActivity`` shows the name, photo and description of a character
-
-## Tasks 
-
-Your task as Android Developer is **clone** or **fork** this repository into one yours, **add some functionalities** and **refactor** the code before you give access to your repository.
-
-**The code in this application it's ready to be imported into your Android Studio and ready to run it (and see it working) without any change**
-
-###### New functionalities to add
-
-1. Search characters by name in the characters list
-2. Create a list of a characters by house, accessing to it by clicking a house image in the list of houses
-3. Capability to work offline
-4. Refactor the code
-
-###### Some optional tasks to do:
-
-1. Tests the main logic and a high level flows.
-2. Add transitions between list and detail
-3. Add parallax effect into detail page
-
-###### Once you've finished
-1. Notify by email to rrhh@idealista.com
-2. Have a rest after this "beautiful" code
+I have participated in challenge and I will continue improving!
 
 #License
 
