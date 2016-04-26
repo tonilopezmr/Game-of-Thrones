@@ -16,19 +16,30 @@
 
 package es.npatarino.android.gotchallenge.domain.interactor.common;
 
-import com.tonilopezmr.interactorexecutor.Interactor;
-
 import java.util.List;
+
+import es.npatarino.android.gotchallenge.domain.repository.ListRepository;
+import rx.Observable;
+import rx.Scheduler;
 
 /**
  * @author Antonio López.
  */
-public interface GetListUseCase<T> extends Interactor {
+public class GetListUseCase<T> extends UseCase<List<T>>{
 
-    interface Callback<T>{
-        void onListLoaded(List<T> entityList);
-        void onError(Exception exception);
+    protected final ListRepository<T> repository;
+
+    public GetListUseCase(ListRepository<T> repository,
+                          Scheduler uiThread,
+                          Scheduler executorThread) {
+        super(uiThread, executorThread);
+        this.repository = repository;
     }
 
-    void execute(final Callback<T> callback);
+    @Override
+    protected Observable<List<T>> buildUseCaseObservable() {
+        return repository.getList()
+                .observeOn(uiThread)
+                .subscribeOn(executorThread);
+    }
 }

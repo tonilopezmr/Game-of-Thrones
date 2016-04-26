@@ -18,9 +18,11 @@ package es.npatarino.android.gotchallenge.domain.repository;
 
 import java.util.List;
 
+import rx.Observable;
+
 /**
  * @author Antonio López.
  */
 public interface ListRepository<T> {
-    List<T> getList() throws Exception;
+    Observable<List<T>> getList();
 }

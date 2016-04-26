@@ -7,6 +7,7 @@ import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import es.npatarino.android.gotchallenge.domain.repository.GotHouseRepository;
+import rx.Observable;
 
 /**
  * @author Antonio López.
@@ -20,15 +21,16 @@ public class GotHouseRepositoryImp implements GotHouseRepository {
     }
 
     @Override
-    public List<GoTHouse> getList() throws Exception {
-        List<GoTCharacter> characters = repository.getList();
-        ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
-        for (int i = 0, size = characters.size(); i < size; i++) {
-            GoTCharacter goTCharacter = characters.get(i);
-            GoTHouse goTHouse = getHouseFromCharacter(goTCharacter);
-            addHouseInList(goTHouse, hs);
-        }
-        return hs;
+    public Observable<List<GoTHouse>> getList() {
+        return repository.getList().map(characters -> {
+            ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
+            for (int i = 0, size = characters.size(); i < size; i++) {
+                GoTCharacter goTCharacter = characters.get(i);
+                GoTHouse goTHouse = getHouseFromCharacter(goTCharacter);
+                addHouseInList(goTHouse, hs);
+            }
+            return hs;
+        });
     }
 
     private void addHouseInList(GoTHouse goTHouse, ArrayList<GoTHouse> hs) {

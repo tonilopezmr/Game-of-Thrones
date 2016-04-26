@@ -5,8 +5,8 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
-import es.npatarino.android.gotchallenge.domain.interactor.common.UseCase;
 import es.npatarino.android.gotchallenge.view.DetailView;
+import rx.Subscription;
 
 /**
  * @author Antonio López.
@@ -14,7 +14,9 @@ import es.npatarino.android.gotchallenge.view.DetailView;
 public class GotCharacterListByHousePresenterImp implements GotCharacterListByHousePresenter {
 
     private DetailView<List<GoTCharacter>> view;
-    private UseCase<GoTHouse, List<GoTCharacter>> useCase;
+    private GetCharactersByHouseUseCase useCase;
+
+    private Subscription charactersSubscription;
 
     public GotCharacterListByHousePresenterImp(GetCharactersByHouseUseCase useCase) {
         this.useCase = useCase;
@@ -31,20 +33,27 @@ public class GotCharacterListByHousePresenterImp implements GotCharacterListByHo
         this.view = view;
     }
 
+    @Override
+    public void onDestroy() {
+        charactersSubscription.unsubscribe();
+    }
 
     @Override
     public void init(GoTHouse viewModel) {
         init();
-        useCase.execute(viewModel, new UseCase.Callback<List<GoTCharacter>>() {
-            @Override
-            public void onSuccess(List<GoTCharacter> entity) {
-                view.show(entity);
-            }
+        askForCharacters(viewModel);
+    }
 
-            @Override
-            public void onError(Exception exception) {
-                view.error();
-            }
-        });
+    private void askForCharacters(GoTHouse viewModel) {
+        charactersSubscription = useCase.execute(viewModel)
+                .subscribe(this::onCharactersReceived, this::onError);
+    }
+
+    private void onCharactersReceived(List<GoTCharacter> characters){
+        view.show(characters);
+    }
+
+    private void onError(Throwable error){
+        view.error();
     }
 }
