@@ -1,6 +1,9 @@
 package es.npatarino.android.gotchallenge.domain.GotHouseRepository;
 
+import com.google.gson.Gson;
+
 import es.npatarino.android.gotchallenge.ResourceHelper;
+import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
 import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 
 /**
@@ -9,7 +12,7 @@ import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 public class TestableGotCharacterRepository extends GotCharacterRepositoryImp {
     
     public TestableGotCharacterRepository(String endPoint) {
-        super(null, endPoint);
+        super(null, endPoint, new GotCharacterJsonMapper(new Gson()));
     }
 
     @Override

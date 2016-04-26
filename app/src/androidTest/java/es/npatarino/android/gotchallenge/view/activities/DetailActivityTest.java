@@ -43,14 +43,12 @@ public class DetailActivityTest {
 
     @Rule public DaggerMockRule<AppComponent> daggerRule =
             new DaggerMockRule<>(AppComponent.class, new AppModule()).set(
-                    new DaggerMockRule.ComponentSetter<AppComponent>() {
-                        @Override public void setComponent(AppComponent component) {
-                            GotChallengeApplication app =
-                                    (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()
-                                            .getTargetContext()
-                                            .getApplicationContext();
-                            app.setComponent(component);
-                        }
+                    component -> {
+                        GotChallengeApplication app =
+                                (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()
+                                        .getTargetContext()
+                                        .getApplicationContext();
+                        app.setComponent(component);
                     });
 
     @Rule public ActivityTestRule<DetailActivity> activityTestRule =

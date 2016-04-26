@@ -47,7 +47,7 @@ configurations.all {
 
 dependencies {
     //android test
-    androidTestCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.mockito:mockito-core:1.10.19'
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
     androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
         exclude group: 'org.hamcrest', module: 'hamcrest-core'
@@ -69,6 +69,7 @@ dependencies {
     //test
     testCompile 'junit:junit:4.12'
     testCompile 'com.google.dagger:dagger-compiler:2.0.2'
+    testCompile 'org.mockito:mockito-core:1.10.19'
 
     //libraries
     compile 'com.android.support:appcompat-v7:23.3.0'

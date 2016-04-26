@@ -1,7 +1,5 @@
 package es.npatarino.android.gotchallenge.data;
 
-import android.util.Log;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -33,7 +31,6 @@ public class GotCharacterRepositoryImp implements GotCharacterRepository {
         return Observable.create(subscriber -> {
             try {
                 StringBuffer response = getCharactersFromUrl(endPoint);
-                Log.i("JSON", response.toString());
 
                 subscriber.onNext(characterJsonMapper.transformList(response.toString()));
             } catch (Exception e) {

@@ -1,19 +1,24 @@
 package es.npatarino.android.gotchallenge.domain.GotHouseRepository;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import rx.Observable;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * @author Antonio López.
@@ -31,25 +36,29 @@ public class GotCharacterRepositoryTest {
     private static final String INVALID_DATA_ENDPOINT = "invalid_data.json";
     private static final String VALID_DATA_ENDPOINT = "normal_data.json";
 
-    GotCharacterRepositoryImp repository;
+    @Mock
+    GotCharacterRepository repository;
 
     @Before
     public void setUp() throws Exception {
         repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository(VALID_DATA_ENDPOINT);
     }
 
+    private Observable<List<GoTCharacter>> getFakeObservableCharacters(){
+        return Observable.just(new ArrayList<>());
+    }
+
     @Test public void
     should_return_all_characters() throws Exception {
-        List<GoTCharacter> list = repository.getList();
-
-        assertThat(list.size(), is(10));
+        repository.getList()
+                .subscribe(list -> assertThat(list.size(), is(10)), throwable -> fail());
     }
 
     @Test(expected = Exception.class)
     public void
     should_throw_an_exception_when_the_data_is_not_well() throws Exception {
         GotCharacterRepositoryImp repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository(INVALID_DATA_ENDPOINT);
-        List<GoTCharacter> list = repository.getList();
+        repository.getList().subscribe(it -> {}, throwable -> { Assert.fail(); });
     }
 
     @Test
@@ -59,8 +68,8 @@ public class GotCharacterRepositoryTest {
         house.setHouseId(STARK_ID);
         house.setHouseName(STARK_NAME);
 
-        List<GoTCharacter> list = repository.read(house);
-        assertThat(list.size(), is(2));
+        repository.read(house)
+                .subscribe(list -> assertThat(list.size(), is(2)), throwable -> fail());
     }
 
     @Test
@@ -68,8 +77,8 @@ public class GotCharacterRepositoryTest {
     should_not_return_any_character_when_house_are_not() throws Exception {
         GoTHouse house = INVENTED_HOUSE;
 
-        List<GoTCharacter> list = repository.read(house);
-        assertThat(list.size(), is(0));
+        repository.read(house)
+                .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
     }
 
     @Test
@@ -79,10 +88,11 @@ public class GotCharacterRepositoryTest {
         gotCharacter.setName(KHAL_DROGO_NAME);
         gotCharacter.setImageUrl(KHAL_DROGO_URL);
 
-        GoTCharacter character = repository.read(gotCharacter);
-        assertNotNull(character);
-        assertEquals(character.getName(), gotCharacter.getName());
-        assertEquals(character.getImageUrl(), gotCharacter.getImageUrl());
+        repository.read(gotCharacter).subscribe(character -> {
+            assertNotNull(character);
+            assertEquals(character.getName(), gotCharacter.getName());
+            assertEquals(character.getImageUrl(), gotCharacter.getImageUrl());
+        }, throwable -> fail());
     }
 
     @Test
@@ -90,8 +100,7 @@ public class GotCharacterRepositoryTest {
     should_not_return_any_character() throws Exception {
         GoTCharacter gotCharacter = ANYONE;
 
-        GoTCharacter character = repository.read(gotCharacter);
-        assertNull(character);
+        repository.read(gotCharacter).subscribe(Assert::assertNull, throwable -> fail());
     }
 
 }
