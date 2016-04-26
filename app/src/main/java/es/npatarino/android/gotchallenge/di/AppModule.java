@@ -31,12 +31,12 @@ public class AppModule {
 
     @Provides @Named("executorThread")
     public Scheduler provideMainThread(){
-        return AndroidSchedulers.mainThread();
+        return Schedulers.newThread();
     }
 
     @Provides @Named("mainThread")
     public Scheduler provideExecutor(){
-        return Schedulers.newThread();
+        return AndroidSchedulers.mainThread();
     }
 
     @Provides
