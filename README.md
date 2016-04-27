@@ -5,6 +5,8 @@ Cloned from [https://github.com/idealista-tech/got-challenge-for-android](https:
 
 I have participated in challenge and I will continue improving!
 
+You can follow the commits flow to see how I refactoring.
+
 -![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]  
 
 #License
