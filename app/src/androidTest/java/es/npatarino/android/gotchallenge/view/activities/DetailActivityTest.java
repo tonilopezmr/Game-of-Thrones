@@ -105,6 +105,7 @@ public class DetailActivityTest {
     @Test public void
     should_display_list_when_is_house_with_characters() throws Exception {
         GoTHouse house = TestUtils.defaultGotHouse();
+        when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
 

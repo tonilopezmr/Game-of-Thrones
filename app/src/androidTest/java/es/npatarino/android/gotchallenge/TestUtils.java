@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import rx.Observable;
 
 /**
  * @author Antonio López.
@@ -27,12 +28,12 @@ public class TestUtils {
         return house;
     }
 
-    public static List<GoTCharacter> getCharacters(int numberOfGotCharacters) throws Exception {
+    public static Observable<List<GoTCharacter>> getCharacters(int numberOfGotCharacters) throws Exception {
         List<GoTCharacter> characters = new LinkedList<>();
         for (int i = 0; i < numberOfGotCharacters; i++){
             characters.add(defaultGotCharacter());
         }
-        return characters;
+        return Observable.just(characters);
     }
 
     public static GoTCharacter defaultGotCharacter(){
