@@ -43,14 +43,12 @@ public class DetailActivityTest {
 
     @Rule public DaggerMockRule<AppComponent> daggerRule =
             new DaggerMockRule<>(AppComponent.class, new AppModule()).set(
-                    new DaggerMockRule.ComponentSetter<AppComponent>() {
-                        @Override public void setComponent(AppComponent component) {
-                            GotChallengeApplication app =
-                                    (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()
-                                            .getTargetContext()
-                                            .getApplicationContext();
-                            app.setComponent(component);
-                        }
+                    component -> {
+                        GotChallengeApplication app =
+                                (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()
+                                        .getTargetContext()
+                                        .getApplicationContext();
+                        app.setComponent(component);
                     });
 
     @Rule public ActivityTestRule<DetailActivity> activityTestRule =
@@ -107,6 +105,7 @@ public class DetailActivityTest {
     @Test public void
     should_display_list_when_is_house_with_characters() throws Exception {
         GoTHouse house = TestUtils.defaultGotHouse();
+        when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
 

@@ -16,17 +16,26 @@
 
 package es.npatarino.android.gotchallenge.domain.interactor.common;
 
-import com.tonilopezmr.interactorexecutor.Interactor;
+import rx.Observable;
+import rx.Scheduler;
+
 
 /**
  * @author Antonio López.
  */
-public interface UseCase<T, C> extends Interactor {
+public abstract class UseCase<T> {
 
-    interface Callback<C> {
-        void onSuccess(C entity);
-        void onError(Exception exception);
+    protected final Scheduler uiThread;
+    protected final Scheduler executorThread;
+
+    protected UseCase(Scheduler uiThread, Scheduler executorThread) {
+        this.uiThread = uiThread;
+        this.executorThread = executorThread;
     }
 
-    void execute(T entity, final Callback<C> callback);
+    public Observable<T> execute(){
+        return buildUseCaseObservable();
+    }
+
+    protected abstract Observable<T> buildUseCaseObservable();
 }

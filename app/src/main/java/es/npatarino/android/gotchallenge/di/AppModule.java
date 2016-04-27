@@ -1,10 +1,8 @@
 package es.npatarino.android.gotchallenge.di;
 
 import com.google.gson.Gson;
-import com.tonilopezmr.interactorexecutor.Executor;
-import com.tonilopezmr.interactorexecutor.MainThread;
-import com.tonilopezmr.interactorexecutor.ThreadExecutor;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -12,8 +10,10 @@ import dagger.Provides;
 import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
 import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
-import es.npatarino.android.gotchallenge.view.executor.MainThreadImp;
 import okhttp3.OkHttpClient;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * @author Antonio López.
@@ -29,16 +29,14 @@ public class AppModule {
         return new OkHttpClient();
     }
 
-    @Provides
-    @Singleton
-    public MainThread provideMainThread(){
-        return new MainThreadImp();
+    @Provides @Named("executorThread")
+    public Scheduler provideMainThread(){
+        return Schedulers.newThread();
     }
 
-    @Provides
-    @Singleton
-    public Executor provideExecutor(){
-        return new ThreadExecutor();
+    @Provides @Named("mainThread")
+    public Scheduler provideExecutor(){
+        return AndroidSchedulers.mainThread();
     }
 
     @Provides

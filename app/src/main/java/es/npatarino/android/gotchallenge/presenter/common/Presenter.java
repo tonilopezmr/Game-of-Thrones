@@ -9,4 +9,5 @@ import es.npatarino.android.gotchallenge.view.View;
 public interface Presenter<T extends View> {
     void init();
     void setView(T view);
+    void onDestroy();
 }

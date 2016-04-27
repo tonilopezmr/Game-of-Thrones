@@ -1,16 +1,14 @@
 package es.npatarino.android.gotchallenge.domain.GotHouseRepository;
 
+import org.hamcrest.core.Is;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-
-import es.npatarino.android.gotchallenge.data.GotHouseRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.data.GotHouseRepositoryImp;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * @author Antonio López.
@@ -31,15 +29,13 @@ public class GotHouseRepositoryTest {
     @Test public void
     should_not_return_any_house() throws Exception {
         repository = new GotHouseRepositoryImp(EMPTY_CHARACTER_REPOSITORY);
-        List<GoTHouse> list = repository.getList();
-
-        assertThat(list.size(), is(0));
+        repository.getList()
+                .subscribe(list -> Assert.assertThat(list.size(), Is.is(10)), throwable -> fail());
     }
 
     @Test public void
     should_return_all_houses() throws Exception {
-        List<GoTHouse> list = repository.getList();
-
-        assertThat(list.size(), is(7));
+        repository.getList()
+                .subscribe(list -> Assert.assertThat(list.size(), Is.is(7)), throwable -> fail());
     }
 }
