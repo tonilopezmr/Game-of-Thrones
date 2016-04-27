@@ -58,7 +58,8 @@ public class GotCharacterRepositoryTest {
     public void
     should_throw_an_exception_when_the_data_is_not_well() throws Exception {
         GotCharacterRepositoryImp repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository(INVALID_DATA_ENDPOINT);
-        repository.getList().subscribe(it -> {}, throwable -> { Assert.fail(); });
+
+        repository.getList().toBlocking().single();
     }
 
     @Test
