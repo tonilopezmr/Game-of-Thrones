@@ -11,7 +11,8 @@ public class EndPoint {
         this.endPoint = endPoint;
     }
 
-    public String getEndPoint() {
+    @Override
+    public String toString() {
         return endPoint;
     }
 }

@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import es.npatarino.android.gotchallenge.data.EndPoint;
 import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
 import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
@@ -46,8 +47,13 @@ public class AppModule {
     }
 
     @Provides
+    public EndPoint provideEndPoint(){
+        return new EndPoint(END_POINT);
+    }
+
+    @Provides
     @Singleton
-    public GotCharacterRepository provideGotCharacterRepository(OkHttpClient okHttpClient, GotCharacterJsonMapper jsonMapper) {
-        return new GotCharacterRepositoryImp(okHttpClient, END_POINT, jsonMapper);
+    public GotCharacterRepository provideGotCharacterRepository(OkHttpClient okHttpClient, EndPoint endPoint, GotCharacterJsonMapper jsonMapper) {
+        return new GotCharacterRepositoryImp(okHttpClient, new EndPoint(END_POINT), jsonMapper);
     }
 }

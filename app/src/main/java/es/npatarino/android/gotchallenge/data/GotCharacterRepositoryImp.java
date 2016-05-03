@@ -17,10 +17,10 @@ import rx.Observable;
 public class GotCharacterRepositoryImp implements GotCharacterRepository {
 
     private OkHttpClient client;
-    private String endPoint;
+    private EndPoint endPoint;
     private final GotCharacterJsonMapper characterJsonMapper;
 
-    public GotCharacterRepositoryImp(OkHttpClient client, String endPoint, GotCharacterJsonMapper jsonMapper) {
+    public GotCharacterRepositoryImp(OkHttpClient client, EndPoint endPoint, GotCharacterJsonMapper jsonMapper) {
         this.client = client;
         this.endPoint = endPoint;
         this.characterJsonMapper = jsonMapper;
@@ -30,7 +30,7 @@ public class GotCharacterRepositoryImp implements GotCharacterRepository {
     public Observable<List<GoTCharacter>> getList(){
         return Observable.create(subscriber -> {
             try {
-                StringBuffer response = getCharactersFromUrl(endPoint);
+                StringBuffer response = getCharactersFromUrl(endPoint.toString());
 
                 subscriber.onNext(characterJsonMapper.transformList(response.toString()));
             } catch (Exception e) {
