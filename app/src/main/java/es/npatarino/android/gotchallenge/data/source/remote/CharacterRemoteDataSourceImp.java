@@ -3,8 +3,6 @@ package es.npatarino.android.gotchallenge.data.source.remote;
 import java.util.Iterator;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.data.EndPoint;
-import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
@@ -16,9 +14,9 @@ public class CharacterRemoteDataSourceImp implements CharacterRemoteDataSource {
 
     private OkHttpClient client;
     private EndPoint endPoint;
-    private final GotCharacterJsonMapper characterJsonMapper;
+    private final JsonMapper characterJsonMapper;
 
-    public CharacterRemoteDataSourceImp(GotCharacterJsonMapper characterJsonMapper,
+    public CharacterRemoteDataSourceImp(JsonMapper characterJsonMapper,
                                         EndPoint endPoint,
                                         OkHttpClient client) {
         this.characterJsonMapper = characterJsonMapper;

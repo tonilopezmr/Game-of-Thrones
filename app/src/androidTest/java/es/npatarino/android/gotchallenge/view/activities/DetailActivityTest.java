@@ -99,6 +99,7 @@ public class DetailActivityTest {
         when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
+
         onView(withId(R.id.recycler_view)).check(matches(recyclerViewHasItemCount(NUMBER_OF_CHARACTERS)));
     }
 

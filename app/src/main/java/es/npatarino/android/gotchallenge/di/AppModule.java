@@ -1,16 +1,11 @@
 package es.npatarino.android.gotchallenge.di;
 
-import com.google.gson.Gson;
-
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.data.EndPoint;
-import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
-import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
@@ -41,19 +36,7 @@ public class AppModule {
     }
 
     @Provides
-    @Singleton
-    public GotCharacterJsonMapper provideGotCharacterJsonMapper(){
-        return new GotCharacterJsonMapper(new Gson());
-    }
-
-    @Provides
     public EndPoint provideEndPoint(){
         return new EndPoint(END_POINT);
-    }
-
-    @Provides
-    @Singleton
-    public GotCharacterRepository provideGotCharacterRepository(OkHttpClient okHttpClient, EndPoint endPoint, GotCharacterJsonMapper jsonMapper) {
-        return new GotCharacterRepositoryImp(okHttpClient, new EndPoint(END_POINT), jsonMapper);
     }
 }

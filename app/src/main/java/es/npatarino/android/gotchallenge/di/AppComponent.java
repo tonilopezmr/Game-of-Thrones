@@ -4,9 +4,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import es.npatarino.android.gotchallenge.data.EndPoint;
-import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;
 
@@ -21,6 +19,4 @@ public interface AppComponent {
     @Named("mainThread") Scheduler mainThread();
     OkHttpClient okHttpClient();
     EndPoint endPoint();
-    GotCharacterJsonMapper gotCharacterJsonMapper();
-    GotCharacterRepository gotCharacterRepository();
 }
