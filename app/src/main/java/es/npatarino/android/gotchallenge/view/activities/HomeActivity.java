@@ -40,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setCustomView(getCustomIcon(R.drawable.ned_head_light));
         tabLayout.getTabAt(0).setText("");
-        tabLayout.getTabAt(1).setCustomView(getCustomIcon(R.drawable.ned_head_light, 125));
+        tabLayout.getTabAt(1).setCustomView(getCustomIcon(R.drawable.insignia_light, 100));
         tabLayout.getTabAt(1).setText("");
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 ImageView imageView = (ImageView) tab.getCustomView();
-                imageView.getDrawable().mutate().setAlpha(125);
+                imageView.getDrawable().mutate().setAlpha(100);
             }
 
             @Override
