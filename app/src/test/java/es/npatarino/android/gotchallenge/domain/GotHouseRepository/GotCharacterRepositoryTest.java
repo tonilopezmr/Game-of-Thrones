@@ -37,8 +37,6 @@ public class GotCharacterRepositoryTest {
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
     private static final GoTHouse INVENTED_HOUSE = new GoTHouse();
-    private static final String INVALID_DATA_ENDPOINT = "invalid_data.json";
-    private static final String VALID_DATA_ENDPOINT = "normal_data.json";
 
     @Mock
     CharacterRemoteDataSource remoteDataSource;
