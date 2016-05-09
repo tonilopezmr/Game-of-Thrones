@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.data;
+package es.npatarino.android.gotchallenge.data.source.remote;
 
 /**
  * @author Antonio López.
@@ -11,7 +11,8 @@ public class EndPoint {
         this.endPoint = endPoint;
     }
 
-    public String getEndPoint() {
+    @Override
+    public String toString() {
         return endPoint;
     }
 }

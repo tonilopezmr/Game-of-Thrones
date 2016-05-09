@@ -48,15 +48,9 @@ public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> 
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
+
         initUi();
 
-        //dagger everywhere
-//        Executor executor = new ThreadExecutor();
-//        MainThread mainThread = new MainThreadImp();
-//        String endPoint = "http://ec2-52-18-202-124.eu-west-1.compute.amazonaws.com:3000";
-//        GotCharacterRepositoryImp repository = new GotCharacterRepositoryImp(new OkHttpClient(), endPoint);
-//        GetListUseCase<GoTCharacter> goTCharacterGetListUseCase = new GetListUseCaseImp<>(executor, mainThread, repository);
-//        gotCharacterListPresenter = new GotListPresenterImp<>(goTCharacterGetListUseCase);
         gotCharacterListPresenter.setView(this);
         gotCharacterListPresenter.init();
         return rootView;

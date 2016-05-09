@@ -9,14 +9,20 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
+
+import java.util.List;
 
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
+import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
-import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
+import rx.Observable;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -56,6 +62,21 @@ public class HomeActivityTest {
         activityTestRule.launchActivity(null);
 
         onView(allOf(withId(R.id.recycler_view), isDisplayed())).check(matches(isDisplayed()));
+    }
+
+    @Test public void
+    should_does_not_show_loading_view_once_character_are_shown() throws Exception {
+        when(repository.getList()).thenAnswer(new Answer<Observable<List<GoTCharacter>>>() {
+            @Override
+            public Observable<List<GoTCharacter>> answer(InvocationOnMock invocation) throws Throwable {
+                Thread.sleep(2000);
+                return TestUtils.getCharacters(NUMBER_OF_CHARACTERS);
+            }
+        });
+
+        activityTestRule.launchActivity(null);
+
+        onView(allOf(withId(R.id.content_loading_progress_bar), isDisplayed())).check(matches(isDisplayed()));
     }
 
 }

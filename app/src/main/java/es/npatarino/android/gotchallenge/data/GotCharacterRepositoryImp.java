@@ -1,14 +1,12 @@
 package es.npatarino.android.gotchallenge.data;
 
-import java.util.Iterator;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
+import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import rx.Observable;
 
 /**
@@ -16,59 +14,53 @@ import rx.Observable;
  */
 public class GotCharacterRepositoryImp implements GotCharacterRepository {
 
-    private OkHttpClient client;
-    private String endPoint;
-    private final GotCharacterJsonMapper characterJsonMapper;
+    private CharacterRemoteDataSource remoteDataSource;
+    private CharacterLocalDataSource localDataSource;
 
-    public GotCharacterRepositoryImp(OkHttpClient client, String endPoint, GotCharacterJsonMapper jsonMapper) {
-        this.client = client;
-        this.endPoint = endPoint;
-        this.characterJsonMapper = jsonMapper;
+    public GotCharacterRepositoryImp(CharacterRemoteDataSource remoteDataSource, CharacterLocalDataSource localDataSource) {
+        this.remoteDataSource = remoteDataSource;
+        this.localDataSource = localDataSource;
     }
 
     @Override
     public Observable<List<GoTCharacter>> getList(){
         return Observable.create(subscriber -> {
             try {
-                StringBuffer response = getCharactersFromUrl(endPoint);
-
-                subscriber.onNext(characterJsonMapper.transformList(response.toString()));
+                subscriber.onNext(remoteDataSource.getList());
             } catch (Exception e) {
                 e.printStackTrace();
                 subscriber.onError(e);
+            }finally {
+                subscriber.onCompleted();
             }
-            subscriber.onCompleted();
         });
-    }
-
-    protected StringBuffer getCharactersFromUrl(String endPoint) throws Exception {
-        Request request = new Request.Builder()
-                .url(endPoint)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        return new StringBuffer(response.body().string());
     }
 
     @Override
     public Observable<GoTCharacter> read(GoTCharacter entity){
-        return getList().map(characters -> {
-            int index =  characters.indexOf(entity);
-            return index == -1? null :  characters.get(index);
+        return Observable.create(subscriber -> {
+            try {
+                subscriber.onNext(remoteDataSource.read(entity));
+            } catch (Exception e) {
+                e.printStackTrace();
+                subscriber.onError(e);
+            }finally {
+                subscriber.onCompleted();
+            }
         });
     }
 
     @Override
     public Observable<List<GoTCharacter>> read(GoTHouse house){
-        return getList().map(characters -> {
-            Iterator<GoTCharacter> iterator = characters.iterator();
-            while (iterator.hasNext()){
-                GoTCharacter character = iterator.next();
-                if (!character.getHouseId().equals(house.getHouseId())){
-                    iterator.remove();
-                }
+        return Observable.create(subscriber -> {
+            try {
+                subscriber.onNext(remoteDataSource.read(house));
+            } catch (Exception e) {
+                e.printStackTrace();
+                subscriber.onError(e);
+            }finally {
+                subscriber.onCompleted();
             }
-            return characters;
         });
     }
 

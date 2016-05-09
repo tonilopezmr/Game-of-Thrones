@@ -25,8 +25,12 @@ public interface CharactersComponent extends ActivityComponent{
     void inject(GotCharacterListByHouseFragment fragment);
     void inject(GoTListFragment fragment);
 
+
+    //UseCase
     GetCharactersByHouseUseCase charactersByHouseUseCase();
     @Named("character") GetListUseCase<GoTCharacter> gotCharacterListUseCase();
+
+    //Presenter
     CharacterListPresenter gotCharacterListPresenter();
     GotCharacterListByHousePresenter gotCharacterListByHousePresenter();
 }

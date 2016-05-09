@@ -1,11 +1,10 @@
 package es.npatarino.android.gotchallenge.data;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.datasource.local.HouseLocalDataSource;
+import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.repository.GotHouseRepository;
 import rx.Observable;
 
@@ -14,40 +13,25 @@ import rx.Observable;
  */
 public class GotHouseRepositoryImp implements GotHouseRepository {
     
-    private GotCharacterRepository repository;
+    private HouseRemoteDataSource remoteDataSource;
+    private HouseLocalDataSource localDataSource;
 
-    public GotHouseRepositoryImp(GotCharacterRepository repository) {
-        this.repository = repository;
+    public GotHouseRepositoryImp(HouseRemoteDataSource remoteDataSource, HouseLocalDataSource localDataSource) {
+        this.remoteDataSource = remoteDataSource;
+        this.localDataSource = localDataSource;
     }
 
     @Override
     public Observable<List<GoTHouse>> getList() {
-        return repository.getList().map(characters -> {
-            ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
-            for (int i = 0, size = characters.size(); i < size; i++) {
-                GoTCharacter goTCharacter = characters.get(i);
-                GoTHouse goTHouse = getHouseFromCharacter(goTCharacter);
-                addHouseInList(goTHouse, hs);
+        return Observable.create(subscriber -> {
+            try {
+                subscriber.onNext(remoteDataSource.getAll());
+            } catch (Exception e) {
+                e.printStackTrace();
+                subscriber.onError(e);
             }
-            return hs;
+            subscriber.onCompleted();
         });
     }
-
-    private void addHouseInList(GoTHouse goTHouse, ArrayList<GoTHouse> hs) {
-        if (isValidHouse(goTHouse) && !hs.contains(goTHouse)) {
-            hs.add(goTHouse);
-        }
-    }
-
-    private boolean isValidHouse(GoTHouse house) {
-        return house.getHouseId() != null && !house.getHouseId().isEmpty();
-    }
-
-    private GoTHouse getHouseFromCharacter(GoTCharacter goTCharacter) {
-        GoTHouse h = new GoTHouse();
-        h.setHouseId(goTCharacter.getHouseId());
-        h.setHouseName(goTCharacter.getHouseName());
-        h.setHouseImageUrl(goTCharacter.getHouseImageUrl());
-        return h;
-    }
 }
+

@@ -22,6 +22,7 @@ import rx.Scheduler;
 @Module
 public class CharactersModule {
 
+
     @Provides
     @Activity
     public GetCharactersByHouseUseCase provideCharactersByHouseUseCase(@Named("executorThread") Scheduler executor,

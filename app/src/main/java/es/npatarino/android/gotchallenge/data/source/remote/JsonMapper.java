@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.data;
+package es.npatarino.android.gotchallenge.data.source.remote;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -13,11 +13,11 @@ import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 /**
  * @author Antonio López.
  */
-public class GotCharacterJsonMapper {
+public class JsonMapper {
 
     private final Gson gson;
 
-    public GotCharacterJsonMapper(Gson gson) {
+    public JsonMapper(Gson gson) {
         this.gson = gson;
     }
 

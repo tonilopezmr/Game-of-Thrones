@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
+import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import rx.Observable;
 
@@ -19,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.when;
 
 /**
  * @author Antonio López.
@@ -33,15 +37,21 @@ public class GotCharacterRepositoryTest {
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
     private static final GoTHouse INVENTED_HOUSE = new GoTHouse();
-    private static final String INVALID_DATA_ENDPOINT = "invalid_data.json";
-    private static final String VALID_DATA_ENDPOINT = "normal_data.json";
 
     @Mock
+    CharacterRemoteDataSource remoteDataSource;
+    @Mock
+    CharacterLocalDataSource localDataSource;
+
     GotCharacterRepository repository;
 
     @Before
     public void setUp() throws Exception {
-        repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository(VALID_DATA_ENDPOINT);
+        // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
+        // inject the mocks in the test the initMocks method needs to be called.
+        MockitoAnnotations.initMocks(this);
+
+        repository = new GotCharacterRepositoryImp(remoteDataSource, localDataSource);
     }
 
     private Observable<List<GoTCharacter>> getFakeObservableCharacters(){
@@ -50,6 +60,8 @@ public class GotCharacterRepositoryTest {
 
     @Test public void
     should_return_all_characters() throws Exception {
+        when(remoteDataSource.getList()).thenReturn(getCharacters(10));
+
         repository.getList()
                 .subscribe(list -> assertThat(list.size(), is(10)), throwable -> fail());
     }
@@ -57,7 +69,7 @@ public class GotCharacterRepositoryTest {
     @Test(expected = Exception.class)
     public void
     should_throw_an_exception_when_the_data_is_not_well() throws Exception {
-        GotCharacterRepositoryImp repository = TestableGotCharacterRepository.provideTestableGotCharacterRepository(INVALID_DATA_ENDPOINT);
+        when(remoteDataSource.getList()).thenThrow(new Exception());
 
         repository.getList().toBlocking().single();
     }
@@ -69,6 +81,8 @@ public class GotCharacterRepositoryTest {
         house.setHouseId(STARK_ID);
         house.setHouseName(STARK_NAME);
 
+        when(remoteDataSource.read(house)).thenReturn(getCharacters(2));
+
         repository.read(house)
                 .subscribe(list -> assertThat(list.size(), is(2)), throwable -> fail());
     }
@@ -77,6 +91,8 @@ public class GotCharacterRepositoryTest {
     public void
     should_not_return_any_character_when_house_are_not() throws Exception {
         GoTHouse house = INVENTED_HOUSE;
+
+        when(remoteDataSource.read(house)).thenReturn(new ArrayList<GoTCharacter>());
 
         repository.read(house)
                 .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
@@ -88,6 +104,8 @@ public class GotCharacterRepositoryTest {
         GoTCharacter gotCharacter = KHAL_DROGO;
         gotCharacter.setName(KHAL_DROGO_NAME);
         gotCharacter.setImageUrl(KHAL_DROGO_URL);
+
+        when(remoteDataSource.read(gotCharacter)).thenReturn(gotCharacter);
 
         repository.read(gotCharacter).subscribe(character -> {
             assertNotNull(character);
@@ -101,7 +119,16 @@ public class GotCharacterRepositoryTest {
     should_not_return_any_character() throws Exception {
         GoTCharacter gotCharacter = ANYONE;
 
+        when(remoteDataSource.read(gotCharacter)).thenReturn(null);
+
         repository.read(gotCharacter).subscribe(Assert::assertNull, throwable -> fail());
     }
 
+    private List<GoTCharacter> getCharacters(int numCharacters){
+        List<GoTCharacter> characters = new ArrayList<>();
+        for (int i = 0; i < numCharacters; i++){
+            characters.add(new GoTCharacter());
+        }
+        return characters;
+    }
 }

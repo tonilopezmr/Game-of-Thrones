@@ -4,7 +4,10 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import es.npatarino.android.gotchallenge.data.GotCharacterJsonMapper;
+import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
+import es.npatarino.android.gotchallenge.data.source.remote.JsonMapper;
+import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
+import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;
@@ -15,10 +18,18 @@ import rx.Scheduler;
 @Singleton @Component(modules = AppModule.class)
 public interface AppComponent {
 
+    //repository for DaggerMock limitations
+    GotCharacterRepository gotCharacterRepository();
+
+    JsonMapper gotCharacterJsonMapper();
+
+    //datasource
+    CharacterRemoteDataSource characterRemoteDataSource();
+    CharacterLocalDataSource characterLocalDataSource();
+
 
     @Named("executorThread") Scheduler executorThread();
     @Named("mainThread") Scheduler mainThread();
     OkHttpClient okHttpClient();
-    GotCharacterJsonMapper gotCharacterJsonMapper();
-    GotCharacterRepository gotCharacterRepository();
+    EndPoint endPoint();
 }
