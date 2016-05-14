@@ -86,7 +86,10 @@ public class GoTHouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         public void render(final GoTHouse goTHouse) {
-            Picasso.with(imp.getContext()).load(goTHouse.getHouseImageUrl()).into(imp);
+            Picasso.with(imp.getContext())
+                    .load(goTHouse.getHouseImageUrl())
+                    .fit()
+                    .into(imp);
         }
     }
 

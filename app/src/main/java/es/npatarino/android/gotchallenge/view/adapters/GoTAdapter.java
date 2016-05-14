@@ -88,7 +88,10 @@ public class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void render(final GoTCharacter goTCharacter) {
-            Picasso.with(imp.getContext()).load(goTCharacter.getImageUrl()).into(imp);
+            Picasso.with(imp.getContext())
+                    .load(goTCharacter.getImageUrl())
+                    .fit()
+                    .into(imp);
             tvn.setText(goTCharacter.getName());
         }
     }
