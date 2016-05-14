@@ -24,12 +24,12 @@ import es.npatarino.android.gotchallenge.view.activities.DetailActivity;
 /**
  * @author Antonio López.
  */
-public class GoTAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class GoTCharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<GoTCharacter> gcs;
     private Activity activity;
 
-    public GoTAdapter(Activity activity) {
+    public GoTCharacterAdapter(Activity activity) {
         this.gcs = new ArrayList<>();
         this.activity = activity;
     }

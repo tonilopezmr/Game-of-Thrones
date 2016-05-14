@@ -22,7 +22,7 @@ import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
-import es.npatarino.android.gotchallenge.view.adapters.GoTAdapter;
+import es.npatarino.android.gotchallenge.view.adapters.GoTCharacterAdapter;
 
 /**
  * @author Antonio López.
@@ -32,7 +32,7 @@ public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> 
     private static final String TAG = "GoTListFragment";
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
-    private GoTAdapter adp;
+    private GoTCharacterAdapter adp;
 
     @Inject
     CharacterListPresenter gotCharacterListPresenter;
@@ -74,7 +74,7 @@ public class GoTListFragment extends Fragment implements ViewList<GoTCharacter> 
 
     @Override
     public void initUi() {
-        adp = new GoTAdapter(getActivity());
+        adp = new GoTCharacterAdapter(getActivity());
         rv.setAdapter(adp);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);

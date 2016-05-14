@@ -23,7 +23,7 @@ import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.view.DetailView;
-import es.npatarino.android.gotchallenge.view.adapters.GoTAdapter;
+import es.npatarino.android.gotchallenge.view.adapters.GoTCharacterAdapter;
 
 /**
  * @author Antonio López.
@@ -34,7 +34,7 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
     private static final String TAG = "GoTListFragment";
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
-    private GoTAdapter adp;
+    private GoTCharacterAdapter adp;
     private GoTHouse house;
 
     @Inject
@@ -75,7 +75,7 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
 
     @Override
     public void initUi() {
-        adp = new GoTAdapter(getActivity());
+        adp = new GoTCharacterAdapter(getActivity());
         rv.setAdapter(adp);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
