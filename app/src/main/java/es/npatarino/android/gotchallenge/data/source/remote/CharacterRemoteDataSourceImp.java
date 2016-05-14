@@ -9,6 +9,7 @@ import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemot
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import rx.Observable;
 
 public class CharacterRemoteDataSourceImp implements CharacterRemoteDataSource {
 
@@ -35,29 +36,40 @@ public class CharacterRemoteDataSourceImp implements CharacterRemoteDataSource {
     }
 
     @Override
-    public GoTCharacter read(GoTCharacter entity) throws Exception {
-        List<GoTCharacter> characters = getList();
-        int index =  characters.indexOf(entity);
-        return index == -1? null :  characters.get(index);
-    }
+    public Observable<List<GoTCharacter>> getAll(){
+        return Observable.create(subscriber -> {
+            try {
+                StringBuffer response = getCharactersFromUrl(endPoint.toString());
 
-    @Override
-    public List<GoTCharacter> read(GoTHouse house) throws Exception {
-        List<GoTCharacter> characters = getList();
-        Iterator<GoTCharacter> iterator = characters.iterator();
-        while (iterator.hasNext()){
-            GoTCharacter character = iterator.next();
-            if (!character.getHouseId().equals(house.getHouseId())){
-                iterator.remove();
+                subscriber.onNext(characterJsonMapper.transformList(response.toString()));
+            } catch (Exception e) {
+                e.printStackTrace();
+                subscriber.onError(e);
             }
-        }
-        return characters;
+            subscriber.onCompleted();
+        });
+    }
+
+
+    @Override
+    public Observable<GoTCharacter> read(GoTCharacter entity){
+        return getAll().map(characters -> {
+            int index =  characters.indexOf(entity);
+            return index == -1? null :  characters.get(index);
+        });
     }
 
     @Override
-    public List<GoTCharacter> getList() throws Exception {
-        StringBuffer response = getCharactersFromUrl(endPoint.toString());
-
-        return characterJsonMapper.transformList(response.toString());
+    public Observable<List<GoTCharacter>> read(GoTHouse house){
+        return getAll().map(characters -> {
+            Iterator<GoTCharacter> iterator = characters.iterator();
+            while (iterator.hasNext()){
+                GoTCharacter character = iterator.next();
+                if (!character.getHouseId().equals(house.getHouseId())){
+                    iterator.remove();
+                }
+            }
+            return characters;
+        });
     }
 }

@@ -23,15 +23,7 @@ public class GotHouseRepositoryImp implements GotHouseRepository {
 
     @Override
     public Observable<List<GoTHouse>> getList() {
-        return Observable.create(subscriber -> {
-            try {
-                subscriber.onNext(remoteDataSource.getAll());
-            } catch (Exception e) {
-                e.printStackTrace();
-                subscriber.onError(e);
-            }
-            subscriber.onCompleted();
-        });
+        return remoteDataSource.getAll();
     }
 }
 

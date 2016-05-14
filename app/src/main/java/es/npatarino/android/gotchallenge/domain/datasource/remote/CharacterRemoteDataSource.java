@@ -4,9 +4,10 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import rx.Observable;
 
 public interface CharacterRemoteDataSource {
-    GoTCharacter read(GoTCharacter entity) throws Exception;
-    List<GoTCharacter> read(GoTHouse house) throws Exception;
-    List<GoTCharacter> getList() throws Exception;
+    Observable<GoTCharacter> read(GoTCharacter entity);
+    Observable<List<GoTCharacter>> read(GoTHouse house);
+    Observable<List<GoTCharacter>> getAll();
 }

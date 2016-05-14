@@ -54,13 +54,9 @@ public class GotCharacterRepositoryTest {
         repository = new GotCharacterRepositoryImp(remoteDataSource, localDataSource);
     }
 
-    private Observable<List<GoTCharacter>> getFakeObservableCharacters(){
-        return Observable.just(new ArrayList<>());
-    }
-
     @Test public void
     should_return_all_characters() throws Exception {
-        when(remoteDataSource.getList()).thenReturn(getCharacters(10));
+        when(remoteDataSource.getAll()).thenReturn(getCharactersObservable(10));
 
         repository.getList()
                 .subscribe(list -> assertThat(list.size(), is(10)), throwable -> fail());
@@ -69,7 +65,7 @@ public class GotCharacterRepositoryTest {
     @Test(expected = Exception.class)
     public void
     should_throw_an_exception_when_the_data_is_not_well() throws Exception {
-        when(remoteDataSource.getList()).thenThrow(new Exception());
+        when(remoteDataSource.getAll()).thenThrow(new Exception());
 
         repository.getList().toBlocking().single();
     }
@@ -81,7 +77,7 @@ public class GotCharacterRepositoryTest {
         house.setHouseId(STARK_ID);
         house.setHouseName(STARK_NAME);
 
-        when(remoteDataSource.read(house)).thenReturn(getCharacters(2));
+        when(remoteDataSource.read(house)).thenReturn(getCharactersObservable(2));
 
         repository.read(house)
                 .subscribe(list -> assertThat(list.size(), is(2)), throwable -> fail());
@@ -92,7 +88,7 @@ public class GotCharacterRepositoryTest {
     should_not_return_any_character_when_house_are_not() throws Exception {
         GoTHouse house = INVENTED_HOUSE;
 
-        when(remoteDataSource.read(house)).thenReturn(new ArrayList<GoTCharacter>());
+        when(remoteDataSource.read(house)).thenReturn(getEmptyHouseListObservable());
 
         repository.read(house)
                 .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
@@ -105,7 +101,7 @@ public class GotCharacterRepositoryTest {
         gotCharacter.setName(KHAL_DROGO_NAME);
         gotCharacter.setImageUrl(KHAL_DROGO_URL);
 
-        when(remoteDataSource.read(gotCharacter)).thenReturn(gotCharacter);
+        when(remoteDataSource.read(gotCharacter)).thenReturn(Observable.just(gotCharacter));
 
         repository.read(gotCharacter).subscribe(character -> {
             assertNotNull(character);
@@ -119,7 +115,7 @@ public class GotCharacterRepositoryTest {
     should_not_return_any_character() throws Exception {
         GoTCharacter gotCharacter = ANYONE;
 
-        when(remoteDataSource.read(gotCharacter)).thenReturn(null);
+        when(remoteDataSource.read(gotCharacter)).thenReturn(Observable.just(null));
 
         repository.read(gotCharacter).subscribe(Assert::assertNull, throwable -> fail());
     }
@@ -130,5 +126,13 @@ public class GotCharacterRepositoryTest {
             characters.add(new GoTCharacter());
         }
         return characters;
+    }
+
+    private Observable<List<GoTCharacter>> getCharactersObservable(int numCharacters){
+        return Observable.just(getCharacters(numCharacters));
+    }
+
+    private Observable<List<GoTCharacter>> getEmptyHouseListObservable(){
+        return Observable.just(new ArrayList<>());
     }
 }

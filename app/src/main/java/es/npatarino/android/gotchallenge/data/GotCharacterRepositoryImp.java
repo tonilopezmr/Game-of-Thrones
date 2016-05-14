@@ -24,44 +24,17 @@ public class GotCharacterRepositoryImp implements GotCharacterRepository {
 
     @Override
     public Observable<List<GoTCharacter>> getList(){
-        return Observable.create(subscriber -> {
-            try {
-                subscriber.onNext(remoteDataSource.getList());
-            } catch (Exception e) {
-                e.printStackTrace();
-                subscriber.onError(e);
-            }finally {
-                subscriber.onCompleted();
-            }
-        });
+        return remoteDataSource.getAll();
     }
 
     @Override
     public Observable<GoTCharacter> read(GoTCharacter entity){
-        return Observable.create(subscriber -> {
-            try {
-                subscriber.onNext(remoteDataSource.read(entity));
-            } catch (Exception e) {
-                e.printStackTrace();
-                subscriber.onError(e);
-            }finally {
-                subscriber.onCompleted();
-            }
-        });
+        return remoteDataSource.read(entity);
     }
 
     @Override
     public Observable<List<GoTCharacter>> read(GoTHouse house){
-        return Observable.create(subscriber -> {
-            try {
-                subscriber.onNext(remoteDataSource.read(house));
-            } catch (Exception e) {
-                e.printStackTrace();
-                subscriber.onError(e);
-            }finally {
-                subscriber.onCompleted();
-            }
-        });
+        return remoteDataSource.read(house);
     }
 
 }

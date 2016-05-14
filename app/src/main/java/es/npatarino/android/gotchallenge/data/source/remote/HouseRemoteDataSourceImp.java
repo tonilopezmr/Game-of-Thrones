@@ -7,6 +7,7 @@ import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
+import rx.Observable;
 
 public class HouseRemoteDataSourceImp implements HouseRemoteDataSource{
 
@@ -33,16 +34,19 @@ public class HouseRemoteDataSourceImp implements HouseRemoteDataSource{
         h.setHouseImageUrl(goTCharacter.getHouseImageUrl());
         return h;
     }
-    
+
     @Override
-    public List<GoTHouse> getAll() throws Exception{
-        List<GoTCharacter> characters = dataSource.getList();
-        ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
-        for (int i = 0, size = characters.size(); i < size; i++) {
-            GoTCharacter goTCharacter = characters.get(i);
-            GoTHouse goTHouse = getHouseFromCharacter(goTCharacter);
-            addHouseInList(goTHouse, hs);
-        }
-        return hs;
+    public Observable<List<GoTHouse>> getAll() {
+        return dataSource.getAll().map(characters -> {
+            ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
+            for (int i = 0, size = characters.size(); i < size; i++) {
+                GoTCharacter goTCharacter = characters.get(i);
+                GoTHouse goTHouse = getHouseFromCharacter(goTCharacter);
+                addHouseInList(goTHouse, hs);
+            }
+            return hs;
+        });
     }
+
+
 }

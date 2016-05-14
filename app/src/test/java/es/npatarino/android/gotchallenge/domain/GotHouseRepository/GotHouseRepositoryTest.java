@@ -14,6 +14,7 @@ import es.npatarino.android.gotchallenge.data.GotHouseRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.GoTHouse;
 import es.npatarino.android.gotchallenge.domain.datasource.local.HouseLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
+import rx.Observable;
 
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
@@ -41,7 +42,7 @@ public class GotHouseRepositoryTest {
 
     @Test public void
     should_not_return_any_house() throws Exception {
-        when(remoteDataSource.getAll()).thenReturn(new ArrayList<GoTHouse>());
+        when(remoteDataSource.getAll()).thenReturn(getEmptyHouseListObservable());
 
         repository.getList()
                 .subscribe(list -> Assert.assertThat(list.size(), Is.is(0)), throwable -> fail());
@@ -49,7 +50,7 @@ public class GotHouseRepositoryTest {
 
     @Test public void
     should_return_all_houses() throws Exception {
-        when(remoteDataSource.getAll()).thenReturn(getSevenHouses());
+        when(remoteDataSource.getAll()).thenReturn(getSevenHousesObservable());
 
         repository.getList()
                 .subscribe(list -> Assert.assertThat(list.size(), Is.is(7)), throwable -> fail());
@@ -61,5 +62,13 @@ public class GotHouseRepositoryTest {
             houses.add(new GoTHouse());
         }
         return houses;
+    }
+
+    private Observable<List<GoTHouse>> getSevenHousesObservable(){
+        return Observable.just(getSevenHouses());
+    }
+
+    private Observable<List<GoTHouse>> getEmptyHouseListObservable(){
+        return Observable.just(new ArrayList<>());
     }
 }
