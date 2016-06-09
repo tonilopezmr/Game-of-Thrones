@@ -1,6 +1,7 @@
 language: android
 env:
   global:
+    - JAVA8_HOME=/usr/lib/jvm/java-8-oracle
     - ADB_INSTALL_TIMEOUT=8 # 8 minutes (2 minutes by default)
 
 android:
