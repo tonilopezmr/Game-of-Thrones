@@ -1,7 +1,10 @@
 language: android
+
+jdk:
+ - oraclejdk8
+
 env:
   global:
-    - JAVA8_HOME=/usr/lib/jvm/java-8-oracle
     - ADB_INSTALL_TIMEOUT=8 # 8 minutes (2 minutes by default)
 
 android:
@@ -22,6 +25,3 @@ before_script:
   - adb shell settings put global transition_animation_scale 0 &
   - adb shell settings put global animator_duration_scale 0 &
   - adb shell input keyevent 82 &
-
-script:
-  - su -cn u:r:system_app:s0
