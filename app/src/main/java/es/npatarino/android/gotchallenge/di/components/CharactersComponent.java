@@ -7,30 +7,27 @@ import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
+import es.npatarino.android.gotchallenge.domain.Character;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
-import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
-import es.npatarino.android.gotchallenge.view.fragment.GoTListFragment;
-import es.npatarino.android.gotchallenge.view.fragment.GotCharacterListByHouseFragment;
+import es.npatarino.android.gotchallenge.presenter.CharacterListByHousePresenter;
+import es.npatarino.android.gotchallenge.view.fragment.CharacterListByHouseFragment;
+import es.npatarino.android.gotchallenge.view.fragment.ListFragment;
 
-/**
- * @author Antonio López.
- */
 @Activity
 @Component(dependencies = AppComponent.class, modules = {CharactersModule.class, ActivityModule.class})
 public interface CharactersComponent extends ActivityComponent{
 
-    void inject(GotCharacterListByHouseFragment fragment);
-    void inject(GoTListFragment fragment);
+    void inject(CharacterListByHouseFragment fragment);
+    void inject(ListFragment fragment);
 
 
     //UseCase
     GetCharactersByHouseUseCase charactersByHouseUseCase();
-    @Named("character") GetListUseCase<GoTCharacter> gotCharacterListUseCase();
+    @Named("character") GetListUseCase<Character> gotCharacterListUseCase();
 
     //Presenter
     CharacterListPresenter gotCharacterListPresenter();
-    GotCharacterListByHousePresenter gotCharacterListByHousePresenter();
+    CharacterListByHousePresenter gotCharacterListByHousePresenter();
 }

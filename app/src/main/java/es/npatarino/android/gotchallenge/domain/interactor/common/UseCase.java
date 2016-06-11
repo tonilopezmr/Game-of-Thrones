@@ -19,10 +19,6 @@ package es.npatarino.android.gotchallenge.domain.interactor.common;
 import rx.Observable;
 import rx.Scheduler;
 
-
-/**
- * @author Antonio López.
- */
 public abstract class UseCase<T> {
 
     protected final Scheduler uiThread;

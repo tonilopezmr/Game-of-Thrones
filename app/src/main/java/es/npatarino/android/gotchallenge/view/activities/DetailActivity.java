@@ -12,9 +12,9 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.House;
+import es.npatarino.android.gotchallenge.view.fragment.CharacterListByHouseFragment;
 import es.npatarino.android.gotchallenge.view.fragment.DescriptionFragment;
-import es.npatarino.android.gotchallenge.view.fragment.GotCharacterListByHouseFragment;
 
 /**
  * @author Antonio López.
@@ -94,11 +94,11 @@ public class DetailActivity extends AppCompatActivity{
 
     @NonNull
     private void initGotCharacterListByHouseFragment(String id, String name) {
-        GoTHouse house = new GoTHouse();
+        House house = new House();
         house.setHouseId(id);
         house.setHouseName(name);
 
-        GotCharacterListByHouseFragment characterFragment= new GotCharacterListByHouseFragment();
+        CharacterListByHouseFragment characterFragment= new CharacterListByHouseFragment();
         characterFragment.setHouse(house);
         attachFragment(characterFragment);
         transitionName = HOUSE_IMAGE;

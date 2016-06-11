@@ -16,9 +16,9 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.House;
+import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -31,10 +31,6 @@ import static es.npatarino.android.gotchallenge.matchers.ToolbarMatcher.onToolba
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
 import static org.mockito.Mockito.when;
-
-/**
- * @author Antonio López.
- */
 
 @RunWith(AndroidJUnit4.class) @LargeTest
 public class DetailActivityTest {
@@ -54,11 +50,12 @@ public class DetailActivityTest {
     @Rule public ActivityTestRule<DetailActivity> activityTestRule =
             new ActivityTestRule<>(DetailActivity.class,true, false);
 
-    @Mock GotCharacterRepository repository;
+    @Mock
+    CharacterRepository repository;
 
     @Test public void
     should_character_name_as_toolbar_tittle() throws Exception {
-        GoTCharacter character = TestUtils.defaultGotCharacter();
+        Character character = TestUtils.defaultGotCharacter();
 
         startActivity(character);
 
@@ -67,7 +64,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_display_description_when_is_character() throws Exception {
-        GoTCharacter character = TestUtils.defaultGotCharacter();
+        Character character = TestUtils.defaultGotCharacter();
 
         startActivity(character);
 
@@ -76,7 +73,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_display_name_when_is_character() throws Exception {
-        GoTCharacter character = TestUtils.defaultGotCharacter();
+        Character character = TestUtils.defaultGotCharacter();
 
         startActivity(character);
 
@@ -85,7 +82,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_does_not_show_loading_view_once_character_are_shown() throws Exception {
-        GoTHouse house = TestUtils.defaultGotHouse();
+        House house = TestUtils.defaultGotHouse();
         when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
@@ -95,7 +92,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_show_an_specific_number_of_characters() throws Exception{
-        GoTHouse house = TestUtils.defaultGotHouse();
+        House house = TestUtils.defaultGotHouse();
         when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
@@ -105,7 +102,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_display_list_when_is_house_with_characters() throws Exception {
-        GoTHouse house = TestUtils.defaultGotHouse();
+        House house = TestUtils.defaultGotHouse();
         when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
@@ -113,7 +110,7 @@ public class DetailActivityTest {
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()));
     }
     
-    private DetailActivity startActivity(GoTCharacter character) {
+    private DetailActivity startActivity(Character character) {
         Intent intent = new Intent();
         intent.putExtra(DetailActivity.DESCRIPTION, character.getDescription());
         intent.putExtra(DetailActivity.NAME, character.getName());
@@ -121,7 +118,7 @@ public class DetailActivityTest {
         return activityTestRule.launchActivity(intent);
     }
 
-    private DetailActivity startActivity(GoTHouse house){
+    private DetailActivity startActivity(House house){
         Intent intent = new Intent();
         intent.putExtra(DetailActivity.HOUSE_ID, house.getHouseId());
         intent.putExtra(DetailActivity.NAME, house.getHouseName());

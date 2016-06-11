@@ -6,17 +6,14 @@ import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase
 import es.npatarino.android.gotchallenge.view.ViewList;
 import rx.Subscription;
 
-/**
- * @author Antonio López.
- */
-public class GotListPresenterImp<T> implements ListPresenter<T> {
+public class ListPresenterImp<T> implements ListPresenter<T> {
 
     private ViewList<T> view;
     private GetListUseCase<T> listUseCase;
 
     private Subscription subscription;
 
-    public GotListPresenterImp(GetListUseCase<T> listUseCase) {
+    public ListPresenterImp(GetListUseCase<T> listUseCase) {
         this.listUseCase = listUseCase;
     }
 

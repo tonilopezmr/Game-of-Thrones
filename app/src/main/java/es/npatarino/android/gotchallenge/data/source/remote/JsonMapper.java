@@ -8,11 +8,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
+import es.npatarino.android.gotchallenge.domain.Character;
 
-/**
- * @author Antonio López.
- */
 public class JsonMapper {
 
     private final Gson gson;
@@ -21,8 +18,8 @@ public class JsonMapper {
         this.gson = gson;
     }
 
-    public List<GoTCharacter> transformList(String characterJsonList) throws JsonSyntaxException{
-        Type listType = new TypeToken<ArrayList<GoTCharacter>>() {}.getType();
+    public List<Character> transformList(String characterJsonList) throws JsonSyntaxException{
+        Type listType = new TypeToken<ArrayList<Character>>() {}.getType();
         return this.gson.fromJson(characterJsonList, listType);
     }
 }

@@ -1,18 +1,39 @@
 package es.npatarino.android.gotchallenge.domain;
 
-/**
- * @author Antonio López.
- */
-/**
- * Created by Nicolás Patarino on 21/02/16.
- */
-public class GoTHouse {
+public class Character {
 
+    private String name;
+    private String imageUrl;
+    private String description;
     private String houseImageUrl;
     private String houseName;
     private String houseId;
 
-    public GoTHouse() {
+    public Character() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getHouseImageUrl() {
@@ -44,13 +65,14 @@ public class GoTHouse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        GoTHouse house = (GoTHouse) o;
+        Character character = (Character) o;
 
-        return houseId != null ? houseId.equals(house.houseId) : house.houseId == null;
+        return name != null ? name.equals(character.name) : character.name == null;
+
     }
 
     @Override
     public int hashCode() {
-        return houseId.hashCode();
+        return name != null ? name.hashCode() : 0;
     }
 }

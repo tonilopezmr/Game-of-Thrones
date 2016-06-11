@@ -16,9 +16,6 @@
 
 package es.npatarino.android.gotchallenge.view;
 
-/**
- * @author Antonio López.
- */
 public interface DetailView<T> extends View {
     void show(T viewModel);
 }

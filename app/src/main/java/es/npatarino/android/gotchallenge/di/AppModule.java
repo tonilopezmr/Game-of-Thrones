@@ -7,14 +7,14 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.data.source.local.CharacterLocalDataSourceImp;
 import es.npatarino.android.gotchallenge.data.source.remote.CharacterRemoteDataSourceImp;
 import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
 import es.npatarino.android.gotchallenge.data.source.remote.JsonMapper;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
@@ -49,8 +49,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public GotCharacterRepository provideGotCharacterRepository(CharacterRemoteDataSource remoteDataSource, CharacterLocalDataSource localDataSource) {
-        return new GotCharacterRepositoryImp(remoteDataSource, localDataSource);
+    public CharacterRepository provideGotCharacterRepository(CharacterRemoteDataSource remoteDataSource, CharacterLocalDataSource localDataSource) {
+        return new CharacterRepositoryImp(remoteDataSource, localDataSource);
     }
 
     @Provides

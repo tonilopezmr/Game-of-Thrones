@@ -5,9 +5,6 @@ import android.os.Looper;
 
 import com.tonilopezmr.interactorexecutor.MainThread;
 
-/**
- * @author Antonio López.
- */
 public class MainThreadImp implements MainThread {
 
     private Handler handler;

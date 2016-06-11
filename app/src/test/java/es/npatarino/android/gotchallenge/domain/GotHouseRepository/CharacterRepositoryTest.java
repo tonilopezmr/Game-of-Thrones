@@ -9,12 +9,12 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import rx.Observable;
 
 import static org.hamcrest.core.Is.is;
@@ -24,26 +24,23 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
-/**
- * @author Antonio López.
- */
-public class GotCharacterRepositoryTest {
+public class CharacterRepositoryTest {
 
-    private static final GoTHouse STARK_HOUSE = new GoTHouse();
+    private static final House STARK_HOUSE = new House();
     private static final String STARK_ID = "f96537a9";
     private static final String STARK_NAME = "House Stark";
-    private static final GoTCharacter ANYONE = new GoTCharacter();
-    private static final GoTCharacter KHAL_DROGO = new GoTCharacter();
+    private static final Character ANYONE = new Character();
+    private static final Character KHAL_DROGO = new Character();
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
-    private static final GoTHouse INVENTED_HOUSE = new GoTHouse();
+    private static final House INVENTED_HOUSE = new House();
 
     @Mock
     CharacterRemoteDataSource remoteDataSource;
     @Mock
     CharacterLocalDataSource localDataSource;
 
-    GotCharacterRepository repository;
+    CharacterRepository repository;
 
     @Before
     public void setUp() throws Exception {
@@ -51,7 +48,7 @@ public class GotCharacterRepositoryTest {
         // inject the mocks in the test the initMocks method needs to be called.
         MockitoAnnotations.initMocks(this);
 
-        repository = new GotCharacterRepositoryImp(remoteDataSource, localDataSource);
+        repository = new CharacterRepositoryImp(remoteDataSource, localDataSource);
     }
 
     @Test public void
@@ -73,7 +70,7 @@ public class GotCharacterRepositoryTest {
     @Test
     public void
     should_return_characters_by_house() throws Exception {
-        GoTHouse house = STARK_HOUSE;
+        House house = STARK_HOUSE;
         house.setHouseId(STARK_ID);
         house.setHouseName(STARK_NAME);
 
@@ -86,7 +83,7 @@ public class GotCharacterRepositoryTest {
     @Test
     public void
     should_not_return_any_character_when_house_are_not() throws Exception {
-        GoTHouse house = INVENTED_HOUSE;
+        House house = INVENTED_HOUSE;
 
         when(remoteDataSource.read(house)).thenReturn(getEmptyHouseListObservable());
 
@@ -97,7 +94,7 @@ public class GotCharacterRepositoryTest {
     @Test
     public void
     should_return_character() throws Exception {
-        GoTCharacter gotCharacter = KHAL_DROGO;
+        Character gotCharacter = KHAL_DROGO;
         gotCharacter.setName(KHAL_DROGO_NAME);
         gotCharacter.setImageUrl(KHAL_DROGO_URL);
 
@@ -113,26 +110,26 @@ public class GotCharacterRepositoryTest {
     @Test
     public void
     should_not_return_any_character() throws Exception {
-        GoTCharacter gotCharacter = ANYONE;
+        Character gotCharacter = ANYONE;
 
         when(remoteDataSource.read(gotCharacter)).thenReturn(Observable.just(null));
 
         repository.read(gotCharacter).subscribe(Assert::assertNull, throwable -> fail());
     }
 
-    private List<GoTCharacter> getCharacters(int numCharacters){
-        List<GoTCharacter> characters = new ArrayList<>();
+    private List<Character> getCharacters(int numCharacters){
+        List<Character> characters = new ArrayList<>();
         for (int i = 0; i < numCharacters; i++){
-            characters.add(new GoTCharacter());
+            characters.add(new Character());
         }
         return characters;
     }
 
-    private Observable<List<GoTCharacter>> getCharactersObservable(int numCharacters){
+    private Observable<List<Character>> getCharactersObservable(int numCharacters){
         return Observable.just(getCharacters(numCharacters));
     }
 
-    private Observable<List<GoTCharacter>> getEmptyHouseListObservable(){
+    private Observable<List<Character>> getEmptyHouseListObservable(){
         return Observable.just(new ArrayList<>());
     }
 }

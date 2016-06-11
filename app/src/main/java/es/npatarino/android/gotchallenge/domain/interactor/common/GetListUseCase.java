@@ -22,9 +22,6 @@ import es.npatarino.android.gotchallenge.domain.repository.ListRepository;
 import rx.Observable;
 import rx.Scheduler;
 
-/**
- * @author Antonio López.
- */
 public class GetListUseCase<T> extends UseCase<List<T>>{
 
     protected final ListRepository<T> repository;

@@ -20,9 +20,6 @@ import java.util.List;
 
 import rx.Observable;
 
-/**
- * @author Antonio López.
- */
 public interface ListRepository<T> {
     Observable<List<T>> getList();
 }

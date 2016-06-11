@@ -13,9 +13,6 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static org.hamcrest.core.Is.is;
 
-/**
- * @author Antonio López.
- */
 public class ToolbarMatcher {
 
     public static ViewInteraction onToolbarWithTitle(CharSequence title){

@@ -2,23 +2,20 @@ package es.npatarino.android.gotchallenge.presenter;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.view.DetailView;
 import rx.Subscription;
 
-/**
- * @author Antonio López.
- */
-public class GotCharacterListByHousePresenterImp implements GotCharacterListByHousePresenter {
+public class CharacterListByHousePresenterImp implements CharacterListByHousePresenter {
 
-    private DetailView<List<GoTCharacter>> view;
+    private DetailView<List<Character>> view;
     private GetCharactersByHouseUseCase useCase;
 
     private Subscription charactersSubscription;
 
-    public GotCharacterListByHousePresenterImp(GetCharactersByHouseUseCase useCase) {
+    public CharacterListByHousePresenterImp(GetCharactersByHouseUseCase useCase) {
         this.useCase = useCase;
     }
 
@@ -28,7 +25,7 @@ public class GotCharacterListByHousePresenterImp implements GotCharacterListByHo
     }
 
     @Override
-    public void setView(DetailView<List<GoTCharacter>> view) {
+    public void setView(DetailView<List<Character>> view) {
         if (view == null) new IllegalArgumentException("oh my god... you are **");
         this.view = view;
     }
@@ -39,17 +36,17 @@ public class GotCharacterListByHousePresenterImp implements GotCharacterListByHo
     }
 
     @Override
-    public void init(GoTHouse viewModel) {
+    public void init(House viewModel) {
         init();
         askForCharacters(viewModel);
     }
 
-    private void askForCharacters(GoTHouse viewModel) {
+    private void askForCharacters(House viewModel) {
         charactersSubscription = useCase.execute(viewModel)
                 .subscribe(this::onCharactersReceived, this::onError);
     }
 
-    private void onCharactersReceived(List<GoTCharacter> characters){
+    private void onCharactersReceived(List<Character> characters){
         view.show(characters);
     }
 

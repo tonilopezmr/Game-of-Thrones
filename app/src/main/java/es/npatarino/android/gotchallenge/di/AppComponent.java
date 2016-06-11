@@ -8,7 +8,7 @@ import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
 import es.npatarino.android.gotchallenge.data.source.remote.JsonMapper;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;
 
@@ -19,7 +19,7 @@ import rx.Scheduler;
 public interface AppComponent {
 
     //repository for DaggerMock limitations
-    GotCharacterRepository gotCharacterRepository();
+    CharacterRepository gotCharacterRepository();
 
     JsonMapper gotCharacterJsonMapper();
 

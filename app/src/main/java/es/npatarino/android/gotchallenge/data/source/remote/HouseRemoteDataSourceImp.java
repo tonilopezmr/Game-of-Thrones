@@ -3,8 +3,8 @@ package es.npatarino.android.gotchallenge.data.source.remote;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
 import rx.Observable;
@@ -17,32 +17,32 @@ public class HouseRemoteDataSourceImp implements HouseRemoteDataSource{
         this.dataSource = dataSource;
     }
 
-    private void addHouseInList(GoTHouse goTHouse, ArrayList<GoTHouse> hs) {
-        if (isValidHouse(goTHouse) && !hs.contains(goTHouse)) {
-            hs.add(goTHouse);
+    private void addHouseInList(House house, ArrayList<House> hs) {
+        if (isValidHouse(house) && !hs.contains(house)) {
+            hs.add(house);
         }
     }
 
-    private boolean isValidHouse(GoTHouse house) {
+    private boolean isValidHouse(House house) {
         return house.getHouseId() != null && !house.getHouseId().isEmpty();
     }
 
-    private GoTHouse getHouseFromCharacter(GoTCharacter goTCharacter) {
-        GoTHouse h = new GoTHouse();
-        h.setHouseId(goTCharacter.getHouseId());
-        h.setHouseName(goTCharacter.getHouseName());
-        h.setHouseImageUrl(goTCharacter.getHouseImageUrl());
+    private House getHouseFromCharacter(Character character) {
+        House h = new House();
+        h.setHouseId(character.getHouseId());
+        h.setHouseName(character.getHouseName());
+        h.setHouseImageUrl(character.getHouseImageUrl());
         return h;
     }
 
     @Override
-    public Observable<List<GoTHouse>> getAll() {
+    public Observable<List<House>> getAll() {
         return dataSource.getAll().map(characters -> {
-            ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
+            ArrayList<House> hs = new ArrayList<House>();
             for (int i = 0, size = characters.size(); i < size; i++) {
-                GoTCharacter goTCharacter = characters.get(i);
-                GoTHouse goTHouse = getHouseFromCharacter(goTCharacter);
-                addHouseInList(goTHouse, hs);
+                Character character = characters.get(i);
+                House house = getHouseFromCharacter(character);
+                addHouseInList(house, hs);
             }
             return hs;
         });

@@ -9,9 +9,6 @@ import android.widget.TextView;
 
 import es.npatarino.android.gotchallenge.R;
 
-/**
- * @author Antonio López.
- */
 public class DescriptionFragment extends Fragment {
 
     private String name;

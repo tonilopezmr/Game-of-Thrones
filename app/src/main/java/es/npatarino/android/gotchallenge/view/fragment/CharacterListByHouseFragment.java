@@ -19,29 +19,25 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.di.components.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.GoTHouse;
-import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
+import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.House;
+import es.npatarino.android.gotchallenge.presenter.CharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.view.DetailView;
-import es.npatarino.android.gotchallenge.view.adapters.GoTCharacterAdapter;
+import es.npatarino.android.gotchallenge.view.adapters.CharacterAdapter;
 
-/**
- * @author Antonio López.
- */
-
-public class GotCharacterListByHouseFragment extends Fragment implements DetailView<List<GoTCharacter>> {
+public class CharacterListByHouseFragment extends Fragment implements DetailView<List<Character>> {
 
     private static final String TAG = "GoTListFragment";
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
-    private GoTCharacterAdapter adp;
-    private GoTHouse house;
+    private CharacterAdapter adp;
+    private House house;
 
     @Inject
-    GotCharacterListByHousePresenter gotCharacterListByHousePresenter;
+    CharacterListByHousePresenter characterListByHousePresenter;
 
 
-    public GotCharacterListByHouseFragment() {
+    public CharacterListByHouseFragment() {
     }
 
     @Override
@@ -54,8 +50,8 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
 
         initUi();
 
-        gotCharacterListByHousePresenter.setView(this);
-        gotCharacterListByHousePresenter.init(house);
+        characterListByHousePresenter.setView(this);
+        characterListByHousePresenter.init(house);
         return rootView;
     }
 
@@ -68,14 +64,14 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
                 .build().inject(this);
     }
 
-    public void setHouse(GoTHouse house) {
+    public void setHouse(House house) {
         this.house = house;
     }
 
 
     @Override
     public void initUi() {
-        adp = new GoTCharacterAdapter(getActivity());
+        adp = new CharacterAdapter(getActivity());
         rv.setAdapter(adp);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
@@ -87,7 +83,7 @@ public class GotCharacterListByHouseFragment extends Fragment implements DetailV
     }
 
     @Override
-    public void show(List<GoTCharacter> list) {
+    public void show(List<Character> list) {
         adp.addAll(list);
         adp.notifyDataSetChanged();
         pb.hide();

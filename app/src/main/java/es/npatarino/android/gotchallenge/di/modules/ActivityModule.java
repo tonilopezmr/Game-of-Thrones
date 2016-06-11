@@ -6,9 +6,6 @@ import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.di.Activity;
 
-/**
- * @author Antonio López.
- */
 @Module public class ActivityModule {
     private final Context mContext;
 

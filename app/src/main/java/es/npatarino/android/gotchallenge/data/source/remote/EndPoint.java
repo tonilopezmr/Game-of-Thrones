@@ -1,8 +1,5 @@
 package es.npatarino.android.gotchallenge.data.source.remote;
 
-/**
- * @author Antonio López.
- */
 public class EndPoint {
 
     private String endPoint;

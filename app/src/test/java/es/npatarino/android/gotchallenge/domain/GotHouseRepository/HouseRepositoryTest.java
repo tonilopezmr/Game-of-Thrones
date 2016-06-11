@@ -10,8 +10,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.data.GotHouseRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.GoTHouse;
+import es.npatarino.android.gotchallenge.data.HouseRepositoryImp;
+import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.local.HouseLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
 import rx.Observable;
@@ -19,17 +19,14 @@ import rx.Observable;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
-/**
- * @author Antonio López.
- */
-public class GotHouseRepositoryTest {
+public class HouseRepositoryTest {
 
     @Mock
     HouseRemoteDataSource remoteDataSource;
     @Mock
     HouseLocalDataSource localDataSource;
 
-    GotHouseRepositoryImp repository;
+    HouseRepositoryImp repository;
 
     @Before
     public void setUp() throws Exception {
@@ -37,7 +34,7 @@ public class GotHouseRepositoryTest {
         // inject the mocks in the test the initMocks method needs to be called.
         MockitoAnnotations.initMocks(this);
 
-        repository = new GotHouseRepositoryImp(remoteDataSource, localDataSource);
+        repository = new HouseRepositoryImp(remoteDataSource, localDataSource);
     }
 
     @Test public void
@@ -56,19 +53,19 @@ public class GotHouseRepositoryTest {
                 .subscribe(list -> Assert.assertThat(list.size(), Is.is(7)), throwable -> fail());
     }
 
-    private List<GoTHouse> getSevenHouses(){
-        List<GoTHouse> houses = new ArrayList<>();
+    private List<House> getSevenHouses(){
+        List<House> houses = new ArrayList<>();
         for (int i = 0; i < 7; i++){
-            houses.add(new GoTHouse());
+            houses.add(new House());
         }
         return houses;
     }
 
-    private Observable<List<GoTHouse>> getSevenHousesObservable(){
+    private Observable<List<House>> getSevenHousesObservable(){
         return Observable.just(getSevenHouses());
     }
 
-    private Observable<List<GoTHouse>> getEmptyHouseListObservable(){
+    private Observable<List<House>> getEmptyHouseListObservable(){
         return Observable.just(new ArrayList<>());
     }
 }

@@ -17,10 +17,10 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.data.GotCharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
+import es.npatarino.android.gotchallenge.domain.Character;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 import rx.Observable;
 
@@ -31,9 +31,6 @@ import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.mockito.Mockito.when;
 
-/**
- * @author Antonio López.
- */
 @RunWith(AndroidJUnit4.class) @LargeTest
 public class HomeActivityTest {
 
@@ -53,7 +50,8 @@ public class HomeActivityTest {
     public ActivityTestRule<HomeActivity> activityTestRule =
             new ActivityTestRule<>(HomeActivity.class,true, false);
 
-    @Mock GotCharacterRepositoryImp repository;
+    @Mock
+    CharacterRepositoryImp repository;
 
     @Test public void
     should_show_data_in_characters_and_houses_recyclerview() throws Exception {
@@ -66,9 +64,9 @@ public class HomeActivityTest {
 
     @Test public void
     should_does_not_show_loading_view_once_character_are_shown() throws Exception {
-        when(repository.getList()).thenAnswer(new Answer<Observable<List<GoTCharacter>>>() {
+        when(repository.getList()).thenAnswer(new Answer<Observable<List<Character>>>() {
             @Override
-            public Observable<List<GoTCharacter>> answer(InvocationOnMock invocation) throws Throwable {
+            public Observable<List<Character>> answer(InvocationOnMock invocation) throws Throwable {
                 Thread.sleep(2000);
                 return TestUtils.getCharacters(NUMBER_OF_CHARACTERS);
             }

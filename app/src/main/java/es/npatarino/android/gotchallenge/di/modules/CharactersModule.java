@@ -5,19 +5,16 @@ import javax.inject.Named;
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.di.Activity;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
+import es.npatarino.android.gotchallenge.domain.Character;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
-import es.npatarino.android.gotchallenge.domain.repository.GotCharacterRepository;
+import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.presenter.CharacterListPresenterImp;
-import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenter;
-import es.npatarino.android.gotchallenge.presenter.GotCharacterListByHousePresenterImp;
+import es.npatarino.android.gotchallenge.presenter.CharacterListByHousePresenter;
+import es.npatarino.android.gotchallenge.presenter.CharacterListByHousePresenterImp;
 import rx.Scheduler;
 
-/**
- * @author Antonio López.
- */
 
 @Module
 public class CharactersModule {
@@ -27,28 +24,28 @@ public class CharactersModule {
     @Activity
     public GetCharactersByHouseUseCase provideCharactersByHouseUseCase(@Named("executorThread") Scheduler executor,
                                                                        @Named("mainThread") Scheduler uiThread,
-                                                                       GotCharacterRepository repository){
+                                                                       CharacterRepository repository){
         return new GetCharactersByHouseUseCase(repository, uiThread, executor);
     }
 
     @Provides
     @Activity
     @Named("character")
-    public GetListUseCase<GoTCharacter> provideGotCharacterListUseCase(@Named("executorThread") Scheduler executor,
-                                                                       @Named("mainThread") Scheduler uiThread,
-                                                                       GotCharacterRepository repository){
+    public GetListUseCase<Character> provideGotCharacterListUseCase(@Named("executorThread") Scheduler executor,
+                                                                    @Named("mainThread") Scheduler uiThread,
+                                                                    CharacterRepository repository){
         return new GetListUseCase<>(repository, uiThread, executor);
     }
 
     @Provides
     @Activity
-    public CharacterListPresenter provideGotCharacterListPresenter(@Named("character")GetListUseCase<GoTCharacter> characterGetListUseCase){
+    public CharacterListPresenter provideGotCharacterListPresenter(@Named("character")GetListUseCase<Character> characterGetListUseCase){
         return new CharacterListPresenterImp(characterGetListUseCase);
     }
 
     @Provides
     @Activity
-    public GotCharacterListByHousePresenter provideGotCharacterListByHousePresenter(GetCharactersByHouseUseCase useCase){
-        return new GotCharacterListByHousePresenterImp(useCase);
+    public CharacterListByHousePresenter provideGotCharacterListByHousePresenter(GetCharactersByHouseUseCase useCase){
+        return new CharacterListByHousePresenterImp(useCase);
     }
 }
