@@ -9,6 +9,8 @@ You can follow the commits flow to see how I refactoring.
 
 ![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]  
 
+Thanks to [Guillermo López][0]
+
 # License
 
 ```
@@ -29,3 +31,4 @@ limitations under the License.
 [ScreenshotListHouses]: ./art/ScreenshotListHouses.png
 [ScreenshotDetail]: ./art/ScreenshotDetail.png
 [GameOfThronesLink]: http://www.imdb.com/title/tt0944947/
+[0]: https://github.com/lopermo
