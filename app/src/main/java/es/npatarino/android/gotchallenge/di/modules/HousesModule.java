@@ -1,26 +1,21 @@
 package es.npatarino.android.gotchallenge.di.modules;
 
-import com.google.gson.Gson;
-
 import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.data.HouseRepositoryImp;
 import es.npatarino.android.gotchallenge.data.source.local.HouseLocalDataSourceImp;
-import es.npatarino.android.gotchallenge.data.source.remote.CharacterRemoteDataSourceImp;
-import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
 import es.npatarino.android.gotchallenge.data.source.remote.HouseRemoteDataSourceImp;
-import es.npatarino.android.gotchallenge.data.source.remote.JsonMapper;
 import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.local.HouseLocalDataSource;
+import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.repository.HouseRepository;
 import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.presenter.HouseListPresenterImp;
-import okhttp3.OkHttpClient;
 import rx.Scheduler;
 
 @Module public class HousesModule {
@@ -33,8 +28,8 @@ import rx.Scheduler;
 
     @Provides
     @Activity
-    public HouseRemoteDataSource provideHouseRemoteDataSource(OkHttpClient okHttpClient, EndPoint endPoint){
-        return new HouseRemoteDataSourceImp(new CharacterRemoteDataSourceImp(new JsonMapper(new Gson()), endPoint, okHttpClient));
+    public HouseRemoteDataSource provideHouseRemoteDataSource(CharacterRemoteDataSource characterRemoteDataSource){
+        return new HouseRemoteDataSourceImp(characterRemoteDataSource);
     }
 
     @Provides
