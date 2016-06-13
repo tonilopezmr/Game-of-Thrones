@@ -33,6 +33,25 @@ public class TestUtils {
         return Observable.just(characters);
     }
 
+    public static Observable<List<Character>>  getDelayedCharacters(int numberOfGotCharacters) throws Exception {
+        return Observable.create(subscriber -> {
+            List<Character> characters = new LinkedList<>();
+            for (int i = 0; i < numberOfGotCharacters; i++){
+                characters.add(defaultGotCharacter());
+            }
+            try {
+                Thread.sleep(4000);
+
+                subscriber.onNext(characters);
+                subscriber.onCompleted();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                subscriber.onError(e);
+            }
+        });
+    }
+
+
     public static Character defaultGotCharacter(){
         Character gotCharacter = KHAL_DROGO;
         gotCharacter.setName(KHAL_DROGO_NAME);

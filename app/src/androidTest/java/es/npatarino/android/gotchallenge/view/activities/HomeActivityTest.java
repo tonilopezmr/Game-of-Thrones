@@ -9,20 +9,14 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-
-import java.util.List;
 
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
-import rx.Observable;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -51,7 +45,7 @@ public class HomeActivityTest {
             new ActivityTestRule<>(HomeActivity.class,true, false);
 
     @Mock
-    CharacterRepositoryImp repository;
+    CharacterRepository repository;
 
     @Test public void
     should_show_data_in_characters_and_houses_recyclerview() throws Exception {
@@ -64,13 +58,7 @@ public class HomeActivityTest {
 
     @Test public void
     should_does_not_show_loading_view_once_character_are_shown() throws Exception {
-        when(repository.getList()).thenAnswer(new Answer<Observable<List<Character>>>() {
-            @Override
-            public Observable<List<Character>> answer(InvocationOnMock invocation) throws Throwable {
-                Thread.sleep(2000);
-                return TestUtils.getCharacters(NUMBER_OF_CHARACTERS);
-            }
-        });
+        when(repository.getList()).thenAnswer(invocation -> TestUtils.getDelayedCharacters(NUMBER_OF_CHARACTERS));
 
         activityTestRule.launchActivity(null);
 
