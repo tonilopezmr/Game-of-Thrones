@@ -21,17 +21,46 @@ public class CharacterRepositoryImp implements CharacterRepository {
 
     @Override
     public Observable<List<GoTCharacter>> getList(){
-        return remoteDataSource.getAll();
+        Observable<List<GoTCharacter>> observable;
+
+        if (localDataSource.isExpired()){
+            observable = remoteDataSource.getAll()
+                    .doOnNext(goTCharacters -> {
+                        localDataSource.removeAll(goTCharacters);
+                        localDataSource.save(goTCharacters);
+                    })
+                    .retry((attempts, error) -> error instanceof Exception && attempts < 2);
+        }else {
+            observable = localDataSource.getAll();
+        }
+
+        return observable;
     }
 
     @Override
     public Observable<GoTCharacter> read(GoTCharacter entity){
-        return remoteDataSource.read(entity);
+        Observable<GoTCharacter> observable;
+
+        if (localDataSource.isExpired()){
+            observable = remoteDataSource.read(entity);
+        }else {
+            observable = localDataSource.read(entity);
+        }
+
+        return observable;
     }
 
     @Override
     public Observable<List<GoTCharacter>> read(House house){
-        return remoteDataSource.read(house);
+        Observable<List<GoTCharacter>> observable;
+
+        if (localDataSource.isExpired()){
+            observable = remoteDataSource.read(house);
+        }else {
+            observable = localDataSource.read(house);
+        }
+
+        return observable;
     }
 
 }
