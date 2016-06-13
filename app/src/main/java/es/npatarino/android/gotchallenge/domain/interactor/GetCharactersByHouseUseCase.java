@@ -2,14 +2,14 @@ package es.npatarino.android.gotchallenge.domain.interactor;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.interactor.common.UseCase;
 import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import rx.Observable;
 import rx.Scheduler;
 
-public class GetCharactersByHouseUseCase extends UseCase<List<Character>> {
+public class GetCharactersByHouseUseCase extends UseCase<List<GoTCharacter>> {
 
     private final CharacterRepository repository;
     private House house;
@@ -21,13 +21,13 @@ public class GetCharactersByHouseUseCase extends UseCase<List<Character>> {
         this.repository = repository;
     }
 
-    public Observable<List<Character>> execute(House house) {
+    public Observable<List<GoTCharacter>> execute(House house) {
         this.house = house;
         return buildUseCaseObservable();
     }
 
     @Override
-    protected Observable<List<Character>> buildUseCaseObservable() {
+    protected Observable<List<GoTCharacter>> buildUseCaseObservable() {
         return repository.read(house)
                 .observeOn(uiThread)
                 .subscribeOn(executorThread);

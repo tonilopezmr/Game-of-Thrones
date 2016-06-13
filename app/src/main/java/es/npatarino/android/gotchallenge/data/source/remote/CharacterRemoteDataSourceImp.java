@@ -3,7 +3,7 @@ package es.npatarino.android.gotchallenge.data.source.remote;
 import java.util.Iterator;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import okhttp3.OkHttpClient;
@@ -36,7 +36,7 @@ public class CharacterRemoteDataSourceImp implements CharacterRemoteDataSource {
     }
 
     @Override
-    public Observable<List<Character>> getAll(){
+    public Observable<List<GoTCharacter>> getAll(){
         return Observable.create(subscriber -> {
             try {
                 StringBuffer response = getCharactersFromUrl(endPoint.toString());
@@ -52,7 +52,7 @@ public class CharacterRemoteDataSourceImp implements CharacterRemoteDataSource {
 
 
     @Override
-    public Observable<Character> read(Character entity){
+    public Observable<GoTCharacter> read(GoTCharacter entity){
         return getAll().map(characters -> {
             int index =  characters.indexOf(entity);
             return index == -1? null :  characters.get(index);
@@ -60,11 +60,11 @@ public class CharacterRemoteDataSourceImp implements CharacterRemoteDataSource {
     }
 
     @Override
-    public Observable<List<Character>> read(House house){
+    public Observable<List<GoTCharacter>> read(House house){
         return getAll().map(characters -> {
-            Iterator<Character> iterator = characters.iterator();
+            Iterator<GoTCharacter> iterator = characters.iterator();
             while (iterator.hasNext()){
-                Character character = iterator.next();
+                GoTCharacter character = iterator.next();
                 if (!character.getHouseId().equals(house.getHouseId())){
                     iterator.remove();
                 }

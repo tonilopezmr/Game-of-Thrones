@@ -5,7 +5,7 @@ import javax.inject.Named;
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.di.Activity;
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
@@ -31,15 +31,15 @@ public class CharactersModule {
     @Provides
     @Activity
     @Named("character")
-    public GetListUseCase<Character> provideGotCharacterListUseCase(@Named("executorThread") Scheduler executor,
-                                                                    @Named("mainThread") Scheduler uiThread,
-                                                                    CharacterRepository repository){
+    public GetListUseCase<GoTCharacter> provideGotCharacterListUseCase(@Named("executorThread") Scheduler executor,
+                                                                       @Named("mainThread") Scheduler uiThread,
+                                                                       CharacterRepository repository){
         return new GetListUseCase<>(repository, uiThread, executor);
     }
 
     @Provides
     @Activity
-    public CharacterListPresenter provideGotCharacterListPresenter(@Named("character")GetListUseCase<Character> characterGetListUseCase){
+    public CharacterListPresenter provideGotCharacterListPresenter(@Named("character")GetListUseCase<GoTCharacter> characterGetListUseCase){
         return new CharacterListPresenterImp(characterGetListUseCase);
     }
 

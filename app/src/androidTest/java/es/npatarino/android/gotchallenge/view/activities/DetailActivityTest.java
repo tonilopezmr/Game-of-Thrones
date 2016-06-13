@@ -16,7 +16,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
@@ -55,7 +55,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_character_name_as_toolbar_tittle() throws Exception {
-        Character character = TestUtils.defaultGotCharacter();
+        GoTCharacter character = TestUtils.defaultGotCharacter();
 
         startActivity(character);
 
@@ -64,7 +64,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_display_description_when_is_character() throws Exception {
-        Character character = TestUtils.defaultGotCharacter();
+        GoTCharacter character = TestUtils.defaultGotCharacter();
 
         startActivity(character);
 
@@ -73,7 +73,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_display_name_when_is_character() throws Exception {
-        Character character = TestUtils.defaultGotCharacter();
+        GoTCharacter character = TestUtils.defaultGotCharacter();
 
         startActivity(character);
 
@@ -110,7 +110,7 @@ public class DetailActivityTest {
         onView(withId(R.id.recycler_view)).check(matches(isDisplayed()));
     }
     
-    private DetailActivity startActivity(Character character) {
+    private DetailActivity startActivity(GoTCharacter character) {
         Intent intent = new Intent();
         intent.putExtra(DetailActivity.DESCRIPTION, character.getDescription());
         intent.putExtra(DetailActivity.NAME, character.getName());

@@ -1,6 +1,6 @@
 package es.npatarino.android.gotchallenge.domain;
 
-public class Character {
+public class GoTCharacter {
 
     private String name;
     private String imageUrl;
@@ -9,7 +9,7 @@ public class Character {
     private String houseName;
     private String houseId;
 
-    public Character() {
+    public GoTCharacter() {
     }
 
     public String getName() {
@@ -65,7 +65,7 @@ public class Character {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Character character = (Character) o;
+        GoTCharacter character = (GoTCharacter) o;
 
         return name != null ? name.equals(character.name) : character.name == null;
 

@@ -16,9 +16,6 @@ import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.view.fragment.CharacterListByHouseFragment;
 import es.npatarino.android.gotchallenge.view.fragment.DescriptionFragment;
 
-/**
- * @author Antonio López.
- */
 public class DetailActivity extends AppCompatActivity{
 
     private static final String TAG = "DetailActivity";

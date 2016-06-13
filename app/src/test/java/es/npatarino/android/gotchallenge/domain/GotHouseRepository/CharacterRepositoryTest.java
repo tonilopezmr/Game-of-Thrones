@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
@@ -29,8 +29,8 @@ public class CharacterRepositoryTest {
     private static final House STARK_HOUSE = new House();
     private static final String STARK_ID = "f96537a9";
     private static final String STARK_NAME = "House Stark";
-    private static final Character ANYONE = new Character();
-    private static final Character KHAL_DROGO = new Character();
+    private static final GoTCharacter ANYONE = new GoTCharacter();
+    private static final GoTCharacter KHAL_DROGO = new GoTCharacter();
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
     private static final House INVENTED_HOUSE = new House();
@@ -94,7 +94,7 @@ public class CharacterRepositoryTest {
     @Test
     public void
     should_return_character() throws Exception {
-        Character gotCharacter = KHAL_DROGO;
+        GoTCharacter gotCharacter = KHAL_DROGO;
         gotCharacter.setName(KHAL_DROGO_NAME);
         gotCharacter.setImageUrl(KHAL_DROGO_URL);
 
@@ -110,26 +110,26 @@ public class CharacterRepositoryTest {
     @Test
     public void
     should_not_return_any_character() throws Exception {
-        Character gotCharacter = ANYONE;
+        GoTCharacter gotCharacter = ANYONE;
 
         when(remoteDataSource.read(gotCharacter)).thenReturn(Observable.just(null));
 
         repository.read(gotCharacter).subscribe(Assert::assertNull, throwable -> fail());
     }
 
-    private List<Character> getCharacters(int numCharacters){
-        List<Character> characters = new ArrayList<>();
+    private List<GoTCharacter> getCharacters(int numCharacters){
+        List<GoTCharacter> characters = new ArrayList<>();
         for (int i = 0; i < numCharacters; i++){
-            characters.add(new Character());
+            characters.add(new GoTCharacter());
         }
         return characters;
     }
 
-    private Observable<List<Character>> getCharactersObservable(int numCharacters){
+    private Observable<List<GoTCharacter>> getCharactersObservable(int numCharacters){
         return Observable.just(getCharacters(numCharacters));
     }
 
-    private Observable<List<Character>> getEmptyHouseListObservable(){
+    private Observable<List<GoTCharacter>> getEmptyHouseListObservable(){
         return Observable.just(new ArrayList<>());
     }
 }

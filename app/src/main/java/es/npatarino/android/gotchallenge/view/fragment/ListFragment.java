@@ -19,7 +19,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.di.components.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
 import es.npatarino.android.gotchallenge.view.adapters.CharacterAdapter;
@@ -27,7 +27,7 @@ import es.npatarino.android.gotchallenge.view.adapters.CharacterAdapter;
 /**
  * @author Antonio López.
  */
-public class ListFragment extends Fragment implements ViewList<Character> {
+public class ListFragment extends Fragment implements ViewList<GoTCharacter> {
 
     private static final String TAG = "GoTListFragment";
     private RecyclerView rv;
@@ -66,7 +66,7 @@ public class ListFragment extends Fragment implements ViewList<Character> {
     }
 
     @Override
-    public void showList(List<Character> list) {
+    public void showList(List<GoTCharacter> list) {
         adp.addAll(list);
         adp.notifyDataSetChanged();
         pb.hide();

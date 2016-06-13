@@ -18,12 +18,12 @@ import java.util.Collection;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.view.activities.DetailActivity;
 
 public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<Character> gcs;
+    private final List<GoTCharacter> gcs;
     private Activity activity;
 
     public CharacterAdapter(Activity activity) {
@@ -31,9 +31,9 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.activity = activity;
     }
 
-    public void addAll(Collection<Character> collection) {
+    public void addAll(Collection<GoTCharacter> collection) {
         for (int i = 0; i < collection.size(); i++) {
-            gcs.add((Character) collection.toArray()[i]);
+            gcs.add((GoTCharacter) collection.toArray()[i]);
         }
     }
 
@@ -45,7 +45,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
-        final Character character = gcs.get(position);
+        final GoTCharacter character = gcs.get(position);
         gotCharacterViewHolder.render(character);
         final GotCharacterViewHolder viewHolder =((GotCharacterViewHolder) holder);
         viewHolder.imp.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +56,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         });
     }
 
-    private void moveToDetailActivity(GotCharacterViewHolder viewHolder, Character character){
+    private void moveToDetailActivity(GotCharacterViewHolder viewHolder, GoTCharacter character){
         ActivityOptionsCompat options =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, DetailActivity.CHARACTER_IMAGE);
 
@@ -84,7 +84,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             tvn = (TextView) itemView.findViewById(R.id.tv_name);
         }
 
-        public void render(final Character character) {
+        public void render(final GoTCharacter character) {
             Picasso.with(imp.getContext())
                     .load(character.getImageUrl())
                     .fit()

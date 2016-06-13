@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.presenter;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.view.DetailView;
@@ -10,7 +10,7 @@ import rx.Subscription;
 
 public class CharacterListByHousePresenterImp implements CharacterListByHousePresenter {
 
-    private DetailView<List<Character>> view;
+    private DetailView<List<GoTCharacter>> view;
     private GetCharactersByHouseUseCase useCase;
 
     private Subscription charactersSubscription;
@@ -25,7 +25,7 @@ public class CharacterListByHousePresenterImp implements CharacterListByHousePre
     }
 
     @Override
-    public void setView(DetailView<List<Character>> view) {
+    public void setView(DetailView<List<GoTCharacter>> view) {
         if (view == null) new IllegalArgumentException("oh my god... you are **");
         this.view = view;
     }
@@ -46,7 +46,7 @@ public class CharacterListByHousePresenterImp implements CharacterListByHousePre
                 .subscribe(this::onCharactersReceived, this::onError);
     }
 
-    private void onCharactersReceived(List<Character> characters){
+    private void onCharactersReceived(List<GoTCharacter> characters){
         view.show(characters);
     }
 

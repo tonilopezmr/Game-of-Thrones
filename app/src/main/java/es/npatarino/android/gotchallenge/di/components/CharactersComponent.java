@@ -7,7 +7,7 @@ import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
 import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
@@ -25,7 +25,7 @@ public interface CharactersComponent extends ActivityComponent{
 
     //UseCase
     GetCharactersByHouseUseCase charactersByHouseUseCase();
-    @Named("character") GetListUseCase<Character> gotCharacterListUseCase();
+    @Named("character") GetListUseCase<GoTCharacter> gotCharacterListUseCase();
 
     //Presenter
     CharacterListPresenter gotCharacterListPresenter();

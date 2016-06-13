@@ -3,7 +3,7 @@ package es.npatarino.android.gotchallenge.data.source.remote;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
@@ -27,7 +27,7 @@ public class HouseRemoteDataSourceImp implements HouseRemoteDataSource{
         return house.getHouseId() != null && !house.getHouseId().isEmpty();
     }
 
-    private House getHouseFromCharacter(Character character) {
+    private House getHouseFromCharacter(GoTCharacter character) {
         House h = new House();
         h.setHouseId(character.getHouseId());
         h.setHouseName(character.getHouseName());
@@ -40,7 +40,7 @@ public class HouseRemoteDataSourceImp implements HouseRemoteDataSource{
         return dataSource.getAll().map(characters -> {
             ArrayList<House> hs = new ArrayList<House>();
             for (int i = 0, size = characters.size(); i < size; i++) {
-                Character character = characters.get(i);
+                GoTCharacter character = characters.get(i);
                 House house = getHouseFromCharacter(character);
                 addHouseInList(house, hs);
             }

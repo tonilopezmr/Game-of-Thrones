@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.data;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.Character;
+import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
@@ -20,17 +20,17 @@ public class CharacterRepositoryImp implements CharacterRepository {
     }
 
     @Override
-    public Observable<List<Character>> getList(){
+    public Observable<List<GoTCharacter>> getList(){
         return remoteDataSource.getAll();
     }
 
     @Override
-    public Observable<Character> read(Character entity){
+    public Observable<GoTCharacter> read(GoTCharacter entity){
         return remoteDataSource.read(entity);
     }
 
     @Override
-    public Observable<List<Character>> read(House house){
+    public Observable<List<GoTCharacter>> read(House house){
         return remoteDataSource.read(house);
     }
 
