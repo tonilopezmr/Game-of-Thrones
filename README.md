@@ -1,4 +1,4 @@
-# Game of Thrones for Android 
+# Game of Thrones for Android [![Build Status](https://travis-ci.org/tonilopezmr/Game-of-Thrones.svg?branch=master)](https://travis-ci.org/tonilopezmr/Game-of-Thrones)
 
 
 Cloned from [https://github.com/idealista-tech/got-challenge-for-android](https://github.com/idealista-tech/got-challenge-for-android) and refactored.
