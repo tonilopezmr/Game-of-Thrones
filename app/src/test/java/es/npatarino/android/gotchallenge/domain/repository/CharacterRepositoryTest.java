@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.domain.GotHouseRepository;
+package es.npatarino.android.gotchallenge.domain.repository;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,7 +14,6 @@ import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
-import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import rx.Observable;
 
 import static org.hamcrest.core.Is.is;
