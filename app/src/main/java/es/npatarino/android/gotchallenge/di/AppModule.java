@@ -2,12 +2,16 @@ package es.npatarino.android.gotchallenge.di;
 
 import com.google.gson.Gson;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.data.source.local.CharacterLocalDataSourceImp;
 import es.npatarino.android.gotchallenge.data.source.remote.CharacterRemoteDataSourceImp;
 import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
@@ -20,9 +24,6 @@ import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-/**
- * @author Antonio López.
- */
 @Module
 public class AppModule {
 
@@ -37,19 +38,22 @@ public class AppModule {
     @Provides
     @Singleton
     public CharacterLocalDataSource provideCharacterLocalDataSource() {
-        return new CharacterLocalDataSourceImp();
+        return new CharacterLocalDataSourceImp(new TTLCachingStrategy(2, TimeUnit.MINUTES), new TimeProvider());
     }
 
     @Provides
     @Singleton
-    public CharacterRemoteDataSource provideCharacterRemoteDataSource(OkHttpClient okHttpClient, EndPoint endPoint, JsonMapper jsonMapper) {
+    public CharacterRemoteDataSource provideCharacterRemoteDataSource(OkHttpClient okHttpClient,
+                                                                      EndPoint endPoint,
+                                                                      JsonMapper jsonMapper) {
         return new CharacterRemoteDataSourceImp(jsonMapper, endPoint, okHttpClient);
     }
 
 
     @Provides
     @Singleton
-    public CharacterRepository provideGotCharacterRepository(CharacterRemoteDataSource remoteDataSource, CharacterLocalDataSource localDataSource) {
+    public CharacterRepository provideGotCharacterRepository(CharacterRemoteDataSource remoteDataSource,
+                                                             CharacterLocalDataSource localDataSource) {
         return new CharacterRepositoryImp(remoteDataSource, localDataSource);
     }
 

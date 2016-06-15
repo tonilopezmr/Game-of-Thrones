@@ -29,7 +29,10 @@ public class CharacterRepositoryImp implements CharacterRepository {
                         localDataSource.removeAll(goTCharacters);
                         localDataSource.save(goTCharacters);
                     })
-                    .retry((attempts, error) -> error instanceof Exception && attempts < 2);
+                    .retry((attempts, error) -> error instanceof Exception && attempts < 2)
+                    .onErrorResumeNext(throwable -> {
+                        return localDataSource.getAll();
+                    });
         }else {
             observable = localDataSource.getAll();
         }
@@ -42,7 +45,11 @@ public class CharacterRepositoryImp implements CharacterRepository {
         Observable<GoTCharacter> observable;
 
         if (localDataSource.isExpired()){
-            observable = remoteDataSource.read(entity);
+            observable = remoteDataSource.read(entity)
+                    .retry((attempts, error) -> error instanceof Exception && attempts < 2)
+                    .onErrorResumeNext(throwable -> {
+                        return localDataSource.read(entity);
+                    });
         }else {
             observable = localDataSource.read(entity);
         }
@@ -55,7 +62,11 @@ public class CharacterRepositoryImp implements CharacterRepository {
         Observable<List<GoTCharacter>> observable;
 
         if (localDataSource.isExpired()){
-            observable = remoteDataSource.read(house);
+            observable = remoteDataSource.read(house)
+                    .retry((attempts, error) -> error instanceof Exception && attempts < 2)
+                    .onErrorResumeNext(throwable -> {
+                        return localDataSource.read(house);
+                    });;
         }else {
             observable = localDataSource.read(house);
         }
