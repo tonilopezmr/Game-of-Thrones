@@ -15,9 +15,6 @@ import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;
 
-/**
- * @author Antonio López.
- */
 @Singleton @Component(modules = AppModule.class)
 public interface AppComponent {
 
