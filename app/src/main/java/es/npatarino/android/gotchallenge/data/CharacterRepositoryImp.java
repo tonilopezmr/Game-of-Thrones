@@ -66,7 +66,7 @@ public class CharacterRepositoryImp implements CharacterRepository {
                     .retry((attempts, error) -> error instanceof Exception && attempts < 2)
                     .onErrorResumeNext(throwable -> {
                         return localDataSource.read(house);
-                    });;
+                    });
         }else {
             observable = localDataSource.read(house);
         }

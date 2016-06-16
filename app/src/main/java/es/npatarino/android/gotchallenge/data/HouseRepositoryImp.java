@@ -20,7 +20,23 @@ public class HouseRepositoryImp implements HouseRepository {
 
     @Override
     public Observable<List<House>> getList() {
-        return remoteDataSource.getAll();
+        Observable<List<House>> observable;
+
+        if (localDataSource.isExpired()){
+            observable = remoteDataSource.getAll()
+                    .doOnNext(houses -> {
+                        localDataSource.removeAll(houses);
+                        localDataSource.save(houses);
+                    })
+                    .retry((attempts, error) -> error instanceof Exception && attempts < 2)
+                    .onErrorResumeNext(throwable -> {
+                        return localDataSource.getAll();
+                    });
+        }else {
+            observable = localDataSource.getAll();
+        }
+
+        return observable;
     }
 }
 

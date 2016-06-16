@@ -1,65 +1,101 @@
 package es.npatarino.android.gotchallenge.data.source.local;
 
-import android.support.annotation.NonNull;
-
-import java.util.Arrays;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.data.source.local.entities.BddGoTCharacter;
+import es.npatarino.android.gotchallenge.data.source.local.entities.BddHouse;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
+import es.npatarino.android.gotchallenge.domain.mapper.TwoWaysMapper;
+import io.realm.Realm;
 import rx.Observable;
 
 public class CharacterLocalDataSourceImp implements CharacterLocalDataSource{
 
     private TTLCachingStrategy ttlCachingStrategy;
     private TimeProvider timeProvider;
+    private TwoWaysMapper<GoTCharacter, BddGoTCharacter> mapper;
 
-    public CharacterLocalDataSourceImp(TTLCachingStrategy ttlCachingStrategy, TimeProvider timeProvider) {
+    public CharacterLocalDataSourceImp(TTLCachingStrategy ttlCachingStrategy,
+                                       TimeProvider timeProvider,
+                                       TwoWaysMapper<GoTCharacter, BddGoTCharacter> mapper) {
         this.ttlCachingStrategy = ttlCachingStrategy;
         this.timeProvider = timeProvider;
+        this.mapper = mapper;
     }
 
     @Override
     public void save(List<GoTCharacter> save) {
+        List<BddGoTCharacter> list = mapper.map(save);
+        for (int i = 0, size = list.size(); i < size; i++) {
+            save(list.get(i));
+        }
+    }
 
+    private void save(BddGoTCharacter character) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> {
+            realm.copyToRealmOrUpdate(character);
+        });
+        realm.close();
     }
 
     @Override
     public boolean isExpired() {
-        return true;
+        return ttlCachingStrategy.isValid(timeProvider.getPersistedTime());
     }
 
     @Override
     public void removeAll(List<GoTCharacter> remove) {
+        List<BddGoTCharacter> list = mapper.map(remove);
+        for (int i = 0, size = list.size(); i < size; i++) {
+            remove(list.get(i));
+        }
+    }
 
+    private void remove(BddGoTCharacter character){
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(realm1 -> character.deleteFromRealm() );
+        realm.close();
     }
 
     @Override
     public Observable<GoTCharacter> read(GoTCharacter entity) {
-        GoTCharacter goTCharacter = getGoTCharacter();
-        return Observable.just(goTCharacter);
-    }
-
-    @NonNull
-    private GoTCharacter getGoTCharacter() {
-        GoTCharacter goTCharacter = new GoTCharacter();
-        goTCharacter.setName("Tonilopezmr");
-        goTCharacter.setDescription("A great warrior");
-        goTCharacter.setHouseId("someId");
-        goTCharacter.setHouseImageUrl("https://avatars3.githubusercontent.com/u/5845622?v=3&s=460");
-        return goTCharacter;
+        return Observable.create(subscriber -> {
+            Realm realm = Realm.getDefaultInstance();
+            BddGoTCharacter result = realm.where(BddGoTCharacter.class)
+                    .equalTo(BddGoTCharacter.PRIMARY_KEY_NAME, entity.getName())
+                    .findFirst();
+            subscriber.onNext(mapper.inverseMap(result));
+            realm.close();
+            subscriber.onCompleted();
+        });
     }
 
     @Override
     public Observable<List<GoTCharacter>> read(House house) {
-        return Observable.just(Arrays.asList(getGoTCharacter(), getGoTCharacter()));
+        return Observable.create(subscriber -> {
+            Realm realm = Realm.getDefaultInstance();
+            List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class)
+                    .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getHouseId())
+                    .findAll();
+            subscriber.onNext(mapper.inverseMap(result));
+            realm.close();
+            subscriber.onCompleted();
+        });
     }
 
     @Override
     public Observable<List<GoTCharacter>> getAll() {
-        return Observable.just(Arrays.asList(getGoTCharacter(), getGoTCharacter(), getGoTCharacter(), getGoTCharacter()));
+        return Observable.create(subscriber -> {
+            Realm realm = Realm.getDefaultInstance();
+            List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class).findAll();
+            subscriber.onNext(mapper.inverseMap(result));
+            realm.close();
+            subscriber.onCompleted();
+        });
     }
 }
