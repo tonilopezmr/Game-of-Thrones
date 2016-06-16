@@ -13,6 +13,7 @@ import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.data.source.local.CharacterLocalDataSourceImp;
+import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddGoTCharacterMapper;
 import es.npatarino.android.gotchallenge.data.source.remote.CharacterRemoteDataSourceImp;
 import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
 import es.npatarino.android.gotchallenge.data.source.remote.JsonMapper;
@@ -36,9 +37,28 @@ public class AppModule {
     }
 
     @Provides
+    public BddGoTCharacterMapper provideBddGotCharacterMapper(){
+        return new BddGoTCharacterMapper();
+    }
+
+    @Provides
     @Singleton
-    public CharacterLocalDataSource provideCharacterLocalDataSource() {
-        return new CharacterLocalDataSourceImp(new TTLCachingStrategy(2, TimeUnit.MINUTES), new TimeProvider());
+    public TTLCachingStrategy provideCachingStrategy(){
+        return new TTLCachingStrategy(2, TimeUnit.MINUTES);
+    }
+
+    @Provides
+    @Singleton
+    public TimeProvider provideTimeProvider(){
+        return new TimeProvider();
+    }
+
+    @Provides
+    @Singleton
+    public CharacterLocalDataSource provideCharacterLocalDataSource(TTLCachingStrategy cachingStrategy,
+                                                                    TimeProvider timeProvider,
+                                                                    BddGoTCharacterMapper mapper) {
+        return new CharacterLocalDataSourceImp(cachingStrategy, timeProvider, mapper);
     }
 
     @Provides

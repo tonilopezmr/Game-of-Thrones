@@ -33,7 +33,12 @@ public class BddGoTCharacterMapper implements TwoWaysMapper<GoTCharacter, BddGoT
 
     @Override
     public BddGoTCharacter map(GoTCharacter model) {
-        return new BddGoTCharacter(model.getName(), model.getImageUrl(), model.getDescription(), model.getHouseId());
+        BddGoTCharacter character = new BddGoTCharacter();
+        character.setName(model.getName());
+        character.setDescription(model.getDescription());
+        character.setImageUrl(model.getImageUrl());
+        character.setHouseId(model.getHouseId());
+        return character;
     }
 
     @Override
