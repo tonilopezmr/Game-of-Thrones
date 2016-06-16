@@ -3,6 +3,7 @@ package es.npatarino.android.gotchallenge.data.source.local.entities.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.data.source.local.entities.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.mapper.TwoWaysMapper;
@@ -11,7 +12,7 @@ public class BddGoTCharacterMapper implements TwoWaysMapper<GoTCharacter, BddGoT
 
     @Override
     public GoTCharacter inverseMap(BddGoTCharacter model) {
-        return new GoTCharacter(model.getName(),
+        return new GoTCharacter(BuildConfig.DEBUG? model.getName()+" cache": model.getName(),
                 model.getImageUrl(),
                 model.getDescription(),
                 null,

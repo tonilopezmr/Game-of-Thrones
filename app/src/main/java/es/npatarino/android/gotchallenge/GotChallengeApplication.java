@@ -6,6 +6,8 @@ import android.support.annotation.VisibleForTesting;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
 import es.npatarino.android.gotchallenge.di.DaggerAppComponent;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class GotChallengeApplication extends Application{
     private AppComponent appComponent;
@@ -15,6 +17,7 @@ public class GotChallengeApplication extends Application{
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule())
                 .build();
+        initializeRealmConfiguration();
     }
 
     public AppComponent getAppComponent() {
@@ -24,5 +27,13 @@ public class GotChallengeApplication extends Application{
     @VisibleForTesting
     public void setComponent(AppComponent appComponent) {
         this.appComponent = appComponent;
+    }
+
+    private void initializeRealmConfiguration() {
+        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(getApplicationContext())
+                .name("com.tonilopezmr.got.realm")
+                .schemaVersion(1)
+                .build();
+        Realm.setDefaultConfiguration(realmConfiguration);
     }
 }

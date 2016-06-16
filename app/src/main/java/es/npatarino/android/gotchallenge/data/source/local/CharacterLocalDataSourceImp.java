@@ -50,15 +50,19 @@ public class CharacterLocalDataSourceImp implements CharacterLocalDataSource{
 
     @Override
     public void removeAll(List<GoTCharacter> remove) {
-        List<BddGoTCharacter> list = mapper.map(remove);
-        for (int i = 0, size = list.size(); i < size; i++) {
-            remove(list.get(i));
+        for (int i = 0, size = remove.size(); i < size; i++) {
+            remove(remove.get(i));
         }
     }
 
-    private void remove(BddGoTCharacter character){
+    private void remove(GoTCharacter character){
         Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 -> character.deleteFromRealm() );
+        realm.executeTransaction(realm1 -> {
+            BddGoTCharacter bddGoTCharacter = find(character);
+            if (bddGoTCharacter!=null){
+                bddGoTCharacter.deleteFromRealm();
+            }
+        });
         realm.close();
     }
 
@@ -97,5 +101,14 @@ public class CharacterLocalDataSourceImp implements CharacterLocalDataSource{
             realm.close();
             subscriber.onCompleted();
         });
+    }
+
+    public BddGoTCharacter find(GoTCharacter goTCharacter) {
+        Realm realm = Realm.getDefaultInstance();
+        BddGoTCharacter bddGoTCharacter = realm.where(BddGoTCharacter.class)
+                .equalTo(BddGoTCharacter.PRIMARY_KEY_NAME, goTCharacter.getName())
+                .findFirst();
+        realm.close();
+        return bddGoTCharacter;
     }
 }

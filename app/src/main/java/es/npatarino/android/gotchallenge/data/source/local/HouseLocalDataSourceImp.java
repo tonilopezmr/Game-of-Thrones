@@ -47,15 +47,19 @@ public class HouseLocalDataSourceImp implements HouseLocalDataSource {
 
     @Override
     public void removeAll(List<House> remove) {
-        List<BddHouse> list = mapper.map(remove);
-        for (int i = 0, size = list.size(); i < size; i++) {
-            remove(list.get(i));
+        for (int i = 0, size = remove.size(); i < size; i++) {
+            remove(remove.get(i));
         }
     }
 
-    private void remove(BddHouse character){
+    private void remove(House house){
         Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 -> character.deleteFromRealm() );
+        realm.executeTransaction(realm1 -> {
+            BddHouse bddHouse = find(house);
+            if (bddHouse!=null){
+                bddHouse.deleteFromRealm();
+            }
+        } );
         realm.close();
     }
 
@@ -68,5 +72,14 @@ public class HouseLocalDataSourceImp implements HouseLocalDataSource {
             realm.close();
             subscriber.onCompleted();
         });
+    }
+
+    public BddHouse find(House house) {
+        Realm realm = Realm.getDefaultInstance();
+        BddHouse bddHouse = realm.where(BddHouse.class)
+                .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getHouseId())
+                .findFirst();
+        realm.close();
+        return bddHouse;
     }
 }

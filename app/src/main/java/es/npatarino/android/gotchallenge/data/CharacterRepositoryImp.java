@@ -1,5 +1,7 @@
 package es.npatarino.android.gotchallenge.data;
 
+import android.util.Log;
+
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
@@ -11,6 +13,7 @@ import rx.Observable;
 
 public class CharacterRepositoryImp implements CharacterRepository {
 
+    public static final String TAG = CharacterRepositoryImp.class.getSimpleName();
     private CharacterRemoteDataSource remoteDataSource;
     private CharacterLocalDataSource localDataSource;
 
@@ -21,20 +24,26 @@ public class CharacterRepositoryImp implements CharacterRepository {
 
     @Override
     public Observable<List<GoTCharacter>> getList(){
+        Log.i(TAG, "getList()");
         Observable<List<GoTCharacter>> observable;
 
         if (localDataSource.isExpired()){
             observable = remoteDataSource.getAll()
                     .doOnNext(goTCharacters -> {
+                        Log.i(TAG, "will save on cache");
                         localDataSource.removeAll(goTCharacters);
                         localDataSource.save(goTCharacters);
+                        Log.i(TAG, "cached network in memory");
                     })
                     .retry((attempts, error) -> error instanceof Exception && attempts < 2)
                     .onErrorResumeNext(throwable -> {
+                        Log.i(TAG, "some network error, return cache");
                         return localDataSource.getAll();
                     });
+            Log.i(TAG, "fetching from network");
         }else {
             observable = localDataSource.getAll();
+            Log.i(TAG, "fetching from local");
         }
 
         return observable;
