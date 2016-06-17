@@ -12,7 +12,6 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.House;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import rx.Observable;
@@ -27,14 +26,6 @@ import static org.mockito.Mockito.when;
 
 public class CharacterRepositoryTest {
 
-    private static final House STARK_HOUSE = new House();
-    private static final String STARK_ID = "f96537a9";
-    private static final String STARK_NAME = "House Stark";
-    private static final GoTCharacter ANYONE = new GoTCharacter();
-    private static final GoTCharacter KHAL_DROGO = new GoTCharacter();
-    private static final String KHAL_DROGO_NAME = "Khal Drogo";
-    private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
-    private static final House INVENTED_HOUSE = new House();
     public static final boolean EXPIRED = true;
     public static final boolean NOT_EXPIRED = false;
 
