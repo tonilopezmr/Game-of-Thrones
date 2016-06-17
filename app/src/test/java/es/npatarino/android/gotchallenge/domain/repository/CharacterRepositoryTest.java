@@ -15,12 +15,11 @@ import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import rx.Observable;
+import rx.observers.TestSubscriber;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -46,53 +45,73 @@ public class CharacterRepositoryTest {
     }
 
     @Test public void
-    get_all_characters_from_network_and_save_in_cache() throws Exception {
+    get_all_characters_from_network_and_save_in_cache() {
+        TestSubscriber<List<GoTCharacter>> testSubscriber = new TestSubscriber<>();
+
         when(localDataSource.isExpired()).thenReturn(EXPIRED);
         when(remoteDataSource.getAll()).thenReturn(getCharactersObservable(10));
 
 
         repository.getList()
-                .subscribe(list -> assertThat(list.size(), is(10)), throwable -> fail());
+                .subscribe(testSubscriber);
 
-        verify(localDataSource).save(getCharacters(10));
+        testSubscriber.assertNoErrors();
+        testSubscriber.assertCompleted();
+        testSubscriber.assertValueCount(1);
+        verify(localDataSource).save(any());
+        verify(remoteDataSource).getAll();
     }
 
     @Test
     public void
     get_from_local_when_save_throw_an_exception() {
+        TestSubscriber<List<GoTCharacter>> testSubscriber = new TestSubscriber<>();
+
         when(localDataSource.isExpired()).thenReturn(EXPIRED);
         when(remoteDataSource.getAll()).thenReturn(getCharactersObservable(10));
         when(localDataSource.getAll()).thenReturn(getCharactersObservable(1));
         doThrow(Exception.class).when(localDataSource).save(any(List.class));
 
         repository.getList()
-                .subscribe(list -> assertThat(list.size(), is(1)), throwable -> fail());
+                .subscribe(testSubscriber);
 
+        testSubscriber.assertNoErrors();
+        testSubscriber.assertCompleted();
         verify(localDataSource).getAll();
     }
 
     @Test
     public void
     get_from_local_when_cache_is_not_expired() {
+        TestSubscriber<List<GoTCharacter>> testSubscriber = new TestSubscriber<>();
+
         when(localDataSource.isExpired()).thenReturn(NOT_EXPIRED);
         when(localDataSource.getAll()).thenReturn(getCharactersObservable(0));
 
         repository.getList()
-                .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
+                .subscribe(testSubscriber);
 
+        testSubscriber.assertNoErrors();
+        testSubscriber.assertCompleted();
         verify(localDataSource).getAll();
+        verify(remoteDataSource, never()).getAll();
     }
 
     @Test
     public void
     get_from_local_when_remoteDataSource_fail() {
-        when(localDataSource.isExpired()).thenReturn(NOT_EXPIRED);
+        TestSubscriber<List<GoTCharacter>> testSubscriber = new TestSubscriber<>();
+
+        when(localDataSource.isExpired()).thenReturn(EXPIRED);
         when(remoteDataSource.getAll()).thenReturn(getErrorObservable());
         when(localDataSource.getAll()).thenReturn(getCharactersObservable(10));
 
         repository.getList()
-                .subscribe(list -> assertThat(list.size(), is(10)), throwable -> fail());
+                .subscribe(testSubscriber);
 
+        testSubscriber.assertNoErrors();
+        testSubscriber.assertCompleted();
+        verify(remoteDataSource).getAll();
         verify(localDataSource).getAll();
     }
 
@@ -107,11 +126,6 @@ public class CharacterRepositoryTest {
     @NonNull
     private Observable<List<GoTCharacter>> getCharactersObservable(int numCharacters){
         return Observable.just(getCharacters(numCharacters));
-    }
-
-    @NonNull
-    private Observable<List<GoTCharacter>> getEmptyHouseListObservable(){
-        return Observable.just(new ArrayList<>());
     }
 
     @NonNull
