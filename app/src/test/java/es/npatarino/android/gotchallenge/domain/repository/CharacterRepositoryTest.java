@@ -1,6 +1,7 @@
 package es.npatarino.android.gotchallenge.domain.repository;
 
-import org.junit.Assert;
+import android.support.annotation.NonNull;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -17,10 +18,11 @@ import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemot
 import rx.Observable;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class CharacterRepositoryTest {
@@ -33,6 +35,8 @@ public class CharacterRepositoryTest {
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
     private static final House INVENTED_HOUSE = new House();
+    public static final boolean EXPIRED = true;
+    public static final boolean NOT_EXPIRED = false;
 
     @Mock
     CharacterRemoteDataSource remoteDataSource;
@@ -51,69 +55,54 @@ public class CharacterRepositoryTest {
     }
 
     @Test public void
-    should_return_all_characters() throws Exception {
+    get_all_characters_from_network_and_save_in_cache() throws Exception {
+        when(localDataSource.isExpired()).thenReturn(EXPIRED);
         when(remoteDataSource.getAll()).thenReturn(getCharactersObservable(10));
+
 
         repository.getList()
                 .subscribe(list -> assertThat(list.size(), is(10)), throwable -> fail());
-    }
 
-    @Test(expected = Exception.class)
-    public void
-    should_throw_an_exception_when_the_data_is_not_well() throws Exception {
-        when(remoteDataSource.getAll()).thenThrow(new Exception());
-
-        repository.getList().toBlocking().single();
+        verify(localDataSource).save(getCharacters(10));
     }
 
     @Test
     public void
-    should_return_characters_by_house() throws Exception {
-        House house = STARK_HOUSE;
-        house.setHouseId(STARK_ID);
-        house.setHouseName(STARK_NAME);
+    get_from_local_when_save_throw_an_exception() {
+        when(localDataSource.isExpired()).thenReturn(EXPIRED);
+        when(remoteDataSource.getAll()).thenReturn(getCharactersObservable(10));
+        when(localDataSource.getAll()).thenReturn(getCharactersObservable(1));
+        doThrow(Exception.class).when(localDataSource).save(any(List.class));
 
-        when(remoteDataSource.read(house)).thenReturn(getCharactersObservable(2));
+        repository.getList()
+                .subscribe(list -> assertThat(list.size(), is(1)), throwable -> fail());
 
-        repository.read(house)
-                .subscribe(list -> assertThat(list.size(), is(2)), throwable -> fail());
+        verify(localDataSource).getAll();
     }
 
     @Test
     public void
-    should_not_return_any_character_when_house_are_not() throws Exception {
-        House house = INVENTED_HOUSE;
+    get_from_local_when_cache_is_not_expired() {
+        when(localDataSource.isExpired()).thenReturn(NOT_EXPIRED);
+        when(localDataSource.getAll()).thenReturn(getCharactersObservable(0));
 
-        when(remoteDataSource.read(house)).thenReturn(getEmptyHouseListObservable());
-
-        repository.read(house)
+        repository.getList()
                 .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
+
+        verify(localDataSource).getAll();
     }
 
     @Test
     public void
-    should_return_character() throws Exception {
-        GoTCharacter gotCharacter = KHAL_DROGO;
-        gotCharacter.setName(KHAL_DROGO_NAME);
-        gotCharacter.setImageUrl(KHAL_DROGO_URL);
+    get_from_local_when_remoteDataSource_fail() {
+        when(localDataSource.isExpired()).thenReturn(NOT_EXPIRED);
+        when(remoteDataSource.getAll()).thenReturn(getErrorObservable());
+        when(localDataSource.getAll()).thenReturn(getCharactersObservable(10));
 
-        when(remoteDataSource.read(gotCharacter)).thenReturn(Observable.just(gotCharacter));
+        repository.getList()
+                .subscribe(list -> assertThat(list.size(), is(10)), throwable -> fail());
 
-        repository.read(gotCharacter).subscribe(character -> {
-            assertNotNull(character);
-            assertEquals(character.getName(), gotCharacter.getName());
-            assertEquals(character.getImageUrl(), gotCharacter.getImageUrl());
-        }, throwable -> fail());
-    }
-
-    @Test
-    public void
-    should_not_return_any_character() throws Exception {
-        GoTCharacter gotCharacter = ANYONE;
-
-        when(remoteDataSource.read(gotCharacter)).thenReturn(Observable.just(null));
-
-        repository.read(gotCharacter).subscribe(Assert::assertNull, throwable -> fail());
+        verify(localDataSource).getAll();
     }
 
     private List<GoTCharacter> getCharacters(int numCharacters){
@@ -124,11 +113,21 @@ public class CharacterRepositoryTest {
         return characters;
     }
 
+    @NonNull
     private Observable<List<GoTCharacter>> getCharactersObservable(int numCharacters){
         return Observable.just(getCharacters(numCharacters));
     }
 
+    @NonNull
     private Observable<List<GoTCharacter>> getEmptyHouseListObservable(){
         return Observable.just(new ArrayList<>());
+    }
+
+    @NonNull
+    private Observable<List<GoTCharacter>> getErrorObservable(){
+        return Observable.create(subscriber -> {
+            subscriber.onError(new Exception());
+            subscriber.onCompleted();
+        });
     }
 }

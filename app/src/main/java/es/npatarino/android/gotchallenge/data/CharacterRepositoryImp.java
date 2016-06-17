@@ -23,7 +23,7 @@ public class CharacterRepositoryImp implements CharacterRepository {
     }
 
     @Override
-    public Observable<List<GoTCharacter>> getList(){
+    public Observable<List<GoTCharacter>> getList() {
         Log.i(TAG, "getList()");
         Observable<List<GoTCharacter>> observable;
 

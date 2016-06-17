@@ -36,7 +36,7 @@ public class CharacterRemoteDataSourceImp implements CharacterRemoteDataSource {
     }
 
     @Override
-    public Observable<List<GoTCharacter>> getAll(){
+    public Observable<List<GoTCharacter>> getAll() {
         return Observable.create(subscriber -> {
             try {
                 StringBuffer response = getCharactersFromUrl(endPoint.toString());

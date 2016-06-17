@@ -49,7 +49,7 @@ public class BddGoTCharacterMapperTest {
 
         GoTCharacter goTCharacter = mapper.inverseMap(bddGoTCharacter);
 
-        assertThat(NAME, is(goTCharacter.getName()));
+        assertThat(NAME + " cache", is(goTCharacter.getName()));
         assertThat(IMAGE_URL, is(goTCharacter.getImageUrl()));
         assertThat(DES, is(goTCharacter.getDescription()));
         assertThat(HOUSE_ID, is(goTCharacter.getHouseId()));
