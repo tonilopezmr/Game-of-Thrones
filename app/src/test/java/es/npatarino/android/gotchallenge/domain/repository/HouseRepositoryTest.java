@@ -17,10 +17,14 @@ import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDat
 import rx.Observable;
 
 import static org.junit.Assert.fail;
+import static org.mockito.Matchers.anyList;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class HouseRepositoryTest {
 
+    public static final boolean EXPIRED = true;
     @Mock
     HouseRemoteDataSource remoteDataSource;
     @Mock
@@ -39,18 +43,28 @@ public class HouseRepositoryTest {
 
     @Test public void
     should_not_return_any_house() throws Exception {
+        when(localDataSource.isExpired()).thenReturn(EXPIRED);
         when(remoteDataSource.getAll()).thenReturn(getEmptyHouseListObservable());
 
         repository.getList()
                 .subscribe(list -> Assert.assertThat(list.size(), Is.is(0)), throwable -> fail());
+
+        verify(remoteDataSource).getAll();
+        verify(localDataSource).save(anyList());
+        verify(localDataSource, never()).getAll();
     }
 
     @Test public void
     should_return_all_houses() throws Exception {
+        when(localDataSource.isExpired()).thenReturn(EXPIRED);
         when(remoteDataSource.getAll()).thenReturn(getSevenHousesObservable());
 
         repository.getList()
                 .subscribe(list -> Assert.assertThat(list.size(), Is.is(7)), throwable -> fail());
+
+        verify(remoteDataSource).getAll();
+        verify(localDataSource).save(anyList());
+        verify(localDataSource, never()).getAll();
     }
 
     private List<House> getSevenHouses(){
