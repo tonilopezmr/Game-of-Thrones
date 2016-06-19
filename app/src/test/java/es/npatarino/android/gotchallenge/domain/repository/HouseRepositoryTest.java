@@ -25,6 +25,7 @@ import static org.mockito.Mockito.when;
 public class HouseRepositoryTest {
 
     public static final boolean EXPIRED = true;
+
     @Mock
     HouseRemoteDataSource remoteDataSource;
     @Mock

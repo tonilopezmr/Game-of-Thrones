@@ -96,10 +96,16 @@ public class CharacterLocalDataSourceImp implements CharacterLocalDataSource{
     public Observable<List<GoTCharacter>> getAll() {
         return Observable.create(subscriber -> {
             Realm realm = Realm.getDefaultInstance();
-            List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class).findAll();
-            subscriber.onNext(mapper.inverseMap(result));
-            realm.close();
-            subscriber.onCompleted();
+            try{
+                List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class).findAll();
+                subscriber.onNext(mapper.inverseMap(result));
+            }catch (Exception e){
+                e.printStackTrace();
+                subscriber.onError(e);
+            }finally {
+                realm.close();
+                subscriber.onCompleted();
+            }
         });
     }
 
