@@ -27,9 +27,9 @@ public class BddHouseMapperTest {
         House character = getHouse();
         BddHouse bddHouse = mapper.map(character);
 
-        assertThat(HOUSE_ID, is(bddHouse.getHouseId()));
-        assertThat(HOUSE_NAME, is(bddHouse.getHouseName()));
-        assertThat(HOUSE_IMAGE_URL, is(bddHouse.getHouseImageUrl()));
+        assertThat(bddHouse.getHouseId(), is(HOUSE_ID));
+        assertThat(bddHouse.getHouseName(), is(HOUSE_NAME));
+        assertThat(bddHouse.getHouseImageUrl(), is(HOUSE_IMAGE_URL));
     }
 
     @Test
@@ -42,9 +42,9 @@ public class BddHouseMapperTest {
 
         House house = mapper.inverseMap(bddHouse);
 
-        assertThat(HOUSE_ID, is(house.getHouseId()));
-        assertThat(HOUSE_IMAGE_URL, is(house.getHouseImageUrl()));
-        assertThat(HOUSE_NAME, is(house.getHouseName()));
+        assertThat(house.getHouseId(), is(HOUSE_ID));
+        assertThat(house.getHouseName(), is(HOUSE_NAME + " cache"));
+        assertThat(house.getHouseImageUrl(), is(HOUSE_IMAGE_URL));
     }
 
     @Test
@@ -55,9 +55,9 @@ public class BddHouseMapperTest {
 
         assertThat(NUMBER_OF_HOUSES, is(bddHouse.size()));
         for (BddHouse house : bddHouse) {
-            assertThat(HOUSE_ID, is(house.getHouseId()));
-            assertThat(HOUSE_IMAGE_URL, is(house.getHouseImageUrl()));
-            assertThat(HOUSE_NAME, is(house.getHouseName()));
+            assertThat(house.getHouseId(), is(HOUSE_ID));
+            assertThat(house.getHouseName(), is(HOUSE_NAME));
+            assertThat(house.getHouseImageUrl(), is(HOUSE_IMAGE_URL));
         }
     }
 
