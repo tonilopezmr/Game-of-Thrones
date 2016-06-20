@@ -1,5 +1,7 @@
 package es.npatarino.android.gotchallenge.di;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
@@ -30,6 +32,15 @@ public class AppModule {
 
     private static final String END_POINT = "https://raw.githubusercontent.com/tonilopezmr/Game-of-Thrones/master/app/src/test/resources/data.json";
 
+    private Context context;
+
+    public AppModule() {
+    }
+
+    public AppModule(Context context) {
+        this.context = context;
+    }
+
     @Provides
     @Singleton
     public JsonMapper provideGotCharacterJsonMapper(){
@@ -50,7 +61,7 @@ public class AppModule {
     @Provides
     @Singleton
     public TimeProvider provideTimeProvider(){
-        return new TimeProvider();
+        return new TimeProvider(context);
     }
 
     @Provides

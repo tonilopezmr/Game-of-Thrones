@@ -14,12 +14,11 @@ public class TestUtils {
     private static final String KHAL_DROGO_NAME = "Khal Drogo";
     private static final String KHAL_DROGO_URL = "https://s3-eu-west-1.amazonaws.com/npatarino/got/8310ebeb-cdda-4095-bd5b-f59266d44677.jpg";
     private static final String KHAL_DROGO_DESCRIPTION = "Any description is good";
-    private static final House KHAL_DROGO_HOUSE = new House();
     private static final String KHAL_DROGO_HOUSE_ID = "f96537a9";
     private static final String KHAL_DROGO_HOUSE_NAME = "House Khal Drogo";
 
     public static House defaultGotHouse() {
-        House house = KHAL_DROGO_HOUSE;
+        House house = new House();
         house.setHouseId(KHAL_DROGO_HOUSE_ID);
         house.setHouseName(KHAL_DROGO_HOUSE_NAME);
         house.setHouseImageUrl(KHAL_DROGO_URL);

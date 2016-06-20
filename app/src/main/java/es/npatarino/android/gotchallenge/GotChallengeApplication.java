@@ -15,7 +15,7 @@ public class GotChallengeApplication extends Application{
     @Override public void onCreate() {
         super.onCreate();
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule())
+                .appModule(new AppModule(getApplicationContext()))
                 .build();
         initializeRealmConfiguration();
     }

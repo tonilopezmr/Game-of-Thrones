@@ -33,6 +33,7 @@ public class CharacterLocalDataSourceImp implements CharacterLocalDataSource{
         for (int i = 0, size = list.size(); i < size; i++) {
             save(list.get(i));
         }
+        timeProvider.persistTime();
     }
 
     private void save(BddGoTCharacter character) {
@@ -45,7 +46,7 @@ public class CharacterLocalDataSourceImp implements CharacterLocalDataSource{
 
     @Override
     public boolean isExpired() {
-        return ttlCachingStrategy.isValid(timeProvider.getPersistedTime());
+        return !ttlCachingStrategy.isValid(timeProvider.getPersistedTime());
     }
 
     @Override

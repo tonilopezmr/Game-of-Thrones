@@ -42,7 +42,7 @@ public class HouseLocalDataSourceImp implements HouseLocalDataSource {
 
     @Override
     public boolean isExpired() {
-        return cachingStrategy.isValid(timeProvider.getPersistedTime());
+        return !cachingStrategy.isValid(timeProvider.getPersistedTime());
     }
 
     @Override

@@ -13,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
-import es.npatarino.android.gotchallenge.data.source.local.entities.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddGoTCharacterMapper;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
@@ -21,6 +20,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
@@ -30,7 +30,7 @@ public class CharacterLocalDataSourceTest {
 
     private BddGoTCharacterMapper mapper = new BddGoTCharacterMapper();
     private TTLCachingStrategy ttlCachingStrategy = new TTLCachingStrategy(2 , TimeUnit.MINUTES);
-    private TimeProvider timeProvider = new TimeProvider();
+    private TimeProvider timeProvider = new TimeProvider(InstrumentationRegistry.getTargetContext());
 
     private CharacterLocalDataSource dataSource;
 
@@ -50,7 +50,6 @@ public class CharacterLocalDataSourceTest {
     public void
     save_characters_and_get_all() {
         final List<GoTCharacter> goTCharacters = getGotCharacters(10);
-        dataSource.removeAll(goTCharacters);
 
         dataSource.save(goTCharacters);
 
@@ -72,6 +71,19 @@ public class CharacterLocalDataSourceTest {
         dataSource.getAll()
                 .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
     }
+
+    @Test
+    public void
+    caching_characters_is_not_expired() {
+        final List<GoTCharacter> goTCharacters = getGotCharacters(10);
+
+        dataSource.save(goTCharacters);
+
+        assertFalse(dataSource.isExpired());
+        dataSource.removeAll(goTCharacters);
+    }
+
+
 
     private void assertGotCharacterList(List<GoTCharacter> expected, List<GoTCharacter> list) {
         assertThat(list.size(), is(expected.size()));
@@ -104,7 +116,4 @@ public class CharacterLocalDataSourceTest {
         return list;
     }
 
-    private List<BddGoTCharacter> getBddGotCharacters(){
-        return mapper.map(TestUtils.getGoTCharacters(10));
-    }
 }
