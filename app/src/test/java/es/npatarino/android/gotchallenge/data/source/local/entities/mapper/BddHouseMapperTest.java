@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.data.source.local.entities.BddHouse;
 import es.npatarino.android.gotchallenge.domain.House;
 
@@ -43,7 +44,7 @@ public class BddHouseMapperTest {
         House house = mapper.inverseMap(bddHouse);
 
         assertThat(house.getHouseId(), is(HOUSE_ID));
-        assertThat(house.getHouseName(), is(HOUSE_NAME + " cache"));
+        assertThat(house.getHouseName(), is(BuildConfig.DEBUG? HOUSE_NAME+ " cache" : HOUSE_NAME));
         assertThat(house.getHouseImageUrl(), is(HOUSE_IMAGE_URL));
     }
 

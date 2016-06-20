@@ -24,9 +24,6 @@ import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
 import es.npatarino.android.gotchallenge.view.adapters.HouseAdapter;
 
-/**
- * @author Antonio López.
- */
 public class HousesListFragment extends Fragment implements ViewList<House> {
 
     private static final String TAG = "GoTHousesListFragment";

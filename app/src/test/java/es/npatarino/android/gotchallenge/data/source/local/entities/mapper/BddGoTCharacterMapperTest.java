@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.data.source.local.entities.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
 
@@ -49,10 +50,10 @@ public class BddGoTCharacterMapperTest {
 
         GoTCharacter goTCharacter = mapper.inverseMap(bddGoTCharacter);
 
-        assertThat(NAME + " cache", is(goTCharacter.getName()));
-        assertThat(IMAGE_URL, is(goTCharacter.getImageUrl()));
-        assertThat(DES, is(goTCharacter.getDescription()));
-        assertThat(HOUSE_ID, is(goTCharacter.getHouseId()));
+        assertThat(goTCharacter.getName(), is(BuildConfig.DEBUG? NAME+ " cache" : NAME));
+        assertThat(goTCharacter.getImageUrl(), is(IMAGE_URL));
+        assertThat(goTCharacter.getDescription(), is(DES));
+        assertThat(goTCharacter.getHouseId(), is(HOUSE_ID));
         assertNull(goTCharacter.getHouseImageUrl());
         assertNull(goTCharacter.getHouseName());
     }
