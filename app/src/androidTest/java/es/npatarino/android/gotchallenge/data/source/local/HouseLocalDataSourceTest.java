@@ -83,7 +83,7 @@ public class HouseLocalDataSourceTest {
     private void assertHouse(House expected, House house) {
         assertThat(house.getHouseId(), is(expected.getHouseId()));
         assertThat(house.getHouseImageUrl(), is(expected.getHouseImageUrl()));
-        assertThat(house.getHouseName(), is(expected.getHouseName()));
+        assertThat(house.getHouseName(), is(expected.getHouseName() + " cache"));
     }
 
     private List<House> getHouses() {

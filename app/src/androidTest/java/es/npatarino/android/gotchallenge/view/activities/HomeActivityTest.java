@@ -34,7 +34,9 @@ public class HomeActivityTest {
     private static final int NUMBER_OF_CHARACTERS = 4;
 
     @Rule public DaggerMockRule<AppComponent> daggerRule =
-            new DaggerMockRule<>(AppComponent.class, new AppModule()).set(
+            new DaggerMockRule<>(AppComponent.class,
+                    new AppModule(InstrumentationRegistry.getInstrumentation()
+                            .getTargetContext())).set(
                     component -> {
                         GotChallengeApplication app =
                                 (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()

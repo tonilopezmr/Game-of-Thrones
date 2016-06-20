@@ -34,9 +34,6 @@ public class AppModule {
 
     private Context context;
 
-    public AppModule() {
-    }
-
     public AppModule(Context context) {
         this.context = context;
     }
