@@ -13,7 +13,7 @@ import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemot
 import okhttp3.OkHttpClient;
 import rx.observers.TestSubscriber;
 
-public class CharacterRemoteDataSourceImpTest {
+public class CharacterRemoteDataSourceTest {
 
     private CharacterRemoteDataSource remoteDataSource;
 
