@@ -3,6 +3,7 @@ package es.npatarino.android.gotchallenge.di.components;
 import javax.inject.Named;
 
 import dagger.Component;
+import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddHouseMapper;
 import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
@@ -20,6 +21,8 @@ import es.npatarino.android.gotchallenge.view.fragment.HousesListFragment;
 public interface HousesComponent extends ActivityComponent{
 
     void inject(HousesListFragment fragment);
+
+    BddHouseMapper provideBddHouseMapper();
 
     //datasource
     HouseRemoteDataSource houseRemoteDataSource();

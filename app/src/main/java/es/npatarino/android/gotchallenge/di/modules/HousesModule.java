@@ -5,7 +5,10 @@ import javax.inject.Named;
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.data.HouseRepositoryImp;
+import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.data.source.local.HouseLocalDataSourceImp;
+import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddHouseMapper;
 import es.npatarino.android.gotchallenge.data.source.remote.HouseRemoteDataSourceImp;
 import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.domain.House;
@@ -22,8 +25,16 @@ import rx.Scheduler;
 
     @Provides
     @Activity
-    public HouseLocalDataSource provideHouseLocalDataSource(){
-        return new HouseLocalDataSourceImp();
+    public BddHouseMapper provideBddHouseMapper(){
+        return new BddHouseMapper();
+    }
+
+    @Provides
+    @Activity
+    public HouseLocalDataSource provideHouseLocalDataSource(TTLCachingStrategy cachingStrategy,
+                                                            TimeProvider timeProvider,
+                                                            BddHouseMapper mapper){
+        return new HouseLocalDataSourceImp(cachingStrategy, timeProvider, mapper);
     }
 
     @Provides

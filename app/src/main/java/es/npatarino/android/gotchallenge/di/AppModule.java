@@ -1,6 +1,10 @@
 package es.npatarino.android.gotchallenge.di;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
+
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -8,7 +12,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
+import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.data.source.local.CharacterLocalDataSourceImp;
+import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddGoTCharacterMapper;
 import es.npatarino.android.gotchallenge.data.source.remote.CharacterRemoteDataSourceImp;
 import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
 import es.npatarino.android.gotchallenge.data.source.remote.JsonMapper;
@@ -20,13 +27,16 @@ import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-/**
- * @author Antonio López.
- */
 @Module
 public class AppModule {
 
-    private static final String END_POINT = "https://raw.githubusercontent.com/tonilopezmr/Game-of-Thrones/master/app/src/test/resources/data.json";
+    public static final String END_POINT = "https://raw.githubusercontent.com/tonilopezmr/Game-of-Thrones/master/app/src/test/resources/data.json";
+
+    private Context context;
+
+    public AppModule(Context context) {
+        this.context = context;
+    }
 
     @Provides
     @Singleton
@@ -35,21 +45,43 @@ public class AppModule {
     }
 
     @Provides
-    @Singleton
-    public CharacterLocalDataSource provideCharacterLocalDataSource() {
-        return new CharacterLocalDataSourceImp();
+    public BddGoTCharacterMapper provideBddGotCharacterMapper(){
+        return new BddGoTCharacterMapper();
     }
 
     @Provides
     @Singleton
-    public CharacterRemoteDataSource provideCharacterRemoteDataSource(OkHttpClient okHttpClient, EndPoint endPoint, JsonMapper jsonMapper) {
+    public TTLCachingStrategy provideCachingStrategy(){
+        return new TTLCachingStrategy(2, TimeUnit.MINUTES);
+    }
+
+    @Provides
+    @Singleton
+    public TimeProvider provideTimeProvider(){
+        return new TimeProvider(context);
+    }
+
+    @Provides
+    @Singleton
+    public CharacterLocalDataSource provideCharacterLocalDataSource(TTLCachingStrategy cachingStrategy,
+                                                                    TimeProvider timeProvider,
+                                                                    BddGoTCharacterMapper mapper) {
+        return new CharacterLocalDataSourceImp(cachingStrategy, timeProvider, mapper);
+    }
+
+    @Provides
+    @Singleton
+    public CharacterRemoteDataSource provideCharacterRemoteDataSource(OkHttpClient okHttpClient,
+                                                                      EndPoint endPoint,
+                                                                      JsonMapper jsonMapper) {
         return new CharacterRemoteDataSourceImp(jsonMapper, endPoint, okHttpClient);
     }
 
 
     @Provides
     @Singleton
-    public CharacterRepository provideGotCharacterRepository(CharacterRemoteDataSource remoteDataSource, CharacterLocalDataSource localDataSource) {
+    public CharacterRepository provideGotCharacterRepository(CharacterRemoteDataSource remoteDataSource,
+                                                             CharacterLocalDataSource localDataSource) {
         return new CharacterRepositoryImp(remoteDataSource, localDataSource);
     }
 

@@ -10,15 +10,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 
+import java.util.List;
+
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
 import es.npatarino.android.gotchallenge.domain.GoTCharacter;
+import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
 import es.npatarino.android.gotchallenge.recyclerview.RecyclerViewInteraction;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
+import rx.Observable;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
@@ -34,7 +38,9 @@ public class HomeActivityTest {
     private static final int NUMBER_OF_CHARACTERS = 4;
 
     @Rule public DaggerMockRule<AppComponent> daggerRule =
-            new DaggerMockRule<>(AppComponent.class, new AppModule()).set(
+            new DaggerMockRule<>(AppComponent.class,
+                    new AppModule(InstrumentationRegistry.getInstrumentation()
+                            .getTargetContext())).set(
                     component -> {
                         GotChallengeApplication app =
                                 (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()
@@ -48,16 +54,23 @@ public class HomeActivityTest {
             new ActivityTestRule<>(HomeActivity.class, true, false);
 
     @Mock
-    CharacterRemoteDataSource repository;
+    CharacterRemoteDataSource remote;
+
+    @Mock
+    CharacterLocalDataSource local;
 
     @Test public void
-    should_show_data_in_characters_and_houses_recyclerview() throws Exception {
-        when(repository.getAll()).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
+    show_characters_name() throws Exception {
+        Observable<List<GoTCharacter>> charactersObservable = TestUtils.getCharacters(NUMBER_OF_CHARACTERS);
+        List<GoTCharacter> characterList = charactersObservable.toBlocking().first();
+
+        when(remote.getAll()).thenReturn(charactersObservable);
+        when(local.getAll()).thenReturn(charactersObservable);
 
         activityTestRule.launchActivity(null);
 
         RecyclerViewInteraction.<GoTCharacter>onRecyclerView(allOf(withId(R.id.recycler_view), isDisplayed()))
-                .withItems(TestUtils.getGoTCharacters(NUMBER_OF_CHARACTERS))
+                .withItems(characterList)
                 .check((character, view, e) -> matches(hasDescendant(withText(character.getName()))).check(view, e));
     }
 

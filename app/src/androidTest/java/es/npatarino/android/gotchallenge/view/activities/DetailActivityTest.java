@@ -38,7 +38,9 @@ public class DetailActivityTest {
     private static final int NUMBER_OF_CHARACTERS = 3;
 
     @Rule public DaggerMockRule<AppComponent> daggerRule =
-            new DaggerMockRule<>(AppComponent.class, new AppModule()).set(
+            new DaggerMockRule<>(AppComponent.class,
+                    new AppModule(InstrumentationRegistry.getInstrumentation()
+                    .getTargetContext())).set(
                     component -> {
                         GotChallengeApplication app =
                                 (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()

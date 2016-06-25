@@ -19,7 +19,8 @@ public class ListPresenterImp<T> implements ListPresenter<T> {
 
     @Override
     public void loadList() {
-        subscription = listUseCase.execute().subscribe(this::onListReceived, this::onError);
+        subscription = listUseCase.execute()
+                .subscribe(this::onListReceived, this::onError);
     }
 
     private void onError(Throwable throwable) {

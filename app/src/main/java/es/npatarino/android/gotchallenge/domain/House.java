@@ -2,11 +2,17 @@ package es.npatarino.android.gotchallenge.domain;
 
 public class House {
 
-    private String houseImageUrl;
-    private String houseName;
     private String houseId;
+    private String houseName;
+    private String houseImageUrl;
 
     public House() {
+    }
+
+    public House(String houseId, String houseName, String houseImageUrl) {
+        this.houseId = houseId;
+        this.houseName = houseName;
+        this.houseImageUrl = houseImageUrl;
     }
 
     public String getHouseImageUrl() {

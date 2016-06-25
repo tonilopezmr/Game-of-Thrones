@@ -12,6 +12,15 @@ public class GoTCharacter {
     public GoTCharacter() {
     }
 
+    public GoTCharacter(String name, String imageUrl, String description, String houseImageUrl, String houseName, String houseId) {
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.houseImageUrl = houseImageUrl;
+        this.houseName = houseName;
+        this.houseId = houseId;
+    }
+
     public String getName() {
         return name;
     }
