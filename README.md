@@ -19,7 +19,7 @@ This repository contains an Android app that retrieve a list of some [Game of Th
 This behaviour it's done in two diffent [Activities][ActivityLink], one for the two lists and other for details of the character:
 
 ![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]
-* ``HomeActivity`` contains two [Fragments][FragmentLink] in a [ViewPager][ViewPagerLink]
+* ``HomeActivity`` contains two Fragments in a ViewPager
   * `CharacterListFragment` shows a list of some the this tv show's characters.
   * `HouseListFragment` shows a list of the noble houses of the characters
 
