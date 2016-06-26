@@ -1,17 +1,15 @@
 package es.npatarino.android.gotchallenge.houses.di;
 
-import javax.inject.Named;
-
 import dagger.Component;
 import es.npatarino.android.gotchallenge.common.di.Activity;
-import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
 import es.npatarino.android.gotchallenge.common.di.components.ActivityComponent;
+import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
 import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
-import es.npatarino.android.gotchallenge.houses.list.HouseList;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
+import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.houses.list.view.fragment.HousesListFragment;
 
 @Activity
@@ -30,8 +28,9 @@ public interface HousesComponent extends ActivityComponent {
     Houses.Repository gotHouseRepository();
 
     //usecase
-    @Named("house") GetListUseCase<House> gotHouseListUseCase();
+    @House
+    GetListUseCase<GoTHouse> gotHouseListUseCase();
 
     //presenter
-    HouseList.Presenter gotHouseListPresenter();
+    HouseListPresenter gotHouseListPresenter();
 }

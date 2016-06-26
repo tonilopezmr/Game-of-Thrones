@@ -19,11 +19,11 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.characters.di.CharactersModule;
 import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.characters.list.CharacterList;
+import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
 import es.npatarino.android.gotchallenge.common.detail.view.DetailView;
 import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
 public class CharacterListByHouseFragment extends Fragment implements DetailView<List<GoTCharacter>> {
 
@@ -31,10 +31,10 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
     private CharacterAdapter adp;
-    private House house;
+    private GoTHouse house;
 
     @Inject
-    CharacterList.ByHousePresenter characterListByHousePresenter;
+    CharacterListByHousePresenter characterListByHousePresenter;
 
 
     public CharacterListByHouseFragment() {
@@ -64,7 +64,7 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
                 .build().inject(this);
     }
 
-    public void setHouse(House house) {
+    public void setHouse(GoTHouse house) {
         this.house = house;
     }
 

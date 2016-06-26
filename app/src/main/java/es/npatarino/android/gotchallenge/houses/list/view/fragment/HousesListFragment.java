@@ -20,11 +20,11 @@ import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.common.list.view.ViewList;
 import es.npatarino.android.gotchallenge.houses.di.DaggerHousesComponent;
 import es.npatarino.android.gotchallenge.houses.di.HousesModule;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
-import es.npatarino.android.gotchallenge.houses.list.HouseList;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
+import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.houses.list.view.adapters.HouseAdapter;
 
-public class HousesListFragment extends Fragment implements ViewList<House> {
+public class HousesListFragment extends Fragment implements ViewList<GoTHouse> {
 
     private static final String TAG = "GoTHousesListFragment";
     private RecyclerView rv;
@@ -32,7 +32,7 @@ public class HousesListFragment extends Fragment implements ViewList<House> {
     private HouseAdapter adp;
 
     @Inject
-    HouseList.Presenter gotHouseListPresenter;
+    HouseListPresenter gotHouseListPresenter;
 
     public HousesListFragment() {
     }
@@ -61,7 +61,7 @@ public class HousesListFragment extends Fragment implements ViewList<House> {
     }
 
     @Override
-    public void showList(List<House> list) {
+    public void showList(List<GoTHouse> list) {
         adp.addAll(list);
         adp.notifyDataSetChanged();
         pb.hide();

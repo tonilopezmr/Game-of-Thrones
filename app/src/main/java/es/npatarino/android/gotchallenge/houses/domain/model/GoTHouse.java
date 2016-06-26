@@ -1,15 +1,15 @@
 package es.npatarino.android.gotchallenge.houses.domain.model;
 
-public class House {
+public class GoTHouse {
 
     private String houseId;
     private String houseName;
     private String houseImageUrl;
 
-    public House() {
+    public GoTHouse() {
     }
 
-    public House(String houseId, String houseName, String houseImageUrl) {
+    public GoTHouse(String houseId, String houseName, String houseImageUrl) {
         this.houseId = houseId;
         this.houseName = houseName;
         this.houseImageUrl = houseImageUrl;
@@ -44,7 +44,7 @@ public class House {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        House house = (House) o;
+        GoTHouse house = (GoTHouse) o;
 
         return houseId != null ? houseId.equals(house.houseId) : house.houseId == null;
     }

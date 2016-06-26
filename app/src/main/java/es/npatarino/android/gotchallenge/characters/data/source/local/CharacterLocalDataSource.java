@@ -8,7 +8,7 @@ import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrat
 import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.common.mapper.TwoWaysMapper;
 import io.realm.Realm;
 import rx.Observable;
@@ -81,7 +81,7 @@ public class CharacterLocalDataSource implements CharactersDomain.LocalDataSourc
     }
 
     @Override
-    public Observable<List<GoTCharacter>> read(House house) {
+    public Observable<List<GoTCharacter>> read(GoTHouse house) {
         return Observable.create(subscriber -> {
             Realm realm = Realm.getDefaultInstance();
             List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class)

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
 public class TestUtils {
@@ -17,8 +17,8 @@ public class TestUtils {
     private static final String KHAL_DROGO_HOUSE_ID = "f96537a9";
     private static final String KHAL_DROGO_HOUSE_NAME = "House Khal Drogo";
 
-    public static House defaultGotHouse() {
-        House house = new House();
+    public static GoTHouse defaultGotHouse() {
+        GoTHouse house = new GoTHouse();
         house.setHouseId(KHAL_DROGO_HOUSE_ID);
         house.setHouseName(KHAL_DROGO_HOUSE_NAME);
         house.setHouseImageUrl(KHAL_DROGO_URL);

@@ -9,7 +9,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -25,7 +25,7 @@ public class BddHouseMapperTest {
     @Test
     public void
     should_return_correct_BddHouse_when_map() {
-        House character = getHouse();
+        GoTHouse character = getHouse();
         BddHouse bddHouse = mapper.map(character);
 
         assertThat(bddHouse.getHouseId(), is(HOUSE_ID));
@@ -41,7 +41,7 @@ public class BddHouseMapperTest {
         bddHouse.setHouseName(HOUSE_NAME);
         bddHouse.setHouseImageUrl(HOUSE_IMAGE_URL);
 
-        House house = mapper.inverseMap(bddHouse);
+        GoTHouse house = mapper.inverseMap(bddHouse);
 
         assertThat(house.getHouseId(), is(HOUSE_ID));
         assertThat(house.getHouseName(), is(BuildConfig.DEBUG? HOUSE_NAME+ " cache" : HOUSE_NAME));
@@ -51,7 +51,7 @@ public class BddHouseMapperTest {
     @Test
     public void
     should_return_correct_BddHouse_list_when_map() {
-        List<House> goTCharacterList = getHouseList(NUMBER_OF_HOUSES);
+        List<GoTHouse> goTCharacterList = getHouseList(NUMBER_OF_HOUSES);
         List<BddHouse> bddHouse = mapper.map(goTCharacterList);
 
         assertThat(NUMBER_OF_HOUSES, is(bddHouse.size()));
@@ -62,9 +62,9 @@ public class BddHouseMapperTest {
         }
     }
 
-    private List<House> getHouseList(int numberHouse){
-        House character = getHouse();
-        ArrayList<House> characterList = new ArrayList();
+    private List<GoTHouse> getHouseList(int numberHouse){
+        GoTHouse character = getHouse();
+        ArrayList<GoTHouse> characterList = new ArrayList();
 
         for (int i = 0; i < numberHouse; i++) {
             characterList.add(character);
@@ -74,7 +74,7 @@ public class BddHouseMapperTest {
     }
 
     @NonNull
-    private House getHouse() {
-        return new House(HOUSE_ID, HOUSE_NAME, HOUSE_IMAGE_URL);
+    private GoTHouse getHouse() {
+        return new GoTHouse(HOUSE_ID, HOUSE_NAME, HOUSE_IMAGE_URL);
     }
 }

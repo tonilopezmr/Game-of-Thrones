@@ -2,11 +2,12 @@ package es.npatarino.android.gotchallenge.common.list.presenter;
 
 import java.util.List;
 
+import es.npatarino.android.gotchallenge.common.Mvp;
 import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.common.list.view.ViewList;
 import rx.Subscription;
 
-public class DefaultListPresenter<T> implements ListPresenter<T> {
+public class DefaultListPresenter<T> implements Mvp.Presenter<ViewList<T>> {
 
     private ViewList<T> view;
     private GetListUseCase<T> listUseCase;
@@ -17,7 +18,6 @@ public class DefaultListPresenter<T> implements ListPresenter<T> {
         this.listUseCase = listUseCase;
     }
 
-    @Override
     public void loadList() {
         subscription = listUseCase.execute()
                 .subscribe(this::onListReceived, this::onError);

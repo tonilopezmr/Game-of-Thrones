@@ -2,14 +2,14 @@ package es.npatarino.android.gotchallenge.characters.list.presenter;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.characters.list.CharacterList;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.common.Mvp;
 import es.npatarino.android.gotchallenge.common.detail.view.DetailView;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Subscription;
 
-public class CharacterListByHousePresenter implements CharacterList.ByHousePresenter {
+public class CharacterListByHousePresenter implements Mvp.Presenter<DetailView<List<GoTCharacter>>> {
 
     private DetailView<List<GoTCharacter>> view;
     private GetCharactersByHouseUseCase useCase;
@@ -36,13 +36,12 @@ public class CharacterListByHousePresenter implements CharacterList.ByHousePrese
         charactersSubscription.unsubscribe();
     }
 
-    @Override
-    public void init(House viewModel) {
+    public void init(GoTHouse viewModel) {
         init();
         askForCharacters(viewModel);
     }
 
-    private void askForCharacters(House viewModel) {
+    private void askForCharacters(GoTHouse viewModel) {
         charactersSubscription = useCase.execute(viewModel)
                 .subscribe(this::onCharactersReceived, this::onError);
     }

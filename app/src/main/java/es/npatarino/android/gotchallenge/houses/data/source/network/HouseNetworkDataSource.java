@@ -6,7 +6,7 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
 public class HouseNetworkDataSource implements Houses.NetworkDataSource {
@@ -17,18 +17,18 @@ public class HouseNetworkDataSource implements Houses.NetworkDataSource {
         this.dataSource = dataSource;
     }
 
-    private void addHouseInList(House house, ArrayList<House> hs) {
+    private void addHouseInList(GoTHouse house, ArrayList<GoTHouse> hs) {
         if (isValidHouse(house) && !hs.contains(house)) {
             hs.add(house);
         }
     }
 
-    private boolean isValidHouse(House house) {
+    private boolean isValidHouse(GoTHouse house) {
         return house.getHouseId() != null && !house.getHouseId().isEmpty();
     }
 
-    private House getHouseFromCharacter(GoTCharacter character) {
-        House h = new House();
+    private GoTHouse getHouseFromCharacter(GoTCharacter character) {
+        GoTHouse h = new GoTHouse();
         h.setHouseId(character.getHouseId());
         h.setHouseName(character.getHouseName());
         h.setHouseImageUrl(character.getHouseImageUrl());
@@ -36,12 +36,12 @@ public class HouseNetworkDataSource implements Houses.NetworkDataSource {
     }
 
     @Override
-    public Observable<List<House>> getAll() {
+    public Observable<List<GoTHouse>> getAll() {
         return dataSource.getAll().map(characters -> {
-            ArrayList<House> hs = new ArrayList<House>();
+            ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
             for (int i = 0, size = characters.size(); i < size; i++) {
                 GoTCharacter character = characters.get(i);
-                House house = getHouseFromCharacter(character);
+                GoTHouse house = getHouseFromCharacter(character);
                 addHouseInList(house, hs);
             }
             return hs;

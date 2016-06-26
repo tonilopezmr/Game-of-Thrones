@@ -17,12 +17,12 @@ import java.util.Collection;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.view.activities.DetailActivity;
 
 public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<House> gcs;
+    private final List<GoTHouse> gcs;
     private Activity activity;
 
     public HouseAdapter(Activity activity) {
@@ -31,9 +31,9 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
 
-    public void addAll(Collection<House> collection) {
+    public void addAll(Collection<GoTHouse> collection) {
         for (int i = 0; i < collection.size(); i++) {
-            gcs.add((House) collection.toArray()[i]);
+            gcs.add((GoTHouse) collection.toArray()[i]);
         }
     }
 
@@ -46,7 +46,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final GotHouseViewHolder gotCharacterViewHolder = (GotHouseViewHolder) holder;
         GotHouseViewHolder gotHouseViewHolder = (GotHouseViewHolder) holder;
-        final House house = gcs.get(position);
+        final GoTHouse house = gcs.get(position);
         gotCharacterViewHolder.render(house);
         gotHouseViewHolder.imp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +56,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         });
     }
 
-    private void moveToDetailActivity(GotHouseViewHolder viewHolder, House house){
+    private void moveToDetailActivity(GotHouseViewHolder viewHolder, GoTHouse house){
         ActivityOptionsCompat options =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, DetailActivity.HOUSE_IMAGE);
 
@@ -82,7 +82,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             imp = (ImageView) itemView.findViewById(R.id.ivBackground);
         }
 
-        public void render(final House house) {
+        public void render(final GoTHouse house) {
             Picasso.with(imp.getContext())
                     .load(house.getHouseImageUrl())
                     .fit()

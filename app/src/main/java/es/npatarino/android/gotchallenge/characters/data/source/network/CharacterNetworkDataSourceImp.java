@@ -7,7 +7,7 @@ import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.C
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.common.network.EndPoint;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -62,7 +62,7 @@ public class CharacterNetworkDataSourceImp implements CharactersDomain.NetworkDa
     }
 
     @Override
-    public Observable<List<GoTCharacter>> read(House house){
+    public Observable<List<GoTCharacter>> read(GoTHouse house){
         return getAll().map(characters -> {
             Iterator<GoTCharacter> iterator = characters.iterator();
             while (iterator.hasNext()){

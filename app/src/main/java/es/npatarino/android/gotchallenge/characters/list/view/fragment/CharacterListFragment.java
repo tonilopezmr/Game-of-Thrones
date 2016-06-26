@@ -19,7 +19,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.characters.di.CharactersModule;
 import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.characters.list.CharacterList;
+import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
 import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.common.list.view.ViewList;
@@ -35,7 +35,7 @@ public class CharacterListFragment extends Fragment implements ViewList<GoTChara
     private CharacterAdapter adp;
 
     @Inject
-    CharacterList.Presenter gotCharacterListPresenter;
+    CharacterListPresenter gotCharacterListPresenter;
 
 
     public CharacterListFragment() {

@@ -17,7 +17,7 @@ import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrat
 import es.npatarino.android.gotchallenge.houses.data.source.local.HouseLocalDataSource;
 import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -48,7 +48,7 @@ public class HouseLocalDataSourceTest {
     @Test
     public void
     save_houses_and_get_all() {
-        List<House> houseList = getHouses();
+        List<GoTHouse> houseList = getHouses();
 
         dataSource.save(houseList);
 
@@ -61,7 +61,7 @@ public class HouseLocalDataSourceTest {
     @Test
     public void
     remove_houses() {
-        List<House> houseList = getHouses();
+        List<GoTHouse> houseList = getHouses();
 
         dataSource.save(houseList);
         dataSource.removeAll(houseList);
@@ -70,30 +70,30 @@ public class HouseLocalDataSourceTest {
                 .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
     }
 
-    private void assertHouseList(List<House> expectedList, List<House> list) {
+    private void assertHouseList(List<GoTHouse> expectedList, List<GoTHouse> list) {
         assertThat(list.size(), is(expectedList.size()));
 
         for (int i = 0; i < list.size(); i++) {
-            House expected = expectedList.get(i);
-            House house = list.get(i);
+            GoTHouse expected = expectedList.get(i);
+            GoTHouse house = list.get(i);
 
             assertHouse(expected, house);
         }
     }
 
-    private void assertHouse(House expected, House house) {
+    private void assertHouse(GoTHouse expected, GoTHouse house) {
         assertThat(house.getHouseId(), is(expected.getHouseId()));
         assertThat(house.getHouseImageUrl(), is(expected.getHouseImageUrl()));
         assertThat(house.getHouseName(), is(expected.getHouseName() + " cache"));
     }
 
-    private List<House> getHouses() {
-        List<House> list = Arrays.asList(TestUtils.defaultGotHouse(),
+    private List<GoTHouse> getHouses() {
+        List<GoTHouse> list = Arrays.asList(TestUtils.defaultGotHouse(),
                 TestUtils.defaultGotHouse(),
                 TestUtils.defaultGotHouse());
 
         for (int i = 0; i < list.size(); i++) {
-            House house = list.get(i);
+            GoTHouse house = list.get(i);
             house.setHouseId(house.getHouseId()+ i);
         }
 

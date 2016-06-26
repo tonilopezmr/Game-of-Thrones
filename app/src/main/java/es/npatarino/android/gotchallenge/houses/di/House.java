@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.houses.di;
 
 import java.lang.annotation.Retention;
 
-import javax.inject.Scope;
+import javax.inject.Qualifier;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
@@ -10,6 +10,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @author Antonio López.
  */
 
-@Scope
+@Qualifier
 @Retention(RUNTIME)
 public @interface House {}

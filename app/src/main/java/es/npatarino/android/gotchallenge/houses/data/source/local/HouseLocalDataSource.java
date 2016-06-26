@@ -6,7 +6,7 @@ import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.common.mapper.TwoWaysMapper;
 import io.realm.Realm;
 import rx.Observable;
@@ -15,16 +15,16 @@ public class HouseLocalDataSource implements Houses.LocalDataSource {
 
     private TTLCachingStrategy cachingStrategy;
     private TimeProvider timeProvider;
-    private TwoWaysMapper<House, BddHouse> mapper;
+    private TwoWaysMapper<GoTHouse, BddHouse> mapper;
 
-    public HouseLocalDataSource(TTLCachingStrategy cachingStrategy, TimeProvider timeProvider, TwoWaysMapper<House, BddHouse> mapper) {
+    public HouseLocalDataSource(TTLCachingStrategy cachingStrategy, TimeProvider timeProvider, TwoWaysMapper<GoTHouse, BddHouse> mapper) {
         this.cachingStrategy = cachingStrategy;
         this.timeProvider = timeProvider;
         this.mapper = mapper;
     }
 
     @Override
-    public void save(List<House> save) {
+    public void save(List<GoTHouse> save) {
         List<BddHouse> list = mapper.map(save);
         for (int i = 0, size = list.size(); i < size; i++) {
             save(list.get(i));
@@ -46,13 +46,13 @@ public class HouseLocalDataSource implements Houses.LocalDataSource {
     }
 
     @Override
-    public void removeAll(List<House> remove) {
+    public void removeAll(List<GoTHouse> remove) {
         for (int i = 0, size = remove.size(); i < size; i++) {
             remove(remove.get(i));
         }
     }
 
-    private void remove(House house){
+    private void remove(GoTHouse house){
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
             BddHouse bddHouse = find(house);
@@ -64,7 +64,7 @@ public class HouseLocalDataSource implements Houses.LocalDataSource {
     }
 
     @Override
-    public Observable<List<House>> getAll() {
+    public Observable<List<GoTHouse>> getAll() {
         return Observable.create(subscriber -> {
             Realm realm = Realm.getDefaultInstance();
             List<BddHouse> result = realm.where(BddHouse.class).findAll();
@@ -74,7 +74,7 @@ public class HouseLocalDataSource implements Houses.LocalDataSource {
         });
     }
 
-    public BddHouse find(House house) {
+    public BddHouse find(GoTHouse house) {
         Realm realm = Realm.getDefaultInstance();
         BddHouse bddHouse = realm.where(BddHouse.class)
                 .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getHouseId())

@@ -5,21 +5,21 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.common.mapper.TwoWaysMapper;
 
-public class BddHouseMapper implements TwoWaysMapper<House, BddHouse> {
+public class BddHouseMapper implements TwoWaysMapper<GoTHouse, BddHouse> {
 
     @Override
-    public House inverseMap(BddHouse model) {
-        return new House(model.getHouseId(),
+    public GoTHouse inverseMap(BddHouse model) {
+        return new GoTHouse(model.getHouseId(),
                 BuildConfig.DEBUG? model.getHouseName()+ " cache" : model.getHouseName(),
                 model.getHouseImageUrl());
     }
 
     @Override
-    public List<House> inverseMap(List<BddHouse> listModel) {
-        List<House> list = new ArrayList<>();
+    public List<GoTHouse> inverseMap(List<BddHouse> listModel) {
+        List<GoTHouse> list = new ArrayList<>();
 
         for (int i = 0, size = listModel.size(); i < size; i++) {
             BddHouse bddHouse = listModel.get(i);
@@ -30,7 +30,7 @@ public class BddHouseMapper implements TwoWaysMapper<House, BddHouse> {
     }
 
     @Override
-    public BddHouse map(House model) {
+    public BddHouse map(GoTHouse model) {
         BddHouse house = new BddHouse();
         house.setHouseName(model.getHouseName());
         house.setHouseId(model.getHouseId());
@@ -39,11 +39,11 @@ public class BddHouseMapper implements TwoWaysMapper<House, BddHouse> {
     }
 
     @Override
-    public List<BddHouse> map(List<House> listModel) {
+    public List<BddHouse> map(List<GoTHouse> listModel) {
         List<BddHouse> list = new ArrayList<>();
 
         for (int i = 0, size = listModel.size(); i < size; i++) {
-            House goTCharacter = listModel.get(i);
+            GoTHouse goTCharacter = listModel.get(i);
             list.add(map(goTCharacter));
         }
 

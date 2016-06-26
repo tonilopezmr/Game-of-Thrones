@@ -3,7 +3,7 @@ package es.npatarino.android.gotchallenge.houses.data;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
 public class HouseRepository implements Houses.Repository {
@@ -17,8 +17,8 @@ public class HouseRepository implements Houses.Repository {
     }
 
     @Override
-    public Observable<List<House>> getList() {
-        Observable<List<House>> observable;
+    public Observable<List<GoTHouse>> getList() {
+        Observable<List<GoTHouse>> observable;
 
         if (localDataSource.isExpired()){
             observable = networkDataSource.getAll()

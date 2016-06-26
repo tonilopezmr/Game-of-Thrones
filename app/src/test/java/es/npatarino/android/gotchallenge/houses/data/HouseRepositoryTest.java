@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
 import static org.junit.Assert.fail;
@@ -66,19 +66,19 @@ public class HouseRepositoryTest {
         verify(localDataSource, never()).getAll();
     }
 
-    private List<House> getSevenHouses(){
-        List<House> houses = new ArrayList<>();
+    private List<GoTHouse> getSevenHouses(){
+        List<GoTHouse> houses = new ArrayList<>();
         for (int i = 0; i < 7; i++){
-            houses.add(new House());
+            houses.add(new GoTHouse());
         }
         return houses;
     }
 
-    private Observable<List<House>> getSevenHousesObservable(){
+    private Observable<List<GoTHouse>> getSevenHousesObservable(){
         return Observable.just(getSevenHouses());
     }
 
-    private Observable<List<House>> getEmptyHouseListObservable(){
+    private Observable<List<GoTHouse>> getEmptyHouseListObservable(){
         return Observable.just(new ArrayList<>());
     }
 }

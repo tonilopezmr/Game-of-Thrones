@@ -6,7 +6,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
 public class CharacterRepository implements CharactersDomain.Repository {
@@ -65,7 +65,7 @@ public class CharacterRepository implements CharactersDomain.Repository {
     }
 
     @Override
-    public Observable<List<GoTCharacter>> read(House house){
+    public Observable<List<GoTCharacter>> read(GoTHouse house){
         Observable<List<GoTCharacter>> observable;
 
         if (localDataSource.isExpired()){

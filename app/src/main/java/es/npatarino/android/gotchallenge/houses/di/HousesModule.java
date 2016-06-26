@@ -13,9 +13,8 @@ import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHous
 import es.npatarino.android.gotchallenge.houses.data.source.network.HouseNetworkDataSource;
 import es.npatarino.android.gotchallenge.common.di.Activity;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
-import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
-import es.npatarino.android.gotchallenge.houses.list.HouseList;
 import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import rx.Scheduler;
 
@@ -49,16 +48,16 @@ import rx.Scheduler;
 
     @Provides
     @Activity
-    @Named("house")
-    public GetListUseCase<House> provideGotHouseListUseCase(@Named("executorThread") Scheduler executor,
-                                                            @Named("mainThread") Scheduler uiThread,
-                                                            Houses.Repository repository){
+    @House
+    public GetListUseCase<GoTHouse> provideGotHouseListUseCase(@Named("executorThread") Scheduler executor,
+                                                               @Named("mainThread") Scheduler uiThread,
+                                                               Houses.Repository repository){
         return new GetListUseCase<>(repository, uiThread, executor);
     }
 
     @Provides
     @Activity
-    public HouseList.Presenter provideGotHouseListPresenter(@Named("house") GetListUseCase<House> houseGetListUseCase){
+    public HouseListPresenter provideGotHouseListPresenter(@House GetListUseCase<GoTHouse> houseGetListUseCase){
         return new HouseListPresenter(houseGetListUseCase);
     }
 }
