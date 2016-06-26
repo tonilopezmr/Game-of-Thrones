@@ -18,7 +18,7 @@ public class TimeProvider {
     public void persistTime(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         sharedPreferences.edit()
-                .putLong(KEY, getMyBirthday())
+                .putLong(KEY, System.currentTimeMillis())
                 .apply();
     }
 
