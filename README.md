@@ -7,9 +7,37 @@ I have participated in challenge and I will continue improving!
 
 You can follow the commits flow to see how I refactoring.
 
-![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]  
+Android developers face challenges almost everyday during development: performance, security, backwards compatibility, testing... And mainly refactoring for it's own or legacy code.
+This repository contains a project to face an small challenge where the developer should add some new features, detect (and implement) patterns, add tests, re-think the architecture and do a clean code.
 
-Thanks to [Guillermo López][0]
+Game of Thrones for Android Challenge offers an app using an API to get data for [Game of Thrones][GameOfThronesLink] tv show. It's ready to run, it's working, but the code need to be improved. That's your challenge!
+
+## Getting started
+
+This repository contains an Android app that retrieve a list of some [Game of Thrones][GameOfThronesLink]' characters from an API. The app shows a list of the houses of the characters, the characters themselves and a detail description of each one.
+
+This behaviour it's done in two diffent [Activities][ActivityLink], one for the two lists and other for details of the character:
+
+![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]
+* ``HomeActivity`` contains two [Fragments][FragmentLink] in a [ViewPager][ViewPagerLink]
+  * `CharacterListFragment` shows a list of some the this tv show's characters.
+  * `HouseListFragment` shows a list of the noble houses of the characters
+
+* ``DetailActivity`` shows the name, photo and description of a character
+
+## Goals
+
+1. Refactoring
+2. Clean Architecture with MVP
+3. Package by feature, not layer
+4. Reactive with RxJava
+5. Play with Dagger2
+6. Capability to work offline
+7. Testing with Espresso and Mockito
+8. Animations
+9. Ui Chat //not done
+
+Thanks to [Guillermo López][0] for giving me the GoT Icons
 
 # License
 
