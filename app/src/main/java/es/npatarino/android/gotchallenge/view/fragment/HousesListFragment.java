@@ -19,7 +19,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.di.components.DaggerHousesComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.HousesModule;
-import es.npatarino.android.gotchallenge.domain.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.view.ViewList;
 import es.npatarino.android.gotchallenge.view.adapters.HouseAdapter;

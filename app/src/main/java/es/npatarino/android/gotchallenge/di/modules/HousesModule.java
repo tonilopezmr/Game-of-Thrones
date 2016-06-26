@@ -4,19 +4,17 @@ import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.data.HouseRepositoryImp;
-import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
-import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
-import es.npatarino.android.gotchallenge.data.source.local.HouseLocalDataSourceImp;
-import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddHouseMapper;
-import es.npatarino.android.gotchallenge.data.source.remote.HouseRemoteDataSourceImp;
+import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.houses.data.HouseRepository;
+import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.houses.data.source.local.HouseLocalDataSource;
+import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
+import es.npatarino.android.gotchallenge.houses.data.source.network.HouseNetworkDataSource;
 import es.npatarino.android.gotchallenge.di.Activity;
-import es.npatarino.android.gotchallenge.domain.House;
-import es.npatarino.android.gotchallenge.domain.datasource.local.HouseLocalDataSource;
-import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
-import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
-import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
-import es.npatarino.android.gotchallenge.domain.repository.HouseRepository;
+import es.npatarino.android.gotchallenge.houses.domain.Houses;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.presenter.HouseListPresenterImp;
 import rx.Scheduler;
@@ -31,22 +29,22 @@ import rx.Scheduler;
 
     @Provides
     @Activity
-    public HouseLocalDataSource provideHouseLocalDataSource(TTLCachingStrategy cachingStrategy,
-                                                            TimeProvider timeProvider,
-                                                            BddHouseMapper mapper){
-        return new HouseLocalDataSourceImp(cachingStrategy, timeProvider, mapper);
+    public Houses.LocalDataSource provideHouseLocalDataSource(TTLCachingStrategy cachingStrategy,
+                                                              TimeProvider timeProvider,
+                                                              BddHouseMapper mapper){
+        return new HouseLocalDataSource(cachingStrategy, timeProvider, mapper);
     }
 
     @Provides
     @Activity
-    public HouseRemoteDataSource provideHouseRemoteDataSource(CharacterRemoteDataSource characterRemoteDataSource){
-        return new HouseRemoteDataSourceImp(characterRemoteDataSource);
+    public Houses.NetworkDataSource provideHouseRemoteDataSource(Characters.NetworkDataSource characterNetworkDataSource){
+        return new HouseNetworkDataSource(characterNetworkDataSource);
     }
 
     @Provides
     @Activity
-    public HouseRepository provideGotHouseRepository(HouseRemoteDataSource remoteDataSource, HouseLocalDataSource localDataSource){
-        return new HouseRepositoryImp(remoteDataSource, localDataSource);
+    public Houses.Repository provideGotHouseRepository(Houses.NetworkDataSource networkDataSource, Houses.LocalDataSource localDataSource){
+        return new HouseRepository(networkDataSource, localDataSource);
     }
 
     @Provides
@@ -54,7 +52,7 @@ import rx.Scheduler;
     @Named("house")
     public GetListUseCase<House> provideGotHouseListUseCase(@Named("executorThread") Scheduler executor,
                                                             @Named("mainThread") Scheduler uiThread,
-                                                            HouseRepository repository){
+                                                            Houses.Repository repository){
         return new GetListUseCase<>(repository, uiThread, executor);
     }
 

@@ -2,9 +2,9 @@ package es.npatarino.android.gotchallenge.presenter;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.House;
-import es.npatarino.android.gotchallenge.domain.interactor.GetCharactersByHouseUseCase;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.view.DetailView;
 import rx.Subscription;
 

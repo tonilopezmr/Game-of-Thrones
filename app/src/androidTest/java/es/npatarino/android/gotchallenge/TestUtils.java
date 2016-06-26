@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import java.util.LinkedList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.House;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import rx.Observable;
 
 public class TestUtils {

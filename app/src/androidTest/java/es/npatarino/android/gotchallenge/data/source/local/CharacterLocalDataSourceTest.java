@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
-import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
-import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddGoTCharacterMapper;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
+import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
+import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -32,7 +33,7 @@ public class CharacterLocalDataSourceTest {
     private TTLCachingStrategy ttlCachingStrategy = new TTLCachingStrategy(2 , TimeUnit.MINUTES);
     private TimeProvider timeProvider = new TimeProvider(InstrumentationRegistry.getTargetContext());
 
-    private CharacterLocalDataSource dataSource;
+    private Characters.LocalDataSource dataSource;
 
     @Before
     public void setUp(){
@@ -43,7 +44,7 @@ public class CharacterLocalDataSourceTest {
         Realm.setDefaultConfiguration(realmConfiguration);
 
         dataSource =
-                new CharacterLocalDataSourceImp(ttlCachingStrategy, timeProvider, mapper);
+                new CharacterLocalDataSource(ttlCachingStrategy, timeProvider, mapper);
     }
 
     @Test

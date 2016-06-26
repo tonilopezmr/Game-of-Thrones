@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.BuildConfig;
-import es.npatarino.android.gotchallenge.data.source.local.entities.BddHouse;
-import es.npatarino.android.gotchallenge.domain.House;
+import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
+import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

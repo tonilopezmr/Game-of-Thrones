@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.domain.House;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.view.fragment.CharacterListByHouseFragment;
 import es.npatarino.android.gotchallenge.view.fragment.DescriptionFragment;
 

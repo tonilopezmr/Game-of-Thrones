@@ -4,14 +4,12 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import es.npatarino.android.gotchallenge.data.caching.TimeProvider;
-import es.npatarino.android.gotchallenge.data.caching.strategy.TTLCachingStrategy;
-import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddGoTCharacterMapper;
-import es.npatarino.android.gotchallenge.data.source.remote.EndPoint;
-import es.npatarino.android.gotchallenge.data.source.remote.JsonMapper;
-import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
-import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
-import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
+import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
+import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.common.network.EndPoint;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;
 
@@ -19,16 +17,16 @@ import rx.Scheduler;
 public interface AppComponent {
 
     //repository for DaggerMock limitations
-    CharacterRepository gotCharacterRepository();
+    Characters.Repository gotCharacterRepository();
 
-    JsonMapper gotCharacterJsonMapper();
+    CharacterJsonMapper gotCharacterJsonMapper();
     BddGoTCharacterMapper bddGotCharacterMapper();
     TTLCachingStrategy cachingStrategy();
     TimeProvider timeProvider();
 
     //datasource
-    CharacterRemoteDataSource characterRemoteDataSource();
-    CharacterLocalDataSource characterLocalDataSource();
+    Characters.NetworkDataSource characterRemoteDataSource();
+    Characters.LocalDataSource characterLocalDataSource();
 
 
     @Named("executorThread") Scheduler executorThread();

@@ -10,10 +10,9 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.data.CharacterRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
-import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
+import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.data.CharacterRepository;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
@@ -29,11 +28,11 @@ public class CharacterRepositoryTest {
     public static final boolean NOT_EXPIRED = false;
 
     @Mock
-    CharacterRemoteDataSource remoteDataSource;
+    Characters.NetworkDataSource networkDataSource;
     @Mock
-    CharacterLocalDataSource localDataSource;
+    Characters.LocalDataSource localDataSource;
 
-    CharacterRepository repository;
+    Characters.Repository repository;
 
     @Before
     public void setUp() throws Exception {
@@ -41,7 +40,7 @@ public class CharacterRepositoryTest {
         // inject the mocks in the test the initMocks method needs to be called.
         MockitoAnnotations.initMocks(this);
 
-        repository = new CharacterRepositoryImp(remoteDataSource, localDataSource);
+        repository = new CharacterRepository(networkDataSource, localDataSource);
     }
 
     @Test public void
@@ -49,7 +48,7 @@ public class CharacterRepositoryTest {
         TestSubscriber<List<GoTCharacter>> testSubscriber = new TestSubscriber<>();
 
         when(localDataSource.isExpired()).thenReturn(EXPIRED);
-        when(remoteDataSource.getAll()).thenReturn(getCharactersObservable(10));
+        when(networkDataSource.getAll()).thenReturn(getCharactersObservable(10));
 
 
         repository.getList()
@@ -59,7 +58,7 @@ public class CharacterRepositoryTest {
         testSubscriber.assertCompleted();
         testSubscriber.assertValueCount(1);
         verify(localDataSource).save(any());
-        verify(remoteDataSource).getAll();
+        verify(networkDataSource).getAll();
     }
 
     @Test
@@ -68,7 +67,7 @@ public class CharacterRepositoryTest {
         TestSubscriber<List<GoTCharacter>> testSubscriber = new TestSubscriber<>();
 
         when(localDataSource.isExpired()).thenReturn(EXPIRED);
-        when(remoteDataSource.getAll()).thenReturn(getCharactersObservable(10));
+        when(networkDataSource.getAll()).thenReturn(getCharactersObservable(10));
         when(localDataSource.getAll()).thenReturn(getCharactersObservable(1));
         doThrow(Exception.class).when(localDataSource).save(any(List.class));
 
@@ -94,7 +93,7 @@ public class CharacterRepositoryTest {
         testSubscriber.assertNoErrors();
         testSubscriber.assertCompleted();
         verify(localDataSource).getAll();
-        verify(remoteDataSource, never()).getAll();
+        verify(networkDataSource, never()).getAll();
     }
 
     @Test
@@ -103,7 +102,7 @@ public class CharacterRepositoryTest {
         TestSubscriber<List<GoTCharacter>> testSubscriber = new TestSubscriber<>();
 
         when(localDataSource.isExpired()).thenReturn(EXPIRED);
-        when(remoteDataSource.getAll()).thenReturn(getErrorObservable());
+        when(networkDataSource.getAll()).thenReturn(getErrorObservable());
         when(localDataSource.getAll()).thenReturn(getCharactersObservable(10));
 
         repository.getList()
@@ -111,7 +110,7 @@ public class CharacterRepositoryTest {
 
         testSubscriber.assertNoErrors();
         testSubscriber.assertCompleted();
-        verify(remoteDataSource).getAll();
+        verify(networkDataSource).getAll();
         verify(localDataSource).getAll();
     }
 

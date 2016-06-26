@@ -14,11 +14,11 @@ import org.mockito.Mock;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
+import es.npatarino.android.gotchallenge.characters.domain.Characters;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.House;
-import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -53,7 +53,7 @@ public class DetailActivityTest {
             new ActivityTestRule<>(DetailActivity.class,true, false);
 
     @Mock
-    CharacterRepository repository;
+    Characters.Repository repository;
 
     @Test public void
     should_character_name_as_toolbar_tittle() throws Exception {

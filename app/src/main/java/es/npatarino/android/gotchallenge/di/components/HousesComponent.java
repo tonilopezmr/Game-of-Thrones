@@ -3,16 +3,14 @@ package es.npatarino.android.gotchallenge.di.components;
 import javax.inject.Named;
 
 import dagger.Component;
-import es.npatarino.android.gotchallenge.data.source.local.entities.mapper.BddHouseMapper;
+import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
 import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.HousesModule;
-import es.npatarino.android.gotchallenge.domain.House;
-import es.npatarino.android.gotchallenge.domain.datasource.local.HouseLocalDataSource;
-import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
-import es.npatarino.android.gotchallenge.domain.interactor.common.GetListUseCase;
-import es.npatarino.android.gotchallenge.domain.repository.HouseRepository;
+import es.npatarino.android.gotchallenge.houses.domain.Houses;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
+import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.view.fragment.HousesListFragment;
 
@@ -25,11 +23,11 @@ public interface HousesComponent extends ActivityComponent{
     BddHouseMapper provideBddHouseMapper();
 
     //datasource
-    HouseRemoteDataSource houseRemoteDataSource();
-    HouseLocalDataSource houseLocalDataSource();
+    Houses.NetworkDataSource houseRemoteDataSource();
+    Houses.LocalDataSource houseLocalDataSource();
 
     //repository
-    HouseRepository gotHouseRepository();
+    Houses.Repository gotHouseRepository();
 
     //usecase
     @Named("house") GetListUseCase<House> gotHouseListUseCase();

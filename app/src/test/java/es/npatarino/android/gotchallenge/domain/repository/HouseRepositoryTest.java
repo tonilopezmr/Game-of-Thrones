@@ -10,10 +10,9 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.data.HouseRepositoryImp;
-import es.npatarino.android.gotchallenge.domain.House;
-import es.npatarino.android.gotchallenge.domain.datasource.local.HouseLocalDataSource;
-import es.npatarino.android.gotchallenge.domain.datasource.remote.HouseRemoteDataSource;
+import es.npatarino.android.gotchallenge.houses.data.HouseRepository;
+import es.npatarino.android.gotchallenge.houses.domain.Houses;
+import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import rx.Observable;
 
 import static org.junit.Assert.fail;
@@ -27,11 +26,11 @@ public class HouseRepositoryTest {
     public static final boolean EXPIRED = true;
 
     @Mock
-    HouseRemoteDataSource remoteDataSource;
+    Houses.NetworkDataSource networkDataSource;
     @Mock
-    HouseLocalDataSource localDataSource;
+    Houses.LocalDataSource localDataSource;
 
-    HouseRepositoryImp repository;
+    HouseRepository repository;
 
     @Before
     public void setUp() throws Exception {
@@ -39,18 +38,18 @@ public class HouseRepositoryTest {
         // inject the mocks in the test the initMocks method needs to be called.
         MockitoAnnotations.initMocks(this);
 
-        repository = new HouseRepositoryImp(remoteDataSource, localDataSource);
+        repository = new HouseRepository(networkDataSource, localDataSource);
     }
 
     @Test public void
     should_not_return_any_house() throws Exception {
         when(localDataSource.isExpired()).thenReturn(EXPIRED);
-        when(remoteDataSource.getAll()).thenReturn(getEmptyHouseListObservable());
+        when(networkDataSource.getAll()).thenReturn(getEmptyHouseListObservable());
 
         repository.getList()
                 .subscribe(list -> Assert.assertThat(list.size(), Is.is(0)), throwable -> fail());
 
-        verify(remoteDataSource).getAll();
+        verify(networkDataSource).getAll();
         verify(localDataSource).save(anyList());
         verify(localDataSource, never()).getAll();
     }
@@ -58,12 +57,12 @@ public class HouseRepositoryTest {
     @Test public void
     should_return_all_houses() throws Exception {
         when(localDataSource.isExpired()).thenReturn(EXPIRED);
-        when(remoteDataSource.getAll()).thenReturn(getSevenHousesObservable());
+        when(networkDataSource.getAll()).thenReturn(getSevenHousesObservable());
 
         repository.getList()
                 .subscribe(list -> Assert.assertThat(list.size(), Is.is(7)), throwable -> fail());
 
-        verify(remoteDataSource).getAll();
+        verify(networkDataSource).getAll();
         verify(localDataSource).save(anyList());
         verify(localDataSource, never()).getAll();
     }
