@@ -14,11 +14,11 @@ import org.mockito.Mock;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.di.AppComponent;
-import es.npatarino.android.gotchallenge.di.AppModule;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.House;
-import es.npatarino.android.gotchallenge.domain.repository.CharacterRepository;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
+import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
+import es.npatarino.android.gotchallenge.common.di.modules.AppModule;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -26,8 +26,8 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static es.npatarino.android.gotchallenge.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
-import static es.npatarino.android.gotchallenge.matchers.ToolbarMatcher.onToolbarWithTitle;
+import static es.npatarino.android.gotchallenge.view.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
+import static es.npatarino.android.gotchallenge.view.matchers.ToolbarMatcher.onToolbarWithTitle;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
 import static org.mockito.Mockito.when;
@@ -53,7 +53,7 @@ public class DetailActivityTest {
             new ActivityTestRule<>(DetailActivity.class,true, false);
 
     @Mock
-    CharacterRepository repository;
+    CharactersDomain.Repository repository;
 
     @Test public void
     should_character_name_as_toolbar_tittle() throws Exception {
@@ -84,7 +84,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_does_not_show_loading_view_once_character_are_shown() throws Exception {
-        House house = TestUtils.defaultGotHouse();
+        GoTHouse house = TestUtils.defaultGotHouse();
         when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
@@ -94,7 +94,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_show_an_specific_number_of_characters() throws Exception{
-        House house = TestUtils.defaultGotHouse();
+        GoTHouse house = TestUtils.defaultGotHouse();
         when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
@@ -104,7 +104,7 @@ public class DetailActivityTest {
 
     @Test public void
     should_display_list_when_is_house_with_characters() throws Exception {
-        House house = TestUtils.defaultGotHouse();
+        GoTHouse house = TestUtils.defaultGotHouse();
         when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
@@ -120,7 +120,7 @@ public class DetailActivityTest {
         return activityTestRule.launchActivity(intent);
     }
 
-    private DetailActivity startActivity(House house){
+    private DetailActivity startActivity(GoTHouse house){
         Intent intent = new Intent();
         intent.putExtra(DetailActivity.HOUSE_ID, house.getHouseId());
         intent.putExtra(DetailActivity.NAME, house.getHouseName());

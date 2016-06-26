@@ -15,12 +15,11 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.di.AppComponent;
-import es.npatarino.android.gotchallenge.di.AppModule;
-import es.npatarino.android.gotchallenge.domain.GoTCharacter;
-import es.npatarino.android.gotchallenge.domain.datasource.local.CharacterLocalDataSource;
-import es.npatarino.android.gotchallenge.domain.datasource.remote.CharacterRemoteDataSource;
-import es.npatarino.android.gotchallenge.recyclerview.RecyclerViewInteraction;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
+import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
+import es.npatarino.android.gotchallenge.common.di.modules.AppModule;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.view.recyclerview.RecyclerViewInteraction;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 import rx.Observable;
 
@@ -54,10 +53,10 @@ public class HomeActivityTest {
             new ActivityTestRule<>(HomeActivity.class, true, false);
 
     @Mock
-    CharacterRemoteDataSource remote;
+    CharactersDomain.NetworkDataSource remote;
 
     @Mock
-    CharacterLocalDataSource local;
+    CharactersDomain.LocalDataSource local;
 
     @Test public void
     show_characters_name() throws Exception {

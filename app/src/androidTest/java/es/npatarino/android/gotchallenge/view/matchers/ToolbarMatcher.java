@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.matchers;
+package es.npatarino.android.gotchallenge.view.matchers;
 
 import android.support.test.espresso.ViewInteraction;
 import android.support.test.espresso.matcher.BoundedMatcher;
