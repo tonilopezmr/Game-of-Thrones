@@ -51,7 +51,6 @@ public class CharacterJsonMapperTest {
     map_characters() {
         List<GoTCharacter> characterList = characterJsonMapper.transformList(JSON_RESPONSE);
 
-
         assertThat(characterList.size(), is(3));
 
         GoTCharacter character = characterList.get(0);

@@ -1,13 +1,26 @@
 package es.npatarino.android.gotchallenge.characters.data.source.network.mapper;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.common.network.JsonMapper;
 
-public class CharacterJsonMapper extends JsonMapper<GoTCharacter>{
+public class CharacterJsonMapper {
+
+    private final Gson gson;
 
     public CharacterJsonMapper(Gson gson) {
-        super(gson);
+        this.gson = gson;
+    }
+
+    public List<GoTCharacter> transformList(String characterJsonList) throws JsonSyntaxException {
+        TypeToken<ArrayList<GoTCharacter>> typeToken = new TypeToken<ArrayList<GoTCharacter>>() {};
+        Type listType = typeToken.getType();
+        return this.gson.fromJson(characterJsonList, listType);
     }
 }
