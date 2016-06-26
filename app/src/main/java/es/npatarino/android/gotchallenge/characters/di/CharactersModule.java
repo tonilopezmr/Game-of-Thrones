@@ -1,16 +1,16 @@
 package es.npatarino.android.gotchallenge.characters.di;
 
-import javax.inject.Named;
-
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
-import es.npatarino.android.gotchallenge.common.di.Activity;
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
-import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
-import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
+import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
+import es.npatarino.android.gotchallenge.common.di.Activity;
+import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
+import es.npatarino.android.gotchallenge.common.di.UiThread;
+import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
 import rx.Scheduler;
 
 
@@ -20,8 +20,8 @@ public class CharactersModule {
 
     @Provides
     @Activity
-    public GetCharactersByHouseUseCase provideCharactersByHouseUseCase(@Named("executorThread") Scheduler executor,
-                                                                       @Named("mainThread") Scheduler uiThread,
+    public GetCharactersByHouseUseCase provideCharactersByHouseUseCase(@ExecutorThread Scheduler executor,
+                                                                       @UiThread Scheduler uiThread,
                                                                        CharactersDomain.Repository repository){
         return new GetCharactersByHouseUseCase(repository, uiThread, executor);
     }
@@ -29,8 +29,8 @@ public class CharactersModule {
     @Provides
     @Activity
     @Character
-    public GetListUseCase<GoTCharacter> provideGotCharacterListUseCase(@Named("executorThread") Scheduler executor,
-                                                                       @Named("mainThread") Scheduler uiThread,
+    public GetListUseCase<GoTCharacter> provideGotCharacterListUseCase(@ExecutorThread Scheduler executor,
+                                                                       @UiThread Scheduler uiThread,
                                                                        CharactersDomain.Repository repository){
         return new GetListUseCase<>(repository, uiThread, executor);
     }

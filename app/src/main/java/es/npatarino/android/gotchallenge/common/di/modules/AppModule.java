@@ -6,19 +6,20 @@ import com.google.gson.Gson;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import es.npatarino.android.gotchallenge.characters.data.CharacterRepository;
+import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
+import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
 import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSourceImp;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
-import es.npatarino.android.gotchallenge.characters.data.CharacterRepository;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
-import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
-import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
+import es.npatarino.android.gotchallenge.common.di.UiThread;
 import es.npatarino.android.gotchallenge.common.network.EndPoint;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;
@@ -89,12 +90,12 @@ public class AppModule {
         return new OkHttpClient();
     }
 
-    @Provides @Named("executorThread")
+    @Provides @ExecutorThread
     public Scheduler provideMainThread(){
         return Schedulers.newThread();
     }
 
-    @Provides @Named("mainThread")
+    @Provides @UiThread
     public Scheduler provideExecutor(){
         return AndroidSchedulers.mainThread();
     }

@@ -1,14 +1,15 @@
 package es.npatarino.android.gotchallenge.common.di.components;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
-import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
+import es.npatarino.android.gotchallenge.common.di.UiThread;
 import es.npatarino.android.gotchallenge.common.di.modules.AppModule;
 import es.npatarino.android.gotchallenge.common.network.EndPoint;
 import okhttp3.OkHttpClient;
@@ -30,8 +31,10 @@ public interface AppComponent {
     CharactersDomain.LocalDataSource characterLocalDataSource();
 
 
-    @Named("executorThread") Scheduler executorThread();
-    @Named("mainThread") Scheduler mainThread();
+    @ExecutorThread
+    Scheduler executorThread();
+    @UiThread
+    Scheduler mainThread();
     OkHttpClient okHttpClient();
     EndPoint endPoint();
 }

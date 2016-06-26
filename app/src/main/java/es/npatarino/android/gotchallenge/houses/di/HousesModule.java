@@ -1,20 +1,20 @@
 package es.npatarino.android.gotchallenge.houses.di;
 
-import javax.inject.Named;
-
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
-import es.npatarino.android.gotchallenge.houses.data.HouseRepository;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.common.di.Activity;
+import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
+import es.npatarino.android.gotchallenge.common.di.UiThread;
+import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.houses.data.HouseRepository;
 import es.npatarino.android.gotchallenge.houses.data.source.local.HouseLocalDataSource;
 import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
 import es.npatarino.android.gotchallenge.houses.data.source.network.HouseNetworkDataSource;
-import es.npatarino.android.gotchallenge.common.di.Activity;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import rx.Scheduler;
 
@@ -49,8 +49,8 @@ import rx.Scheduler;
     @Provides
     @Activity
     @House
-    public GetListUseCase<GoTHouse> provideGotHouseListUseCase(@Named("executorThread") Scheduler executor,
-                                                               @Named("mainThread") Scheduler uiThread,
+    public GetListUseCase<GoTHouse> provideGotHouseListUseCase(@ExecutorThread Scheduler executor,
+                                                               @UiThread Scheduler uiThread,
                                                                Houses.Repository repository){
         return new GetListUseCase<>(repository, uiThread, executor);
     }
