@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.data.source.remote;
+package es.npatarino.android.gotchallenge.characters.data.source.remote.mapper;
 
 import com.google.gson.Gson;
 

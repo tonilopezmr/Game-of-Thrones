@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.domain.repository;
+package es.npatarino.android.gotchallenge.houses.data;
 
 import org.hamcrest.core.Is;
 import org.junit.Assert;
@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.houses.data.HouseRepository;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import rx.Observable;

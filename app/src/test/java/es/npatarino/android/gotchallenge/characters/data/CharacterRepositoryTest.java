@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.domain.repository;
+package es.npatarino.android.gotchallenge.characters.data;
 
 import android.support.annotation.NonNull;
 
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.Characters;
-import es.npatarino.android.gotchallenge.characters.data.CharacterRepository;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import rx.Observable;
 import rx.observers.TestSubscriber;

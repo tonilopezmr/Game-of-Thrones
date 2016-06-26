@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.data.source.local.entities.mapper;
+package es.npatarino.android.gotchallenge.characters.data.source.local.mapper;
 
 import android.support.annotation.NonNull;
 
@@ -9,7 +9,6 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
-import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 
 import static org.hamcrest.core.Is.is;
