@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.characters.data.source.local;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
@@ -13,7 +13,7 @@ import es.npatarino.android.gotchallenge.common.mapper.TwoWaysMapper;
 import io.realm.Realm;
 import rx.Observable;
 
-public class CharacterLocalDataSource implements Characters.LocalDataSource {
+public class CharacterLocalDataSource implements CharactersDomain.LocalDataSource {
 
     private TTLCachingStrategy ttlCachingStrategy;
     private TimeProvider timeProvider;

@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.view.fragment;
+package es.npatarino.android.gotchallenge.characters.detail.view.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import es.npatarino.android.gotchallenge.R;
 
-public class DescriptionFragment extends Fragment {
+public class CharacterDescriptionFragment extends Fragment {
 
     private String name;
     private String description;

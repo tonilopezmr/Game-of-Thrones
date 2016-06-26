@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSourceImp;
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.network.EndPoint;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.di.AppModule;
@@ -18,7 +18,7 @@ import rx.observers.TestSubscriber;
 
 public class CharacterNetworkDataSourceTest {
 
-    private Characters.NetworkDataSource networkDataSource;
+    private CharactersDomain.NetworkDataSource networkDataSource;
 
     @Before
     public void setUp() throws Exception {

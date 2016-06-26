@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import rx.Observable;
 import rx.observers.TestSubscriber;
@@ -27,11 +27,11 @@ public class CharacterRepositoryTest {
     public static final boolean NOT_EXPIRED = false;
 
     @Mock
-    Characters.NetworkDataSource networkDataSource;
+    CharactersDomain.NetworkDataSource networkDataSource;
     @Mock
-    Characters.LocalDataSource localDataSource;
+    CharactersDomain.LocalDataSource localDataSource;
 
-    Characters.Repository repository;
+    CharactersDomain.Repository repository;
 
     @Before
     public void setUp() throws Exception {

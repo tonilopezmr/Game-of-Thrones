@@ -3,7 +3,7 @@ package es.npatarino.android.gotchallenge.houses.data.source.network;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
@@ -11,9 +11,9 @@ import rx.Observable;
 
 public class HouseNetworkDataSource implements Houses.NetworkDataSource {
 
-    private Characters.NetworkDataSource dataSource;
+    private CharactersDomain.NetworkDataSource dataSource;
 
-    public HouseNetworkDataSource(Characters.NetworkDataSource dataSource) {
+    public HouseNetworkDataSource(CharactersDomain.NetworkDataSource dataSource) {
         this.dataSource = dataSource;
     }
 

@@ -13,8 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
-import es.npatarino.android.gotchallenge.view.fragment.CharacterListByHouseFragment;
-import es.npatarino.android.gotchallenge.view.fragment.DescriptionFragment;
+import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListByHouseFragment;
+import es.npatarino.android.gotchallenge.characters.detail.view.fragments.CharacterDescriptionFragment;
 
 public class DetailActivity extends AppCompatActivity{
 
@@ -83,7 +83,7 @@ public class DetailActivity extends AppCompatActivity{
 
     @NonNull
     private void initDescriptionFragment(String description, String name) {
-        DescriptionFragment descriptionFragment = new DescriptionFragment();
+        CharacterDescriptionFragment descriptionFragment = new CharacterDescriptionFragment();
         descriptionFragment.setName(name);
         descriptionFragment.setDescription(description);
         attachFragment(descriptionFragment);

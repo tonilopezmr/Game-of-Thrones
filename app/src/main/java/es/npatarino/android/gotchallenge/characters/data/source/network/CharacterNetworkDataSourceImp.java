@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.common.network.EndPoint;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
@@ -13,7 +13,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import rx.Observable;
 
-public class CharacterNetworkDataSourceImp implements Characters.NetworkDataSource {
+public class CharacterNetworkDataSourceImp implements CharactersDomain.NetworkDataSource {
 
     private OkHttpClient client;
     private EndPoint endPoint;

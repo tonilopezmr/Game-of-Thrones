@@ -11,8 +11,8 @@ import es.npatarino.android.gotchallenge.di.modules.HousesModule;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
-import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
-import es.npatarino.android.gotchallenge.view.fragment.HousesListFragment;
+import es.npatarino.android.gotchallenge.houses.list.HouseList;
+import es.npatarino.android.gotchallenge.houses.list.view.fragment.HousesListFragment;
 
 @Activity
 @Component(dependencies = AppComponent.class, modules = {HousesModule.class, ActivityModule.class})
@@ -33,5 +33,5 @@ public interface HousesComponent extends ActivityComponent{
     @Named("house") GetListUseCase<House> gotHouseListUseCase();
 
     //presenter
-    HouseListPresenter gotHouseListPresenter();
+    HouseList.Presenter gotHouseListPresenter();
 }

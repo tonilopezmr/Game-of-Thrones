@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.view.fragment;
+package es.npatarino.android.gotchallenge.houses.list.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,76 +16,67 @@ import javax.inject.Inject;
 
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.di.components.DaggerCharactersComponent;
+import es.npatarino.android.gotchallenge.di.components.DaggerHousesComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.di.modules.HousesModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
-import es.npatarino.android.gotchallenge.presenter.CharacterListByHousePresenter;
-import es.npatarino.android.gotchallenge.view.DetailView;
-import es.npatarino.android.gotchallenge.view.adapters.CharacterAdapter;
+import es.npatarino.android.gotchallenge.houses.list.HouseList;
+import es.npatarino.android.gotchallenge.common.list.view.ViewList;
+import es.npatarino.android.gotchallenge.houses.list.view.adapters.HouseAdapter;
 
-public class CharacterListByHouseFragment extends Fragment implements DetailView<List<GoTCharacter>> {
+public class HousesListFragment extends Fragment implements ViewList<House> {
 
-    private static final String TAG = "GoTListFragment";
+    private static final String TAG = "GoTHousesListFragment";
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
-    private CharacterAdapter adp;
-    private House house;
+    private HouseAdapter adp;
 
     @Inject
-    CharacterListByHousePresenter characterListByHousePresenter;
+    HouseList.Presenter gotHouseListPresenter;
 
-
-    public CharacterListByHouseFragment() {
+    public HousesListFragment() {
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         initDagger();
-
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
 
         initUi();
 
-        characterListByHousePresenter.setView(this);
-        characterListByHousePresenter.init(house);
+        gotHouseListPresenter.setView(this);
+        gotHouseListPresenter.init();
         return rootView;
     }
 
     private void initDagger() {
         GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
-        DaggerCharactersComponent.builder()
+        DaggerHousesComponent.builder()
                 .appComponent(app.getAppComponent())
                 .activityModule(new ActivityModule(getActivity()))
-                .charactersModule(new CharactersModule())
+                .housesModule(new HousesModule())
                 .build().inject(this);
     }
 
-    public void setHouse(House house) {
-        this.house = house;
+    @Override
+    public void showList(List<House> list) {
+        adp.addAll(list);
+        adp.notifyDataSetChanged();
+        pb.hide();
     }
-
 
     @Override
     public void initUi() {
-        adp = new CharacterAdapter(getActivity());
-        rv.setAdapter(adp);
+        adp = new HouseAdapter(getActivity());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
+        rv.setAdapter(adp);
     }
 
     @Override
     public void error() {
         Toast.makeText(getActivity().getApplicationContext(), "ERRRRRORRR ONEEE", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void show(List<GoTCharacter> list) {
-        adp.addAll(list);
-        adp.notifyDataSetChanged();
-        pb.hide();
     }
 }

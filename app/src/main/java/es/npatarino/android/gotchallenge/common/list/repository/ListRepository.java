@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.npatarino.android.gotchallenge.common.repository;
+package es.npatarino.android.gotchallenge.common.list.repository;
 
 import java.util.List;
 

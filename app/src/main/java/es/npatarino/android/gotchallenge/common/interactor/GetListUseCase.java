@@ -18,7 +18,7 @@ package es.npatarino.android.gotchallenge.common.interactor;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.common.repository.ListRepository;
+import es.npatarino.android.gotchallenge.common.list.repository.ListRepository;
 import rx.Observable;
 import rx.Scheduler;
 

@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
@@ -17,7 +17,7 @@ import rx.Scheduler;
 public interface AppComponent {
 
     //repository for DaggerMock limitations
-    Characters.Repository gotCharacterRepository();
+    CharactersDomain.Repository gotCharacterRepository();
 
     CharacterJsonMapper gotCharacterJsonMapper();
     BddGoTCharacterMapper bddGotCharacterMapper();
@@ -25,8 +25,8 @@ public interface AppComponent {
     TimeProvider timeProvider();
 
     //datasource
-    Characters.NetworkDataSource characterRemoteDataSource();
-    Characters.LocalDataSource characterLocalDataSource();
+    CharactersDomain.NetworkDataSource characterRemoteDataSource();
+    CharactersDomain.LocalDataSource characterLocalDataSource();
 
 
     @Named("executorThread") Scheduler executorThread();

@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.view.adapters;
+package es.npatarino.android.gotchallenge.characters.list.view.adapters;
 
 import android.app.Activity;
 import android.content.Intent;

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
@@ -33,7 +33,7 @@ public class CharacterLocalDataSourceTest {
     private TTLCachingStrategy ttlCachingStrategy = new TTLCachingStrategy(2 , TimeUnit.MINUTES);
     private TimeProvider timeProvider = new TimeProvider(InstrumentationRegistry.getTargetContext());
 
-    private Characters.LocalDataSource dataSource;
+    private CharactersDomain.LocalDataSource dataSource;
 
     @Before
     public void setUp(){

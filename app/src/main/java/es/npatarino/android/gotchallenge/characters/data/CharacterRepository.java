@@ -4,18 +4,18 @@ import android.util.Log;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import rx.Observable;
 
-public class CharacterRepository implements Characters.Repository {
+public class CharacterRepository implements CharactersDomain.Repository {
 
     public static final String TAG = CharacterRepository.class.getSimpleName();
-    private Characters.NetworkDataSource networkDataSource;
-    private Characters.LocalDataSource localDataSource;
+    private CharactersDomain.NetworkDataSource networkDataSource;
+    private CharactersDomain.LocalDataSource localDataSource;
 
-    public CharacterRepository(Characters.NetworkDataSource networkDataSource, Characters.LocalDataSource localDataSource) {
+    public CharacterRepository(CharactersDomain.NetworkDataSource networkDataSource, CharactersDomain.LocalDataSource localDataSource) {
         this.networkDataSource = networkDataSource;
         this.localDataSource = localDataSource;
     }

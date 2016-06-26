@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.characters.domain.interactor;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.common.interactor.UseCase;
@@ -11,10 +11,10 @@ import rx.Scheduler;
 
 public class GetCharactersByHouseUseCase extends UseCase<List<GoTCharacter>> {
 
-    private final Characters.Repository repository;
+    private final CharactersDomain.Repository repository;
     private House house;
 
-    public GetCharactersByHouseUseCase(Characters.Repository repository,
+    public GetCharactersByHouseUseCase(CharactersDomain.Repository repository,
                                        Scheduler uiThread,
                                        Scheduler executorThread) {
         super(uiThread, executorThread);

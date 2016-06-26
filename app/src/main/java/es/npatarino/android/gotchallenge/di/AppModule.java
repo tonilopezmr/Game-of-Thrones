@@ -13,7 +13,7 @@ import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSourceImp;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.data.CharacterRepository;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
@@ -61,25 +61,25 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public Characters.LocalDataSource provideCharacterLocalDataSource(TTLCachingStrategy cachingStrategy,
-                                                                      TimeProvider timeProvider,
-                                                                      BddGoTCharacterMapper mapper) {
+    public CharactersDomain.LocalDataSource provideCharacterLocalDataSource(TTLCachingStrategy cachingStrategy,
+                                                                            TimeProvider timeProvider,
+                                                                            BddGoTCharacterMapper mapper) {
         return new CharacterLocalDataSource(cachingStrategy, timeProvider, mapper);
     }
 
     @Provides
     @Singleton
-    public Characters.NetworkDataSource provideCharacterRemoteDataSource(OkHttpClient okHttpClient,
-                                                                         EndPoint endPoint,
-                                                                         CharacterJsonMapper characterJsonMapper) {
+    public CharactersDomain.NetworkDataSource provideCharacterRemoteDataSource(OkHttpClient okHttpClient,
+                                                                               EndPoint endPoint,
+                                                                               CharacterJsonMapper characterJsonMapper) {
         return new CharacterNetworkDataSourceImp(characterJsonMapper, endPoint, okHttpClient);
     }
 
 
     @Provides
     @Singleton
-    public Characters.Repository provideGotCharacterRepository(Characters.NetworkDataSource networkDataSource,
-                                                               Characters.LocalDataSource localDataSource) {
+    public CharactersDomain.Repository provideGotCharacterRepository(CharactersDomain.NetworkDataSource networkDataSource,
+                                                                     CharactersDomain.LocalDataSource localDataSource) {
         return new CharacterRepository(networkDataSource, localDataSource);
     }
 

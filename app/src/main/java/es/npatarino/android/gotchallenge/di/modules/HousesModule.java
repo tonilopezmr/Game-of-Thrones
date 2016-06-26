@@ -4,7 +4,7 @@ import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.houses.data.HouseRepository;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
@@ -15,8 +15,8 @@ import es.npatarino.android.gotchallenge.di.Activity;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
-import es.npatarino.android.gotchallenge.presenter.HouseListPresenter;
-import es.npatarino.android.gotchallenge.presenter.HouseListPresenterImp;
+import es.npatarino.android.gotchallenge.houses.list.HouseList;
+import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import rx.Scheduler;
 
 @Module public class HousesModule {
@@ -37,7 +37,7 @@ import rx.Scheduler;
 
     @Provides
     @Activity
-    public Houses.NetworkDataSource provideHouseRemoteDataSource(Characters.NetworkDataSource characterNetworkDataSource){
+    public Houses.NetworkDataSource provideHouseRemoteDataSource(CharactersDomain.NetworkDataSource characterNetworkDataSource){
         return new HouseNetworkDataSource(characterNetworkDataSource);
     }
 
@@ -58,7 +58,7 @@ import rx.Scheduler;
 
     @Provides
     @Activity
-    public HouseListPresenter provideGotHouseListPresenter(@Named("house") GetListUseCase<House> houseGetListUseCase){
-        return new HouseListPresenterImp(houseGetListUseCase);
+    public HouseList.Presenter provideGotHouseListPresenter(@Named("house") GetListUseCase<House> houseGetListUseCase){
+        return new HouseListPresenter(houseGetListUseCase);
     }
 }

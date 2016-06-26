@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.houses.domain;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.common.repository.ListRepository;
+import es.npatarino.android.gotchallenge.common.list.repository.ListRepository;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import rx.Observable;
 

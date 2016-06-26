@@ -15,7 +15,7 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
@@ -53,10 +53,10 @@ public class HomeActivityTest {
             new ActivityTestRule<>(HomeActivity.class, true, false);
 
     @Mock
-    Characters.NetworkDataSource remote;
+    CharactersDomain.NetworkDataSource remote;
 
     @Mock
-    Characters.LocalDataSource local;
+    CharactersDomain.LocalDataSource local;
 
     @Test public void
     show_characters_name() throws Exception {

@@ -1,21 +1,22 @@
-package es.npatarino.android.gotchallenge.presenter;
+package es.npatarino.android.gotchallenge.characters.list.presenter;
 
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.characters.list.CharacterList;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
-import es.npatarino.android.gotchallenge.view.DetailView;
+import es.npatarino.android.gotchallenge.common.detail.view.DetailView;
 import rx.Subscription;
 
-public class CharacterListByHousePresenterImp implements CharacterListByHousePresenter {
+public class CharacterListByHousePresenter implements CharacterList.ByHousePresenter {
 
     private DetailView<List<GoTCharacter>> view;
     private GetCharactersByHouseUseCase useCase;
 
     private Subscription charactersSubscription;
 
-    public CharacterListByHousePresenterImp(GetCharactersByHouseUseCase useCase) {
+    public CharacterListByHousePresenter(GetCharactersByHouseUseCase useCase) {
         this.useCase = useCase;
     }
 

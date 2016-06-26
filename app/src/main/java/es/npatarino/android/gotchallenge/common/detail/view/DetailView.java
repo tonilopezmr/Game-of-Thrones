@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package es.npatarino.android.gotchallenge.view;
+package es.npatarino.android.gotchallenge.common.detail.view;
 
-public interface DetailView<T> extends View {
+import es.npatarino.android.gotchallenge.common.Mvp;
+
+public interface DetailView<T> extends Mvp.View {
     void show(T viewModel);
 }

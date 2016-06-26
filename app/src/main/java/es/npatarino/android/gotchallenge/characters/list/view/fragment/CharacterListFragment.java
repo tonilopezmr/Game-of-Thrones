@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.view.fragment;
+package es.npatarino.android.gotchallenge.characters.list.view.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,18 +16,18 @@ import javax.inject.Inject;
 
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.characters.list.CharacterList;
 import es.npatarino.android.gotchallenge.di.components.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.presenter.CharacterListPresenter;
-import es.npatarino.android.gotchallenge.view.ViewList;
-import es.npatarino.android.gotchallenge.view.adapters.CharacterAdapter;
+import es.npatarino.android.gotchallenge.common.list.view.ViewList;
+import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
 
 /**
  * @author Antonio López.
  */
-public class ListFragment extends Fragment implements ViewList<GoTCharacter> {
+public class CharacterListFragment extends Fragment implements ViewList<GoTCharacter> {
 
     private static final String TAG = "GoTListFragment";
     private RecyclerView rv;
@@ -35,10 +35,10 @@ public class ListFragment extends Fragment implements ViewList<GoTCharacter> {
     private CharacterAdapter adp;
 
     @Inject
-    CharacterListPresenter gotCharacterListPresenter;
+    CharacterList.Presenter gotCharacterListPresenter;
 
 
-    public ListFragment() {
+    public CharacterListFragment() {
     }
 
     @Override

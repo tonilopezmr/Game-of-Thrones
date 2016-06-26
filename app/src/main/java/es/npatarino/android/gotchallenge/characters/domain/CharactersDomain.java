@@ -4,10 +4,10 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
-import es.npatarino.android.gotchallenge.common.repository.ListRepository;
+import es.npatarino.android.gotchallenge.common.list.repository.ListRepository;
 import rx.Observable;
 
-public interface Characters {
+public interface CharactersDomain {
 
     interface LocalDataSource {
         void save(List<GoTCharacter> save);

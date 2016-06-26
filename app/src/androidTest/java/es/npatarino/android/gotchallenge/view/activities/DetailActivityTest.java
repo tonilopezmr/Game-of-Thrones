@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.characters.domain.Characters;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.di.AppComponent;
 import es.npatarino.android.gotchallenge.di.AppModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
@@ -53,7 +53,7 @@ public class DetailActivityTest {
             new ActivityTestRule<>(DetailActivity.class,true, false);
 
     @Mock
-    Characters.Repository repository;
+    CharactersDomain.Repository repository;
 
     @Test public void
     should_character_name_as_toolbar_tittle() throws Exception {
