@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.di;
+package es.npatarino.android.gotchallenge.houses.di;
 
 import java.lang.annotation.Retention;
 
@@ -9,6 +9,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * @author Antonio López.
  */
+
 @Scope
 @Retention(RUNTIME)
-public @interface Character {}
+public @interface House {}

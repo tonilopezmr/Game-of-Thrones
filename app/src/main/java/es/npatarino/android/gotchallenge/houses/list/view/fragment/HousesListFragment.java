@@ -16,12 +16,12 @@ import javax.inject.Inject;
 
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.di.components.DaggerHousesComponent;
-import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.di.modules.HousesModule;
+import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.common.list.view.ViewList;
+import es.npatarino.android.gotchallenge.houses.di.DaggerHousesComponent;
+import es.npatarino.android.gotchallenge.houses.di.HousesModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.houses.list.HouseList;
-import es.npatarino.android.gotchallenge.common.list.view.ViewList;
 import es.npatarino.android.gotchallenge.houses.list.view.adapters.HouseAdapter;
 
 public class HousesListFragment extends Fragment implements ViewList<House> {

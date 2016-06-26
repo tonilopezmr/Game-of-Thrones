@@ -11,7 +11,7 @@ import es.npatarino.android.gotchallenge.characters.data.source.network.Characte
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.network.EndPoint;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
-import es.npatarino.android.gotchallenge.di.AppModule;
+import es.npatarino.android.gotchallenge.common.di.modules.AppModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import okhttp3.OkHttpClient;
 import rx.observers.TestSubscriber;

@@ -2,7 +2,7 @@
  * Copyright (C) 2015 android10.org. All rights reserved.
  * @author Fernando Cejas (the android10 coder)
  */
-package es.npatarino.android.gotchallenge.di;
+package es.npatarino.android.gotchallenge.common.di;
 
 import java.lang.annotation.Retention;
 

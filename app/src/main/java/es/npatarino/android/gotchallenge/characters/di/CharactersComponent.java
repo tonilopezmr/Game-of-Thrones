@@ -1,14 +1,14 @@
-package es.npatarino.android.gotchallenge.di.components;
+package es.npatarino.android.gotchallenge.characters.di;
 
 import javax.inject.Named;
 
 import dagger.Component;
 import es.npatarino.android.gotchallenge.characters.list.CharacterList;
 import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListFragment;
-import es.npatarino.android.gotchallenge.di.Activity;
-import es.npatarino.android.gotchallenge.di.AppComponent;
-import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
+import es.npatarino.android.gotchallenge.common.di.Activity;
+import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
+import es.npatarino.android.gotchallenge.common.di.components.ActivityComponent;
+import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
@@ -16,7 +16,7 @@ import es.npatarino.android.gotchallenge.characters.list.view.fragment.Character
 
 @Activity
 @Component(dependencies = AppComponent.class, modules = {CharactersModule.class, ActivityModule.class})
-public interface CharactersComponent extends ActivityComponent{
+public interface CharactersComponent extends ActivityComponent {
 
     void inject(CharacterListByHouseFragment fragment);
     void inject(CharacterListFragment fragment);

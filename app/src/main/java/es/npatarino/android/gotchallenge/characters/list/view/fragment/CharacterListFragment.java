@@ -16,13 +16,13 @@ import javax.inject.Inject;
 
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.characters.list.CharacterList;
-import es.npatarino.android.gotchallenge.di.components.DaggerCharactersComponent;
-import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.di.modules.CharactersModule;
+import es.npatarino.android.gotchallenge.characters.di.CharactersModule;
+import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.common.list.view.ViewList;
+import es.npatarino.android.gotchallenge.characters.list.CharacterList;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
+import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.common.list.view.ViewList;
 
 /**
  * @author Antonio López.

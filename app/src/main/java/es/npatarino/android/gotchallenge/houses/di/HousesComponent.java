@@ -1,22 +1,22 @@
-package es.npatarino.android.gotchallenge.di.components;
+package es.npatarino.android.gotchallenge.houses.di;
 
 import javax.inject.Named;
 
 import dagger.Component;
+import es.npatarino.android.gotchallenge.common.di.Activity;
+import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
+import es.npatarino.android.gotchallenge.common.di.components.ActivityComponent;
+import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
-import es.npatarino.android.gotchallenge.di.Activity;
-import es.npatarino.android.gotchallenge.di.AppComponent;
-import es.npatarino.android.gotchallenge.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.di.modules.HousesModule;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
-import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.houses.list.HouseList;
 import es.npatarino.android.gotchallenge.houses.list.view.fragment.HousesListFragment;
 
 @Activity
 @Component(dependencies = AppComponent.class, modules = {HousesModule.class, ActivityModule.class})
-public interface HousesComponent extends ActivityComponent{
+public interface HousesComponent extends ActivityComponent {
 
     void inject(HousesListFragment fragment);
 

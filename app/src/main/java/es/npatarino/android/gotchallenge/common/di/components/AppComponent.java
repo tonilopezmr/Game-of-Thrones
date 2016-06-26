@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.di;
+package es.npatarino.android.gotchallenge.common.di.components;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -9,6 +9,7 @@ import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.common.di.modules.AppModule;
 import es.npatarino.android.gotchallenge.common.network.EndPoint;
 import okhttp3.OkHttpClient;
 import rx.Scheduler;

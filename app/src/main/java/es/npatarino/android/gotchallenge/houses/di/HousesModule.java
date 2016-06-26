@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.di.modules;
+package es.npatarino.android.gotchallenge.houses.di;
 
 import javax.inject.Named;
 
@@ -11,7 +11,7 @@ import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrat
 import es.npatarino.android.gotchallenge.houses.data.source.local.HouseLocalDataSource;
 import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
 import es.npatarino.android.gotchallenge.houses.data.source.network.HouseNetworkDataSource;
-import es.npatarino.android.gotchallenge.di.Activity;
+import es.npatarino.android.gotchallenge.common.di.Activity;
 import es.npatarino.android.gotchallenge.houses.domain.Houses;
 import es.npatarino.android.gotchallenge.houses.domain.model.House;
 import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;

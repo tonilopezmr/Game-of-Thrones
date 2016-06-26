@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.di.modules;
+package es.npatarino.android.gotchallenge.characters.di;
 
 import javax.inject.Named;
 
@@ -6,7 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.list.CharacterList;
-import es.npatarino.android.gotchallenge.di.Activity;
+import es.npatarino.android.gotchallenge.common.di.Activity;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;

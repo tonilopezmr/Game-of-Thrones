@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.di;
+package es.npatarino.android.gotchallenge.common.di.modules;
 
 import android.content.Context;
 
