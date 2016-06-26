@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.util.Calendar;
+
 public class TimeProvider {
 
     private static final String KEY = "persisted_time_key";
@@ -16,12 +18,18 @@ public class TimeProvider {
     public void persistTime(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         sharedPreferences.edit()
-                .putLong(KEY, System.currentTimeMillis())
+                .putLong(KEY, getMyBirthday())
                 .apply();
     }
 
     public long getPersistedTime(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return sharedPreferences.getLong(KEY, System.currentTimeMillis());
+        return sharedPreferences.getLong(KEY, getMyBirthday());
+    }
+
+    private long getMyBirthday() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(1993, Calendar.MARCH, 19);
+        return cal.getTimeInMillis();
     }
 }
