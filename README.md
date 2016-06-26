@@ -27,15 +27,15 @@ This behaviour it's done in two diffent [Activities][ActivityLink], one for the 
 
 ## Goals
 
-1. Refactoring
-2. Clean Architecture with MVP
-3. Package by feature, not layer
-4. Reactive with RxJava
-5. Play with Dagger2
-6. Capability to work offline
-7. Testing with Espresso and Mockito
-8. Animations
-9. Ui Chat //not done
+1. **Refactoring and practice TDD**
+2. **Clean Architecture with MVP**
+3. **Package by feature, not layer**
+4. **Reactive with RxJava**
+5. **Play with Dagger2**
+6. **Capability to work offline**
+7. **Testing with Espresso and Mockito**
+8. **Animations**
+9. Ui Chat 
 
 Thanks to [Guillermo López][0] for giving me the GoT Icons
 
