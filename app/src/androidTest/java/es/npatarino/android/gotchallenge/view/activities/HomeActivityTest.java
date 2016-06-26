@@ -19,7 +19,7 @@ import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
 import es.npatarino.android.gotchallenge.common.di.modules.AppModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.recyclerview.RecyclerViewInteraction;
+import es.npatarino.android.gotchallenge.view.recyclerview.RecyclerViewInteraction;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 import rx.Observable;
 
