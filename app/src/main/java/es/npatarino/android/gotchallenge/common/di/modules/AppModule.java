@@ -13,7 +13,7 @@ import dagger.Provides;
 import es.npatarino.android.gotchallenge.characters.data.CharacterRepository;
 import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
-import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSourceImp;
+import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSource;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
@@ -73,7 +73,7 @@ public class AppModule {
     public CharactersDomain.NetworkDataSource provideCharacterRemoteDataSource(OkHttpClient okHttpClient,
                                                                                EndPoint endPoint,
                                                                                CharacterJsonMapper characterJsonMapper) {
-        return new CharacterNetworkDataSourceImp(characterJsonMapper, endPoint, okHttpClient);
+        return new CharacterNetworkDataSource(characterJsonMapper, endPoint, okHttpClient);
     }
 
 

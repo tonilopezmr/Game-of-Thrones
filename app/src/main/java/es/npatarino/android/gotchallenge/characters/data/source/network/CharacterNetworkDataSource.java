@@ -13,15 +13,15 @@ import okhttp3.Request;
 import okhttp3.Response;
 import rx.Observable;
 
-public class CharacterNetworkDataSourceImp implements CharactersDomain.NetworkDataSource {
+public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataSource {
 
     private OkHttpClient client;
     private EndPoint endPoint;
     private final CharacterJsonMapper characterCharacterJsonMapper;
 
-    public CharacterNetworkDataSourceImp(CharacterJsonMapper characterCharacterJsonMapper,
-                                         EndPoint endPoint,
-                                         OkHttpClient client) {
+    public CharacterNetworkDataSource(CharacterJsonMapper characterCharacterJsonMapper,
+                                      EndPoint endPoint,
+                                      OkHttpClient client) {
         this.characterCharacterJsonMapper = characterCharacterJsonMapper;
         this.endPoint = endPoint;
         this.client = client;

@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSourceImp;
+import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSource;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.common.network.EndPoint;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
@@ -26,7 +26,7 @@ public class CharacterNetworkDataSourceTest {
         OkHttpClient okHttpClient = new OkHttpClient();
         EndPoint endPoint = new EndPoint(AppModule.END_POINT);
 
-        networkDataSource = new CharacterNetworkDataSourceImp(characterJsonMapper, endPoint, okHttpClient);
+        networkDataSource = new CharacterNetworkDataSource(characterJsonMapper, endPoint, okHttpClient);
     }
 
     @Test
