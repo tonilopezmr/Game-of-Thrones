@@ -3,13 +3,13 @@ package es.npatarino.android.gotchallenge.characters.data.source.local;
 import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
-import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
-import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.common.mapper.TwoWaysMapper;
+import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
 import io.realm.Realm;
 import rx.Observable;
 

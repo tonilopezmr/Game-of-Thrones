@@ -21,13 +21,13 @@ import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
-import es.npatarino.android.gotchallenge.common.detail.view.DetailView;
-import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.base.detail.view.DetailView;
+import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
 public class CharacterListByHouseFragment extends Fragment implements DetailView<List<GoTCharacter>> {
 
-    private static final String TAG = "GoTListFragment";
+    private static final String TAG = CharacterListByHouseFragment.class.getSimpleName();
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
     private CharacterAdapter adp;

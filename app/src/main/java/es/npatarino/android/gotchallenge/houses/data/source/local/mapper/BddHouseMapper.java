@@ -6,7 +6,7 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.common.mapper.TwoWaysMapper;
+import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
 
 public class BddHouseMapper implements TwoWaysMapper<GoTHouse, BddHouse> {
 

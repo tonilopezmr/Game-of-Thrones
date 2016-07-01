@@ -21,15 +21,12 @@ import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
-import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.common.list.view.ViewList;
+import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.base.list.view.ViewList;
 
-/**
- * @author Antonio López.
- */
 public class CharacterListFragment extends Fragment implements ViewList<GoTCharacter> {
 
-    private static final String TAG = "GoTListFragment";
+    private static final String TAG = CharacterListFragment.class.getSimpleName();
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
     private CharacterAdapter adp;

@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
-import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.houses.data.source.local.HouseLocalDataSource;
 import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;
-import es.npatarino.android.gotchallenge.houses.domain.Houses;
+import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -32,7 +32,7 @@ public class HouseLocalDataSourceTest {
     private TimeProvider timeProvider = new TimeProvider(InstrumentationRegistry.getTargetContext());
     private BddHouseMapper mapper = new BddHouseMapper();
 
-    private Houses.LocalDataSource dataSource;
+    private HousesDomain.LocalDataSource dataSource;
 
     @Before
     public void setUp(){

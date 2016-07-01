@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.common.list.repository.ListRepository;
+import es.npatarino.android.gotchallenge.base.list.repository.ListRepository;
 import rx.Observable;
 
 public interface CharactersDomain {
