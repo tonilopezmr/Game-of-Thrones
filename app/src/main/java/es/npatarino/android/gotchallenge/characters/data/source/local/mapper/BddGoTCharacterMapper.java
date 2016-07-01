@@ -6,7 +6,7 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.common.mapper.TwoWaysMapper;
+import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
 
 public class BddGoTCharacterMapper implements TwoWaysMapper<GoTCharacter, BddGoTCharacter>{
 

@@ -19,7 +19,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.view.activities.DetailActivity;
+import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
 
 public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

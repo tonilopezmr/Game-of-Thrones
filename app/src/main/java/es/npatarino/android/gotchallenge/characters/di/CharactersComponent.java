@@ -7,13 +7,13 @@ import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterList
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListByHouseFragment;
 import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListFragment;
-import es.npatarino.android.gotchallenge.common.di.Activity;
-import es.npatarino.android.gotchallenge.common.di.components.ActivityComponent;
-import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
-import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.base.di.ActivityScope;
+import es.npatarino.android.gotchallenge.base.di.components.ActivityComponent;
+import es.npatarino.android.gotchallenge.base.di.components.AppComponent;
+import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.base.interactor.GetListUseCase;
 
-@Activity
+@ActivityScope
 @Component(dependencies = AppComponent.class, modules = {CharactersModule.class, ActivityModule.class})
 public interface CharactersComponent extends ActivityComponent {
 

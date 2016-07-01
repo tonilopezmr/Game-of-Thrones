@@ -2,16 +2,16 @@ package es.npatarino.android.gotchallenge.houses.data;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.houses.domain.Houses;
+import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
-public class HouseRepository implements Houses.Repository {
+public class HouseRepository implements HousesDomain.Repository {
     
-    private Houses.NetworkDataSource networkDataSource;
-    private Houses.LocalDataSource localDataSource;
+    private HousesDomain.NetworkDataSource networkDataSource;
+    private HousesDomain.LocalDataSource localDataSource;
 
-    public HouseRepository(Houses.NetworkDataSource networkDataSource, Houses.LocalDataSource localDataSource) {
+    public HouseRepository(HousesDomain.NetworkDataSource networkDataSource, HousesDomain.LocalDataSource localDataSource) {
         this.networkDataSource = networkDataSource;
         this.localDataSource = localDataSource;
     }

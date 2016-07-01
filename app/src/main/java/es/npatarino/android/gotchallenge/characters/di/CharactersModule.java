@@ -7,19 +7,18 @@ import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharact
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
-import es.npatarino.android.gotchallenge.common.di.Activity;
-import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
-import es.npatarino.android.gotchallenge.common.di.UiThread;
-import es.npatarino.android.gotchallenge.common.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.base.di.ActivityScope;
+import es.npatarino.android.gotchallenge.base.di.ExecutorThread;
+import es.npatarino.android.gotchallenge.base.di.UiThread;
+import es.npatarino.android.gotchallenge.base.interactor.GetListUseCase;
 import rx.Scheduler;
-
 
 @Module
 public class CharactersModule {
 
 
     @Provides
-    @Activity
+    @ActivityScope
     public GetCharactersByHouseUseCase provideCharactersByHouseUseCase(@ExecutorThread Scheduler executor,
                                                                        @UiThread Scheduler uiThread,
                                                                        CharactersDomain.Repository repository){
@@ -27,7 +26,7 @@ public class CharactersModule {
     }
 
     @Provides
-    @Activity
+    @ActivityScope
     @Character
     public GetListUseCase<GoTCharacter> provideGotCharacterListUseCase(@ExecutorThread Scheduler executor,
                                                                        @UiThread Scheduler uiThread,
@@ -36,13 +35,13 @@ public class CharactersModule {
     }
 
     @Provides
-    @Activity
+    @ActivityScope
     public CharacterListPresenter provideGotCharacterListPresenter(@Character GetListUseCase<GoTCharacter> characterGetListUseCase){
         return new CharacterListPresenter(characterGetListUseCase);
     }
 
     @Provides
-    @Activity
+    @ActivityScope
     public CharacterListByHousePresenter provideGotCharacterListByHousePresenter(GetCharactersByHouseUseCase useCase){
         return new CharacterListByHousePresenter(useCase);
     }

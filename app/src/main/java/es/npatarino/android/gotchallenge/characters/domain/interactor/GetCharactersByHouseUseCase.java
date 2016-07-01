@@ -5,7 +5,7 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.common.interactor.UseCase;
+import es.npatarino.android.gotchallenge.base.interactor.UseCase;
 import rx.Observable;
 import rx.Scheduler;
 

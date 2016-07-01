@@ -5,11 +5,11 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.houses.domain.Houses;
+import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
-public class HouseNetworkDataSource implements Houses.NetworkDataSource {
+public class HouseNetworkDataSource implements HousesDomain.NetworkDataSource {
 
     private CharactersDomain.NetworkDataSource dataSource;
 

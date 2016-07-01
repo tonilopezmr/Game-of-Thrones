@@ -6,7 +6,7 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.common.network.EndPoint;
+import es.npatarino.android.gotchallenge.base.network.EndPoint;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
