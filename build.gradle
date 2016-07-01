@@ -21,7 +21,7 @@ allprojects {
     apply plugin: 'checkstyle'
 
     task checkstyle(type: Checkstyle) {
-        configFile file("${project.rootDir}/config/checkstyle.xml")
+        configFile file("${project.rootDir}/checkstyle.xml")
         source 'src'
         include '**/*.java'
         exclude '**/gen/**'
