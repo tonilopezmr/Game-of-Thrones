@@ -16,7 +16,7 @@ Game of Thrones for Android Challenge offers an app using an API to get data for
 
 This repository contains an Android app that retrieve a list of some [Game of Thrones][GameOfThronesLink]' characters from an API. The app shows a list of the houses of the characters, the characters themselves and a detail description of each one.
 
-This behaviour it's done in two diffent [Activities][ActivityLink], one for the two lists and other for details of the character:
+This behaviour it's done in two different Activities, one for the two lists and other for details of the character:
 
 ![ScreenshotListCharacters][ScreenshotListCharacters]![ScreenshotListHouses][ScreenshotListHouses]![ScreenshotDetail][ScreenshotDetail]
 * ``HomeActivity`` contains two Fragments in a ViewPager
