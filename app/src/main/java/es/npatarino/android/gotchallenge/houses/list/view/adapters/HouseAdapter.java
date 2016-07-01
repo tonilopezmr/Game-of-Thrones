@@ -18,7 +18,7 @@ import java.util.List;
 
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.view.activities.DetailActivity;
+import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
 
 public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

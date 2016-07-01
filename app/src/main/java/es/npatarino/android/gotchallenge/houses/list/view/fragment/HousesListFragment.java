@@ -16,8 +16,8 @@ import javax.inject.Inject;
 
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.common.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.common.list.view.ViewList;
+import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.base.list.view.ViewList;
 import es.npatarino.android.gotchallenge.houses.di.DaggerHousesComponent;
 import es.npatarino.android.gotchallenge.houses.di.HousesModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
@@ -26,7 +26,7 @@ import es.npatarino.android.gotchallenge.houses.list.view.adapters.HouseAdapter;
 
 public class HousesListFragment extends Fragment implements ViewList<GoTHouse> {
 
-    private static final String TAG = "GoTHousesListFragment";
+    private static final String TAG = HousesListFragment.class.getSimpleName();
     private RecyclerView rv;
     private ContentLoadingProgressBar pb;
     private HouseAdapter adp;

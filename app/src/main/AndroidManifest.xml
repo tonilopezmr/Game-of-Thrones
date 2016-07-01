@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.activities.DetailActivity"
-            android:parentActivityName=".view.activities.HomeActivity">
+            android:name=".common.view.activities.DetailActivity"
+            android:parentActivityName=".common.view.activities.HomeActivity">
         </activity>
         <activity
-            android:name=".view.activities.HomeActivity"
+            android:name=".common.view.activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme">
             <intent-filter>

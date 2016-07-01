@@ -23,8 +23,8 @@ import static org.mockito.Mockito.when;
 
 public class CharacterRepositoryTest {
 
-    public static final boolean EXPIRED = true;
-    public static final boolean NOT_EXPIRED = false;
+    private static final boolean EXPIRED = true;
+    private static final boolean NOT_EXPIRED = false;
 
     @Mock
     CharactersDomain.NetworkDataSource networkDataSource;

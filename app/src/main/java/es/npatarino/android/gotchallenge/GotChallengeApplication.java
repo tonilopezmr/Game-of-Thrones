@@ -3,9 +3,9 @@ package es.npatarino.android.gotchallenge;
 import android.app.Application;
 import android.support.annotation.VisibleForTesting;
 
-import es.npatarino.android.gotchallenge.common.di.components.AppComponent;
-import es.npatarino.android.gotchallenge.common.di.components.DaggerAppComponent;
-import es.npatarino.android.gotchallenge.common.di.modules.AppModule;
+import es.npatarino.android.gotchallenge.base.di.components.AppComponent;
+import es.npatarino.android.gotchallenge.base.di.components.DaggerAppComponent;
+import es.npatarino.android.gotchallenge.base.di.modules.AppModule;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 

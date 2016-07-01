@@ -2,16 +2,16 @@ package es.npatarino.android.gotchallenge.houses.data.source.local;
 
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.common.caching.TimeProvider;
-import es.npatarino.android.gotchallenge.common.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
+import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
-import es.npatarino.android.gotchallenge.houses.domain.Houses;
+import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.common.mapper.TwoWaysMapper;
+import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
 import io.realm.Realm;
 import rx.Observable;
 
-public class HouseLocalDataSource implements Houses.LocalDataSource {
+public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
 
     private TTLCachingStrategy cachingStrategy;
     private TimeProvider timeProvider;
