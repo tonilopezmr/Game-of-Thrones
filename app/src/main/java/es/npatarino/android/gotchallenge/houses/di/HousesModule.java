@@ -18,11 +18,12 @@ import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import rx.Scheduler;
 
-@Module public class HousesModule {
+@Module
+public class HousesModule {
 
     @Provides
     @ActivityScope
-    public BddHouseMapper provideBddHouseMapper(){
+    public BddHouseMapper provideBddHouseMapper() {
         return new BddHouseMapper();
     }
 
@@ -30,19 +31,21 @@ import rx.Scheduler;
     @ActivityScope
     public HousesDomain.LocalDataSource provideHouseLocalDataSource(TTLCachingStrategy cachingStrategy,
                                                                     TimeProvider timeProvider,
-                                                                    BddHouseMapper mapper){
+                                                                    BddHouseMapper mapper) {
         return new HouseLocalDataSource(cachingStrategy, timeProvider, mapper);
     }
 
     @Provides
     @ActivityScope
-    public HousesDomain.NetworkDataSource provideHouseRemoteDataSource(CharactersDomain.NetworkDataSource characterNetworkDataSource){
+    public HousesDomain.NetworkDataSource
+    provideHouseRemoteDataSource(CharactersDomain.NetworkDataSource characterNetworkDataSource) {
         return new HouseNetworkDataSource(characterNetworkDataSource);
     }
 
     @Provides
     @ActivityScope
-    public HousesDomain.Repository provideGotHouseRepository(HousesDomain.NetworkDataSource networkDataSource, HousesDomain.LocalDataSource localDataSource){
+    public HousesDomain.Repository provideGotHouseRepository(HousesDomain.NetworkDataSource networkDataSource,
+                                                             HousesDomain.LocalDataSource localDataSource) {
         return new HouseRepository(networkDataSource, localDataSource);
     }
 
@@ -51,13 +54,13 @@ import rx.Scheduler;
     @House
     public GetListUseCase<GoTHouse> provideGotHouseListUseCase(@ExecutorThread Scheduler executor,
                                                                @UiThread Scheduler uiThread,
-                                                               HousesDomain.Repository repository){
+                                                               HousesDomain.Repository repository) {
         return new GetListUseCase<>(repository, uiThread, executor);
     }
 
     @Provides
     @ActivityScope
-    public HouseListPresenter provideGotHouseListPresenter(@House GetListUseCase<GoTHouse> houseGetListUseCase){
+    public HouseListPresenter provideGotHouseListPresenter(@House GetListUseCase<GoTHouse> houseGetListUseCase) {
         return new HouseListPresenter(houseGetListUseCase);
     }
 }

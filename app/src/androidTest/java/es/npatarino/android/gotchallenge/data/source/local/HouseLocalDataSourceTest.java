@@ -2,15 +2,6 @@ package es.npatarino.android.gotchallenge.data.source.local;
 
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
@@ -20,6 +11,13 @@ import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -28,15 +26,16 @@ import static org.junit.Assert.fail;
 @RunWith(AndroidJUnit4.class)
 public class HouseLocalDataSourceTest {
 
-    private TTLCachingStrategy ttlCachingStrategy = new TTLCachingStrategy(2 , TimeUnit.MINUTES);
+    private TTLCachingStrategy ttlCachingStrategy = new TTLCachingStrategy(2, TimeUnit.MINUTES);
     private TimeProvider timeProvider = new TimeProvider(InstrumentationRegistry.getTargetContext());
     private BddHouseMapper mapper = new BddHouseMapper();
 
     private HousesDomain.LocalDataSource dataSource;
 
     @Before
-    public void setUp(){
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(InstrumentationRegistry.getTargetContext())
+    public void setUp() {
+        RealmConfiguration realmConfiguration = new RealmConfiguration
+                .Builder(InstrumentationRegistry.getTargetContext())
                 .name("test.realm")
                 .schemaVersion(2)
                 .build();
@@ -94,7 +93,7 @@ public class HouseLocalDataSourceTest {
 
         for (int i = 0; i < list.size(); i++) {
             GoTHouse house = list.get(i);
-            house.setHouseId(house.getHouseId()+ i);
+            house.setHouseId(house.getHouseId() + i);
         }
 
         return list;

@@ -15,14 +15,14 @@ public class TimeProvider {
         this.context = context;
     }
 
-    public void persistTime(){
+    public void persistTime() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         sharedPreferences.edit()
                 .putLong(KEY, System.currentTimeMillis())
                 .apply();
     }
 
-    public long getPersistedTime(){
+    public long getPersistedTime() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         return sharedPreferences.getLong(KEY, getMyBirthday());
     }
@@ -32,4 +32,5 @@ public class TimeProvider {
         cal.set(1993, Calendar.MARCH, 19);
         return cal.getTimeInMillis();
     }
+
 }

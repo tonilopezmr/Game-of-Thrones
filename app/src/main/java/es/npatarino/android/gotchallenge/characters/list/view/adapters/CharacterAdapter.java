@@ -10,16 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
+import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
 
 public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -39,7 +37,9 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new GotCharacterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.got_character_row, parent, false));
+        return new GotCharacterViewHolder(LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.got_character_row, parent, false));
     }
 
     @Override
@@ -47,18 +47,15 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         final GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
         final GoTCharacter character = gcs.get(position);
         gotCharacterViewHolder.render(character);
-        final GotCharacterViewHolder viewHolder =((GotCharacterViewHolder) holder);
-        viewHolder.imp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                moveToDetailActivity(gotCharacterViewHolder, character);
-            }
-        });
+        final GotCharacterViewHolder viewHolder = ((GotCharacterViewHolder) holder);
+        viewHolder.imp.setOnClickListener(v -> moveToDetailActivity(gotCharacterViewHolder, character));
     }
 
-    private void moveToDetailActivity(GotCharacterViewHolder viewHolder, GoTCharacter character){
+    private void moveToDetailActivity(GotCharacterViewHolder viewHolder, GoTCharacter character) {
         ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, DetailActivity.CHARACTER_IMAGE);
+                ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+                                                                    viewHolder.itemView,
+                                                                    DetailActivity.CHARACTER_IMAGE);
 
         Intent intent = new Intent(viewHolder.itemView.getContext(), DetailActivity.class);
         intent.putExtra(DetailActivity.DESCRIPTION, character.getDescription());
@@ -78,13 +75,13 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ImageView imp;
         TextView tvn;
 
-        public GotCharacterViewHolder(View itemView) {
+        GotCharacterViewHolder(View itemView) {
             super(itemView);
             imp = (ImageView) itemView.findViewById(R.id.ivBackground);
             tvn = (TextView) itemView.findViewById(R.id.tv_name);
         }
 
-        public void render(final GoTCharacter character) {
+        void render(final GoTCharacter character) {
             Picasso.with(imp.getContext())
                     .load(character.getImageUrl())
                     .fit()

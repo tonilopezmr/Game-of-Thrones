@@ -9,10 +9,11 @@ import es.npatarino.android.gotchallenge.base.di.modules.AppModule;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-public class GotChallengeApplication extends Application{
+public class GotChallengeApplication extends Application {
     private AppComponent appComponent;
 
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         super.onCreate();
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(getApplicationContext()))

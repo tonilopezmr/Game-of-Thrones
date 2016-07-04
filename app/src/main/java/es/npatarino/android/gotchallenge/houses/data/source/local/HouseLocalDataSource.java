@@ -1,15 +1,15 @@
 package es.npatarino.android.gotchallenge.houses.data.source.local;
 
-import java.util.List;
-
 import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
+import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
 import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
 import io.realm.Realm;
 import rx.Observable;
+
+import java.util.List;
 
 public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
 
@@ -17,7 +17,10 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
     private TimeProvider timeProvider;
     private TwoWaysMapper<GoTHouse, BddHouse> mapper;
 
-    public HouseLocalDataSource(TTLCachingStrategy cachingStrategy, TimeProvider timeProvider, TwoWaysMapper<GoTHouse, BddHouse> mapper) {
+    public HouseLocalDataSource(TTLCachingStrategy cachingStrategy,
+                                TimeProvider timeProvider,
+                                TwoWaysMapper<GoTHouse,
+                                BddHouse> mapper) {
         this.cachingStrategy = cachingStrategy;
         this.timeProvider = timeProvider;
         this.mapper = mapper;
@@ -52,14 +55,14 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
         }
     }
 
-    private void remove(GoTHouse house){
+    private void remove(GoTHouse house) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
             BddHouse bddHouse = find(house);
-            if (bddHouse!=null){
+            if (bddHouse != null) {
                 bddHouse.deleteFromRealm();
             }
-        } );
+        });
         realm.close();
     }
 
