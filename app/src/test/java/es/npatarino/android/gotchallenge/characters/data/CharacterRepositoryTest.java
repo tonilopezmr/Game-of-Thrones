@@ -1,25 +1,23 @@
 package es.npatarino.android.gotchallenge.characters.data;
 
 import android.support.annotation.NonNull;
-
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import rx.Observable;
+import rx.observers.TestSubscriber;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import rx.Observable;
-import rx.observers.TestSubscriber;
-
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.doThrow;
 
 public class CharacterRepositoryTest {
 
@@ -42,7 +40,8 @@ public class CharacterRepositoryTest {
         repository = new CharacterRepository(networkDataSource, localDataSource);
     }
 
-    @Test public void
+    @Test
+    public void
     get_all_characters_from_network_and_save_in_cache() {
         TestSubscriber<List<GoTCharacter>> testSubscriber = new TestSubscriber<>();
 
@@ -113,21 +112,21 @@ public class CharacterRepositoryTest {
         verify(localDataSource).getAll();
     }
 
-    private List<GoTCharacter> getCharacters(int numCharacters){
+    private List<GoTCharacter> getCharacters(int numCharacters) {
         List<GoTCharacter> characters = new ArrayList<>();
-        for (int i = 0; i < numCharacters; i++){
+        for (int i = 0; i < numCharacters; i++) {
             characters.add(new GoTCharacter());
         }
         return characters;
     }
 
     @NonNull
-    private Observable<List<GoTCharacter>> getCharactersObservable(int numCharacters){
+    private Observable<List<GoTCharacter>> getCharactersObservable(int numCharacters) {
         return Observable.just(getCharacters(numCharacters));
     }
 
     @NonNull
-    private Observable<List<GoTCharacter>> getErrorObservable(){
+    private Observable<List<GoTCharacter>> getErrorObservable() {
         return Observable.create(subscriber -> {
             subscriber.onError(new Exception());
             subscriber.onCompleted();

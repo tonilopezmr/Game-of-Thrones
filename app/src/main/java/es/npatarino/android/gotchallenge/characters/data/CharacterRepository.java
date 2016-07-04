@@ -1,21 +1,21 @@
 package es.npatarino.android.gotchallenge.characters.data;
 
 import android.util.Log;
-
-import java.util.List;
-
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
+import java.util.List;
+
 public class CharacterRepository implements CharactersDomain.Repository {
 
-    public static final String TAG = CharacterRepository.class.getSimpleName();
+    private static final String TAG = CharacterRepository.class.getSimpleName();
     private CharactersDomain.NetworkDataSource networkDataSource;
     private CharactersDomain.LocalDataSource localDataSource;
 
-    public CharacterRepository(CharactersDomain.NetworkDataSource networkDataSource, CharactersDomain.LocalDataSource localDataSource) {
+    public CharacterRepository(CharactersDomain.NetworkDataSource networkDataSource,
+                               CharactersDomain.LocalDataSource localDataSource) {
         this.networkDataSource = networkDataSource;
         this.localDataSource = localDataSource;
     }
@@ -25,7 +25,7 @@ public class CharacterRepository implements CharactersDomain.Repository {
         Log.i(TAG, "getList()");
         Observable<List<GoTCharacter>> observable;
 
-        if (localDataSource.isExpired()){
+        if (localDataSource.isExpired()) {
             observable = networkDataSource.getAll()
                     .doOnNext(goTCharacters -> {
                         Log.i(TAG, "will save on cache");
@@ -39,7 +39,7 @@ public class CharacterRepository implements CharactersDomain.Repository {
                         return localDataSource.getAll();
                     });
             Log.i(TAG, "fetching from network");
-        }else {
+        } else {
             observable = localDataSource.getAll();
             Log.i(TAG, "fetching from local");
         }
@@ -48,16 +48,16 @@ public class CharacterRepository implements CharactersDomain.Repository {
     }
 
     @Override
-    public Observable<GoTCharacter> read(GoTCharacter entity){
+    public Observable<GoTCharacter> read(GoTCharacter entity) {
         Observable<GoTCharacter> observable;
 
-        if (localDataSource.isExpired()){
+        if (localDataSource.isExpired()) {
             observable = networkDataSource.read(entity)
                     .retry((attempts, error) -> error instanceof Exception && attempts < 2)
                     .onErrorResumeNext(throwable -> {
                         return localDataSource.read(entity);
                     });
-        }else {
+        } else {
             observable = localDataSource.read(entity);
         }
 
@@ -65,16 +65,16 @@ public class CharacterRepository implements CharactersDomain.Repository {
     }
 
     @Override
-    public Observable<List<GoTCharacter>> read(GoTHouse house){
+    public Observable<List<GoTCharacter>> read(GoTHouse house) {
         Observable<List<GoTCharacter>> observable;
 
-        if (localDataSource.isExpired()){
+        if (localDataSource.isExpired()) {
             observable = networkDataSource.read(house)
                     .retry((attempts, error) -> error instanceof Exception && attempts < 2)
                     .onErrorResumeNext(throwable -> {
                         return localDataSource.read(house);
                     });
-        }else {
+        } else {
             observable = localDataSource.read(house);
         }
 

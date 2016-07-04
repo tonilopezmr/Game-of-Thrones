@@ -29,7 +29,7 @@ public abstract class UseCase<T> {
         this.executorThread = executorThread;
     }
 
-    public Observable<T> execute(){
+    public Observable<T> execute() {
         return buildUseCaseObservable();
     }
 

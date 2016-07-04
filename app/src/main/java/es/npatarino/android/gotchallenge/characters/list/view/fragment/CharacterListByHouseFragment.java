@@ -9,21 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.base.detail.view.DetailView;
+import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.characters.di.CharactersModule;
 import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
-import es.npatarino.android.gotchallenge.base.detail.view.DetailView;
-import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
+
+import javax.inject.Inject;
+import java.util.List;
 
 public class CharacterListByHouseFragment extends Fragment implements DetailView<List<GoTCharacter>> {
 
@@ -41,7 +39,9 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater,
+                             final ViewGroup container,
+                             final Bundle savedInstanceState) {
         initDagger();
 
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);

@@ -1,11 +1,11 @@
 package es.npatarino.android.gotchallenge.base.list.presenter;
 
-import java.util.List;
-
 import es.npatarino.android.gotchallenge.base.Mvp;
 import es.npatarino.android.gotchallenge.base.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
 import rx.Subscription;
+
+import java.util.List;
 
 public class DefaultListPresenter<T> implements Mvp.Presenter<ViewList<T>> {
 
@@ -39,7 +39,10 @@ public class DefaultListPresenter<T> implements Mvp.Presenter<ViewList<T>> {
 
     @Override
     public void setView(ViewList<T> view) {
-        if (view == null) new IllegalArgumentException("oh my god... you are **");
+        if (view == null) {
+            new IllegalArgumentException("oh my god... you are **");
+        }
+
         this.view = view;
     }
 

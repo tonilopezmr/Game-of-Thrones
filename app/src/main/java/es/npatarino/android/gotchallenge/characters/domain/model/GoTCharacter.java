@@ -12,7 +12,12 @@ public class GoTCharacter {
     public GoTCharacter() {
     }
 
-    public GoTCharacter(String name, String imageUrl, String description, String houseImageUrl, String houseName, String houseId) {
+    public GoTCharacter(String name,
+                        String imageUrl,
+                        String description,
+                        String houseImageUrl,
+                        String houseName,
+                        String houseId) {
         this.name = name;
         this.imageUrl = imageUrl;
         this.description = description;
@@ -71,8 +76,13 @@ public class GoTCharacter {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         GoTCharacter character = (GoTCharacter) o;
 

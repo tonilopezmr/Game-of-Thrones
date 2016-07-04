@@ -3,9 +3,8 @@ package es.npatarino.android.gotchallenge.common.view.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import es.npatarino.android.gotchallenge.houses.list.view.fragment.HousesListFragment;
 import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListFragment;
+import es.npatarino.android.gotchallenge.houses.list.view.fragment.HousesListFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -34,7 +33,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return "Characters";
             case 1:
                 return "Houses";
+            default:
+                return "";
         }
-        return null;
     }
 }

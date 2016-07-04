@@ -1,19 +1,19 @@
 package es.npatarino.android.gotchallenge.houses.data.source.local.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import es.npatarino.android.gotchallenge.BuildConfig;
+import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BddHouseMapper implements TwoWaysMapper<GoTHouse, BddHouse> {
 
     @Override
     public GoTHouse inverseMap(BddHouse model) {
         return new GoTHouse(model.getHouseId(),
-                BuildConfig.DEBUG? model.getHouseName()+ " cache" : model.getHouseName(),
+                BuildConfig.DEBUG ? model.getHouseName() + " cache" : model.getHouseName(),
                 model.getHouseImageUrl());
     }
 

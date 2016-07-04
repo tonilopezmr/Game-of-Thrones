@@ -1,17 +1,17 @@
 package es.npatarino.android.gotchallenge.characters.data.source.local;
 
-import java.util.List;
-
-import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
-import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
-import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
+import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import io.realm.Realm;
 import rx.Observable;
+
+import java.util.List;
 
 public class CharacterLocalDataSource implements CharactersDomain.LocalDataSource {
 
@@ -56,11 +56,11 @@ public class CharacterLocalDataSource implements CharactersDomain.LocalDataSourc
         }
     }
 
-    private void remove(GoTCharacter character){
+    private void remove(GoTCharacter character) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
             BddGoTCharacter bddGoTCharacter = find(character);
-            if (bddGoTCharacter!=null){
+            if (bddGoTCharacter != null) {
                 bddGoTCharacter.deleteFromRealm();
             }
         });
@@ -97,13 +97,13 @@ public class CharacterLocalDataSource implements CharactersDomain.LocalDataSourc
     public Observable<List<GoTCharacter>> getAll() {
         return Observable.create(subscriber -> {
             Realm realm = Realm.getDefaultInstance();
-            try{
+            try {
                 List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class).findAll();
                 subscriber.onNext(mapper.inverseMap(result));
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 subscriber.onError(e);
-            }finally {
+            } finally {
                 realm.close();
                 subscriber.onCompleted();
             }

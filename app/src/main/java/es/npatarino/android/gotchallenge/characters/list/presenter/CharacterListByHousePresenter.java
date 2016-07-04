@@ -1,13 +1,13 @@
 package es.npatarino.android.gotchallenge.characters.list.presenter;
 
-import java.util.List;
-
-import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.base.Mvp;
 import es.npatarino.android.gotchallenge.base.detail.view.DetailView;
+import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Subscription;
+
+import java.util.List;
 
 public class CharacterListByHousePresenter implements Mvp.Presenter<DetailView<List<GoTCharacter>>> {
 
@@ -27,7 +27,9 @@ public class CharacterListByHousePresenter implements Mvp.Presenter<DetailView<L
 
     @Override
     public void setView(DetailView<List<GoTCharacter>> view) {
-        if (view == null) new IllegalArgumentException("oh my god... you are **");
+        if (view == null) {
+            new IllegalArgumentException("oh my god... you are **");
+        }
         this.view = view;
     }
 
@@ -46,11 +48,11 @@ public class CharacterListByHousePresenter implements Mvp.Presenter<DetailView<L
                 .subscribe(this::onCharactersReceived, this::onError);
     }
 
-    private void onCharactersReceived(List<GoTCharacter> characters){
+    private void onCharactersReceived(List<GoTCharacter> characters) {
         view.show(characters);
     }
 
-    private void onError(Throwable error){
+    private void onError(Throwable error) {
         view.error();
     }
 }
