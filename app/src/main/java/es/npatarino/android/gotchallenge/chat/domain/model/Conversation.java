@@ -7,7 +7,7 @@ public class Conversation {
     private String id;
     private String name;
     private List<User> participants;
-    //todo Last message?
+    private Payload lastMessage;
 
 
 }
