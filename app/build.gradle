@@ -62,7 +62,7 @@ configurations.all {
 dependencies {
     def androidTestVersion = '0.5'
     def dexmakerVersion = '1.2'
-    def androidSupportVersion = '24.0.0'
+    def androidSupportVersion = '23.3.0'
     def dagger2Version = '2.0.2'
 
     //android test
