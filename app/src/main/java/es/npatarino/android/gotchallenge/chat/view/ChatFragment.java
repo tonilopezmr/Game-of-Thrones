@@ -13,12 +13,17 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.chat.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.domain.model.TextPayload;
+import es.npatarino.android.gotchallenge.chat.domain.model.User;
 
 public class ChatFragment extends Fragment {
 
     private EditText newTextMessageEditText;
     private ImageView sendButton;
     private RecyclerView messageRecyclerView;
+    private LinearLayoutManager recyclerViewManager;
+    private ChatAdapter adapter;
 
     @Nullable
     @Override
@@ -38,9 +43,41 @@ public class ChatFragment extends Fragment {
     public void initUI() {
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //hide keyboard start
 
-        messageRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        messageRecyclerView.setHasFixedSize(true);
+        adapter = new ChatAdapter();
+        adapter.add(new Message("asdf", new User("asdf", "Sergio",
+                "https://lh3.googleusercontent.com/-jDZYxFuC6X8/AAAAAAAAAAI/AAAAAAAAA-s/Wch5ttRQSQ0/s120-c/photo.jpg"),
+                234234234, false, new TextPayload("Hey buddy!")));
+        adapter.add(new Message("asdf", new User("asdf", "Celia",
+                "https://lh3.googleusercontent.com/-wF2cRii1VJM/AAAAAAAAAAI/AAAAAAAAAEI/ouEFoadEehk/s120-c/photo.jpg"),
+                234234234, false, new TextPayload("Vamoh cohonee vente ya para malaga\nQue tengo una terraza bien hermosa como yo :D")));
+        adapter.add(new Message("asdf", new User("asdf", "Cantero",
+                "https://lh3.googleusercontent.com/-8980rlwDIss/AAAAAAAAAAI/AAAAAAAAAAA/dRMUwVLajoc/s120-c/photo.jpg"),
+                234234234, false, new TextPayload("Vamonoh illoh")));
+
+        initRecyclerView(adapter);
+        
+        sendButton.setOnClickListener(v -> {
+            String newMessage = newTextMessageEditText.getText().toString();
+            if (newMessage.length() != 0 && !newMessage.trim().isEmpty()){
+                adapter.add(new Message("asdf", null, 234234234, true, new TextPayload(newMessage)));
+                newTextMessageEditText.setText("");
+                scrollToBottom();
+            }
+        });
     }
 
+    private void initRecyclerView(ChatAdapter chatAdapter) {
+        messageRecyclerView.setAdapter(chatAdapter);
 
+        recyclerViewManager = new LinearLayoutManager(getActivity());
+        recyclerViewManager.setStackFromEnd(true);
+
+        messageRecyclerView.setLayoutManager(recyclerViewManager);
+        messageRecyclerView.setHasFixedSize(true);
+
+    }
+
+    private void scrollToBottom() {
+        messageRecyclerView.scrollToPosition(adapter.getItemCount() - 1);
+    }
 }

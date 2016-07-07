@@ -11,6 +11,7 @@
     <dimen name="appbar_padding_top">8dp</dimen>
     
     
-    <dimen name="message_margin">10dp</dimen>
+    <dimen name="message_margin">8dp</dimen>
     <dimen name="message_name_margin_bottom">3dp</dimen>
+    <dimen name="avatar_cell">40dp</dimen>
 </resources>

@@ -10,18 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
+import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
-
-public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.GotCharacterViewHolder> {
 
     private final List<GoTCharacter> gcs;
     private Activity activity;
@@ -38,22 +36,17 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new GotCharacterViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.got_character_row, parent, false));
+    public GotCharacterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new GotCharacterViewHolder(LayoutInflater
+                                                .from(parent.getContext())
+                                                .inflate(R.layout.got_character_row, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
+    public void onBindViewHolder(final GotCharacterViewHolder holder, final int position) {
         final GoTCharacter character = gcs.get(position);
-        gotCharacterViewHolder.render(character);
-        final GotCharacterViewHolder viewHolder =((GotCharacterViewHolder) holder);
-        viewHolder.imp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                moveToDetailActivity(gotCharacterViewHolder, character);
-            }
-        });
+        holder.render(character);
+        holder.imp.setOnClickListener(v -> moveToDetailActivity(holder, character));
     }
 
     private void moveToDetailActivity(GotCharacterViewHolder viewHolder, GoTCharacter character){
