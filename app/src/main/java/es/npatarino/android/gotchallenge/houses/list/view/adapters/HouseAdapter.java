@@ -9,16 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
+import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
 
 public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -48,12 +46,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         GotHouseViewHolder gotHouseViewHolder = (GotHouseViewHolder) holder;
         final GoTHouse house = gcs.get(position);
         gotCharacterViewHolder.render(house);
-        gotHouseViewHolder.imp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                moveToDetailActivity(gotCharacterViewHolder, house);
-            }
-        });
+        gotHouseViewHolder.imp.setOnClickListener(v -> moveToDetailActivity(gotCharacterViewHolder, house));
     }
 
     private void moveToDetailActivity(GotHouseViewHolder viewHolder, GoTHouse house){
@@ -72,7 +65,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return gcs.size();
     }
 
-    class GotHouseViewHolder extends RecyclerView.ViewHolder {
+    private class GotHouseViewHolder extends RecyclerView.ViewHolder {
 
         private static final String TAG = "GotCharacterViewHolder";
         ImageView imp;

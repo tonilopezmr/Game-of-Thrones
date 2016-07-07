@@ -10,9 +10,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="li.nibble.android.codingtest.MainActivity"
-        tools:showIn="@layout/fragment_list"
-        />
+        tools:showIn="@layout/fragment_list"/>
 
     <android.support.v4.widget.ContentLoadingProgressBar
         android:id="@+id/content_loading_progress_bar"

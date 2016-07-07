@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#333333</color>
     <color name="colorAccent">#FFB74D</color>
     <color name="backgroundColor">#FF22282F</color>
+
+    <color name="backgroundMyMessage">#FFFFFF</color>
 </resources>
