@@ -33,6 +33,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug{
+            applicationIdSuffix ".debug"
+        }
     }
 
     lintOptions {
@@ -57,39 +60,47 @@ configurations.all {
 }
 
 dependencies {
+    def androidTestVersion = '0.5'
+    def dexmakerVersion = '1.2'
+    def androidSupportVersion = '23.3.0'
+    def dagger2Version = '2.0.2'
+
     //android test
-    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-    androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
-        exclude group: 'org.hamcrest', module: 'hamcrest-core'
-    }
-    androidTestCompile 'com.android.support.test:runner:0.4.1'
-    androidTestCompile 'com.android.support.test:rules:0.4.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.1'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
+    androidTestCompile "com.android.support.test:runner:${androidTestVersion}"
+    androidTestCompile "com.android.support.test:rules:${androidTestVersion}"
+    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2') {
         exclude group: 'javax.inject', module: 'javax.inject'
         exclude group: 'com.squareup', module: 'javawriter'
     }
+
     androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
         exclude module: 'support-annotations'
         exclude module: 'recyclerview-v7'
         exclude module: 'support-v4'
     }
+
+    androidTestCompile "com.google.dexmaker:dexmaker:${dexmakerVersion}"
+    androidTestCompile("com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}") {
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+
     androidTestCompile 'com.github.fabioCollini:DaggerMock:0.5'
 
     //test
     testCompile 'junit:junit:4.12'
-    testCompile 'com.google.dagger:dagger-compiler:2.0.2'
+    testCompile "com.google.dagger:dagger-compiler:${dagger2Version}"
     testCompile 'org.mockito:mockito-core:1.10.19'
 
     //libraries
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:design:23.3.0'
+    compile "com.android.support:appcompat-v7:${androidSupportVersion}"
+    compile "com.android.support:design:${androidSupportVersion}"
+    apt "com.google.dagger:dagger-compiler:${dagger2Version}"
+    compile "com.google.dagger:dagger:${dagger2Version}"
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.github.tonilopezmr:interactorexecutor:2.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    apt 'com.google.dagger:dagger-compiler:2.0.2'
-    compile 'com.google.dagger:dagger:2.0.2'
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.2'
