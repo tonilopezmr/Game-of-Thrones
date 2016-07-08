@@ -47,6 +47,7 @@ public class EmojiPanel {
         panel = View.inflate(activity, R.layout.emoji_panel, null);
         linearLayout = (ObservableLinearLayout) panel.findViewById(R.id.observable_layout);
         input = (EditText) panel.findViewById(R.id.message_edit_text);
+        input.requestFocus();
         smiles = (ImageView) panel.findViewById(R.id.smiles);
         sendButton = (ImageView) panel.findViewById(R.id.attach);
     }

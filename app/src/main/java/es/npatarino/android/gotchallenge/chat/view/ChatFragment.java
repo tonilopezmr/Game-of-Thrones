@@ -37,7 +37,6 @@ public class ChatFragment extends Fragment {
 
     public void initUI(View rootView) {
         messageRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-
         initEmojiPanel(rootView);
 
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //hide keyboard start
