@@ -78,4 +78,5 @@ public class HomeActivity extends AppCompatActivity {
         imageView.getDrawable().mutate().setAlpha(alpha);
         return imageView;
     }
+
 }

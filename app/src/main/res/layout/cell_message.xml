@@ -6,8 +6,7 @@
               android:layout_height="wrap_content"
               android:paddingRight="@dimen/message_margin"
               android:paddingLeft="@dimen/message_margin"
-              android:layout_marginTop="5dp"
-              android:layout_marginBottom="5dp"
+              android:layout_marginBottom="6dp"
               android:gravity="bottom">
 
 

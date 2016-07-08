@@ -51,7 +51,6 @@ public class ChatFragment extends Fragment {
         adapter.add(new Message("asdf", new User("asdf", "Cantero",
                 "https://lh3.googleusercontent.com/-8980rlwDIss/AAAAAAAAAAI/AAAAAAAAAAA/dRMUwVLajoc/s120-c/photo.jpg"),
                 234234234, false, new TextPayload("Vamonoh illoh")));
-
         initRecyclerView(adapter);
     }
 
