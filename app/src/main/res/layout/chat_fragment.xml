@@ -5,36 +5,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <LinearLayout
-            android:id="@+id/message_text_input_layout"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true">
-
-        <EditText android:id="@+id/new_message_edittext"
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="6"
-                  android:padding="@dimen/activity_horizontal_margin"
-                  android:imeOptions="actionDone"
-                  android:maxLines="4"
-                  android:inputType="textAutoComplete|textAutoCorrect|textMultiLine"
-                  android:hint="@string/new_message_hint"
-                  android:background="@android:color/background_light"/>
-
-        <ImageView
-                android:id="@+id/send_message_button"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:padding="@dimen/activity_horizontal_margin"
-                android:background="@android:color/background_light"/>
-
-    </LinearLayout>
-
     <FrameLayout
-            android:layout_above="@+id/message_text_input_layout"
+            android:layout_above="@+id/root_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -45,5 +17,11 @@
                 tools:showIn="@layout/chat_fragment"/>
 
     </FrameLayout>
+
+    <FrameLayout
+            android:id="@+id/root_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

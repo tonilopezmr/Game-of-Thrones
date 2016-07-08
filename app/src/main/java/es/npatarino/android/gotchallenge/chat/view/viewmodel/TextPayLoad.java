@@ -1,14 +1,22 @@
-package es.npatarino.android.gotchallenge.chat.domain.model;
+package es.npatarino.android.gotchallenge.chat.view.viewmodel;
+
+import android.text.Spannable;
+import android.text.SpannableString;
+import es.npatarino.android.gotchallenge.chat.domain.model.Payload;
 
 public class TextPayload implements Payload {
 
-    private String message;
+    private Spannable message;
 
-    public TextPayload(String message) {
+    public TextPayload(Spannable message) {
         this.message = message;
     }
 
-    public String getMessageText(){
+    public TextPayload(String message){
+        this.message = new SpannableString(message);
+    }
+
+    public Spannable getMessage() {
         return message;
     }
 

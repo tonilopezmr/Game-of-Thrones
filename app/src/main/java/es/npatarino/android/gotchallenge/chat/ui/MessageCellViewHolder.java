@@ -9,7 +9,11 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.CircleTransform;
-import es.npatarino.android.gotchallenge.chat.domain.model.*;
+import es.npatarino.android.gotchallenge.chat.domain.model.ImagePayload;
+import es.npatarino.android.gotchallenge.chat.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.domain.model.Payload;
+import es.npatarino.android.gotchallenge.chat.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.view.viewmodel.TextPayload;
 
 public class MessageCellViewHolder extends RecyclerView.ViewHolder {
 
@@ -58,7 +62,7 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
     private void displayPayLoad(Payload payload) {
         if (payload instanceof TextPayload){
             TextPayload textPayload = (TextPayload) payload;
-            messageTextView.setText(textPayload.getMessageText());
+            messageTextView.setText(textPayload.getMessage());
         } else if (payload instanceof ImagePayload) {
             //TODO continue
         }

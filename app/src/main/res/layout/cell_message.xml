@@ -36,6 +36,7 @@
                 android:id="@+id/message_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textColor="@android:color/black"
                 tools:text="Hello Toni!\nHey wHATS UPP?\nMy name is better with butter peanut!"/>
 
     </LinearLayout>

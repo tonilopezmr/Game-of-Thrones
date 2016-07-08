@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<net.mobindustry.emojilib.ObservableLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/observable_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/observable_layout_background"
+    android:layout_gravity="bottom"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/smiles"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:paddingLeft="@dimen/keyboard_padding"
+        android:paddingRight="@dimen/keyboard_padding"/>
+
+    <EditText
+        android:id="@+id/message_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:hint="@string/edit_text_hint"
+        android:imeOptions="flagNoExtractUi|actionNone"
+        android:maxLines="4"
+        android:layout_margin="@dimen/keyboard_margin"
+        android:minHeight="@dimen/edit_text_max_height"
+        android:textColor="@color/edit_text_text"
+        android:textColorHint="@color/edit_text_hint"
+        android:background="@android:color/background_light"/>
+
+    <ImageView
+        android:id="@+id/attach"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:paddingLeft="@dimen/keyboard_padding"
+        android:paddingRight="@dimen/keyboard_padding"/>
+
+</net.mobindustry.emojilib.ObservableLinearLayout>

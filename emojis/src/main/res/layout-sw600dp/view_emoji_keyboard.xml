@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<net.mobindustry.emojilib.emoji.EmojiKeyboardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        android:orientation="vertical"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:background="@color/bg_keyboard"
+        >
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            >
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/tab_divider"
+                android:layout_gravity="bottom"
+                />
+
+        <LinearLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+
+            <com.astuetz.PagerSlidingTabStrip
+                    android:id="@+id/tabs_strip"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    app:pstsIndicatorColor="@color/bg_tab_selected"
+                    app:pstsTabPaddingLeftRight="0dp"
+                    app:pstsTabBackground="@drawable/bg_keyboard_tab"
+                    app:pstsIndicatorHeight="3dp"
+                    app:pstsShouldExpand="true"
+                    />
+
+            <ImageButton
+                    android:id="@+id/backspace"
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_smiles_backspace_selector"
+                    android:background="@drawable/bg_keyboard_tab"
+                    />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+</net.mobindustry.emojilib.emoji.EmojiKeyboardView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="emoji_size">45dp</dimen>
+    <dimen name="sticker_size">66dp</dimen>
+    <dimen name="smiles_button_size">40dp</dimen>
+    <dimen name="send_button_size">40dp</dimen>
+    <dimen name="edit_text_max_height">40dp</dimen>
+    <dimen name="button_margin_3dp">3dp</dimen>
+    <dimen name="button_padding_7dp">7dp</dimen>
+
+    <dimen name="keyboard_padding">14dp</dimen>
+    <dimen name="keyboard_margin">5dp</dimen>
+</resources>
