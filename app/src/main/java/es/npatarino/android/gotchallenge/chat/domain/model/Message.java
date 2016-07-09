@@ -8,7 +8,6 @@ public class Message {
     private boolean fromMe;
     private Payload payload;
 
-
     public Message(String id,
                    User userFrom,
                    long timestamp,

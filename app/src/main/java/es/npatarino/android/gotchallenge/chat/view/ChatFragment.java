@@ -9,12 +9,22 @@ import android.text.Spannable;
 import android.view.*;
 import android.widget.FrameLayout;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.base.di.ExecutorThread;
+import es.npatarino.android.gotchallenge.base.di.UiThread;
+import es.npatarino.android.gotchallenge.chat.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.message.data.MessageRepository;
+import es.npatarino.android.gotchallenge.chat.message.interactor.SubscribeToMessage;
+import es.npatarino.android.gotchallenge.chat.message.presenter.MessagePresenter;
+import es.npatarino.android.gotchallenge.chat.message.view.MessageView;
 import es.npatarino.android.gotchallenge.chat.view.viewmodel.TextPayload;
 import net.mobindustry.emojilib.EmojiPanel;
+import rx.Scheduler;
 
-public class ChatFragment extends Fragment {
+import javax.inject.Inject;
+import java.util.Collections;
+
+public class ChatFragment extends Fragment implements MessageView {
 
     private RecyclerView messageRecyclerView;
     private LinearLayoutManager recyclerViewManager;
@@ -24,34 +34,29 @@ public class ChatFragment extends Fragment {
     private EmojiPanel emojiPanel;
     private FrameLayout rootEmojiKeyBoard;
 
+    @Inject @UiThread
+    Scheduler uiThread;
+    @Inject @ExecutorThread
+    Scheduler executorThread;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.chat_fragment, container, false);
 
-
-        initUI(rootView);
+        initFragment(rootView);
 
         return rootView;
     }
 
-    public void initUI(View rootView) {
+    private void initFragment(View rootView) {
         messageRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         initEmojiPanel(rootView);
 
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //hide keyboard start
-
-        adapter = new ChatAdapter();
-        adapter.add(new Message("asdf", new User("asdf", "Sergio",
-                "https://lh3.googleusercontent.com/-jDZYxFuC6X8/AAAAAAAAAAI/AAAAAAAAA-s/Wch5ttRQSQ0/s120-c/photo.jpg"),
-                234234234, false, new TextPayload("Hey buddy!")));
-        adapter.add(new Message("asdf", new User("asdf", "Celia",
-                "https://lh3.googleusercontent.com/-wF2cRii1VJM/AAAAAAAAAAI/AAAAAAAAAEI/ouEFoadEehk/s120-c/photo.jpg"),
-                234234234, false, new TextPayload("Vamoh cohonee vente ya para malaga\nQue tengo una terraza bien hermosa como yo :D")));
-        adapter.add(new Message("asdf", new User("asdf", "Cantero",
-                "https://lh3.googleusercontent.com/-8980rlwDIss/AAAAAAAAAAI/AAAAAAAAAAA/dRMUwVLajoc/s120-c/photo.jpg"),
-                234234234, false, new TextPayload("Vamonoh illoh")));
-        initRecyclerView(adapter);
+        MessageRepository messageRepository = new MessageRepository();
+        SubscribeToMessage subscribeToMessage = new SubscribeToMessage(messageRepository, uiThread, executorThread);
+        MessagePresenter messagePresenter = new MessagePresenter(subscribeToMessage);
+        messagePresenter.init(new Conversation("1", "con", Collections.emptyList(), null, null));
     }
 
     private void initEmojiPanel(View rootView) {
@@ -112,4 +117,20 @@ public class ChatFragment extends Fragment {
     }
 
 
+    @Override
+    public void showMessage(Message message) {
+        adapter.add(message);
+    }
+
+    @Override
+    public void initUi() {
+        adapter = new ChatAdapter();
+        initRecyclerView(adapter);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //hide keyboard start
+    }
+
+    @Override
+    public void error() {
+
+    }
 }

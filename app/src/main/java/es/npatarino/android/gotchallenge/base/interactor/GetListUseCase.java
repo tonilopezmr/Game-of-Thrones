@@ -16,13 +16,13 @@
 
 package es.npatarino.android.gotchallenge.base.interactor;
 
-import java.util.List;
-
 import es.npatarino.android.gotchallenge.base.list.repository.ListRepository;
 import rx.Observable;
 import rx.Scheduler;
 
-public class GetListUseCase<T> extends UseCase<List<T>>{
+import java.util.List;
+
+public class GetListUseCase<T> extends UseCase<List<T>> {
 
     protected final ListRepository<T> repository;
 
@@ -35,8 +35,6 @@ public class GetListUseCase<T> extends UseCase<List<T>>{
 
     @Override
     protected Observable<List<T>> buildUseCaseObservable() {
-        return repository.getList()
-                .observeOn(uiThread)
-                .subscribeOn(executorThread);
+        return ScheduleOn(repository.getList());
     }
 }
