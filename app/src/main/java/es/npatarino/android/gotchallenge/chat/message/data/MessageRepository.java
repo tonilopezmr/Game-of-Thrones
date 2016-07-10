@@ -20,15 +20,16 @@ public class MessageRepository implements MessageDomain.Repository {
     public MessageRepository() {
         messagesPublisher = new HashMap<>();
         messages = Arrays.asList(
-                new Message("1", new User("1", "Sergio",
-                        "https://lh3.googleusercontent.com/-jDZYxFuC6X8/AAAAAAAAAAI/AAAAAAAAA-s/Wch5ttRQSQ0/s120-c/photo.jpg"),
-                        234234234, false, new TextPayload("Hey buddy!")),
-                new Message("2", new User("2", "Celia",
-                        "https://lh3.googleusercontent.com/-wF2cRii1VJM/AAAAAAAAAAI/AAAAAAAAAEI/ouEFoadEehk/s120-c/photo.jpg"),
-                        234234234, false, new TextPayload("Vamoh cohonee vente ya para malaga\nQue tengo una terraza bien hermosa como yo :D")),
-                new Message("3", new User("3", "Cantero",
-                        "https://lh3.googleusercontent.com/-8980rlwDIss/AAAAAAAAAAI/AAAAAAAAAAA/dRMUwVLajoc/s120-c/photo.jpg"),
-                        234234234, false, new TextPayload("Vamonoh illoh")));
+                new Message("asdf", new User("asdf", "Daenerys Targaryen",
+                        "http://winteriscoming.net/wp-content/uploads/2016/03/Daenerys-Targaryen-crop-630x371.jpg"),
+                        234234234, false, new TextPayload("where my dwarf is?")),
+                new Message("asdf", new User("asdf", "Tyrion Lannister",
+                        "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
+                        234234234, false, new TextPayload("Tell me blonde who never burns")),
+                new Message("asdf", new User("asdf", "Arya Stark",
+                    "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg"),
+                    234234234, false, new TextPayload("Joffrey\nCersei\nWalder Frey\nMeryn Trant\nTywin Lannister\n"
+                    + "The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound")));
     }
 
     @Override
