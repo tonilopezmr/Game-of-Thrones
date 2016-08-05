@@ -27,7 +27,7 @@ public class GetConversation extends UseCase<Conversation> {
     protected Observable<Conversation> buildUseCaseObservable() {
         if (conversation == null) throw new IllegalStateException("Must set conversation to get");
 
-        return repository.get(conversation);
+        return ScheduleOn(repository.get(conversation));
     }
 
 }
