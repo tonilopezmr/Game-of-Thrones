@@ -4,6 +4,7 @@ import android.util.Log;
 import es.npatarino.android.gotchallenge.base.list.presenter.BasePresenter;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.message.domain.interactor.GetMessages;
+import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SendMessage;
 import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SubscribeToMessage;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.view.MessageView;
@@ -16,19 +17,30 @@ public class MessagePresenter extends BasePresenter<MessageView> {
 
     private SubscribeToMessage subscribeToMessageUseCase;
     private GetMessages getMessages;
+    private SendMessage sendMessage;
+
+    private Conversation conversation;
 
     public MessagePresenter(SubscribeToMessage subscribeToMessageUseCase,
-                            GetMessages getMessages) {
+                            GetMessages getMessages,
+                            SendMessage sendMessage) {
         this.subscribeToMessageUseCase = subscribeToMessageUseCase;
         this.getMessages = getMessages;
+        this.sendMessage = sendMessage;
     }
 
     public void init(Conversation conversation){
+        super.init();
+        this.conversation = conversation;
+
         addSubscription(subscribeToMessageUseCase.execute(conversation)
                 .subscribe(this::showMessage, this::onShowMessageError));
         addSubscription(getMessages.execute(conversation)
                 .subscribe(this::showMessages, this::onShowMessagesError));
-        init();
+    }
+
+    public void send(Message message){
+        sendMessage.execute(message, conversation);
     }
 
     private void onShowMessageError(Throwable throwable) {

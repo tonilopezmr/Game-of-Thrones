@@ -13,9 +13,9 @@ public class SendMessage extends UseCase<Void> {
     private Message message;
     private MessageDomain.Repository repository;
 
-    protected SendMessage(MessageDomain.Repository repository,
-                          Scheduler uiThread,
-                          Scheduler executorThread) {
+    public SendMessage(MessageDomain.Repository repository,
+                       Scheduler uiThread,
+                       Scheduler executorThread) {
         super(uiThread, executorThread);
         this.repository = repository;
     }
@@ -30,6 +30,6 @@ public class SendMessage extends UseCase<Void> {
     protected Observable<Void> buildUseCaseObservable() {
         if (message == null || conversation == null)
             throw new IllegalStateException("Must set message and conversation to send a message");
-        return repository.sendMessage(message, conversation);
+        return ScheduleOn(repository.sendMessage(message, conversation));
     }
 }

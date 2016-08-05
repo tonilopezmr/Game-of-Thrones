@@ -27,6 +27,7 @@ public class DefaultListPresenter<T> extends BasePresenter<ViewList<T>> {
 
     @Override
     public void init() {
+        super.init();
         loadList();
     }
 }

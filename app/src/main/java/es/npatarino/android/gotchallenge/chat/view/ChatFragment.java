@@ -17,6 +17,7 @@ import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
 import es.npatarino.android.gotchallenge.chat.di.DaggerChatComponent;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SendMessage;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.data.MessageRepository;
 import es.npatarino.android.gotchallenge.chat.message.domain.interactor.GetMessages;
@@ -37,6 +38,8 @@ public class ChatFragment extends Fragment implements MessageView {
     private LinearLayoutManager recyclerViewManager;
     private ChatAdapter adapter;
     private View rootView;
+
+    MessagePresenter messagePresenter;
 
     //emoji section
     private EmojiPanel emojiPanel;
@@ -76,7 +79,9 @@ public class ChatFragment extends Fragment implements MessageView {
         MessageRepository messageRepository = new MessageRepository();
         SubscribeToMessage subscribeToMessage = new SubscribeToMessage(messageRepository, uiThread, executorThread);
         GetMessages messages = new GetMessages(messageRepository, uiThread, executorThread);
-        MessagePresenter messagePresenter = new MessagePresenter(subscribeToMessage, messages);
+        SendMessage sendMessage = new SendMessage(messageRepository, uiThread, executorThread);
+
+        messagePresenter = new MessagePresenter(subscribeToMessage, messages, sendMessage);
         messagePresenter.setView(this);
         messagePresenter.init(new Conversation("1", "con", Collections.emptyList(), null, null));
     }
@@ -87,14 +92,15 @@ public class ChatFragment extends Fragment implements MessageView {
             @Override
             public void sendClicked(Spannable span) {
                 if (span.length() != 0){
-                    adapter.add(new Message("asdf", null, 234234234, true, new TextPayLoad(span)));
+                    long timestamp = System.currentTimeMillis();
+                    messagePresenter.send(new Message("asdf"+timestamp, null, timestamp, true, new TextPayLoad(span)));
                     scrollToBottom();
                 }
             }
 
             @Override
             public void stickerClicked(String path) {
-                //Todo do nothing
+                //Todo do nothing, show sticker
             }
         });
 
@@ -142,11 +148,13 @@ public class ChatFragment extends Fragment implements MessageView {
     @Override
     public void showMessage(Message message) {
         adapter.add(message);
+        scrollToBottom();
     }
 
     @Override
     public void showMessages(List<Message> messages) {
         adapter.addAll(messages);
+        scrollToBottom();
     }
 
     @Override

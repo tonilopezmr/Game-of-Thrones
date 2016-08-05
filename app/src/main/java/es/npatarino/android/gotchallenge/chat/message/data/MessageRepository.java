@@ -1,16 +1,19 @@
 package es.npatarino.android.gotchallenge.chat.message.data;
 
+import android.support.annotation.NonNull;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import es.npatarino.android.gotchallenge.chat.message.MessageDomain;
+import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MessageRepository implements MessageDomain.Repository {
 
@@ -20,44 +23,50 @@ public class MessageRepository implements MessageDomain.Repository {
     public MessageRepository() {
         messagesPublisher = new HashMap<>();
         messages = Arrays.asList(
-                new Message("asdf", new User("asdf", "Daenerys Targaryen",
+                new Message("567", new User("asdf", "Arya Stark",
+                        "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg"),
+                        1, false, new TextPayLoad("Joffrey\nCersei\nWalder Frey\nMeryn Trant\nTywin Lannister\n"
+                        + "The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound")),
+                new Message("123", new User("asdf", "Daenerys Targaryen",
                         "http://winteriscoming.net/wp-content/uploads/2016/03/Daenerys-Targaryen-crop-630x371.jpg"),
-                        234234234, false, new TextPayLoad("where my dwarf is?")),
-                new Message("asdf", new User("asdf", "Tyrion Lannister",
+                        3, false, new TextPayLoad("where my dwarf is?")),
+                new Message("345", new User("asdf", "Tyrion Lannister",
                         "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
-                        234234234, false, new TextPayLoad("Tell me blonde who never burns")),
-                new Message("asdf", new User("asdf", "Arya Stark",
-                    "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg"),
-                    234234234, false, new TextPayLoad("Joffrey\nCersei\nWalder Frey\nMeryn Trant\nTywin Lannister\n"
-                    + "The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound")));
+                        2, false, new TextPayLoad("Tell me blonde who never burns")));
+    }
+
+    @NonNull
+    private List<Message> getMessages() {
+        List<Message> others = new ArrayList<>();
+
+        for (Message message : messages) {
+            others.add(new Message(message.getId()+"1", message.getUser(), message.getTimestamp()+3, message.isFromMe(), message.getPayload()));
+        }
+        return others;
     }
 
     @Override
     public Observable<List<Message>> getMessages(Conversation conversation) {
-        Observable<List<Message>> messageObservable = Observable.just(messages);
+        Observable<List<Message>> messageObservable = Observable.just(new ArrayList<>(messages));
 
-//        for (Message message : messages) {
-//            getPublisher(conversation).onNext(message);
-//        }
         return messageObservable;
     }
 
     @Override
     public Observable<Void> sendMessage(Message message, Conversation conversation) {
         getPublisher(conversation).onNext(message);
-        return null;
+        return Observable.empty();
     }
 
     @Override
     public Observable<Message> subscribeToMessages(Conversation conversation) {
-        Observable<Message> messageObservable = Observable.create(subscriber -> {
-            for (Message message : messages) {
-                subscriber.onNext(message);
-            }
-            subscriber.onCompleted();
-        });
+        List<Message> others = getMessages();
 
-        messageObservable.repeat(5);
+
+        Observable<Message> messageObservable  = Observable
+                .interval(1, TimeUnit.SECONDS)
+                .map(i -> others.get(i.intValue()))
+                .take(others.size());
 
         return getPublisher(conversation).mergeWith(messageObservable);
     }

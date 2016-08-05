@@ -17,7 +17,7 @@ public class CharacterListByHousePresenter extends BasePresenter<DetailView<List
     }
 
     public void init(GoTHouse viewModel) {
-        init();
+        super.init();
         askForCharacters(viewModel);
     }
 
