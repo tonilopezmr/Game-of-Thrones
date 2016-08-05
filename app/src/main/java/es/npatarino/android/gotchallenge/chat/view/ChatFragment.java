@@ -11,22 +11,15 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.di.ExecutorThread;
-import es.npatarino.android.gotchallenge.base.di.UiThread;
 import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
-import es.npatarino.android.gotchallenge.chat.di.DaggerChatComponent;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SendMessage;
+import es.npatarino.android.gotchallenge.chat.di.DaggerChatComponent;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.message.data.MessageRepository;
-import es.npatarino.android.gotchallenge.chat.message.domain.interactor.GetMessages;
-import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SubscribeToMessage;
 import es.npatarino.android.gotchallenge.chat.message.presenter.MessagePresenter;
 import es.npatarino.android.gotchallenge.chat.message.view.MessageView;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import net.mobindustry.emojilib.EmojiPanel;
-import rx.Scheduler;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -39,19 +32,14 @@ public class ChatFragment extends Fragment implements MessageView {
     private ChatAdapter adapter;
     private View rootView;
 
-    MessagePresenter messagePresenter;
-
     //emoji section
     private EmojiPanel emojiPanel;
     private FrameLayout rootEmojiKeyBoard;
 
-    @Inject @UiThread
-    Scheduler uiThread;
-    @Inject @ExecutorThread
-    Scheduler executorThread;
-
     @Inject
     ErrorManager errorManager;
+    @Inject
+    MessagePresenter messagePresenter;
 
     @Nullable
     @Override
@@ -76,12 +64,6 @@ public class ChatFragment extends Fragment implements MessageView {
         messageRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         initEmojiPanel(rootView);
 
-        MessageRepository messageRepository = new MessageRepository();
-        SubscribeToMessage subscribeToMessage = new SubscribeToMessage(messageRepository, uiThread, executorThread);
-        GetMessages messages = new GetMessages(messageRepository, uiThread, executorThread);
-        SendMessage sendMessage = new SendMessage(messageRepository, uiThread, executorThread);
-
-        messagePresenter = new MessagePresenter(subscribeToMessage, messages, sendMessage);
         messagePresenter.setView(this);
         messagePresenter.init(new Conversation("1", "con", Collections.emptyList(), null, null));
     }
