@@ -3,7 +3,7 @@ package es.npatarino.android.gotchallenge.common.view.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import es.npatarino.android.gotchallenge.chat.view.ChatFragment;
+import es.npatarino.android.gotchallenge.chat.ui.ChatFragment;
 import es.npatarino.android.gotchallenge.houses.list.view.fragment.HousesListFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {

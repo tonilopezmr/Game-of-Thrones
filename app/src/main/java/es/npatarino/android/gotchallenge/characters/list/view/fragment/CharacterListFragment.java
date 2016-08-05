@@ -25,9 +25,9 @@ import java.util.List;
 public class CharacterListFragment extends Fragment implements ViewList<GoTCharacter> {
 
     private static final String TAG = CharacterListFragment.class.getSimpleName();
-    private RecyclerView rv;
-    private ContentLoadingProgressBar pb;
-    private CharacterAdapter adp;
+    private RecyclerView recyclerView;
+    private ContentLoadingProgressBar progressBar;
+    private CharacterAdapter adapter;
 
     @Inject
     CharacterListPresenter gotCharacterListPresenter;
@@ -41,8 +41,8 @@ public class CharacterListFragment extends Fragment implements ViewList<GoTChara
         initDagger();
 
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        progressBar = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
 
         gotCharacterListPresenter.setView(this);
         gotCharacterListPresenter.init();
@@ -60,17 +60,17 @@ public class CharacterListFragment extends Fragment implements ViewList<GoTChara
 
     @Override
     public void showList(List<GoTCharacter> list) {
-        adp.addAll(list);
-        adp.notifyDataSetChanged();
-        pb.hide();
+        adapter.addAll(list);
+        adapter.notifyDataSetChanged();
+        progressBar.hide();
     }
 
     @Override
     public void initUi() {
-        adp = new CharacterAdapter(getActivity());
-        rv.setAdapter(adp);
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.setHasFixedSize(true);
+        adapter = new CharacterAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setHasFixedSize(true);
     }
 
     @Override

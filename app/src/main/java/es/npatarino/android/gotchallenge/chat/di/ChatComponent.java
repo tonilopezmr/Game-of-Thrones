@@ -10,7 +10,7 @@ import es.npatarino.android.gotchallenge.chat.message.domain.interactor.GetMessa
 import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SendMessage;
 import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SubscribeToMessage;
 import es.npatarino.android.gotchallenge.chat.message.presenter.MessagePresenter;
-import es.npatarino.android.gotchallenge.chat.view.ChatFragment;
+import es.npatarino.android.gotchallenge.chat.ui.ChatFragment;
 
 @ActivityScope
 @Component(dependencies = AppComponent.class, modules = {ChatModule.class, ActivityModule.class})

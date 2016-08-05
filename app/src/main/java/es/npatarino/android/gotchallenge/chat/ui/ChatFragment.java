@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.chat.view;
+package es.npatarino.android.gotchallenge.chat.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
