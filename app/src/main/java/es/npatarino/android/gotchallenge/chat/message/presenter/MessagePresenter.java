@@ -1,5 +1,6 @@
 package es.npatarino.android.gotchallenge.chat.message.presenter;
 
+import android.util.Log;
 import es.npatarino.android.gotchallenge.base.Mvp;
 import es.npatarino.android.gotchallenge.chat.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.domain.model.Message;
@@ -9,6 +10,7 @@ import rx.Subscription;
 
 public class MessagePresenter implements Mvp.Presenter<MessageView> {
 
+    private final String TAG = MessagePresenter.class.getSimpleName();
 
     private SubscribeToMessage subscribeToMessageUseCase;
     private Subscription subscription;
@@ -30,7 +32,8 @@ public class MessagePresenter implements Mvp.Presenter<MessageView> {
     }
 
     private void onError(Throwable throwable) {
-
+        view.error();
+        Log.e(TAG, "onError: " + throwable.getMessage());
     }
 
     @Override

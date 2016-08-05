@@ -4,15 +4,15 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import es.npatarino.android.gotchallenge.chat.domain.model.Payload;
 
-public class TextPayload implements Payload {
+public class TextPayLoad implements Payload {
 
     private Spannable message;
 
-    public TextPayload(Spannable message) {
+    public TextPayLoad(Spannable message) {
         this.message = message;
     }
 
-    public TextPayload(String message){
+    public TextPayLoad(String message){
         this.message = new SpannableString(message);
     }
 
@@ -25,7 +25,7 @@ public class TextPayload implements Payload {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TextPayload that = (TextPayload) o;
+        TextPayLoad that = (TextPayLoad) o;
 
         return message.equals(that.message);
 

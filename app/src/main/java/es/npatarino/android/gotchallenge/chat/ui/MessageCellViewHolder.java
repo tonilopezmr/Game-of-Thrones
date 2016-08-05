@@ -13,7 +13,7 @@ import es.npatarino.android.gotchallenge.chat.domain.model.ImagePayload;
 import es.npatarino.android.gotchallenge.chat.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.domain.model.Payload;
 import es.npatarino.android.gotchallenge.chat.domain.model.User;
-import es.npatarino.android.gotchallenge.chat.view.viewmodel.TextPayload;
+import es.npatarino.android.gotchallenge.chat.view.viewmodel.TextPayLoad;
 
 public class MessageCellViewHolder extends RecyclerView.ViewHolder {
 
@@ -60,8 +60,8 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void displayPayLoad(Payload payload) {
-        if (payload instanceof TextPayload){
-            TextPayload textPayload = (TextPayload) payload;
+        if (payload instanceof TextPayLoad){
+            TextPayLoad textPayload = (TextPayLoad) payload;
             messageTextView.setText(textPayload.getMessage());
         } else if (payload instanceof ImagePayload) {
             //TODO continue

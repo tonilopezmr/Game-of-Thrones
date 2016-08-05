@@ -8,16 +8,21 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.view.*;
 import android.widget.FrameLayout;
+import android.widget.Toast;
+import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.di.ExecutorThread;
 import es.npatarino.android.gotchallenge.base.di.UiThread;
+import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.chat.di.DaggerChatComponent;
 import es.npatarino.android.gotchallenge.chat.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.data.MessageRepository;
+import es.npatarino.android.gotchallenge.chat.message.interactor.GetMessages;
 import es.npatarino.android.gotchallenge.chat.message.interactor.SubscribeToMessage;
 import es.npatarino.android.gotchallenge.chat.message.presenter.MessagePresenter;
 import es.npatarino.android.gotchallenge.chat.message.view.MessageView;
-import es.npatarino.android.gotchallenge.chat.view.viewmodel.TextPayload;
+import es.npatarino.android.gotchallenge.chat.view.viewmodel.TextPayLoad;
 import net.mobindustry.emojilib.EmojiPanel;
 import rx.Scheduler;
 
@@ -42,11 +47,19 @@ public class ChatFragment extends Fragment implements MessageView {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        initDagger();
         View rootView = inflater.inflate(R.layout.chat_fragment, container, false);
-
         initFragment(rootView);
 
         return rootView;
+    }
+
+    private void initDagger() {
+        GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
+        DaggerChatComponent.builder()
+                .appComponent(app.getAppComponent())
+                .activityModule(new ActivityModule(getActivity()))
+                .build().inject(this);
     }
 
     private void initFragment(View rootView) {
@@ -55,7 +68,9 @@ public class ChatFragment extends Fragment implements MessageView {
 
         MessageRepository messageRepository = new MessageRepository();
         SubscribeToMessage subscribeToMessage = new SubscribeToMessage(messageRepository, uiThread, executorThread);
+        GetMessages messages = new GetMessages(messageRepository, uiThread, executorThread);
         MessagePresenter messagePresenter = new MessagePresenter(subscribeToMessage);
+        messagePresenter.setView(this);
         messagePresenter.init(new Conversation("1", "con", Collections.emptyList(), null, null));
     }
 
@@ -65,7 +80,7 @@ public class ChatFragment extends Fragment implements MessageView {
             @Override
             public void sendClicked(Spannable span) {
                 if (span.length() != 0){
-                    adapter.add(new Message("asdf", null, 234234234, true, new TextPayload(span)));
+                    adapter.add(new Message("asdf", null, 234234234, true, new TextPayLoad(span)));
                     scrollToBottom();
                 }
             }
@@ -131,6 +146,6 @@ public class ChatFragment extends Fragment implements MessageView {
 
     @Override
     public void error() {
-
+        Toast.makeText(getContext(), "error", Toast.LENGTH_LONG).show();
     }
 }

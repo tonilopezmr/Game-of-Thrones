@@ -9,11 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
@@ -23,6 +18,9 @@ import es.npatarino.android.gotchallenge.houses.di.HousesModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.houses.list.view.adapters.HouseAdapter;
+
+import javax.inject.Inject;
+import java.util.List;
 
 public class HousesListFragment extends Fragment implements ViewList<GoTHouse> {
 

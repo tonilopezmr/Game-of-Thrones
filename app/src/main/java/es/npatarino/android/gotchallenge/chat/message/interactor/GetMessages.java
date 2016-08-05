@@ -14,7 +14,7 @@ public class GetMessages extends UseCase<List<Message>> {
     private MessageDomain.Repository repository;
     private Conversation conversation;
 
-    protected GetMessages(MessageDomain.Repository repository,
+    public GetMessages(MessageDomain.Repository repository,
                           Scheduler uiThread,
                           Scheduler executorThread) {
         super(uiThread, executorThread);
@@ -28,6 +28,6 @@ public class GetMessages extends UseCase<List<Message>> {
 
     @Override
     protected Observable<List<Message>> buildUseCaseObservable() {
-        return repository.getMessages(conversation);
+        return ScheduleOn(repository.getMessages(conversation));
     }
 }
