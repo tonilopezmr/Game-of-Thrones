@@ -1,8 +1,9 @@
 package es.npatarino.android.gotchallenge.chat.message.domain.model;
 
+import android.support.annotation.NonNull;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 
-public class Message {
+public class Message implements Comparable<Message>{
 
     private String id;
     private User userFrom;
@@ -66,5 +67,18 @@ public class Message {
         result = 31 * result + (fromMe ? 1 : 0);
         result = 31 * result + payload.hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo(@NonNull Message message) {
+        long messageTimestamp = message.getTimestamp();
+
+        if (timestamp > messageTimestamp) {
+            return 1;
+        } else if (timestamp < messageTimestamp) {
+            return -1;
+        }
+
+        return 0;
     }
 }

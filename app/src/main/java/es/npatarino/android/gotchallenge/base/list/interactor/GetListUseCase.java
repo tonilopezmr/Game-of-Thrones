@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package es.npatarino.android.gotchallenge.base.interactor;
+package es.npatarino.android.gotchallenge.base.list.interactor;
 
+import es.npatarino.android.gotchallenge.base.detail.interactor.UseCase;
 import es.npatarino.android.gotchallenge.base.list.repository.ListRepository;
 import rx.Observable;
 import rx.Scheduler;

@@ -1,6 +1,6 @@
 package es.npatarino.android.gotchallenge.base.list.presenter;
 
-import es.npatarino.android.gotchallenge.base.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.base.list.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.base.interactor;
+package es.npatarino.android.gotchallenge.base.detail.interactor;
 
 import rx.Observable;
 import rx.Scheduler;

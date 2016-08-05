@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.CircleTransform;
+import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.ImagePayload;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;

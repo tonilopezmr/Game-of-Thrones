@@ -10,7 +10,7 @@ import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterList
 import es.npatarino.android.gotchallenge.base.di.ActivityScope;
 import es.npatarino.android.gotchallenge.base.di.ExecutorThread;
 import es.npatarino.android.gotchallenge.base.di.UiThread;
-import es.npatarino.android.gotchallenge.base.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.base.list.interactor.GetListUseCase;
 import rx.Scheduler;
 
 @Module

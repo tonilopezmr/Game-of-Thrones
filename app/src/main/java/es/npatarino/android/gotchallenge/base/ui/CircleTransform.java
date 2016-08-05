@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.base;
+package es.npatarino.android.gotchallenge.base.ui;
 
 /*
  * Copyright 2014 Julian Shen

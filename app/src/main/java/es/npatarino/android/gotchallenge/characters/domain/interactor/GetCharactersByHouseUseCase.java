@@ -1,6 +1,6 @@
 package es.npatarino.android.gotchallenge.characters.domain.interactor;
 
-import es.npatarino.android.gotchallenge.base.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.base.list.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;

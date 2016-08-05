@@ -1,29 +1,46 @@
 package es.npatarino.android.gotchallenge.chat.view;
 
+import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.ui.MessageCellViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<MessageCellViewHolder> {
 
-    private List<Message> messageList;
+    private SortedList<Message> messageList;
 
     public ChatAdapter() {
-        messageList = new ArrayList<>();
-    }
+        messageList = new SortedList<Message>(Message.class, new SortedListAdapterCallback<Message>(this){
+            @Override
+            public int compare(Message o1, Message o2) {
+                return o1.compareTo(o2);
+            }
 
-    public void setAll(List<Message> messages){
-        messageList = new ArrayList<>(messages);
+            @Override
+            public boolean areContentsTheSame(Message oldItem, Message newItem) {
+                return oldItem.equals(newItem);
+            }
+
+            @Override
+            public boolean areItemsTheSame(Message item1, Message item2) {
+                return item1.getId().equals(item2.getId());
+            }
+        });
     }
 
     public void add(Message message){
         messageList.add(message);
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Message> messages) {
+        messageList.addAll(messages);
         notifyDataSetChanged();
     }
 

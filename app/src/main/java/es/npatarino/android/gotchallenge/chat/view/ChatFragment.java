@@ -14,6 +14,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.di.ExecutorThread;
 import es.npatarino.android.gotchallenge.base.di.UiThread;
 import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
 import es.npatarino.android.gotchallenge.chat.di.DaggerChatComponent;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
@@ -28,12 +29,14 @@ import rx.Scheduler;
 
 import javax.inject.Inject;
 import java.util.Collections;
+import java.util.List;
 
 public class ChatFragment extends Fragment implements MessageView {
 
     private RecyclerView messageRecyclerView;
     private LinearLayoutManager recyclerViewManager;
     private ChatAdapter adapter;
+    private View rootView;
 
     //emoji section
     private EmojiPanel emojiPanel;
@@ -43,6 +46,9 @@ public class ChatFragment extends Fragment implements MessageView {
     Scheduler uiThread;
     @Inject @ExecutorThread
     Scheduler executorThread;
+
+    @Inject
+    ErrorManager errorManager;
 
     @Nullable
     @Override
@@ -63,13 +69,14 @@ public class ChatFragment extends Fragment implements MessageView {
     }
 
     private void initFragment(View rootView) {
+        this.rootView = rootView;
         messageRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         initEmojiPanel(rootView);
 
         MessageRepository messageRepository = new MessageRepository();
         SubscribeToMessage subscribeToMessage = new SubscribeToMessage(messageRepository, uiThread, executorThread);
         GetMessages messages = new GetMessages(messageRepository, uiThread, executorThread);
-        MessagePresenter messagePresenter = new MessagePresenter(subscribeToMessage);
+        MessagePresenter messagePresenter = new MessagePresenter(subscribeToMessage, messages);
         messagePresenter.setView(this);
         messagePresenter.init(new Conversation("1", "con", Collections.emptyList(), null, null));
     }
@@ -138,6 +145,21 @@ public class ChatFragment extends Fragment implements MessageView {
     }
 
     @Override
+    public void showMessages(List<Message> messages) {
+        adapter.addAll(messages);
+    }
+
+    @Override
+    public void errorOnShowMessage() {
+        errorManager.showError(rootView, "Error on show a message");
+    }
+
+    @Override
+    public void errorOnShowMessages() {
+        errorManager.showError(rootView, "Error on show a message list");
+    }
+
+    @Override
     public void initUi() {
         adapter = new ChatAdapter();
         initRecyclerView(adapter);
@@ -146,6 +168,6 @@ public class ChatFragment extends Fragment implements MessageView {
 
     @Override
     public void error() {
-        Toast.makeText(getContext(), "error", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Some error", Toast.LENGTH_LONG).show();
     }
 }
