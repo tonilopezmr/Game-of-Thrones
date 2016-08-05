@@ -1,39 +1,19 @@
 package es.npatarino.android.gotchallenge.characters.list.presenter;
 
-import java.util.List;
-
+import es.npatarino.android.gotchallenge.base.detail.view.DetailView;
+import es.npatarino.android.gotchallenge.base.list.presenter.BasePresenter;
 import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.base.Mvp;
-import es.npatarino.android.gotchallenge.base.detail.view.DetailView;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import rx.Subscription;
 
-public class CharacterListByHousePresenter implements Mvp.Presenter<DetailView<List<GoTCharacter>>> {
+import java.util.List;
 
-    private DetailView<List<GoTCharacter>> view;
+public class CharacterListByHousePresenter extends BasePresenter<DetailView<List<GoTCharacter>>> {
+
     private GetCharactersByHouseUseCase useCase;
-
-    private Subscription charactersSubscription;
 
     public CharacterListByHousePresenter(GetCharactersByHouseUseCase useCase) {
         this.useCase = useCase;
-    }
-
-    @Override
-    public void init() {
-        view.initUi();
-    }
-
-    @Override
-    public void setView(DetailView<List<GoTCharacter>> view) {
-        if (view == null) new IllegalArgumentException("oh my god... you are **");
-        this.view = view;
-    }
-
-    @Override
-    public void onDestroy() {
-        charactersSubscription.unsubscribe();
     }
 
     public void init(GoTHouse viewModel) {
@@ -42,8 +22,8 @@ public class CharacterListByHousePresenter implements Mvp.Presenter<DetailView<L
     }
 
     private void askForCharacters(GoTHouse viewModel) {
-        charactersSubscription = useCase.execute(viewModel)
-                .subscribe(this::onCharactersReceived, this::onError);
+        addSubscription(useCase.execute(viewModel)
+                .subscribe(this::onCharactersReceived, this::onError));
     }
 
     private void onCharactersReceived(List<GoTCharacter> characters){

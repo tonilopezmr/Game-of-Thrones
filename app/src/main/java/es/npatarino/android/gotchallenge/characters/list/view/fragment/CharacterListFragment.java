@@ -9,20 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
+import es.npatarino.android.gotchallenge.base.list.view.ViewList;
 import es.npatarino.android.gotchallenge.characters.di.CharactersModule;
 import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
-import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.base.list.view.ViewList;
+
+import javax.inject.Inject;
+import java.util.List;
 
 public class CharacterListFragment extends Fragment implements ViewList<GoTCharacter> {
 
@@ -45,8 +43,6 @@ public class CharacterListFragment extends Fragment implements ViewList<GoTChara
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
         rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
-
-        initUi();
 
         gotCharacterListPresenter.setView(this);
         gotCharacterListPresenter.init();

@@ -42,8 +42,6 @@ public class HousesListFragment extends Fragment implements ViewList<GoTHouse> {
         rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
 
-        initUi();
-
         gotHouseListPresenter.setView(this);
         gotHouseListPresenter.init();
         return rootView;

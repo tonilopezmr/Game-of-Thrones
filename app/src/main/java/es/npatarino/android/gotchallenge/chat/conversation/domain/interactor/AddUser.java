@@ -1,9 +1,9 @@
-package es.npatarino.android.gotchallenge.chat.conversation.interactor;
+package es.npatarino.android.gotchallenge.chat.conversation.domain.interactor;
 
 import es.npatarino.android.gotchallenge.base.interactor.UseCase;
 import es.npatarino.android.gotchallenge.chat.conversation.ConversationDomain;
-import es.npatarino.android.gotchallenge.chat.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import rx.Observable;
 import rx.Scheduler;
 

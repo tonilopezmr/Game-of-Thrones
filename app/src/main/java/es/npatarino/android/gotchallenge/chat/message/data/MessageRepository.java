@@ -1,10 +1,10 @@
 package es.npatarino.android.gotchallenge.chat.message.data;
 
-import es.npatarino.android.gotchallenge.chat.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import es.npatarino.android.gotchallenge.chat.message.MessageDomain;
-import es.npatarino.android.gotchallenge.chat.view.viewmodel.TextPayLoad;
+import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 

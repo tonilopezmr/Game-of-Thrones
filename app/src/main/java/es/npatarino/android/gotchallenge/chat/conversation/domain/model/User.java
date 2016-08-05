@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.chat.domain.model;
+package es.npatarino.android.gotchallenge.chat.conversation.domain.model;
 
 public class User {
 

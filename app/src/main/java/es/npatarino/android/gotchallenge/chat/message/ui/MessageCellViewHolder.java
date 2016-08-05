@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.chat.ui;
+package es.npatarino.android.gotchallenge.chat.message.ui;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -9,11 +9,11 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.CircleTransform;
-import es.npatarino.android.gotchallenge.chat.domain.model.ImagePayload;
-import es.npatarino.android.gotchallenge.chat.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.domain.model.Payload;
-import es.npatarino.android.gotchallenge.chat.domain.model.User;
-import es.npatarino.android.gotchallenge.chat.view.viewmodel.TextPayLoad;
+import es.npatarino.android.gotchallenge.chat.message.domain.model.ImagePayload;
+import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;
+import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 
 public class MessageCellViewHolder extends RecyclerView.ViewHolder {
 

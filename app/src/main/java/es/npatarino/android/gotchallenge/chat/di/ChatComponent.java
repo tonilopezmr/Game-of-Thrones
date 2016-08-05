@@ -6,7 +6,7 @@ import es.npatarino.android.gotchallenge.base.di.components.ActivityComponent;
 import es.npatarino.android.gotchallenge.base.di.components.AppComponent;
 import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.chat.message.data.MessageRepository;
-import es.npatarino.android.gotchallenge.chat.message.interactor.SubscribeToMessage;
+import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SubscribeToMessage;
 import es.npatarino.android.gotchallenge.chat.view.ChatFragment;
 
 @ActivityScope

@@ -6,7 +6,7 @@ import es.npatarino.android.gotchallenge.base.di.ActivityScope;
 import es.npatarino.android.gotchallenge.base.di.ExecutorThread;
 import es.npatarino.android.gotchallenge.base.di.UiThread;
 import es.npatarino.android.gotchallenge.chat.message.data.MessageRepository;
-import es.npatarino.android.gotchallenge.chat.message.interactor.SubscribeToMessage;
+import es.npatarino.android.gotchallenge.chat.message.domain.interactor.SubscribeToMessage;
 import rx.Scheduler;
 
 @Module

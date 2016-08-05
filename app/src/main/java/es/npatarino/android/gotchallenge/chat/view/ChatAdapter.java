@@ -4,8 +4,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.chat.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.ui.MessageCellViewHolder;
+import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.ui.MessageCellViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

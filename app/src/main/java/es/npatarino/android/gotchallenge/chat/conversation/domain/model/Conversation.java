@@ -1,4 +1,6 @@
-package es.npatarino.android.gotchallenge.chat.domain.model;
+package es.npatarino.android.gotchallenge.chat.conversation.domain.model;
+
+import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;
 
 import java.util.List;
 

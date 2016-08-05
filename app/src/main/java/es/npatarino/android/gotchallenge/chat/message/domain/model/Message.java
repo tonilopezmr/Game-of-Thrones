@@ -1,4 +1,6 @@
-package es.npatarino.android.gotchallenge.chat.domain.model;
+package es.npatarino.android.gotchallenge.chat.message.domain.model;
+
+import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 
 public class Message {
 
