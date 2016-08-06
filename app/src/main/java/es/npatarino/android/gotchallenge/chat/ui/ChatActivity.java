@@ -83,7 +83,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     }
 
     private void getAvatarDrawable(String imageUrl) {
-        int px = Utilities.dp(context, 50);
+        int px = Utilities.dp(context, 40);
         Target target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -135,7 +135,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
         if (avatar == null) return;
 
         toolbar.setLogo(avatar);
-        toolbar.setTitleMarginStart(Utilities.dp(context, 30));
+        toolbar.setTitleMarginStart(Utilities.dp(context, 25));
     }
 
     @Override
