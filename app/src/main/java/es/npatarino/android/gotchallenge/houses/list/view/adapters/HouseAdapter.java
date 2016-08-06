@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.chat.ui.ChatActivity;
 import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
@@ -53,7 +54,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         ActivityOptionsCompat options =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(activity, viewHolder.itemView, DetailActivity.HOUSE_IMAGE);
 
-        Intent intent = new Intent(viewHolder.itemView.getContext(), DetailActivity.class);
+        Intent intent = new Intent(viewHolder.itemView.getContext(), ChatActivity.class);
         intent.putExtra(DetailActivity.HOUSE_ID, house.getHouseId());
         intent.putExtra(DetailActivity.NAME, house.getHouseName());
         intent.putExtra(DetailActivity.IMAGE_URL, house.getHouseImageUrl());

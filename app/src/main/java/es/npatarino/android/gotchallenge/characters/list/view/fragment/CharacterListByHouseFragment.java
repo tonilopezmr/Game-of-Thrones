@@ -35,9 +35,6 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
     CharacterListByHousePresenter characterListByHousePresenter;
 
 
-    public CharacterListByHouseFragment() {
-    }
-
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         initDagger();

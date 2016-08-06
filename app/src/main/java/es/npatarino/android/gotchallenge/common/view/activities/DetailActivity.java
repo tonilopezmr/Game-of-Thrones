@@ -16,9 +16,8 @@ import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListByHouseFragment;
 import es.npatarino.android.gotchallenge.characters.detail.view.fragments.CharacterDescriptionFragment;
 
-public class DetailActivity extends AppCompatActivity{
+public class DetailActivity extends AppCompatActivity {
 
-    private static final String TAG = "DetailActivity";
     public static final String CHARACTER_IMAGE = "character.image";
     public static final String HOUSE_IMAGE = "house.image";
 

@@ -11,7 +11,7 @@ public class GetConversation extends UseCase<Conversation> {
     private ConversationDomain.Repository repository;
     private Conversation conversation;
 
-    protected GetConversation(ConversationDomain.Repository repository,
+    public GetConversation(ConversationDomain.Repository repository,
                                  Scheduler uiThread,
                                  Scheduler executorThread) {
         super(uiThread, executorThread);

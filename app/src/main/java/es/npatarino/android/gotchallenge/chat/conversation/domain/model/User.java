@@ -52,4 +52,9 @@ public class User {
         result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
