@@ -126,7 +126,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
 
     private void attachFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, fragment, "detail_activity_fragment")
+                .replace(R.id.frame_layout, fragment, "chat_activity_fragment")
                 .commitAllowingStateLoss();
     }
 
