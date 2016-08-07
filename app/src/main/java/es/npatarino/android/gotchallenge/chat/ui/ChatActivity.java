@@ -136,6 +136,10 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     }
 
     private void attachFragment(Fragment fragment) {
+        Bundle args = new Bundle();
+        args.putString(ChatActivity.CONVER_ID_KEY, conversation.getId());
+        fragment.setArguments(args);
+
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_layout, fragment, "chat_activity_fragment")
                 .commitAllowingStateLoss();

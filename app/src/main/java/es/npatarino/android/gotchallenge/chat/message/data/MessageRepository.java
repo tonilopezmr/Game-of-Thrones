@@ -1,38 +1,68 @@
 package es.npatarino.android.gotchallenge.chat.message.data;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import com.google.gson.Gson;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import es.npatarino.android.gotchallenge.chat.message.MessageDomain;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import rx.Observable;
 import rx.subjects.PublishSubject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class MessageRepository implements MessageDomain.Repository {
 
     private HashMap<Conversation, PublishSubject<Message>> messagesPublisher;
+    private HashMap<String, List<Message>> converMessages;
+    private Context context;
     private List<Message> messages;
 
-    public MessageRepository() {
+    public MessageRepository(Context context) {
+        this.context = context;
         messagesPublisher = new HashMap<>();
-        messages = Arrays.asList(
-                new Message("567", new User("asdf", "Arya Stark", "",
-                        "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg"),
-                        1, false, new TextPayLoad("Joffrey\nCersei\nWalder Frey\nMeryn Trant\nTywin Lannister\n"
-                        + "The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound")),
-                new Message("123", new User("asdf", "Daenerys Targaryen", "",
-                        "http://winteriscoming.net/wp-content/uploads/2016/03/Daenerys-Targaryen-crop-630x371.jpg"),
-                        3, false, new TextPayLoad("where my dwarf is?")),
-                new Message("345", new User("asdf", "Tyrion Lannister", "",
-                        "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
-                        2, false, new TextPayLoad("Tell me blonde who never burns")));
+        converMessages = new HashMap<>();
+        initConver();
+    }
+
+    private void initConver() {
+        Gson gson = new Gson();
+        InputStream inputStream = null;
+        try {
+            inputStream = context.getAssets().open("lannister_conver.json");
+            Reader reader = new InputStreamReader(inputStream, "UTF-8");
+            MessageEntity[] parsedList = gson.fromJson(reader, MessageEntity[].class);
+            converMessages.put("50fab25b", transform(parsedList));
+
+            inputStream = context.getAssets().open("stark_conver.json");
+            Reader reader2 = new InputStreamReader(inputStream, "UTF-8");
+            MessageEntity[] parsedList2 = gson.fromJson(reader2, MessageEntity[].class);
+            converMessages.put("f96537a9", transform(parsedList2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @NonNull
+    private List<Message> transform(MessageEntity[] parsedList) {
+        List<Message> messages = new ArrayList<>();
+        for (MessageEntity messageEntity : parsedList) {
+            messages.add(new Message(messageEntity.getId(),
+                    messageEntity.getUserFrom(),
+                    messageEntity.getTimestamp(),
+                    messageEntity.isFromMe(),
+                    new TextPayLoad(messageEntity.getMessage())));
+        }
+        return messages;
     }
 
     @NonNull
@@ -47,9 +77,7 @@ public class MessageRepository implements MessageDomain.Repository {
 
     @Override
     public Observable<List<Message>> getMessages(Conversation conversation) {
-        Observable<List<Message>> messageObservable = Observable.just(new ArrayList<>(messages));
-
-        return messageObservable;
+        return Observable.empty();
     }
 
     @Override
@@ -60,13 +88,13 @@ public class MessageRepository implements MessageDomain.Repository {
 
     @Override
     public Observable<Message> subscribeToMessages(Conversation conversation) {
-        List<Message> others = getMessages();
-
+        List<Message> messages1 = converMessages.get(conversation.getId());
+        List<Message> messages = messages1 == null? new ArrayList<>() : messages1;
 
         Observable<Message> messageObservable  = Observable
-                .interval(1, TimeUnit.SECONDS)
-                .map(i -> others.get(i.intValue()))
-                .take(others.size());
+                .interval(new Random().nextInt(2000), TimeUnit.MILLISECONDS)
+                .map(i -> messages.get(i.intValue()))
+                .take(messages.size());
 
         return getPublisher(conversation).mergeWith(messageObservable);
     }

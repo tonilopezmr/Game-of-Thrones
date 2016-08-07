@@ -20,7 +20,6 @@ public class ConversationPresenter extends BasePresenter<ConversationView> {
         super.init();
 
         get(conversation);
-        view.initChat();
     }
 
     private void get(Conversation conversation) {
@@ -35,5 +34,6 @@ public class ConversationPresenter extends BasePresenter<ConversationView> {
 
     private void show(Conversation conversation) {
         view.show(conversation);
+        view.initChat();
     }
 }

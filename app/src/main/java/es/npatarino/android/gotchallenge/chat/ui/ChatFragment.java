@@ -64,8 +64,9 @@ public class ChatFragment extends Fragment implements MessageView {
         messageRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         initEmojiPanel(rootView);
 
+        String id = getArguments().getString(ChatActivity.CONVER_ID_KEY);
         messagePresenter.setView(this);
-        messagePresenter.init(new Conversation("1", "con", Collections.emptyList(), null, null));
+        messagePresenter.init(new Conversation(id, "", Collections.emptyList(), null, null));
     }
 
     private void initEmojiPanel(View rootView) {

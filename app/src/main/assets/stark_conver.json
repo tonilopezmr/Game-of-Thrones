@@ -1,0 +1,26 @@
+[
+  {
+    "fromMe": false,
+    "id": "1",
+    "message": "Joffrey\nCersei\nWalder Frey\nMeryn Trant\nTywin Lannister\n The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound",
+    "timestamp": 1,
+    "userFrom": {
+      "id": "",
+      "imageUrl": "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg",
+      "name": "Arya",
+      "state": ""
+    }
+  },
+  {
+    "fromMe": false,
+    "id": "2",
+    "message": "Don't care arya, I'm okey",
+    "timestamp": 2,
+    "userFrom": {
+      "id": "",
+      "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/69eba4f3-9443-41e1-bd9c-6f7a9f521f1f.jpg",
+      "name": "Eddard",
+      "state": ""
+    }
+  }
+]

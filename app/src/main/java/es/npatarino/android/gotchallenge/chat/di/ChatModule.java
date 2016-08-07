@@ -24,8 +24,8 @@ public class ChatModule {
 
     @Provides
     @ActivityScope
-    public MessageDomain.Repository messageRepository() {
-        return new MessageRepository();
+    public MessageDomain.Repository messageRepository(Context context) {
+        return new MessageRepository(context);
     }
 
     @Provides
