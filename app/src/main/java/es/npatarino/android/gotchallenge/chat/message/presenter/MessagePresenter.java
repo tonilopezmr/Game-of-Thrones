@@ -29,7 +29,7 @@ public class MessagePresenter extends BasePresenter<MessageView> {
         this.sendMessage = sendMessage;
     }
 
-    public void init(Conversation conversation){
+    public void init(Conversation conversation) {
         super.init();
         this.conversation = conversation;
 
@@ -39,7 +39,7 @@ public class MessagePresenter extends BasePresenter<MessageView> {
                 .subscribe(this::showMessages, this::onShowMessagesError));
     }
 
-    public void send(Message message){
+    public void send(Message message) {
         sendMessage.execute(message, conversation);
     }
 
@@ -57,7 +57,8 @@ public class MessagePresenter extends BasePresenter<MessageView> {
         view.showMessages(messages);
     }
 
-    private void showMessage(Message message){
+    private void showMessage(Message message) {
+        message.setTimestamp(System.currentTimeMillis());
         view.showMessage(message);
     }
 }

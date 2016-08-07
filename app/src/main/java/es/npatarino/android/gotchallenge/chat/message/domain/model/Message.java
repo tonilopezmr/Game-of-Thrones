@@ -35,6 +35,10 @@ public class Message implements Comparable<Message>{
         return timestamp;
     }
 
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public boolean isFromMe() {
         return fromMe;
     }
