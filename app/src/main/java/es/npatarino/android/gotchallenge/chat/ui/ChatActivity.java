@@ -1,6 +1,7 @@
 package es.npatarino.android.gotchallenge.chat.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -41,13 +42,13 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     @Inject
     Context context;
 
+    private Conversation conversation;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         initDagger();
-
-        rootView = findViewById(R.id.container);
 
         final String id = getIntent().getStringExtra(DetailActivity.HOUSE_ID);
 
@@ -59,9 +60,18 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setOnClickListener(view -> moveToDetailActivity(conversation));
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    private void moveToDetailActivity(Conversation conversation){
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(DetailActivity.HOUSE_ID, conversation.getId());
+        intent.putExtra(DetailActivity.NAME, conversation.getName());
+        intent.putExtra(DetailActivity.IMAGE_URL, conversation.getImageUrl());
+        startActivity(intent);
     }
 
     private void initDagger() {
@@ -74,9 +84,10 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
 
     @Override
     public void show(Conversation conversation) {
+        this.conversation = conversation;
         getAvatarDrawable(conversation.getImageUrl());
         toolbar.setTitle(conversation.getName());
-        toolbar.setSubtitle(conversation.getParticipants()
+        toolbar.setSubtitle(conversation.getUsers()
                 .toString()
                 .replace("[", "")
                 .replace("]", "")); //Todo could be house words
@@ -116,6 +127,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
 
     @Override
     public void initUi() {
+        rootView = findViewById(R.id.container);
         initToolbar();
     }
 

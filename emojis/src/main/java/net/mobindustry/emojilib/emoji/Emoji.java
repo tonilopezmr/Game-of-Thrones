@@ -80,16 +80,25 @@ public class Emoji {
         return instance;
     }
 
-    public void makeEmoji(EmojiCallback callback) {
-        loadEmojiAsync(0);
-        loadEmojiAsync(1);
-        loadEmojiAsync(2);
-        loadEmojiAsync(3);
-        boolean loaded = loadEmoji(4);
-        while (loaded) {
-            callback.loaded();
-            break;
-        }
+    public void makeEmoji(final EmojiCallback callback) {
+//        loadEmojiAsync(0);
+//        loadEmojiAsync(1);
+//        loadEmojiAsync(2);
+//        loadEmojiAsync(3);
+        final Handler handler = new Handler();
+        new Thread(new Runnable() {
+            public void run() {
+                boolean loaded = loadEmoji(4);
+                if (loaded) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            callback.loaded();
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 
     private boolean loadEmoji(final int page) {

@@ -1,17 +1,17 @@
 package es.npatarino.android.gotchallenge.characters.data.source.network;
 
-import java.util.Iterator;
-import java.util.List;
-
+import es.npatarino.android.gotchallenge.base.network.EndPoint;
 import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.base.network.EndPoint;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import rx.Observable;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataSource {
 
@@ -39,16 +39,9 @@ public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataS
 
     @Override
     public Observable<List<GoTCharacter>> getAll() {
-        return Observable.create(subscriber -> {
-            try {
-                StringBuffer response = getCharactersFromUrl(endPoint.toString());
-
-                subscriber.onNext(characterCharacterJsonMapper.transformList(response.toString()));
-            } catch (Exception e) {
-                e.printStackTrace();
-                subscriber.onError(e);
-            }
-            subscriber.onCompleted();
+        return Observable.fromCallable(() -> {
+            StringBuffer response = getCharactersFromUrl(endPoint.toString());
+            return characterCharacterJsonMapper.transformList(response.toString());
         });
     }
 

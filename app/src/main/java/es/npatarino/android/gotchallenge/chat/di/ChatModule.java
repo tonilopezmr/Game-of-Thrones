@@ -1,5 +1,6 @@
 package es.npatarino.android.gotchallenge.chat.di;
 
+import android.content.Context;
 import dagger.Module;
 import dagger.Provides;
 import es.npatarino.android.gotchallenge.base.di.ActivityScope;
@@ -62,8 +63,8 @@ public class ChatModule {
 
     @Provides
     @ActivityScope
-    public ConversationDomain.Repository getConversationRepository(){
-        return new ConversationRepository();
+    public ConversationDomain.Repository getConversationRepository(Context context){
+        return new ConversationRepository(context);
     }
 
     @Provides

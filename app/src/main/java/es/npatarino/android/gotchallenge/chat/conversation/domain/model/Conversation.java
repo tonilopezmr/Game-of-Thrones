@@ -8,14 +8,14 @@ public class Conversation {
 
     private String id;
     private String name;
-    private List<User> participants;
+    private List<User> users;
     private Payload lastMessage;
     private String imageUrl;
 
-    public Conversation(String id, String name, List<User> participants, Payload lastMessage, String imageUrl) {
+    public Conversation(String id, String name, List<User> users, Payload lastMessage, String imageUrl) {
         this.id = id;
         this.name = name;
-        this.participants = participants;
+        this.users = users;
         this.lastMessage = lastMessage;
         this.imageUrl = imageUrl;
     }
@@ -28,8 +28,8 @@ public class Conversation {
         return name;
     }
 
-    public List<User> getParticipants() {
-        return participants;
+    public List<User> getUsers() {
+        return users;
     }
 
     public Payload getLastMessage() {
@@ -49,7 +49,7 @@ public class Conversation {
 
         if (!id.equals(that.id)) return false;
         if (!name.equals(that.name)) return false;
-        if (participants != null ? !participants.equals(that.participants) : that.participants != null) return false;
+        if (users != null ? !users.equals(that.users) : that.users != null) return false;
         if (lastMessage != null ? !lastMessage.equals(that.lastMessage) : that.lastMessage != null) return false;
         return imageUrl != null ? imageUrl.equals(that.imageUrl) : that.imageUrl == null;
 
@@ -59,7 +59,7 @@ public class Conversation {
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + (participants != null ? participants.hashCode() : 0);
+        result = 31 * result + (users != null ? users.hashCode() : 0);
         result = 31 * result + (lastMessage != null ? lastMessage.hashCode() : 0);
         result = 31 * result + (imageUrl != null ? imageUrl.hashCode() : 0);
         return result;

@@ -8,7 +8,7 @@ import es.npatarino.android.gotchallenge.chat.conversation.view.ConversationView
 
 public class ConversationPresenter extends BasePresenter<ConversationView> {
 
-    private final String TAG = ConversationDetailPresenter.class.getSimpleName();
+    private final String TAG = ConversationPresenter.class.getSimpleName();
 
     private GetConversation getConversation;
 
@@ -36,5 +36,4 @@ public class ConversationPresenter extends BasePresenter<ConversationView> {
     private void show(Conversation conversation) {
         view.show(conversation);
     }
-
 }

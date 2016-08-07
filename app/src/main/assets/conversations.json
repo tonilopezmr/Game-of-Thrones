@@ -1,0 +1,47 @@
+[
+  {
+    "id": "50fab25b",
+    "name": "House Lannister",
+    "users": [
+      {
+        "id": "123",
+        "name": "Tyrion Lannister",
+        "state": "With my blonde queen <3",
+        "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/8462e9de-a1f6-4333-a83b-2cf1f1521827.jpg"
+      },
+      {
+        "id": "144",
+        "name": "Jaime Lannister",
+        "state": "Who in me a hand?",
+        "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/f3c4eaec-741f-45e0-8b64-5985095fa1fa.jpg"
+      }
+    ],
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/lannister.jpg"
+  },
+  {
+    "id": "78faa61d",
+    "name": "House Targaryen",
+    "users": [
+      {
+        "id": "1234",
+        "name": "Daenerys Targaryen",
+        "state": "I'm who never burns",
+        "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/c8533a36-5e15-4a57-baed-fc87f7eba578.jpg"
+      }
+    ],
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/targaryen.jpg"
+  },
+  {
+    "id": "8b7f8fd5",
+    "name": "House Baratheon",
+    "users": [
+      {
+        "id": "132",
+        "name": "Stannis Baratheon",
+        "state": "...",
+        "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/ab65609e-7b73-40b7-bb58-dbc4cc9d308a.jpg"
+      }
+    ],
+    "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/baratheon.jpg"
+  }
+]
