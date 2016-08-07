@@ -47,20 +47,20 @@ public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataS
 
 
     @Override
-    public Observable<GoTCharacter> read(GoTCharacter entity){
+    public Observable<GoTCharacter> read(GoTCharacter entity) {
         return getAll().map(characters -> {
-            int index =  characters.indexOf(entity);
-            return index == -1? null :  characters.get(index);
+            int index = characters.indexOf(entity);
+            return index == -1 ? null : characters.get(index);
         });
     }
 
     @Override
-    public Observable<List<GoTCharacter>> read(GoTHouse house){
+    public Observable<List<GoTCharacter>> read(GoTHouse house) {
         return getAll().map(characters -> {
             Iterator<GoTCharacter> iterator = characters.iterator();
-            while (iterator.hasNext()){
+            while (iterator.hasNext()) {
                 GoTCharacter character = iterator.next();
-                if (!character.getHouseId().equals(house.getHouseId())){
+                if (!character.getHouseId().equals(house.getHouseId())) {
                     iterator.remove();
                 }
             }

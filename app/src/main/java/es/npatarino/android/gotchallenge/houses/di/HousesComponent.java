@@ -22,6 +22,7 @@ public interface HousesComponent extends ActivityComponent {
 
     //datasource
     HousesDomain.NetworkDataSource houseRemoteDataSource();
+
     HousesDomain.LocalDataSource houseLocalDataSource();
 
     //repository

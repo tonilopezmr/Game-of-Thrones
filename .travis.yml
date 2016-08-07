@@ -5,7 +5,7 @@ jdk:
 
 env:
   global:
-    - ADB_INSTALL_TIMEOUT=8 # 8 minutes (2 minutes by default)
+    - ADB_INSTALL_TIMEOUT=10 # Wait up to 10 minutes for adb to connect to emulator
 
 android:
   components:
@@ -25,3 +25,6 @@ before_script:
   - adb shell settings put global transition_animation_scale 0 &
   - adb shell settings put global animator_duration_scale 0 &
   - adb shell input keyevent 82 &
+
+script:
+  - ./gradlew checkstyle build connectedCheck

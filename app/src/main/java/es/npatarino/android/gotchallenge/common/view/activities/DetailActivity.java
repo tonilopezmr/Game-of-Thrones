@@ -57,9 +57,9 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initFragment(String id, String description, String name) {
-        if (id != null){
+        if (id != null) {
             initGotCharacterListByHouseFragment(id, name);
-        }else{
+        } else {
             initDescriptionFragment(description, name);
         }
     }
@@ -94,7 +94,7 @@ public class DetailActivity extends AppCompatActivity {
         house.setHouseId(id);
         house.setHouseName(name);
 
-        CharacterListByHouseFragment characterFragment= new CharacterListByHouseFragment();
+        CharacterListByHouseFragment characterFragment = new CharacterListByHouseFragment();
         characterFragment.setHouse(house);
         attachFragment(characterFragment);
         transitionName = HOUSE_IMAGE;
@@ -102,7 +102,10 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) onBackPressed();
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
         return true;
     }
 }

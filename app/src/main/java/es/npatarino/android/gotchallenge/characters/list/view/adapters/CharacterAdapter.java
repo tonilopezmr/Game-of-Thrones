@@ -67,13 +67,13 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.GotC
         ImageView imp;
         TextView tvn;
 
-        public GotCharacterViewHolder(View itemView) {
+        GotCharacterViewHolder(View itemView) {
             super(itemView);
             imp = (ImageView) itemView.findViewById(R.id.ivBackground);
             tvn = (TextView) itemView.findViewById(R.id.tv_name);
         }
 
-        public void render(final GoTCharacter character) {
+        void render(final GoTCharacter character) {
             Picasso.with(imp.getContext())
                     .load(character.getImageUrl())
                     .fit()

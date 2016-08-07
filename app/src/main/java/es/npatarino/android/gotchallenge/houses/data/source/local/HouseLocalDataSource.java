@@ -17,7 +17,10 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
     private TimeProvider timeProvider;
     private TwoWaysMapper<GoTHouse, BddHouse> mapper;
 
-    public HouseLocalDataSource(TTLCachingStrategy cachingStrategy, TimeProvider timeProvider, TwoWaysMapper<GoTHouse, BddHouse> mapper) {
+    public HouseLocalDataSource(TTLCachingStrategy cachingStrategy,
+                                TimeProvider timeProvider,
+                                TwoWaysMapper<GoTHouse,
+                                BddHouse> mapper) {
         this.cachingStrategy = cachingStrategy;
         this.timeProvider = timeProvider;
         this.mapper = mapper;
@@ -52,14 +55,14 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
         }
     }
 
-    private void remove(GoTHouse house){
+    private void remove(GoTHouse house) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
             BddHouse bddHouse = find(house);
-            if (bddHouse!=null){
+            if (bddHouse != null) {
                 bddHouse.deleteFromRealm();
             }
-        } );
+        });
         realm.close();
     }
 

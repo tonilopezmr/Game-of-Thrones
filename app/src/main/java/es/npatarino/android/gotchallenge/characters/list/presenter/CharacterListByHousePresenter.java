@@ -26,11 +26,11 @@ public class CharacterListByHousePresenter extends BasePresenter<DetailView<List
                 .subscribe(this::onCharactersReceived, this::onError));
     }
 
-    private void onCharactersReceived(List<GoTCharacter> characters){
+    private void onCharactersReceived(List<GoTCharacter> characters) {
         view.show(characters);
     }
 
-    private void onError(Throwable error){
+    private void onError(Throwable error) {
         view.error();
     }
 }

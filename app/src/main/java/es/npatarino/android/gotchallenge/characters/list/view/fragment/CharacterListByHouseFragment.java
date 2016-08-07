@@ -36,7 +36,9 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
 
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater,
+                             final ViewGroup container,
+                             final Bundle savedInstanceState) {
         initDagger();
 
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);

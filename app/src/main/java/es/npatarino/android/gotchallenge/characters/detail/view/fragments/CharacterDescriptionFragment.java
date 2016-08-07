@@ -16,7 +16,9 @@ public class CharacterDescriptionFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState)  {
+    public View onCreateView(final LayoutInflater inflater,
+                             final ViewGroup container,
+                             final Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_description, container, false);
         TextView tvn = (TextView) rootView.findViewById(R.id.tv_name);
         TextView tvd = (TextView) rootView.findViewById(R.id.tv_description);

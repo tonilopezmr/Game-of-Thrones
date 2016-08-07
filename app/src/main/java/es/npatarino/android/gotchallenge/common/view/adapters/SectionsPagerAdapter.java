@@ -33,7 +33,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return "Characters";
             case 1:
                 return "Houses";
+            default:
+                return "";
         }
-        return null;
     }
 }

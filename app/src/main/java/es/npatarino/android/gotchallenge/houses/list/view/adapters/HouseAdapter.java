@@ -34,7 +34,9 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new GotHouseViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.got_house_row, parent, false));
+        return new GotHouseViewHolder(LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.got_house_row, parent, false));
     }
 
     @Override

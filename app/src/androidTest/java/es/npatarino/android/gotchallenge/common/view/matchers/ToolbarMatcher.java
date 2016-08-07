@@ -15,7 +15,7 @@ import static org.hamcrest.core.Is.is;
 
 public class ToolbarMatcher {
 
-    public static ViewInteraction onToolbarWithTitle(CharSequence title){
+    public static ViewInteraction onToolbarWithTitle(CharSequence title) {
         return onView(isAssignableFrom(Toolbar.class)).check(matches(withToolbarTitle(is(title))));
     }
 

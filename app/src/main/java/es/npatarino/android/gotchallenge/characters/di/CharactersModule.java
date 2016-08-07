@@ -21,7 +21,7 @@ public class CharactersModule {
     @ActivityScope
     public GetCharactersByHouseUseCase provideCharactersByHouseUseCase(@ExecutorThread Scheduler executor,
                                                                        @UiThread Scheduler uiThread,
-                                                                       CharactersDomain.Repository repository){
+                                                                       CharactersDomain.Repository repository) {
         return new GetCharactersByHouseUseCase(repository, uiThread, executor);
     }
 
@@ -30,19 +30,20 @@ public class CharactersModule {
     @Character
     public GetListUseCase<GoTCharacter> provideGotCharacterListUseCase(@ExecutorThread Scheduler executor,
                                                                        @UiThread Scheduler uiThread,
-                                                                       CharactersDomain.Repository repository){
+                                                                       CharactersDomain.Repository repository) {
         return new GetListUseCase<>(repository, uiThread, executor);
     }
 
     @Provides
     @ActivityScope
-    public CharacterListPresenter provideGotCharacterListPresenter(@Character GetListUseCase<GoTCharacter> characterGetListUseCase){
+    public CharacterListPresenter
+    provideGotCharacterListPresenter(@Character GetListUseCase<GoTCharacter> characterGetListUseCase) {
         return new CharacterListPresenter(characterGetListUseCase);
     }
 
     @Provides
     @ActivityScope
-    public CharacterListByHousePresenter provideGotCharacterListByHousePresenter(GetCharactersByHouseUseCase useCase){
+    public CharacterListByHousePresenter provideGotCharacterListByHousePresenter(GetCharactersByHouseUseCase useCase) {
         return new CharacterListByHousePresenter(useCase);
     }
 }

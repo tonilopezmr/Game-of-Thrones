@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupTabs() {
-        final ViewPager  viewPager = (ViewPager) findViewById(R.id.container);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
         viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -64,15 +64,15 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private View getCustomIcon(int resId, int alpha){
+    private View getCustomIcon(int resId, int alpha) {
         return getCustomIcon(AppCompatDrawableManager.get().getDrawable(tabLayout.getContext(), resId), alpha);
     }
 
-    private View getCustomIcon(int resId){
+    private View getCustomIcon(int resId) {
         return getCustomIcon(AppCompatDrawableManager.get().getDrawable(tabLayout.getContext(), resId), 255);
     }
 
-    private View getCustomIcon(Drawable icon, int alpha){
+    private View getCustomIcon(Drawable icon, int alpha) {
         ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.custom_tab, null);
         imageView.setImageDrawable(icon);
         imageView.getDrawable().mutate().setAlpha(alpha);

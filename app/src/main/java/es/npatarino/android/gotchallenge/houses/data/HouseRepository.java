@@ -1,17 +1,18 @@
 package es.npatarino.android.gotchallenge.houses.data;
 
-import java.util.List;
-
 import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import rx.Observable;
 
+import java.util.List;
+
 public class HouseRepository implements HousesDomain.Repository {
-    
+
     private HousesDomain.NetworkDataSource networkDataSource;
     private HousesDomain.LocalDataSource localDataSource;
 
-    public HouseRepository(HousesDomain.NetworkDataSource networkDataSource, HousesDomain.LocalDataSource localDataSource) {
+    public HouseRepository(HousesDomain.NetworkDataSource networkDataSource,
+                           HousesDomain.LocalDataSource localDataSource) {
         this.networkDataSource = networkDataSource;
         this.localDataSource = localDataSource;
     }
@@ -20,7 +21,7 @@ public class HouseRepository implements HousesDomain.Repository {
     public Observable<List<GoTHouse>> getList() {
         Observable<List<GoTHouse>> observable;
 
-        if (localDataSource.isExpired()){
+        if (localDataSource.isExpired()) {
             observable = networkDataSource.getAll()
                     .doOnNext(houses -> {
                         localDataSource.removeAll(houses);
@@ -30,7 +31,7 @@ public class HouseRepository implements HousesDomain.Repository {
                     .onErrorResumeNext(throwable -> {
                         return localDataSource.getAll();
                     });
-        }else {
+        } else {
             observable = localDataSource.getAll();
         }
 

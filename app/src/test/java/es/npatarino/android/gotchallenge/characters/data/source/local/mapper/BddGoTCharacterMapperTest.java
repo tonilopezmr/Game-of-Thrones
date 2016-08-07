@@ -1,15 +1,13 @@
 package es.npatarino.android.gotchallenge.characters.data.source.local.mapper;
 
 import android.support.annotation.NonNull;
-
+import es.npatarino.android.gotchallenge.BuildConfig;
+import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
+import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import es.npatarino.android.gotchallenge.BuildConfig;
-import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
-import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;
@@ -18,12 +16,12 @@ import static org.junit.Assert.assertThat;
 public class BddGoTCharacterMapperTest {
 
 
-    public static final String NAME = "name";
-    public static final String IMAGE_URL = "imageUrl";
-    public static final String DES = "des";
-    public static final String HOUSE_IMAGE_URL = "houseImageUrl";
-    public static final String HOUSE_NAME = "houseName";
-    public static final String HOUSE_ID = "houseId";
+    private static final String NAME = "name";
+    private static final String IMAGE_URL = "imageUrl";
+    private static final String DES = "des";
+    private static final String HOUSE_IMAGE_URL = "houseImageUrl";
+    private static final String HOUSE_NAME = "houseName";
+    private static final String HOUSE_ID = "houseId";
 
     private BddGoTCharacterMapper mapper = new BddGoTCharacterMapper();
 
@@ -50,7 +48,7 @@ public class BddGoTCharacterMapperTest {
 
         GoTCharacter goTCharacter = mapper.inverseMap(bddGoTCharacter);
 
-        assertThat(goTCharacter.getName(), is(BuildConfig.DEBUG? NAME+ " cache" : NAME));
+        assertThat(goTCharacter.getName(), is(BuildConfig.DEBUG ? NAME + " cache" : NAME));
         assertThat(goTCharacter.getImageUrl(), is(IMAGE_URL));
         assertThat(goTCharacter.getDescription(), is(DES));
         assertThat(goTCharacter.getHouseId(), is(HOUSE_ID));
@@ -73,7 +71,7 @@ public class BddGoTCharacterMapperTest {
         }
     }
 
-    private List<GoTCharacter> getGoTCharacterList(int numberCharacter){
+    private List<GoTCharacter> getGoTCharacterList(int numberCharacter) {
         GoTCharacter character = getGoTCharacter();
         ArrayList<GoTCharacter> characterList = new ArrayList();
 
