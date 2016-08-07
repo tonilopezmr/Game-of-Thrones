@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
@@ -16,7 +17,6 @@ import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import java.util.List;
 
 public class UserListFragment extends Fragment implements ViewList<User> {
-
 
     private RecyclerView recyclerView;
     private ContentLoadingProgressBar progressBar;
@@ -50,6 +50,6 @@ public class UserListFragment extends Fragment implements ViewList<User> {
 
     @Override
     public void error() {
-
+        Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
     }
 }

@@ -1,7 +1,6 @@
 package es.npatarino.android.gotchallenge.chat.ui;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -24,7 +23,7 @@ import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversa
 import es.npatarino.android.gotchallenge.chat.conversation.presenter.ConversationPresenter;
 import es.npatarino.android.gotchallenge.chat.conversation.view.ConversationView;
 import es.npatarino.android.gotchallenge.chat.di.DaggerChatComponent;
-import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
+import es.npatarino.android.gotchallenge.common.navigation.DetailActivityNavigatorBuilder;
 
 import javax.inject.Inject;
 
@@ -50,7 +49,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
         setContentView(R.layout.activity_chat);
         initDagger();
 
-        final String id = getIntent().getStringExtra(DetailActivity.HOUSE_ID);
+        final String id = getIntent().getStringExtra(CONVER_ID_KEY);
 
         presenter.setView(this);
         presenter.init(new Conversation(id, null, null, null, null));
@@ -67,11 +66,11 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     }
 
     private void moveToDetailActivity(Conversation conversation){
-        Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(DetailActivity.HOUSE_ID, conversation.getId());
-        intent.putExtra(DetailActivity.NAME, conversation.getName());
-        intent.putExtra(DetailActivity.IMAGE_URL, conversation.getImageUrl());
-        startActivity(intent);
+        new DetailActivityNavigatorBuilder(this)
+                .id(conversation.getId())
+                .name(conversation.getName())
+                .imageUrl(conversation.getImageUrl())
+                .navigate();
     }
 
     private void initDagger() {

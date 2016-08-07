@@ -6,11 +6,16 @@ import android.view.ViewGroup;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
     private List<User> userList;
+
+    public UserAdapter() {
+        userList = new ArrayList<>();
+    }
 
     @Override
     public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
