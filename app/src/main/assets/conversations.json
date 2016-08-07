@@ -5,15 +5,21 @@
     "users": [
       {
         "id": "123",
-        "name": "Tyrion Lannister",
+        "name": "Tyrion",
         "state": "With my blonde queen <3",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/8462e9de-a1f6-4333-a83b-2cf1f1521827.jpg"
       },
       {
         "id": "144",
-        "name": "Jaime Lannister",
+        "name": "Jaime",
         "state": "Who in me a hand?",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/f3c4eaec-741f-45e0-8b64-5985095fa1fa.jpg"
+      },
+      {
+        "id": "1443",
+        "name": "Cersei",
+        "state": "Kids?",
+        "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/fc0eae6d-bdc9-478a-b470-5e2196d3f54e.jpg"
       }
     ],
     "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/lannister.jpg"
@@ -24,7 +30,7 @@
     "users": [
       {
         "id": "1234",
-        "name": "Daenerys Targaryen",
+        "name": "Daenerys",
         "state": "I'm who never burns",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/c8533a36-5e15-4a57-baed-fc87f7eba578.jpg"
       }
@@ -37,7 +43,7 @@
     "users": [
       {
         "id": "132",
-        "name": "Stannis Baratheon",
+        "name": "Stannis",
         "state": "...",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/ab65609e-7b73-40b7-bb58-dbc4cc9d308a.jpg"
       }
@@ -50,9 +56,27 @@
     "users": [
       {
         "id": "1",
-        "name": "Eddard Stark",
+        "name": "Eddard",
         "state": "I lost my head :(",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/69eba4f3-9443-41e1-bd9c-6f7a9f521f1f.jpg"
+      },
+      {
+        "id": "6",
+        "name": "Arya",
+        "state": "I lost my FAMILY :(",
+        "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/a7fdcfc9-60a3-4095-b50b-50b20ab3250a.jpg"
+      },
+      {
+        "id": "14",
+        "name": "Jon Snow",
+        "state": "I lost my head :(",
+        "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/8a519d5e-79bb-4ba1-98df-637fc1bcbe91.jpg"
+      },
+      {
+        "id": "14",
+        "name": "Sansa",
+        "state": "I lost my ... :(",
+        "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/49e054e0-bdcb-4141-a9c6-9d1c8de07961.jpg"
       }
     ],
     "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/stark.jpg"
@@ -63,7 +87,7 @@
     "users": [
       {
         "id": "2",
-        "name": "Margaery Tyrell",
+        "name": "Margaery",
         "state": "turururu",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/31c8d7fb-2e66-45af-a1a2-da6032d5356c.jpg"
       }
@@ -76,7 +100,7 @@
     "users": [
       {
         "id": "3",
-        "name": "Oberyn Martell",
+        "name": "Oberyn",
         "state": "The eyes of the tiger",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/1807e12a-b95b-44c4-a750-044d8b0a87ae.jpg"
       }
@@ -89,7 +113,7 @@
     "users": [
       {
         "id": "5",
-        "name": "Theon Greyjoy",
+        "name": "Theon",
         "state": "turururu",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/9101b27d-00ba-42ae-91e3-e954241ff74a.jpg"
       }
@@ -102,7 +126,7 @@
     "users": [
       {
         "id": "4",
-        "name": "Jorah Mormont",
+        "name": "Jorah",
         "state": "turururu",
         "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/c9a57a8d-9c42-4764-a605-dd655f1f4052.jpg"
       }
