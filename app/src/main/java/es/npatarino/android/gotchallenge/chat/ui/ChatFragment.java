@@ -32,7 +32,6 @@ import java.util.List;
 public class ChatFragment extends Fragment implements MessageView {
 
     private RecyclerView messageRecyclerView;
-    private LinearLayoutManager recyclerViewManager;
     private ChatAdapter adapter;
     private View rootView;
 
@@ -114,7 +113,7 @@ public class ChatFragment extends Fragment implements MessageView {
     private void initRecyclerView(ChatAdapter chatAdapter) {
         messageRecyclerView.setAdapter(chatAdapter);
 
-        recyclerViewManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager recyclerViewManager = new LinearLayoutManager(getActivity());
         recyclerViewManager.setStackFromEnd(true);
 
         messageRecyclerView.setLayoutManager(recyclerViewManager);
