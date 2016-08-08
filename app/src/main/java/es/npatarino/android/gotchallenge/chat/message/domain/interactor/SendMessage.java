@@ -20,7 +20,7 @@ public class SendMessage extends UseCase<Void> {
         this.repository = repository;
     }
 
-    public Observable<Void> execute(Message message, Conversation conversation){
+    public Observable<Void> execute(Message message, Conversation conversation) {
         this.message = message;
         this.conversation = conversation;
         return execute();
@@ -30,6 +30,6 @@ public class SendMessage extends UseCase<Void> {
     protected Observable<Void> buildUseCaseObservable() {
         if (message == null || conversation == null)
             throw new IllegalStateException("Must set message and conversation to send a message");
-        return ScheduleOn(repository.sendMessage(message, conversation));
+        return scheduleOn(repository.sendMessage(message, conversation));
     }
 }

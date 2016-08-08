@@ -13,19 +13,19 @@ public class SubscribeToMessage extends UseCase<Message> {
     private Conversation conversation;
 
     public SubscribeToMessage(MessageDomain.Repository repository,
-                                 Scheduler uiThread,
-                                 Scheduler executorThread) {
+                              Scheduler uiThread,
+                              Scheduler executorThread) {
         super(uiThread, executorThread);
         this.repository = repository;
     }
 
-    public Observable<Message> execute(Conversation conversation){
+    public Observable<Message> execute(Conversation conversation) {
         this.conversation = conversation;
         return execute();
     }
 
     @Override
     protected Observable<Message> buildUseCaseObservable() {
-        return ScheduleOn(repository.subscribeToMessages(conversation));
+        return scheduleOn(repository.subscribeToMessages(conversation));
     }
 }

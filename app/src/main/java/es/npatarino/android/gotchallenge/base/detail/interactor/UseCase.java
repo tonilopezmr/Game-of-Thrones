@@ -13,11 +13,11 @@ public abstract class UseCase<T> {
         this.executorThread = executorThread;
     }
 
-    public Observable<T> execute(){
+    public Observable<T> execute() {
         return buildUseCaseObservable();
     }
 
-    public Observable<T> ScheduleOn(Observable<T> observable){
+    public Observable<T> scheduleOn(Observable<T> observable) {
         return observable
                 .observeOn(uiThread)
                 .subscribeOn(executorThread);

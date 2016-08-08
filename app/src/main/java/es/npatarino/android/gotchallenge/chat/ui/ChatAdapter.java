@@ -16,7 +16,7 @@ public class ChatAdapter extends RecyclerView.Adapter<MessageCellViewHolder> {
     private SortedList<Message> messageList;
 
     public ChatAdapter() {
-        messageList = new SortedList<Message>(Message.class, new SortedListAdapterCallback<Message>(this){
+        messageList = new SortedList<Message>(Message.class, new SortedListAdapterCallback<Message>(this) {
             @Override
             public int compare(Message o1, Message o2) {
                 return o1.compareTo(o2);
@@ -34,7 +34,7 @@ public class ChatAdapter extends RecyclerView.Adapter<MessageCellViewHolder> {
         });
     }
 
-    public void add(Message message){
+    public void add(Message message) {
         messageList.add(message);
         notifyDataSetChanged();
     }
@@ -47,8 +47,8 @@ public class ChatAdapter extends RecyclerView.Adapter<MessageCellViewHolder> {
     @Override
     public MessageCellViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new MessageCellViewHolder(LayoutInflater
-                                        .from(parent.getContext())
-                                        .inflate(R.layout.cell_message, parent, false));
+                .from(parent.getContext())
+                .inflate(R.layout.cell_message, parent, false));
     }
 
     @Override

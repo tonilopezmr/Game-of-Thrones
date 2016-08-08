@@ -3,7 +3,7 @@ package es.npatarino.android.gotchallenge.chat.message.domain.model;
 import android.support.annotation.NonNull;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 
-public class Message implements Comparable<Message>{
+public class Message implements Comparable<Message> {
 
     private String id;
     private User userFrom;

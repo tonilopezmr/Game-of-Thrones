@@ -24,7 +24,9 @@ public class UserListFragment extends Fragment implements ViewList<User> {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);

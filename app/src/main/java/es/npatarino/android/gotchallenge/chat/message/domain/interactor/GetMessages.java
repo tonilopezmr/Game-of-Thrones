@@ -15,19 +15,19 @@ public class GetMessages extends UseCase<List<Message>> {
     private Conversation conversation;
 
     public GetMessages(MessageDomain.Repository repository,
-                          Scheduler uiThread,
-                          Scheduler executorThread) {
+                       Scheduler uiThread,
+                       Scheduler executorThread) {
         super(uiThread, executorThread);
         this.repository = repository;
     }
 
-    public Observable<List<Message>> execute(Conversation conversation){
+    public Observable<List<Message>> execute(Conversation conversation) {
         this.conversation = conversation;
         return execute();
     }
 
     @Override
     protected Observable<List<Message>> buildUseCaseObservable() {
-        return ScheduleOn(repository.getMessages(conversation));
+        return scheduleOn(repository.getMessages(conversation));
     }
 }

@@ -63,7 +63,7 @@ public class ChatModule {
 
     @Provides
     @ActivityScope
-    public ConversationDomain.Repository getConversationRepository(Context context){
+    public ConversationDomain.Repository getConversationRepository(Context context) {
         return new ConversationRepository(context);
     }
 

@@ -67,7 +67,8 @@ public class DetailActivityNavigatorBuilder implements Navigator {
         if (transitionView == null) {
             bundle = new Bundle();
         } else {
-            bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(activity.get(), transitionView, transitionName).toBundle();
+            bundle = ActivityOptionsCompat
+                    .makeSceneTransitionAnimation(activity.get(), transitionView, transitionName).toBundle();
         }
 
         return bundle;
@@ -77,7 +78,7 @@ public class DetailActivityNavigatorBuilder implements Navigator {
     private Intent getIntent() {
         Intent intent = new Intent(activity.get(), DetailActivity.class);
 
-        if (id == null){
+        if (id == null) {
             intent.putExtra(DetailActivity.NAME, name);
             intent.putExtra(DetailActivity.DESCRIPTION, description);
             intent.putExtra(DetailActivity.IMAGE_URL, imageUrl);

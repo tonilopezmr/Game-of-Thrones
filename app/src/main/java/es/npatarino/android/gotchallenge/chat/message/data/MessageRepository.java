@@ -25,7 +25,6 @@ public class MessageRepository implements MessageDomain.Repository {
     private HashMap<Conversation, PublishSubject<Message>> messagesPublisher;
     private HashMap<String, List<Message>> converMessages;
     private Context context;
-    private List<Message> messages;
 
     public MessageRepository(Context context) {
         this.context = context;
@@ -65,16 +64,6 @@ public class MessageRepository implements MessageDomain.Repository {
         return messages;
     }
 
-    @NonNull
-    private List<Message> getMessages() {
-        List<Message> others = new ArrayList<>();
-
-        for (Message message : messages) {
-            others.add(new Message(message.getId()+"1", message.getUser(), message.getTimestamp()+3, message.isFromMe(), message.getPayload()));
-        }
-        return others;
-    }
-
     @Override
     public Observable<List<Message>> getMessages(Conversation conversation) {
         return Observable.empty();
@@ -89,9 +78,9 @@ public class MessageRepository implements MessageDomain.Repository {
     @Override
     public Observable<Message> subscribeToMessages(Conversation conversation) {
         List<Message> messages1 = converMessages.get(conversation.getId());
-        List<Message> messages = messages1 == null? new ArrayList<>() : messages1;
+        List<Message> messages = messages1 == null ? new ArrayList<>() : messages1;
 
-        Observable<Message> messageObservable  = Observable
+        Observable<Message> messageObservable = Observable
                 .interval(new Random().nextInt(2000), TimeUnit.MILLISECONDS)
                 .map(i -> messages.get(i.intValue()))
                 .take(messages.size());
@@ -100,7 +89,7 @@ public class MessageRepository implements MessageDomain.Repository {
     }
 
     private PublishSubject<Message> getPublisher(Conversation conversation) {
-        if (!messagesPublisher.containsKey(conversation)){
+        if (!messagesPublisher.containsKey(conversation)) {
             PublishSubject<Message> publisher = PublishSubject.create();
             messagesPublisher.put(conversation, publisher);
         }

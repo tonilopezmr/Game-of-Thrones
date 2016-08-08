@@ -6,7 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
@@ -74,9 +78,9 @@ public class ChatFragment extends Fragment implements MessageView {
         emojiPanel = new EmojiPanel(getActivity(), rootEmojiKeyBoard, new EmojiPanel.EmojiClickCallback() {
             @Override
             public void sendClicked(Spannable span) {
-                if (span.length() != 0){
+                if (span.length() != 0) {
                     long timestamp = System.currentTimeMillis();
-                    messagePresenter.send(new Message("asdf"+timestamp, null, timestamp, true, new TextPayLoad(span)));
+                    messagePresenter.send(new Message("" + timestamp, null, timestamp, true, new TextPayLoad(span)));
                     scrollToBottom();
                 }
             }
@@ -95,11 +99,11 @@ public class ChatFragment extends Fragment implements MessageView {
 
     private void initOnBackPressed(View rootView) {
         rootView.setOnKeyListener((v, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK){
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
                 if (emojiPanel.isEmojiAttached()) {
                     emojiPanel.dissmissEmojiPopup();
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             }
@@ -154,7 +158,11 @@ public class ChatFragment extends Fragment implements MessageView {
     public void initUi() {
         adapter = new ChatAdapter();
         initRecyclerView(adapter);
-        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); //hide keyboard start
+        hideKeyboard();
+    }
+
+    private void hideKeyboard() {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
     @Override

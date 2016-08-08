@@ -65,7 +65,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
         }
     }
 
-    private void moveToDetailActivity(Conversation conversation){
+    private void moveToDetailActivity(Conversation conversation) {
         new DetailActivityNavigatorBuilder(this)
                 .id(conversation.getId())
                 .name(conversation.getName())

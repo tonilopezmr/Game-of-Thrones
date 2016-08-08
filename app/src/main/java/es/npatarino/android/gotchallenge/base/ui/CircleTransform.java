@@ -16,12 +16,12 @@ package es.npatarino.android.gotchallenge.base.ui;
  * limitations under the License.
  */
 
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapShader;
-        import android.graphics.Canvas;
-        import android.graphics.Paint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 
-        import com.squareup.picasso.Transformation;
+import com.squareup.picasso.Transformation;
 
 
 public class CircleTransform implements Transformation {
@@ -45,7 +45,7 @@ public class CircleTransform implements Transformation {
         paint.setShader(shader);
         paint.setAntiAlias(true);
 
-        float r = size/2f;
+        float r = size / 2f;
         canvas.drawCircle(r, r, r, paint);
 
         squaredBitmap.recycle();

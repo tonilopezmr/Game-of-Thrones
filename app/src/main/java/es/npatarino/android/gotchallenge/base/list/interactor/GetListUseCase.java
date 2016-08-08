@@ -36,6 +36,6 @@ public class GetListUseCase<T> extends UseCase<List<T>> {
 
     @Override
     protected Observable<List<T>> buildUseCaseObservable() {
-        return ScheduleOn(repository.getList());
+        return scheduleOn(repository.getList());
     }
 }

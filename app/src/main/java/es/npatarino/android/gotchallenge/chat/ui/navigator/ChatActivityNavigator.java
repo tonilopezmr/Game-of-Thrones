@@ -7,7 +7,7 @@ import es.npatarino.android.gotchallenge.chat.ui.ChatActivity;
 
 import java.lang.ref.WeakReference;
 
-public class ChatActivityNavigator implements Navigator{
+public class ChatActivityNavigator implements Navigator {
 
     private WeakReference<Activity> activity;
     private String id;

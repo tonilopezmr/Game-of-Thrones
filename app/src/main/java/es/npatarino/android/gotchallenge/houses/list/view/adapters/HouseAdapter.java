@@ -48,7 +48,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         gotHouseViewHolder.imp.setOnClickListener(v -> moveToDetailActivity(house));
     }
 
-    private void moveToDetailActivity(GoTHouse house){
+    private void moveToDetailActivity(GoTHouse house) {
         new ChatActivityNavigator(activity, house.getHouseId())
                 .navigate();
     }

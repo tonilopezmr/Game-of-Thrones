@@ -43,7 +43,7 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
 
     private void renderMessageFromOthers(Message message) {
         User user = message.getUser();
-        rootView.setGravity(Gravity.BOTTOM|Gravity.START|Gravity.LEFT);
+        rootView.setGravity(Gravity.BOTTOM | Gravity.START | Gravity.LEFT);
         displayNameTextView.setVisibility(View.VISIBLE);
         avatarImageView.setVisibility(View.VISIBLE);
 
@@ -60,7 +60,7 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void displayPayLoad(Payload payload) {
-        if (payload instanceof TextPayLoad){
+        if (payload instanceof TextPayLoad) {
             TextPayLoad textPayload = (TextPayLoad) payload;
             messageTextView.setText(textPayload.getMessage());
         } else if (payload instanceof ImagePayload) {
@@ -69,7 +69,7 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void renderMessageForMe(Message message) {
-        rootView.setGravity(Gravity.BOTTOM|Gravity.END|Gravity.RIGHT);
+        rootView.setGravity(Gravity.BOTTOM | Gravity.END | Gravity.RIGHT);
 
         displayNameTextView.setVisibility(View.GONE);
         avatarImageView.setVisibility(View.GONE);

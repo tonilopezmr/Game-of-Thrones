@@ -12,7 +12,7 @@ public class TextPayLoad implements Payload {
         this.message = message;
     }
 
-    public TextPayLoad(String message){
+    public TextPayLoad(String message) {
         this.message = new SpannableString(message);
     }
 
