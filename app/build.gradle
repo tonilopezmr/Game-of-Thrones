@@ -16,7 +16,7 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '23.0.3'
+    buildToolsVersion '24'
 
     defaultConfig {
         applicationId "es.npatarino.android.gotchallenge"
