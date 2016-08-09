@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package es.npatarino.android.gotchallenge.common.view.matchers;
+package es.npatarino.android.gotchallenge.testingtools.matchers;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

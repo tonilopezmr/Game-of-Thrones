@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.common.view.recyclerview;
+package es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview;
 
 import android.support.test.espresso.NoMatchingViewException;
 import android.view.View;

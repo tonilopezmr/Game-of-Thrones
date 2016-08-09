@@ -11,7 +11,7 @@ import es.npatarino.android.gotchallenge.common.di.application.AppComponent;
 import es.npatarino.android.gotchallenge.common.di.application.AppModule;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
-import es.npatarino.android.gotchallenge.common.view.recyclerview.RecyclerViewInteraction;
+import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 import org.junit.Rule;
 import org.junit.Test;

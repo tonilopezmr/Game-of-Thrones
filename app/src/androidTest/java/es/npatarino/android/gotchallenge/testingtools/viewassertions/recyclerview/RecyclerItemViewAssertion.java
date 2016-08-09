@@ -1,7 +1,7 @@
 /*
  * https://gist.github.com/RomainPiel/ec10302a4687171a5e1a
  */
-package es.npatarino.android.gotchallenge.common.view.recyclerview;
+package es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview;
 
 import android.support.test.espresso.NoMatchingViewException;
 import android.support.test.espresso.PerformException;

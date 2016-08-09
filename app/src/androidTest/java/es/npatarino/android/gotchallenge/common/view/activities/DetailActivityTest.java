@@ -27,8 +27,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static
-        es.npatarino.android.gotchallenge.common.view.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
-import static es.npatarino.android.gotchallenge.common.view.matchers.ToolbarMatcher.onToolbarWithTitle;
+        es.npatarino.android.gotchallenge.testingtools.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
+import static es.npatarino.android.gotchallenge.testingtools.matchers.ToolbarMatcher.onToolbarWithTitle;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
 import static org.mockito.Mockito.when;
