@@ -11,10 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
-import es.npatarino.android.gotchallenge.characters.di.CharactersModule;
-import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent;
+import es.npatarino.android.gotchallenge.characters.di.CharacterListActivityModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
@@ -52,12 +50,10 @@ public class CharacterListFragment extends Fragment implements ViewList<GoTChara
     }
 
     private void initDagger() {
-        GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
-        DaggerCharactersComponent.builder()
-                .appComponent(app.getAppComponent())
-                .activityModule(new ActivityModule(getActivity()))
-                .charactersModule(new CharactersModule())
-                .build().inject(this);
+        GotChallengeApplication.get(getContext())
+                .createCharacterComponent()
+                .plus(new CharacterListActivityModule())
+                .inject(this);
     }
 
     @Override

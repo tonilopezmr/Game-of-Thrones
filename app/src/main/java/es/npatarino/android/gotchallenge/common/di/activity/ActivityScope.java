@@ -3,7 +3,7 @@
  *
  * @author Fernando Cejas (the android10 coder)
  */
-package es.npatarino.android.gotchallenge.base.di;
+package es.npatarino.android.gotchallenge.common.di.activity;
 
 import javax.inject.Scope;
 import java.lang.annotation.Retention;

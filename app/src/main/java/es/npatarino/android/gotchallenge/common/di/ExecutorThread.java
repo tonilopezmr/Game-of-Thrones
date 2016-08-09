@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.base.di;
+package es.npatarino.android.gotchallenge.common.di;
 
 import java.lang.annotation.Retention;
 

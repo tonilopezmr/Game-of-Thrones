@@ -15,14 +15,14 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
 import es.npatarino.android.gotchallenge.base.ui.Utilities;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.conversation.presenter.ConversationPresenter;
 import es.npatarino.android.gotchallenge.chat.conversation.view.ConversationView;
-import es.npatarino.android.gotchallenge.chat.di.DaggerChatComponent;
+import es.npatarino.android.gotchallenge.chat.di.ChatActivityModule;
+import es.npatarino.android.gotchallenge.chat.conversation.di.ConversationModule;
 import es.npatarino.android.gotchallenge.common.navigation.DetailActivityNavigatorBuilder;
 
 import javax.inject.Inject;
@@ -74,11 +74,11 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     }
 
     private void initDagger() {
-        GotChallengeApplication app = (GotChallengeApplication) getApplication();
-        DaggerChatComponent.builder()
-                .appComponent(app.getAppComponent())
-                .activityModule(new ActivityModule(this))
-                .build().inject(this);
+        GotChallengeApplication.get(getApplicationContext())
+                .getAppComponent()
+                .plus(new ConversationModule())
+                .plus(new ChatActivityModule())
+                .inject(this);
     }
 
     @Override

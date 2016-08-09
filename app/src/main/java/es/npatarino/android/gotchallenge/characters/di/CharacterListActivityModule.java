@@ -2,20 +2,19 @@ package es.npatarino.android.gotchallenge.characters.di;
 
 import dagger.Module;
 import dagger.Provides;
+import es.npatarino.android.gotchallenge.base.list.interactor.GetListUseCase;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
-import es.npatarino.android.gotchallenge.base.di.ActivityScope;
-import es.npatarino.android.gotchallenge.base.di.ExecutorThread;
-import es.npatarino.android.gotchallenge.base.di.UiThread;
-import es.npatarino.android.gotchallenge.base.list.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
+import es.npatarino.android.gotchallenge.common.di.UiThread;
+import es.npatarino.android.gotchallenge.common.di.activity.ActivityScope;
 import rx.Scheduler;
 
 @Module
-public class CharactersModule {
-
+public class CharacterListActivityModule {
 
     @Provides
     @ActivityScope

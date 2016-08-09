@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setCustomView(getCustomIcon(R.drawable.insignia_light, 100));
         tabLayout.getTabAt(1).setText("");
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 ImageView imageView = (ImageView) tab.getCustomView();

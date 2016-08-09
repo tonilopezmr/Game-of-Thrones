@@ -6,19 +6,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.di.DaggerChatComponent;
+import es.npatarino.android.gotchallenge.chat.di.ChatFragmentModule;
+import es.npatarino.android.gotchallenge.chat.message.di.MessageModule;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.presenter.MessagePresenter;
 import es.npatarino.android.gotchallenge.chat.message.view.MessageView;
@@ -55,11 +51,11 @@ public class ChatFragment extends Fragment implements MessageView {
     }
 
     private void initDagger() {
-        GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
-        DaggerChatComponent.builder()
-                .appComponent(app.getAppComponent())
-                .activityModule(new ActivityModule(getActivity()))
-                .build().inject(this);
+        GotChallengeApplication.get(getContext())
+                .getAppComponent()
+                .plus(new MessageModule())
+                .plus(new ChatFragmentModule())
+                .inject(this);
     }
 
     private void initFragment(View rootView) {

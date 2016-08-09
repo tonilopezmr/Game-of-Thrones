@@ -1,12 +1,11 @@
-package es.npatarino.android.gotchallenge.base.di;
+package es.npatarino.android.gotchallenge.chat.di;
 
+import javax.inject.Scope;
 import java.lang.annotation.Retention;
-
-import javax.inject.Qualifier;
 
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Qualifier
+@Scope
 @Retention(RUNTIME)
-public @interface UiThread {
+public @interface ChatScope {
 }

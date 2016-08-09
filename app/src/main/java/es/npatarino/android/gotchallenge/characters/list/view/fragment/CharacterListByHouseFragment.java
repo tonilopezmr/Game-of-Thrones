@@ -1,5 +1,6 @@
 package es.npatarino.android.gotchallenge.characters.list.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
@@ -12,9 +13,7 @@ import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.detail.view.DetailView;
-import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
-import es.npatarino.android.gotchallenge.characters.di.CharactersModule;
-import es.npatarino.android.gotchallenge.characters.di.DaggerCharactersComponent;
+import es.npatarino.android.gotchallenge.characters.di.CharacterListActivityModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.characters.list.view.adapters.CharacterAdapter;
@@ -51,12 +50,11 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
     }
 
     private void initDagger() {
-        GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
-        DaggerCharactersComponent.builder()
-                .appComponent(app.getAppComponent())
-                .activityModule(new ActivityModule(getActivity()))
-                .charactersModule(new CharactersModule())
-                .build().inject(this);
+        Context context = getContext();
+        GotChallengeApplication.get(getContext())
+                .getCharacterComponent()
+                .plus(new CharacterListActivityModule())
+                .inject(this);
     }
 
     public void setHouse(GoTHouse house) {

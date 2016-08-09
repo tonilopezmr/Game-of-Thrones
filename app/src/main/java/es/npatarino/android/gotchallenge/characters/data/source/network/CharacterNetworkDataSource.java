@@ -19,10 +19,10 @@ public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataS
     private EndPoint endPoint;
     private final CharacterJsonMapper characterCharacterJsonMapper;
 
-    public CharacterNetworkDataSource(CharacterJsonMapper characterCharacterJsonMapper,
+    public CharacterNetworkDataSource(CharacterJsonMapper jsonMapper,
                                       EndPoint endPoint,
                                       OkHttpClient client) {
-        this.characterCharacterJsonMapper = characterCharacterJsonMapper;
+        this.characterCharacterJsonMapper = jsonMapper;
         this.endPoint = endPoint;
         this.client = client;
     }
