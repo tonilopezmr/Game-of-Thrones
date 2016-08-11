@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 
-public class ChatFragment extends Fragment implements MessageView {
+public class ChatFragment extends Fragment implements MessageView, OnBackListener {
 
     private RecyclerView messageRecyclerView;
     private ChatAdapter adapter;
@@ -163,5 +163,15 @@ public class ChatFragment extends Fragment implements MessageView {
     @Override
     public void error() {
         Toast.makeText(getContext(), "Some error", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean onBackListener() {
+        if(emojiPanel.isEmojiAttached()) {
+            emojiPanel.dissmissEmojiPopup();
+            return true;
+        }
+
+        return false;
     }
 }

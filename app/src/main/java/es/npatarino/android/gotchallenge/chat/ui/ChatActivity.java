@@ -30,6 +30,7 @@ import javax.inject.Inject;
 public class ChatActivity extends AppCompatActivity implements ConversationView {
 
     public static final String CONVER_ID_KEY = "_conver_id_key";
+    public static final String CHAT_ACTIVITY_FRAGMENT = "chat_activity_fragment";
 
     private View rootView;
     private Toolbar toolbar;
@@ -141,7 +142,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
         fragment.setArguments(args);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, fragment, "chat_activity_fragment")
+                .replace(R.id.frame_layout, fragment, CHAT_ACTIVITY_FRAGMENT)
                 .commitAllowingStateLoss();
     }
 
@@ -157,5 +158,18 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(CHAT_ACTIVITY_FRAGMENT);
+        if (fragment != null && fragment instanceof OnBackListener) {
+            boolean isOnBackFragment = ((OnBackListener) fragment).onBackListener();
+            if (isOnBackFragment){
+                return;
+            }
+        }
+
+        super.onBackPressed();
     }
 }
