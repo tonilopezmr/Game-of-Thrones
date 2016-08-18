@@ -51,7 +51,7 @@ public class CharacterListFragment extends Fragment implements ViewList<GoTChara
 
     private void initDagger() {
         GotChallengeApplication.get(getContext())
-                .createCharacterComponent()
+                .getCharacterComponent()
                 .plus(new CharacterListActivityModule())
                 .inject(this);
     }

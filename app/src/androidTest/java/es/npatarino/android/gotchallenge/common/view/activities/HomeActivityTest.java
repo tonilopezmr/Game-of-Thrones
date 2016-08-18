@@ -1,18 +1,14 @@
 package es.npatarino.android.gotchallenge.common.view.activities;
 
-import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
-import es.npatarino.android.gotchallenge.common.di.application.AppComponent;
-import es.npatarino.android.gotchallenge.common.di.application.AppModule;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
-import it.cosenonjaviste.daggermock.DaggerMockRule;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,11 +18,7 @@ import rx.Observable;
 import java.util.List;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.mockito.Mockito.when;
 
@@ -37,17 +29,7 @@ public class HomeActivityTest {
     private static final int NUMBER_OF_CHARACTERS = 4;
 
     @Rule
-    public DaggerMockRule<AppComponent> daggerRule =
-            new DaggerMockRule<>(AppComponent.class,
-                    new AppModule(InstrumentationRegistry.getInstrumentation()
-                            .getTargetContext())).set(
-                    component -> {
-                        GotChallengeApplication app =
-                                (GotChallengeApplication) InstrumentationRegistry.getInstrumentation()
-                                        .getTargetContext()
-                                        .getApplicationContext();
-                        app.setComponent(component);
-                    });
+    public EspressoDaggerMockRule daggerMockRule = new EspressoDaggerMockRule();
 
     @Rule
     public ActivityTestRule<HomeActivity> activityTestRule =

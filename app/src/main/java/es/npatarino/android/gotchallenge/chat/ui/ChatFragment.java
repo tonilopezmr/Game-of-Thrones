@@ -14,7 +14,6 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.di.ChatFragmentModule;
-import es.npatarino.android.gotchallenge.chat.message.di.MessageModule;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.presenter.MessagePresenter;
 import es.npatarino.android.gotchallenge.chat.message.view.MessageView;
@@ -52,8 +51,7 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
 
     private void initDagger() {
         GotChallengeApplication.get(getContext())
-                .getAppComponent()
-                .plus(new MessageModule())
+                .getMessageComponent()
                 .plus(new ChatFragmentModule())
                 .inject(this);
     }

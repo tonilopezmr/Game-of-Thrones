@@ -22,7 +22,6 @@ import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversa
 import es.npatarino.android.gotchallenge.chat.conversation.presenter.ConversationPresenter;
 import es.npatarino.android.gotchallenge.chat.conversation.view.ConversationView;
 import es.npatarino.android.gotchallenge.chat.di.ChatActivityModule;
-import es.npatarino.android.gotchallenge.chat.conversation.di.ConversationModule;
 import es.npatarino.android.gotchallenge.common.navigation.DetailActivityNavigatorBuilder;
 
 import javax.inject.Inject;
@@ -75,9 +74,8 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     }
 
     private void initDagger() {
-        GotChallengeApplication.get(getApplicationContext())
-                .getAppComponent()
-                .plus(new ConversationModule())
+        GotChallengeApplication.get(this)
+                .getConversationComponent()
                 .plus(new ChatActivityModule())
                 .inject(this);
     }

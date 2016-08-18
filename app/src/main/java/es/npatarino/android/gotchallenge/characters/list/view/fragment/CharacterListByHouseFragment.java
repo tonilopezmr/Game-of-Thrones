@@ -1,6 +1,5 @@
 package es.npatarino.android.gotchallenge.characters.list.view.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.ContentLoadingProgressBar;
@@ -50,7 +49,6 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
     }
 
     private void initDagger() {
-        Context context = getContext();
         GotChallengeApplication.get(getContext())
                 .getCharacterComponent()
                 .plus(new CharacterListActivityModule())

@@ -13,7 +13,6 @@ import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
 import es.npatarino.android.gotchallenge.houses.di.HouseListActivityModule;
-import es.npatarino.android.gotchallenge.houses.di.HouseModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.houses.list.view.adapters.HouseAdapter;
@@ -50,8 +49,7 @@ public class HousesListFragment extends Fragment implements ViewList<GoTHouse> {
 
     private void initDagger() {
         GotChallengeApplication.get(getContext())
-                .getAppComponent()
-                .plus(new HouseModule())
+                .getHouseComponent()
                 .plus(new HouseListActivityModule())
                 .inject(this);
     }
