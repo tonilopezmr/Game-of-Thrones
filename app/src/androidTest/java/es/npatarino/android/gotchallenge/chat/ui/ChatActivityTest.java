@@ -6,11 +6,9 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.chat.conversation.ConversationDomain;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
-import es.npatarino.android.gotchallenge.chat.message.MessageDomain;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
-import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerSortedViewAssertion;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
 import org.junit.Rule;
@@ -24,11 +22,13 @@ import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarLogoViewAssertion.hasLogo;
 import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarSubtitleViewAssertion.withSubtitle;
 import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarTitleViewAssertion.withTitle;
 import static org.mockito.BDDMockito.given;
@@ -45,13 +45,10 @@ public class ChatActivityTest {
             new IntentsTestRule<>(ChatActivity.class, true, false);
 
     @Rule
-    public EspressoDaggerMockRule espressoDaggerMockRule = new EspressoDaggerMockRule();
+    public ChatActivityDaggerMockRule daggerMockRule = new ChatActivityDaggerMockRule();
 
     @Mock
     ConversationDomain.Repository conversationRepository;
-
-    @Mock
-    MessageDomain.Repository messageRepository;
 
     @Test
     public void
@@ -66,7 +63,7 @@ public class ChatActivityTest {
 
     private void initActivity() {
         Intent startIntent = new Intent();
-        startIntent.putExtra(ChatActivity.CONVER_ID_KEY, "any");
+        startIntent.putExtra(ChatActivity.CONVER_ID_KEY, getConversation().getId());
         activityTestRule.launchActivity(startIntent);
     }
 
@@ -84,7 +81,12 @@ public class ChatActivityTest {
     @Test
     public void
     show_conversation_image_in_toolbar_subtitle_when_init_activity() throws Exception {
-        //TODO finish this
+        given(conversationRepository.get(any(Conversation.class))).willReturn(getConversationObservable());
+
+        initActivity();
+
+        onView(withId(R.id.toolbar))
+            .check(hasLogo());
     }
 
     @Test
@@ -96,6 +98,7 @@ public class ChatActivityTest {
 
         onView(withId(R.id.toolbar))
                 .perform(click());
+
         intended(hasComponent(DetailActivity.class.getCanonicalName()));
     }
 
@@ -103,11 +106,13 @@ public class ChatActivityTest {
     public void
     show_my_message_when_send_a_message() throws Exception {
         given(conversationRepository.get(any(Conversation.class))).willReturn(getConversationObservable());
+        MockMessageRepository messageRepository = daggerMockRule.getMockMessageRepository();
+        messageRepository.disableMessages();
 
         initActivity();
 
         onView(withId(R.id.message_edit_text))
-                .perform(typeText(MESSAGE_TEXT));
+                .perform(typeText(MESSAGE_TEXT), closeSoftKeyboard());
 
         onView(withId(R.id.attach))
                 .perform(click());
@@ -124,8 +129,8 @@ public class ChatActivityTest {
     public void
     show_messages_in_order_from_others_when_there_are_messages() throws Exception {
         given(conversationRepository.get(any(Conversation.class))).willReturn(getConversationObservable());
-        given(messageRepository.getMessages(any(Conversation.class))).willReturn(getMessagesObservable());
-        given(messageRepository.subscribeToMessages(any(Conversation.class))).willReturn(Observable.empty());
+        MockMessageRepository messageRepository = daggerMockRule.getMockMessageRepository();
+        messageRepository.enableMessages();
 
         initActivity();
 
@@ -139,28 +144,34 @@ public class ChatActivityTest {
     @Test
     public void
     show_messages_in_order_from_others_and_me_when_send_messages_and_receive_messages() throws Exception {
-        //TODO how to mock fine this
-//        given(conversationRepository.get(any(Conversation.class))).willReturn(getConversationObservable());
-//
-//        initActivity();
-//
-//        onView(withId(R.id.message_edit_text))
-//                .perform(typeText(MESSAGE_TEXT));
-//
-//        onView(withId(R.id.attach))
-//                .perform(click());
-//
-//        onView(withId(R.id.message_edit_text))
-//                .perform(typeText(MESSAGE_TEXT + " Other message"));
-//
-//        onView(withId(R.id.attach))
-//                .perform(click());
-//
-//        onView(withId(R.id.recycler_view))
-//                .check(RecyclerSortedViewAssertion.isSorted(recyclerView -> {
-//                    ChatAdapter adapter = (ChatAdapter) recyclerView.getAdapter();
-//                    return adapter.getItems();
-//                }));
+        given(conversationRepository.get(any(Conversation.class))).willReturn(getConversationObservable());
+        MockMessageRepository messageRepository = daggerMockRule.getMockMessageRepository();
+        messageRepository.enableMessages();
+        Conversation conversation = getConversation();
+
+        initActivity();
+
+        onView(withId(R.id.message_edit_text))
+                .perform(typeText(MESSAGE_TEXT), closeSoftKeyboard());
+
+        onView(withId(R.id.attach))
+                .perform(click());
+
+        messageRepository.sendMessage(conversation);
+
+        onView(withId(R.id.message_edit_text))
+                .perform(typeText(MESSAGE_TEXT + " Other message"), closeSoftKeyboard());
+
+        onView(withId(R.id.attach))
+                .perform(click());
+
+        messageRepository.sendMessage(conversation);
+
+        onView(withId(R.id.recycler_view))
+                .check(RecyclerSortedViewAssertion.isSorted(recyclerView -> {
+                    ChatAdapter adapter = (ChatAdapter) recyclerView.getAdapter();
+                    return adapter.getItems();
+                }));
     }
 
     private Observable<Conversation> getConversationObservable() {
@@ -169,20 +180,6 @@ public class ChatActivityTest {
 
     private Conversation getConversation() {
         return new Conversation("1", CONVERSATION_NAME, getUserList(), null, CONVERSATION_IMAGE_URL);
-    }
-
-    private List<Message> getMessages() {
-        return new ArrayList<>(Arrays.asList(
-                new Message("1", new User("1", "Arya Stark", "",
-                        "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg"),
-                        1, false, new TextPayLoad("Joffrey\nCersei\nWalder Frey\nMeryn Trant\nTywin Lannister\n"
-                        + "The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound")),
-                new Message("2", new User("2", "Daenerys Targaryen", "",
-                        "http://winteriscoming.net/wp-content/uploads/2016/03/Daenerys-Targaryen-crop-630x371.jpg"),
-                        3, false, new TextPayLoad("where my dwarf is?")),
-                new Message("3", new User("3", "Tyrion Lannister", "",
-                        "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
-                        6, false, new TextPayLoad("Tell me blonde who never burns"))));
     }
 
     private List<User> getUserList() {
@@ -196,13 +193,4 @@ public class ChatActivityTest {
         return getUserList().toString().replace("[", "").replace("]", "");
     }
 
-    private Observable<List<Message>> getMessagesObservable() {
-        return Observable.fromCallable(this::getMessages);
-    }
-
-    private Observable<Message> getMessageObservable(long timestamp) {
-        return Observable.fromCallable(() -> new Message("3", new User("3", "Tyrion Lannister", "",
-                "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
-                timestamp, false, new TextPayLoad("Tell me blonde who never burns")));
-    }
 }

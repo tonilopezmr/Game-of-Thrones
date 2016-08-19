@@ -17,6 +17,7 @@
         </activity>
         <activity
                 android:name=".chat.ui.ChatActivity"
+                android:windowSoftInputMode="stateVisible|adjustResize"
                 android:parentActivityName=".common.view.activities.HomeActivity">
         </activity>
         <activity

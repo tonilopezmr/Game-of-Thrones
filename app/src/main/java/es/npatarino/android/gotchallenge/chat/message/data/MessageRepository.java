@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MessageRepository implements MessageDomain.Repository {
 
-    private HashMap<Conversation, PublishSubject<Message>> messagesPublisher;
+    private HashMap<String, PublishSubject<Message>> messagesPublisher;
     private HashMap<String, List<Message>> converMessages;
     private Context context;
 
@@ -89,11 +89,12 @@ public class MessageRepository implements MessageDomain.Repository {
     }
 
     private PublishSubject<Message> getPublisher(Conversation conversation) {
-        if (!messagesPublisher.containsKey(conversation)) {
+        String id = conversation.getId();
+        if (!messagesPublisher.containsKey(id)) {
             PublishSubject<Message> publisher = PublishSubject.create();
-            messagesPublisher.put(conversation, publisher);
+            messagesPublisher.put(id, publisher);
         }
 
-        return messagesPublisher.get(conversation);
+        return messagesPublisher.get(id);
     }
 }

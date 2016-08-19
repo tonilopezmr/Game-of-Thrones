@@ -70,11 +70,19 @@ public class GotChallengeApplication extends Application {
     }
 
     public HouseComponent getHouseComponent() {
-        if (houseComponent== null) {
+        if (houseComponent == null) {
             houseComponent = appComponent.plus(new HouseModule());
         }
 
         return houseComponent;
+    }
+
+    public void releaseMessageComponent() {
+        messageComponent = null;
+    }
+
+    public void releaseConversation() {
+        conversationComponent = null;
     }
 
     public static GotChallengeApplication get(Context context) {
