@@ -35,7 +35,7 @@ public class RecyclerSortedViewAssertion<T extends Comparable> implements ViewAs
 
         checkIsNotEmpty(view, description);
 
-        description.appendText("The list "+ sortedList + " is not sorted");
+        description.appendText("The list " + sortedList + " is not sorted");
         assertTrue(description.toString(), Ordering.natural().<T>isOrdered(sortedList));
     }
 

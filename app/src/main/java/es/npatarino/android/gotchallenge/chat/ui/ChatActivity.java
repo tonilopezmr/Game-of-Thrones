@@ -163,7 +163,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(CHAT_ACTIVITY_FRAGMENT);
         if (fragment != null && fragment instanceof OnBackListener) {
             boolean isOnBackFragment = ((OnBackListener) fragment).onBackListener();
-            if (isOnBackFragment){
+            if (isOnBackFragment) {
                 return;
             }
         }

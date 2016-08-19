@@ -23,7 +23,7 @@ public class ToolbarTitleViewAssertion implements ViewAssertion {
         assertThat(toolbarTitle, is(toolbar.getTitle()));
     }
 
-    public static ToolbarTitleViewAssertion withTitle(String toolbarTitle){
+    public static ToolbarTitleViewAssertion withTitle(String toolbarTitle) {
         return new ToolbarTitleViewAssertion(toolbarTitle);
     }
 }

@@ -55,7 +55,7 @@ public class MessagePresenter extends BasePresenter<MessageView> {
 
     private void showMessages(List<Message> messages) {
         view.showMessages(messages);
-        Log.i(TAG, "showMessages: "+ messages.size());
+        Log.i(TAG, "showMessages: " + messages.size());
     }
 
     private void showMessage(Message message) {

@@ -45,5 +45,5 @@ public class HouseModule {
                                                              HousesDomain.LocalDataSource localDataSource) {
         return new HouseRepository(networkDataSource, localDataSource);
     }
-    
+
 }

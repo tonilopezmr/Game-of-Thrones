@@ -32,7 +32,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public Context provideAppContext(){
+    public Context provideAppContext() {
         return context;
     }
 
@@ -67,7 +67,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public Gson provideGson(){
+    public Gson provideGson() {
         return new Gson();
     }
 

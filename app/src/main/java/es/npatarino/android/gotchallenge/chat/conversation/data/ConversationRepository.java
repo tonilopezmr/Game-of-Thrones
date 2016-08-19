@@ -34,7 +34,7 @@ public class ConversationRepository implements ConversationDomain.Repository {
             for (Conversation conversation : parsedList) {
                 conversations.put(conversation.getId(), conversation);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             Log.e(TAG, "initConversations: ", e);
         }
     }

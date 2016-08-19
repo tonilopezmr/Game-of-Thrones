@@ -41,7 +41,7 @@ public class MockMessageRepository extends MessageRepository {
     private List<Message> getMessages() {
         List<Message> messages = Arrays.asList(
                 new Message("1", new User("1", "Arya Stark", "",
-                        "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg"),
+             "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg"),
                         1, false, new TextPayLoad("Joffrey\nCersei\nWalder Frey\nMeryn Trant\nTywin Lannister\n"
                         + "The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound")),
                 new Message("2", new User("2", "Daenerys Targaryen", "",
@@ -51,7 +51,7 @@ public class MockMessageRepository extends MessageRepository {
                         "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
                         3, false, new TextPayLoad("Tell me blonde who never burns")));
 
-        return new ArrayList<>(disableMessages? Collections.emptyList() : messages);
+        return new ArrayList<>(disableMessages ? Collections.emptyList() : messages);
     }
 
     public void sendMessage(Conversation conversation) {

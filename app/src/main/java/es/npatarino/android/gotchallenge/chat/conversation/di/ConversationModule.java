@@ -27,5 +27,5 @@ public class ConversationModule {
                                            @ExecutorThread Scheduler executor) {
         return new GetConversation(repository, ui, executor);
     }
-    
+
 }

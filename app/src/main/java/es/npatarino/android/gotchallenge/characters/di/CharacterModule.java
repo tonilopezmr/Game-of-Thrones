@@ -34,10 +34,10 @@ public class CharacterModule {
     @CharacterScope
     public CharactersDomain.NetworkDataSource provideCharacterRemoteDataSource(OkHttpClient okHttpClient,
                                                                                EndPoint endPoint,
-                                                                               CharacterJsonMapper characterJsonMapper) {
+                                                                             CharacterJsonMapper characterJsonMapper) {
         return new CharacterNetworkDataSource(characterJsonMapper, endPoint, okHttpClient);
     }
-    
+
     @Provides
     @CharacterScope
     public CharactersDomain.Repository

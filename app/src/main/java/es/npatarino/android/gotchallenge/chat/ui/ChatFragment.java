@@ -6,7 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
@@ -165,7 +169,7 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
 
     @Override
     public boolean onBackListener() {
-        if(emojiPanel.isEmojiAttached()) {
+        if (emojiPanel.isEmojiAttached()) {
             emojiPanel.dissmissEmojiPopup();
             return true;
         }

@@ -27,9 +27,13 @@ import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.matcher.ViewMatchers.*;
-import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarLogoViewAssertion.hasLogo;
-import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarSubtitleViewAssertion.withSubtitle;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar
+        .ToolbarLogoViewAssertion.hasLogo;
+import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar
+        .ToolbarSubtitleViewAssertion.withSubtitle;
 import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarTitleViewAssertion.withTitle;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
@@ -37,7 +41,8 @@ import static org.mockito.Matchers.any;
 public class ChatActivityTest {
 
     private static final String CONVERSATION_NAME = "Conversation";
-    private static final String CONVERSATION_IMAGE_URL = "https://pbs.twimg.com/profile_images/724559849544019971/SI6djf1z.jpg";
+    private static final String CONVERSATION_IMAGE_URL
+            = "https://pbs.twimg.com/profile_images/724559849544019971/SI6djf1z.jpg";
     private static final String MESSAGE_TEXT = "Hola bon dia";
 
     @Rule
@@ -86,7 +91,7 @@ public class ChatActivityTest {
         initActivity();
 
         onView(withId(R.id.toolbar))
-            .check(hasLogo());
+                .check(hasLogo());
     }
 
     @Test
