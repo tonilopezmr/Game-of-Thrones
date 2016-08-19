@@ -61,5 +61,6 @@ public class MessagePresenter extends BasePresenter<MessageView> {
     private void showMessage(Message message) {
         message.setTimestamp(System.currentTimeMillis());
         view.showMessage(message);
+        Log.i(TAG, "showMessage message id: " + message.getId());
     }
 }

@@ -6,7 +6,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.chat.conversation.ConversationDomain;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
-import es.npatarino.android.gotchallenge.chat.message.data.MessageRepository;
+import es.npatarino.android.gotchallenge.chat.message.MessageDomain;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
@@ -33,13 +33,13 @@ import static es.npatarino.android.gotchallenge.testingtools.viewassertions.tool
 import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarTitleViewAssertion.withTitle;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.when;
 
 public class ChatActivityTest {
 
-    public static final String CONVERSATION_NAME = "Conversation";
-    public static final String CONVERSATION_IMAGE_URL = "https://pbs.twimg.com/profile_images/724559849544019971/SI6djf1z.jpg";
-    public static final String MESSAGE_TEXT = "Hola bon dia";
+    private static final String CONVERSATION_NAME = "Conversation";
+    private static final String CONVERSATION_IMAGE_URL = "https://pbs.twimg.com/profile_images/724559849544019971/SI6djf1z.jpg";
+    private static final String MESSAGE_TEXT = "Hola bon dia";
+
     @Rule
     public IntentsTestRule<ChatActivity> activityTestRule =
             new IntentsTestRule<>(ChatActivity.class, true, false);
@@ -51,7 +51,7 @@ public class ChatActivityTest {
     ConversationDomain.Repository conversationRepository;
 
     @Mock
-    MessageRepository messageRepository;
+    MessageDomain.Repository messageRepository;
 
     @Test
     public void
@@ -118,15 +118,14 @@ public class ChatActivityTest {
                     String message = ((TextPayLoad) item.getPayload()).getMessage().toString();
                     matches(hasDescendant(withText(message))).check(view, e);
                 });
-
     }
 
     @Test
     public void
     show_messages_in_order_from_others_when_there_are_messages() throws Exception {
         given(conversationRepository.get(any(Conversation.class))).willReturn(getConversationObservable());
-        when(messageRepository.subscribeToMessages(any(Conversation.class))).thenCallRealMethod();
         given(messageRepository.getMessages(any(Conversation.class))).willReturn(getMessagesObservable());
+        given(messageRepository.subscribeToMessages(any(Conversation.class))).willReturn(Observable.empty());
 
         initActivity();
 
@@ -140,18 +139,39 @@ public class ChatActivityTest {
     @Test
     public void
     show_messages_in_order_from_others_and_me_when_send_messages_and_receive_messages() throws Exception {
-
+        //TODO how to mock fine this
+//        given(conversationRepository.get(any(Conversation.class))).willReturn(getConversationObservable());
+//
+//        initActivity();
+//
+//        onView(withId(R.id.message_edit_text))
+//                .perform(typeText(MESSAGE_TEXT));
+//
+//        onView(withId(R.id.attach))
+//                .perform(click());
+//
+//        onView(withId(R.id.message_edit_text))
+//                .perform(typeText(MESSAGE_TEXT + " Other message"));
+//
+//        onView(withId(R.id.attach))
+//                .perform(click());
+//
+//        onView(withId(R.id.recycler_view))
+//                .check(RecyclerSortedViewAssertion.isSorted(recyclerView -> {
+//                    ChatAdapter adapter = (ChatAdapter) recyclerView.getAdapter();
+//                    return adapter.getItems();
+//                }));
     }
 
-    public Observable<Conversation> getConversationObservable() {
+    private Observable<Conversation> getConversationObservable() {
         return Observable.fromCallable(this::getConversation);
     }
 
-    public Conversation getConversation() {
+    private Conversation getConversation() {
         return new Conversation("1", CONVERSATION_NAME, getUserList(), null, CONVERSATION_IMAGE_URL);
     }
 
-    public List<Message> getMessages() {
+    private List<Message> getMessages() {
         return new ArrayList<>(Arrays.asList(
                 new Message("1", new User("1", "Arya Stark", "",
                         "http://www.bolsamania.com/seriesadictos/wp-content/uploads/2015/12/landscape-1436892099-arya-stark.jpg"),
@@ -159,24 +179,30 @@ public class ChatActivityTest {
                         + "The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound")),
                 new Message("2", new User("2", "Daenerys Targaryen", "",
                         "http://winteriscoming.net/wp-content/uploads/2016/03/Daenerys-Targaryen-crop-630x371.jpg"),
-                        2, false, new TextPayLoad("where my dwarf is?")),
+                        3, false, new TextPayLoad("where my dwarf is?")),
                 new Message("3", new User("3", "Tyrion Lannister", "",
                         "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
-                        3, false, new TextPayLoad("Tell me blonde who never burns"))));
+                        6, false, new TextPayLoad("Tell me blonde who never burns"))));
     }
 
-    public List<User> getUserList() {
+    private List<User> getUserList() {
         ArrayList<User> list = new ArrayList<>();
         list.add(new User("", "Pepe", "", CONVERSATION_IMAGE_URL));
         list.add(new User("", "Pepe", "", CONVERSATION_IMAGE_URL));
         return list;
     }
 
-    public String getUserListSubtitle() {
+    private String getUserListSubtitle() {
         return getUserList().toString().replace("[", "").replace("]", "");
     }
 
-    public Observable<List<Message>> getMessagesObservable() {
+    private Observable<List<Message>> getMessagesObservable() {
         return Observable.fromCallable(this::getMessages);
+    }
+
+    private Observable<Message> getMessageObservable(long timestamp) {
+        return Observable.fromCallable(() -> new Message("3", new User("3", "Tyrion Lannister", "",
+                "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
+                timestamp, false, new TextPayLoad("Tell me blonde who never burns")));
     }
 }

@@ -66,7 +66,7 @@ public class MessageRepository implements MessageDomain.Repository {
 
     @Override
     public Observable<List<Message>> getMessages(Conversation conversation) {
-        return Observable.empty();
+        return Observable.empty(); //TODO NOT implemented
     }
 
     @Override
