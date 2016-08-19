@@ -2,7 +2,6 @@ package es.npatarino.android.gotchallenge.common.view.activities;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
@@ -18,15 +17,11 @@ import rx.Observable;
 import java.util.List;
 
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.core.AllOf.allOf;
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class HomeActivityTest {
 
     private static final int NUMBER_OF_CHARACTERS = 4;
@@ -50,8 +45,8 @@ public class HomeActivityTest {
         Observable<List<GoTCharacter>> charactersObservable = TestUtils.getCharacters(NUMBER_OF_CHARACTERS);
         List<GoTCharacter> characterList = charactersObservable.toBlocking().first();
 
-        when(remote.getAll()).thenReturn(charactersObservable);
-        when(local.getAll()).thenReturn(charactersObservable);
+        given(remote.getAll()).willReturn(charactersObservable);
+        given(local.getAll()).willReturn(charactersObservable);
 
         activityTestRule.launchActivity(null);
 

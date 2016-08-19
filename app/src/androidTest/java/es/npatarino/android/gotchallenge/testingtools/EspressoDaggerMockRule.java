@@ -9,7 +9,7 @@ import it.cosenonjaviste.daggermock.DaggerMockRule;
 public class EspressoDaggerMockRule extends DaggerMockRule<AppComponent> {
 
     public EspressoDaggerMockRule() {
-        super(AppComponent.class, new AppModule(getApp()));
+        super(AppComponent.class, new AppModule(getApp().getApplicationContext()));
         set(component -> getApp().setAppComponent(component));
     }
 

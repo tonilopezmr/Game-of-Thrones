@@ -3,7 +3,6 @@ package es.npatarino.android.gotchallenge.common.view.activities;
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.suitebuilder.annotation.LargeTest;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
@@ -18,17 +17,14 @@ import org.mockito.Mock;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static es.npatarino.android.gotchallenge.testingtools.matchers.RecyclerViewItemsCountMatcher
-        .recyclerViewHasItemCount;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static es.npatarino.android.gotchallenge.testingtools.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
-import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.any;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class DetailActivityTest {
 
     private static final int NUMBER_OF_CHARACTERS = 3;
@@ -56,7 +52,7 @@ public class DetailActivityTest {
 
     @Test
     public void
-    should_display_description_when_is_character() throws Exception {
+    should_display_description_given_is_character() throws Exception {
         GoTCharacter character = TestUtils.defaultGotCharacter();
 
         startActivity(character);
@@ -66,7 +62,7 @@ public class DetailActivityTest {
 
     @Test
     public void
-    should_display_name_when_is_character() throws Exception {
+    should_display_name_given_is_character() throws Exception {
         GoTCharacter character = TestUtils.defaultGotCharacter();
 
         startActivity(character);
@@ -78,7 +74,7 @@ public class DetailActivityTest {
     public void
     should_does_not_show_loading_view_once_character_are_shown() throws Exception {
         GoTHouse house = TestUtils.defaultGotHouse();
-        when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
+        given(repository.read(house)).willReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
 
@@ -89,7 +85,7 @@ public class DetailActivityTest {
     public void
     should_show_an_specific_number_of_characters() throws Exception {
         GoTHouse house = TestUtils.defaultGotHouse();
-        when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
+        given(repository.read(any(GoTHouse.class))).willReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
 
@@ -98,9 +94,9 @@ public class DetailActivityTest {
 
     @Test
     public void
-    should_display_list_when_is_house_with_characters() throws Exception {
+    should_display_list_given_is_house_with_characters() throws Exception {
         GoTHouse house = TestUtils.defaultGotHouse();
-        when(repository.read(house)).thenReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
+        given(repository.read(house)).willReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
 
