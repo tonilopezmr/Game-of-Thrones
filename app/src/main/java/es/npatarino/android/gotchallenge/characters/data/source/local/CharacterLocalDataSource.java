@@ -39,7 +39,7 @@ public class CharacterLocalDataSource implements CharactersDomain.LocalDataSourc
     private void save(BddGoTCharacter character) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
-            realm.copyToRealmOrUpdate(character);
+            realm1.copyToRealmOrUpdate(character);
         });
         realm.close();
     }

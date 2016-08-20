@@ -37,7 +37,7 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
     private void save(BddHouse house) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
-            realm.copyToRealmOrUpdate(house);
+            realm1.copyToRealmOrUpdate(house);
         });
         realm.close();
     }

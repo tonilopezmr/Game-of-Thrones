@@ -81,8 +81,16 @@ public class GotChallengeApplication extends Application {
         messageComponent = null;
     }
 
-    public void releaseConversation() {
+    public void releaseConversationComponent() {
         conversationComponent = null;
+    }
+
+    public void releaseHouseComponent() {
+        houseComponent = null;
+    }
+
+    public void releaseCharacterComponent() {
+        characterComponent = null;
     }
 
     public static GotChallengeApplication get(Context context) {

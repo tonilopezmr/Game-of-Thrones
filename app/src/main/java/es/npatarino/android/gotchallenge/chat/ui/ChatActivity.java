@@ -175,7 +175,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     protected void onDestroy() {
         super.onDestroy();
         GotChallengeApplication gotChallengeApplication = GotChallengeApplication.get(getApplicationContext());
-        gotChallengeApplication.releaseConversation();
+        gotChallengeApplication.releaseConversationComponent();
         gotChallengeApplication.releaseMessageComponent();
     }
 }

@@ -60,7 +60,7 @@ public class EmojiPanel {
 
     public void iconsInit() {
         smiles.setImageResource(R.drawable.ic_send_smile_levels_default);
-        sendButton.setImageResource(R.drawable.ic_send_blue);
+        sendButton.setImageResource(R.drawable.ic_send);
         smiles.setImageLevel(LEVEL_SMILE);
     }
 

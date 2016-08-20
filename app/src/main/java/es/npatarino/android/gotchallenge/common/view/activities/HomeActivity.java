@@ -9,6 +9,7 @@ import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.common.view.adapters.SectionsPagerAdapter;
 
@@ -81,5 +82,8 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        GotChallengeApplication app = GotChallengeApplication.get(getApplicationContext());
+        app.releaseHouseComponent();
+        app.releaseCharacterComponent();
     }
 }

@@ -1,5 +1,6 @@
 package es.npatarino.android.gotchallenge.chat.message.ui;
 
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
@@ -9,10 +10,10 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
+import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.ImagePayload;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 
 public class MessageCellViewHolder extends RecyclerView.ViewHolder {
@@ -50,7 +51,8 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
         Picasso.with(avatarImageView.getContext())
                 .load(user.getImageUrl())
                 .transform(new CircleTransform())
-                .placeholder(R.drawable.ned_head_light)
+                .placeholder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
+                                                                        R.drawable.ned_head_light))
                 .into(avatarImageView);
 
 

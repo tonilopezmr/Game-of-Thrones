@@ -38,7 +38,7 @@ public class CharacterLocalDataSourceTest {
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder(InstrumentationRegistry.getTargetContext())
                 .name("test.realm")
-                .schemaVersion(4)
+                .schemaVersion(6)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);

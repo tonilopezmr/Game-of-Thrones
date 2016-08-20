@@ -88,7 +88,7 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
             }
         });
 
-        emojiPanel.iconsInit(R.drawable.ic_send_smile_levels_default, R.drawable.ic_send);
+        emojiPanel.iconsInit();
         emojiPanel.init();
 
         initOnBackPressed(rootView);

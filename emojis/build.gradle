@@ -2,14 +2,13 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
-        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -24,7 +23,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.2.0'
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
 }
