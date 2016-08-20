@@ -157,7 +157,7 @@ public class ChatActivityTest {
         initActivity();
 
         onView(withId(R.id.message_edit_text))
-                .perform(typeText(MESSAGE_TEXT), closeSoftKeyboard());
+                .perform(typeText(MESSAGE_TEXT));
 
         onView(withId(R.id.attach))
                 .perform(click());
@@ -165,7 +165,7 @@ public class ChatActivityTest {
         messageRepository.sendMessage(conversation);
 
         onView(withId(R.id.message_edit_text))
-                .perform(typeText(MESSAGE_TEXT + " Other message"), closeSoftKeyboard());
+                .perform(typeText(MESSAGE_TEXT + " Other message"));
 
         onView(withId(R.id.attach))
                 .perform(click());

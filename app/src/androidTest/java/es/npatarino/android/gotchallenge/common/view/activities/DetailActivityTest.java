@@ -18,7 +18,8 @@ import org.mockito.Mock;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.*;
-import static es.npatarino.android.gotchallenge.testingtools.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
+import static es.npatarino.android.gotchallenge.testingtools.matchers.RecyclerViewItemsCountMatcher
+        .recyclerViewHasItemCount;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
 import static org.mockito.BDDMockito.given;
