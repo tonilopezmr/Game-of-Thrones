@@ -4,24 +4,26 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    buildToolsVersion '24'
 
     defaultConfig {
         applicationId "es.npatarino.android.gotchallenge"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 1
-        versionName "0.9"
+        versionName "1.0"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
     }
@@ -30,9 +32,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug{
-            applicationIdSuffix ".debug"
         }
     }
 
@@ -75,24 +74,25 @@ dependencies {
         exclude module: 'recyclerview-v7'
         exclude module: 'support-v4'
     }
-    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.6.2'
+    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.5'
 
     //test
     testCompile 'junit:junit:4.12'
+    testCompile 'com.google.dagger:dagger-compiler:2.0.2'
     testCompile 'org.mockito:mockito-core:1.10.19'
 
     //libraries
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
     compile 'com.google.code.gson:gson:2.4'
+    compile 'com.github.tonilopezmr:interactorexecutor:2.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-    compile 'com.google.dagger:dagger:2.6'
-    provided 'com.google.dagger:dagger-compiler:2.6'
+    apt 'com.google.dagger:dagger-compiler:2.0.2'
+    compile 'com.google.dagger:dagger:2.0.2'
+    compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.2'
 
     compile project (':emojis')
 }
-

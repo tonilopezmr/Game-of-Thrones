@@ -54,5 +54,4 @@ public class HouseNetworkDataSource implements HousesDomain.NetworkDataSource {
         });
     }
 
-
 }

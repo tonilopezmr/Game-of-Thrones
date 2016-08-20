@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.characters.detail.view.fragments;
+package es.npatarino.android.gotchallenge.characters.detail;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
