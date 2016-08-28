@@ -60,6 +60,8 @@ configurations.all {
 }
 
 dependencies {
+    def daggerVersion = "2.0.2"
+
     //android test
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
     androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
@@ -81,7 +83,6 @@ dependencies {
 
     //test
     testCompile 'junit:junit:4.12'
-    testCompile 'com.google.dagger:dagger-compiler:2.0.2'
     testCompile 'org.mockito:mockito-core:1.10.19'
 
     //libraries
@@ -91,8 +92,8 @@ dependencies {
     compile 'com.github.tonilopezmr:interactorexecutor:2.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
-    apt 'com.google.dagger:dagger-compiler:2.0.2'
-    compile 'com.google.dagger:dagger:2.0.2'
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.2'
