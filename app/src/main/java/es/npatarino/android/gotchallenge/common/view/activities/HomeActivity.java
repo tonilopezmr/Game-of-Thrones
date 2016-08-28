@@ -9,7 +9,7 @@ import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
-
+import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.common.view.adapters.SectionsPagerAdapter;
 
@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setCustomView(getCustomIcon(R.drawable.insignia_light, 100));
         tabLayout.getTabAt(1).setText("");
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 ImageView imageView = (ImageView) tab.getCustomView();
@@ -77,5 +77,13 @@ public class HomeActivity extends AppCompatActivity {
         imageView.setImageDrawable(icon);
         imageView.getDrawable().mutate().setAlpha(alpha);
         return imageView;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        GotChallengeApplication app = GotChallengeApplication.get(getApplicationContext());
+        app.releaseHouseComponent();
+        app.releaseCharacterComponent();
     }
 }

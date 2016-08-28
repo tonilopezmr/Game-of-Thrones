@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          android:enterFadeDuration="160"
+          android:exitFadeDuration="160"
+        >
+    <item android:state_selected="true" android:drawable="@drawable/ic_smiles_smile_active"></item>
+    <item android:state_selected="false" android:drawable="@drawable/ic_smiles_smile"></item>
+</selector>

@@ -37,7 +37,7 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
     private void save(BddHouse house) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
-            realm.copyToRealmOrUpdate(house);
+            realm1.copyToRealmOrUpdate(house);
         });
         realm.close();
     }
@@ -68,16 +68,16 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
 
     @Override
     public Observable<List<GoTHouse>> getAll() {
-        return Observable.create(subscriber -> {
+        return Observable.fromCallable(() -> {
             Realm realm = Realm.getDefaultInstance();
             List<BddHouse> result = realm.where(BddHouse.class).findAll();
-            subscriber.onNext(mapper.inverseMap(result));
+            List<GoTHouse> goTHouses = mapper.inverseMap(result);
             realm.close();
-            subscriber.onCompleted();
+            return goTHouses;
         });
     }
 
-    public BddHouse find(GoTHouse house) {
+    private BddHouse find(GoTHouse house) {
         Realm realm = Realm.getDefaultInstance();
         BddHouse bddHouse = realm.where(BddHouse.class)
                 .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getHouseId())

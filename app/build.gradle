@@ -15,13 +15,13 @@ apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 24
+    buildToolsVersion '24.0.1'
 
     defaultConfig {
         applicationId "es.npatarino.android.gotchallenge"
         minSdkVersion 14
-        targetSdkVersion 23
+        targetSdkVersion 24
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
@@ -60,48 +60,43 @@ configurations.all {
 }
 
 dependencies {
-    def androidTestVersion = '0.5'
-    def dexmakerVersion = '1.2'
-    def androidSupportVersion = '23.3.0'
-    def dagger2Version = '2.0.2'
+    def daggerVersion = "2.6.1"
 
     //android test
-    androidTestCompile "com.android.support.test:runner:${androidTestVersion}"
-    androidTestCompile "com.android.support.test:rules:${androidTestVersion}"
+    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
+    androidTestCompile('com.google.dexmaker:dexmaker-mockito:1.2') {
+        exclude group: 'org.hamcrest', module: 'hamcrest-core'
+    }
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2') {
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
         exclude group: 'javax.inject', module: 'javax.inject'
         exclude group: 'com.squareup', module: 'javawriter'
     }
-
     androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
         exclude module: 'support-annotations'
         exclude module: 'recyclerview-v7'
         exclude module: 'support-v4'
     }
-
-    androidTestCompile "com.google.dexmaker:dexmaker:${dexmakerVersion}"
-    androidTestCompile("com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}") {
-        exclude group: 'org.hamcrest', module: 'hamcrest-core'
-    }
-
-    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.5'
+    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
 
     //test
     testCompile 'junit:junit:4.12'
-    testCompile "com.google.dagger:dagger-compiler:${dagger2Version}"
     testCompile 'org.mockito:mockito-core:1.10.19'
 
     //libraries
-    compile "com.android.support:appcompat-v7:${androidSupportVersion}"
-    compile "com.android.support:design:${androidSupportVersion}"
-    apt "com.google.dagger:dagger-compiler:${dagger2Version}"
-    compile "com.google.dagger:dagger:${dagger2Version}"
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:design:24.2.0'
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.github.tonilopezmr:interactorexecutor:2.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile "com.google.dagger:dagger:${daggerVersion}"
+    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
     compile 'org.glassfish:javax.annotation:10.0-b28'
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.2'
+
+    compile project (':emojis')
 }

@@ -1,0 +1,11 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+          android:enterFadeDuration="160"
+          android:exitFadeDuration="160"
+        >
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#ffcbcbcb"/>
+        </shape>
+    </item>
+
+</selector>

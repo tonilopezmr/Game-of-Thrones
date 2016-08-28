@@ -19,10 +19,10 @@ public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataS
     private EndPoint endPoint;
     private final CharacterJsonMapper characterCharacterJsonMapper;
 
-    public CharacterNetworkDataSource(CharacterJsonMapper characterCharacterJsonMapper,
+    public CharacterNetworkDataSource(CharacterJsonMapper jsonMapper,
                                       EndPoint endPoint,
                                       OkHttpClient client) {
-        this.characterCharacterJsonMapper = characterCharacterJsonMapper;
+        this.characterCharacterJsonMapper = jsonMapper;
         this.endPoint = endPoint;
         this.client = client;
     }
@@ -39,16 +39,9 @@ public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataS
 
     @Override
     public Observable<List<GoTCharacter>> getAll() {
-        return Observable.create(subscriber -> {
-            try {
-                StringBuffer response = getCharactersFromUrl(endPoint.toString());
-
-                subscriber.onNext(characterCharacterJsonMapper.transformList(response.toString()));
-            } catch (Exception e) {
-                e.printStackTrace();
-                subscriber.onError(e);
-            }
-            subscriber.onCompleted();
+        return Observable.fromCallable(() -> {
+            StringBuffer response = getCharactersFromUrl(endPoint.toString());
+            return characterCharacterJsonMapper.transformList(response.toString());
         });
     }
 

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingRight="@dimen/message_margin"
+              android:paddingLeft="@dimen/message_margin"
+              android:layout_marginBottom="6dp"
+              android:gravity="bottom">
+
+
+    <ImageView
+            android:id="@+id/avatar_image"
+            android:layout_width="@dimen/avatar_cell"
+            android:layout_height="@dimen/avatar_cell" />
+
+
+    <LinearLayout
+            android:id="@+id/message_container"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/message_margin">
+
+        <TextView
+                android:id="@+id/display_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/message_name_margin_bottom"
+                style="@style/MessageName"
+                tools:text="Daenerys"/>
+
+        <TextView
+                android:id="@+id/message_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@android:color/black"
+                tools:text="Hello Toni!\nHey wHATS UPP?\nMy name is better with butter peanut!"/>
+
+    </LinearLayout>
+
+</LinearLayout>

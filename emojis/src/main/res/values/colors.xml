@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg_keyboard">#ffffffff</color>
+    <color name="tab_divider">#ff0fff0e</color>
+    <color name="bg_tab_selected">#ff74c8ff</color>
+    <color name="edit_text_hint">#aaa</color>
+    <color name="edit_text_text">#000</color>
+    <color name="observable_layout_background">#fff</color>
+
+</resources>

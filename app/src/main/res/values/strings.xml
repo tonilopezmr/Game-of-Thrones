@@ -2,5 +2,6 @@
     <string name="app_name">GoT - Challenge</string>
     <string name="title_activity_home">Game of Thrones</string>
     <string name="action_settings">Settings</string>
+    <string name="new_message_hint">Type a message</string>
 
 </resources>

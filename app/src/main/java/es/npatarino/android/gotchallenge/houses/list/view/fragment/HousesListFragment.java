@@ -11,10 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.di.modules.ActivityModule;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
-import es.npatarino.android.gotchallenge.houses.di.DaggerHousesComponent;
-import es.npatarino.android.gotchallenge.houses.di.HousesModule;
+import es.npatarino.android.gotchallenge.houses.di.HouseListActivityModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
 import es.npatarino.android.gotchallenge.houses.list.view.adapters.HouseAdapter;
@@ -44,20 +42,16 @@ public class HousesListFragment extends Fragment implements ViewList<GoTHouse> {
         rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
 
-        initUi();
-
         gotHouseListPresenter.setView(this);
         gotHouseListPresenter.init();
         return rootView;
     }
 
     private void initDagger() {
-        GotChallengeApplication app = (GotChallengeApplication) getActivity().getApplication();
-        DaggerHousesComponent.builder()
-                .appComponent(app.getAppComponent())
-                .activityModule(new ActivityModule(getActivity()))
-                .housesModule(new HousesModule())
-                .build().inject(this);
+        GotChallengeApplication.get(getContext())
+                .getHouseComponent()
+                .plus(new HouseListActivityModule())
+                .inject(this);
     }
 
     @Override

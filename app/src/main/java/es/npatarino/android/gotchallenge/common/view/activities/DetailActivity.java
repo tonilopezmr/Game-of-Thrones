@@ -14,11 +14,10 @@ import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListByHouseFragment;
-import es.npatarino.android.gotchallenge.characters.detail.view.fragments.CharacterDescriptionFragment;
+import es.npatarino.android.gotchallenge.characters.detail.CharacterDescriptionFragment;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private static final String TAG = "DetailActivity";
     public static final String CHARACTER_IMAGE = "character.image";
     public static final String HOUSE_IMAGE = "house.image";
 

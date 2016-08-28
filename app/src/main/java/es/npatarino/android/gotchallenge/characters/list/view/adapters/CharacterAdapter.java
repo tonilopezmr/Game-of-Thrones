@@ -1,9 +1,6 @@
 package es.npatarino.android.gotchallenge.characters.list.view.adapters;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +10,14 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.common.navigation.DetailActivityNavigatorBuilder;
 import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.GotCharacterViewHolder> {
 
     private final List<GoTCharacter> gcs;
     private Activity activity;
@@ -36,32 +34,26 @@ public class CharacterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GotCharacterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new GotCharacterViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.got_character_row, parent, false));
+                                                .from(parent.getContext())
+                                                .inflate(R.layout.got_character_row, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final GotCharacterViewHolder gotCharacterViewHolder = (GotCharacterViewHolder) holder;
+    public void onBindViewHolder(final GotCharacterViewHolder holder, final int position) {
         final GoTCharacter character = gcs.get(position);
-        gotCharacterViewHolder.render(character);
-        final GotCharacterViewHolder viewHolder = ((GotCharacterViewHolder) holder);
-        viewHolder.imp.setOnClickListener(v -> moveToDetailActivity(gotCharacterViewHolder, character));
+        holder.render(character);
+        holder.imp.setOnClickListener(v -> moveToDetailActivity(holder, character));
     }
 
     private void moveToDetailActivity(GotCharacterViewHolder viewHolder, GoTCharacter character) {
-        ActivityOptionsCompat options =
-                ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-                                                                    viewHolder.itemView,
-                                                                    DetailActivity.CHARACTER_IMAGE);
-
-        Intent intent = new Intent(viewHolder.itemView.getContext(), DetailActivity.class);
-        intent.putExtra(DetailActivity.DESCRIPTION, character.getDescription());
-        intent.putExtra(DetailActivity.NAME, character.getName());
-        intent.putExtra(DetailActivity.IMAGE_URL, character.getImageUrl());
-        ActivityCompat.startActivity(activity, intent, options.toBundle());
+        new DetailActivityNavigatorBuilder(activity)
+                .makeTransition(viewHolder.itemView, DetailActivity.CHARACTER_IMAGE)
+                .name(character.getName())
+                .description(character.getDescription())
+                .imageUrl(character.getImageUrl())
+                .navigate();
     }
 
     @Override

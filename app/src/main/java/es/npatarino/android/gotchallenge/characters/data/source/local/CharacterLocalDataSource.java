@@ -39,7 +39,7 @@ public class CharacterLocalDataSource implements CharactersDomain.LocalDataSourc
     private void save(BddGoTCharacter character) {
         Realm realm = Realm.getDefaultInstance();
         realm.executeTransaction(realm1 -> {
-            realm.copyToRealmOrUpdate(character);
+            realm1.copyToRealmOrUpdate(character);
         });
         realm.close();
     }
@@ -69,44 +69,40 @@ public class CharacterLocalDataSource implements CharactersDomain.LocalDataSourc
 
     @Override
     public Observable<GoTCharacter> read(GoTCharacter entity) {
-        return Observable.create(subscriber -> {
+        return Observable.fromCallable(() -> {
             Realm realm = Realm.getDefaultInstance();
             BddGoTCharacter result = realm.where(BddGoTCharacter.class)
                     .equalTo(BddGoTCharacter.PRIMARY_KEY_NAME, entity.getName())
                     .findFirst();
-            subscriber.onNext(mapper.inverseMap(result));
+            GoTCharacter goTCharacter = mapper.inverseMap(result);
             realm.close();
-            subscriber.onCompleted();
+            return goTCharacter;
         });
     }
 
     @Override
     public Observable<List<GoTCharacter>> read(GoTHouse house) {
-        return Observable.create(subscriber -> {
+        return Observable.fromCallable(() -> {
             Realm realm = Realm.getDefaultInstance();
             List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class)
                     .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getHouseId())
                     .findAll();
-            subscriber.onNext(mapper.inverseMap(result));
+            List<GoTCharacter> goTCharacters = mapper.inverseMap(result);
             realm.close();
-            subscriber.onCompleted();
+            return goTCharacters;
+
         });
     }
 
     @Override
     public Observable<List<GoTCharacter>> getAll() {
-        return Observable.create(subscriber -> {
+        return Observable.fromCallable(() -> {
             Realm realm = Realm.getDefaultInstance();
-            try {
-                List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class).findAll();
-                subscriber.onNext(mapper.inverseMap(result));
-            } catch (Exception e) {
-                e.printStackTrace();
-                subscriber.onError(e);
-            } finally {
-                realm.close();
-                subscriber.onCompleted();
-            }
+
+            List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class).findAll();
+            List<GoTCharacter> goTCharacters = mapper.inverseMap(result);
+            realm.close();
+            return goTCharacters;
         });
     }
 

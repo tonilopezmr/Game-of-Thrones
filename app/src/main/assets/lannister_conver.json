@@ -1,0 +1,14 @@
+[
+  {
+    "fromMe": false,
+    "id": "1",
+    "message": "More beer!!",
+    "timestamp": 1,
+    "userFrom": {
+      "id": "",
+      "imageUrl": "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg",
+      "name": "Tyrion",
+      "state": ""
+    }
+  }
+]
