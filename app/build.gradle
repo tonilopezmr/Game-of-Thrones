@@ -60,7 +60,7 @@ configurations.all {
 }
 
 dependencies {
-    def daggerVersion = "2.0.2"
+    def daggerVersion = "2.6.1"
 
     //android test
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
@@ -79,7 +79,7 @@ dependencies {
         exclude module: 'recyclerview-v7'
         exclude module: 'support-v4'
     }
-    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.5'
+    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
 
     //test
     testCompile 'junit:junit:4.12'
