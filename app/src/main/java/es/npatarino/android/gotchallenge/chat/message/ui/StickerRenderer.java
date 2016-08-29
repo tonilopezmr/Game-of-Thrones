@@ -52,6 +52,9 @@ public class StickerRenderer extends Renderer<Message> {
             avatarImageView.setVisibility(View.GONE);
             rootView.setGravity(Gravity.BOTTOM | Gravity.END);
         } else {
+            avatarImageView.setVisibility(View.VISIBLE);
+            rootView.setGravity(Gravity.BOTTOM | Gravity.START);
+
             Picasso.with(avatarImageView.getContext())
                     .load(message.getUser().getImageUrl())
                     .transform(new CircleTransform())

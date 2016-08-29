@@ -3,6 +3,8 @@
 
 Cloned from [https://github.com/idealista-tech/got-challenge-for-android](https://github.com/idealista-tech/got-challenge-for-android) and refactored.
 
+![gif]
+
 I have participated in challenge and I will continue improving!
 
 You can follow the commits flow to see how I refactoring.
@@ -35,7 +37,7 @@ This behaviour it's done in two different Activities, one for the two lists and 
 6. **Capability to work offline**
 7. **Testing with Espresso and Mockito**
 8. **Animations**
-9. Ui Chat 
+9. **Ui Chat** 
 
 Thanks to [Guillermo López][0] for giving me the GoT Icons
 
@@ -59,4 +61,5 @@ limitations under the License.
 [ScreenshotListHouses]: ./art/ScreenshotListHouses.png
 [ScreenshotDetail]: ./art/ScreenshotDetail.png
 [GameOfThronesLink]: http://www.imdb.com/title/tt0944947/
+[gif]: ./art/gotgif.gif
 [0]: https://github.com/lopermo
