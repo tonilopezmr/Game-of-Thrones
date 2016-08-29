@@ -9,13 +9,23 @@ public class MessageEntity {
     private long timestamp;
     private boolean fromMe;
     private String message;
+    private String messageImageUrl;
+    private String sticker;
 
-    public MessageEntity(String id, User userFrom, long timestamp, boolean fromMe, String message) {
+    public MessageEntity(String id,
+                         User userFrom,
+                         long timestamp,
+                         boolean fromMe,
+                         String message,
+                         String messageImageUrl,
+                         String sticker) {
         this.id = id;
         this.userFrom = userFrom;
         this.timestamp = timestamp;
         this.fromMe = fromMe;
         this.message = message;
+        this.messageImageUrl = messageImageUrl;
+        this.sticker = sticker;
     }
 
     public String getId() {
@@ -36,5 +46,13 @@ public class MessageEntity {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getImageUrl() {
+        return messageImageUrl;
+    }
+
+    public String getSticker() {
+        return sticker;
     }
 }

@@ -21,34 +21,17 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/message_margin"
-            android:layout_marginStart="@dimen/message_margin">
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin">
 
-        <TextView
-                android:id="@+id/display_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/message_name_margin_bottom"
-                style="@style/MessageName"
-                tools:text="Daenerys"/>
-
-        <es.npatarino.android.gotchallenge.base.ui.ResizeImageView
-                android:id="@+id/message_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <ImageView
+                android:id="@+id/sticker_image"
+                android:layout_width="@dimen/sticker_view"
+                android:layout_height="@dimen/sticker_view"
                 android:textColor="@android:color/black"
-                android:layout_marginTop="@dimen/message_margin"
-                android:layout_marginBottom="@dimen/message_margin"
                 tools:layout_width="200dp"
                 tools:layout_height="300dp"
                 tools:background="@color/colorAccent"/>
-
-        <TextView
-                android:id="@+id/message_text"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textColor="@android:color/black"
-                tools:text="Hello Toni!"/>
 
     </LinearLayout>
 

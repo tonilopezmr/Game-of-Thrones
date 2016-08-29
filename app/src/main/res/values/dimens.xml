@@ -14,4 +14,5 @@
     <dimen name="message_margin">8dp</dimen>
     <dimen name="message_name_margin_bottom">3dp</dimen>
     <dimen name="avatar_cell">40dp</dimen>
+    <dimen name="sticker_view">160dp</dimen>
 </resources>

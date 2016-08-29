@@ -2,13 +2,27 @@
   {
     "fromMe": false,
     "id": "1",
-    "message": "More beer!!",
+    "message": "I am the god of tits and wine",
     "timestamp": 1,
     "userFrom": {
       "id": "",
       "imageUrl": "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg",
       "name": "Tyrion",
       "state": ""
-    }
+    },
+    "messageImageUrl": "http://geekynikki.com/wp-content/uploads/2016/03/640px-game_of_thrones_season_3_episode_8_preview.jpg"
+  },
+  {
+    "fromMe": false,
+    "id": "3",
+    "message": "",
+    "timestamp": 3,
+    "userFrom": {
+      "id": "2",
+      "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/fc0eae6d-bdc9-478a-b470-5e2196d3f54e.jpg",
+      "name": "Cersei",
+      "state": ""
+    },
+    "sticker": "sticker1842540969984021.webp"
   }
 ]

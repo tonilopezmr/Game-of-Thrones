@@ -16,7 +16,7 @@ public class TextPayLoad implements Payload {
         this.message = new SpannableString(message);
     }
 
-    public Spannable getMessage() {
+    public Spannable getTextMessage() {
         return message;
     }
 
