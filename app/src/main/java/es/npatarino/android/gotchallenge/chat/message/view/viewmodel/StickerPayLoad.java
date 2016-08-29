@@ -15,7 +15,7 @@ public class StickerPayLoad implements Payload {
         return stickerFilePath;
     }
 
-    public Uri getSticker(){
+    public Uri getSticker() {
         return Uri.parse(stickerFilePath);
     }
 }

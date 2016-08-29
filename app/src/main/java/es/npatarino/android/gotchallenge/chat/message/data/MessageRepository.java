@@ -63,10 +63,11 @@ public class MessageRepository implements MessageDomain.Repository {
             String sticker = messageEntity.getSticker();
             String imageUrl = messageEntity.getImageUrl();
 
-            if (imageUrl != null && !imageUrl.isEmpty()){
+            if (imageUrl != null && !imageUrl.isEmpty()) {
                 payload = new ImagePayload(imageUrl, messageEntity.getMessage());
             } else if (sticker != null && !sticker.isEmpty()) {
-                payload = new StickerPayLoad("/data/user/0/es.npatarino.android.gotchallenge.debug/cache/"+messageEntity.getSticker());
+                payload = new StickerPayLoad("/data/user/0/es.npatarino.android.gotchallenge.debug/cache/"
+                        + messageEntity.getSticker());
             }
 
             messages.add(new Message(messageEntity.getId(),

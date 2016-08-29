@@ -16,7 +16,7 @@ public class ImagePayload extends TextPayLoad {
         this.imageUrl = imageUrl;
     }
 
-    public String getImageMessage(){
+    public String getImageMessage() {
         return imageUrl;
     }
 
