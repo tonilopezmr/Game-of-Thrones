@@ -37,7 +37,7 @@ public class HouseLocalDataSourceTest {
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder(InstrumentationRegistry.getTargetContext())
                 .name("test.realm")
-                .schemaVersion(7)
+                .schemaVersion(8)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
@@ -53,7 +53,10 @@ public class HouseLocalDataSourceTest {
         dataSource.save(houseList);
 
         dataSource.getAll()
-                .subscribe(list -> assertHouseList(houseList, list), throwable -> fail());
+                .subscribe(list -> assertHouseList(houseList, list), throwable -> {
+                    fail();
+                    dataSource.removeAll(houseList);
+                });
 
         dataSource.removeAll(houseList);
     }
