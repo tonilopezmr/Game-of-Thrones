@@ -59,7 +59,7 @@ public class StickerRenderer extends Renderer<Message> {
             avatarImageView.setVisibility(View.VISIBLE);
             rootView.setGravity(Gravity.BOTTOM | Gravity.START);
 
-            imageLoader.Builder()
+            imageLoader.builder()
                     .load(message.getUser().getImageUrl())
                     .placeHolder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
                             R.drawable.ned_head_light))

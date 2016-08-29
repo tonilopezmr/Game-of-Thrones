@@ -15,8 +15,6 @@ import es.npatarino.android.gotchallenge.characters.detail.CharacterDescriptionF
 import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListByHouseFragment;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
-import javax.inject.Inject;
-
 public class DetailActivity extends AppCompatActivity {
 
     public static final String CHARACTER_IMAGE = "character.image";
@@ -50,7 +48,7 @@ public class DetailActivity extends AppCompatActivity {
     private void showImage(String imageUrl) {
         ImageView photoImageView = (ImageView) findViewById(R.id.photoImageView);
         initTransitionInImageView(photoImageView);
-        imageLoader.Builder()
+        imageLoader.builder()
                 .load(imageUrl)
                 .into(photoImageView)
                 .show();

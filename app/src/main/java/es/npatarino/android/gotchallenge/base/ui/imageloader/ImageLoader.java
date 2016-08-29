@@ -3,10 +3,9 @@ package es.npatarino.android.gotchallenge.base.ui.imageloader;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-import com.squareup.picasso.Target;
 
 public abstract class ImageLoader {
-    public abstract ImageLoaderBuilder Builder();
+    public abstract ImageLoaderBuilder builder();
 
     public interface ImageLoaderBuilder {
         void show();
@@ -20,7 +19,6 @@ public abstract class ImageLoader {
         ImageLoaderBuilder resize(int targetWidth, int targetHeight);
         ImageLoaderBuilder centerCrop();
         ImageLoaderBuilder fit();
-
         ImageLoaderBuilder circle();
     }
 
@@ -35,9 +33,6 @@ public abstract class ImageLoader {
         protected boolean fit;
         protected int with;
         protected int height;
-
-        public Builder(){
-        }
 
         @Override
         public ImageLoaderBuilder with(Context context) {

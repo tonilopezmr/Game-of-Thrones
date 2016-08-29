@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.chat.ui.navigator.ChatActivityNavigator;
@@ -71,7 +70,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         public void render(final GoTHouse house) {
-            imageLoader.Builder()
+            imageLoader.builder()
                     .load(house.getHouseImageUrl())
                     .fit()
                     .into(imp)

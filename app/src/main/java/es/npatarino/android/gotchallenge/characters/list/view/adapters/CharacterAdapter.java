@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
@@ -77,7 +76,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.GotC
         }
 
         void render(final GoTCharacter character) {
-            imageLoader.Builder()
+            imageLoader.builder()
                     .load(character.getImageUrl())
                     .fit()
                     .into(imp)

@@ -2,7 +2,6 @@ package es.npatarino.android.gotchallenge.chat.message.ui;
 
 import android.support.v7.widget.AppCompatDrawableManager;
 import android.text.Spannable;
-import android.text.style.IconMarginSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.pedrogomez.renderers.Renderer;
-import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
@@ -75,7 +72,7 @@ public class MessageRenderer extends Renderer<Message> {
         displayNameTextView.setVisibility(View.VISIBLE);
         avatarImageView.setVisibility(View.VISIBLE);
 
-        imageLoader.Builder()
+        imageLoader.builder()
                 .load(user.getImageUrl())
                 .placeHolder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
                         R.drawable.ned_head_light))
@@ -91,7 +88,7 @@ public class MessageRenderer extends Renderer<Message> {
     private void displayPayLoad(Payload payload) {
         if (payload instanceof ImagePayload) {
             ImagePayload imagePayload = (ImagePayload) payload;
-            imageLoader.Builder()
+            imageLoader.builder()
                     .load(imagePayload.getImageMessage())
                     .placeHolder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
                             R.drawable.ned_head_light))

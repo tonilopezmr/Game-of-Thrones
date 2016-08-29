@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
 import es.npatarino.android.gotchallenge.base.ui.Utilities;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
@@ -112,7 +111,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
                 setAvatar(placeHolderDrawable);
             }
         };
-        imageLoader.Builder()  //TODO: Because garbage collector destroy target
+        imageLoader.builder()  //TODO: Because garbage collector destroy target
                 .with(context)
                 .load(imageUrl)
                 .circle()

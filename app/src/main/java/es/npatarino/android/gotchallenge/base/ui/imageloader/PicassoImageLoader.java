@@ -12,7 +12,7 @@ public class PicassoImageLoader extends ImageLoader {
     }
 
     @Override
-    public Builder Builder() {
+    public Builder builder() {
         return new Builder();
     }
 
