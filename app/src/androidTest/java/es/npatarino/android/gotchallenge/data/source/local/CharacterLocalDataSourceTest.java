@@ -54,7 +54,6 @@ public class CharacterLocalDataSourceTest {
 
         dataSource.save(goTCharacters);
 
-
         dataSource.getAll()
                 .subscribe(list -> assertGotCharacterList(goTCharacters, list), throwable -> fail());
 
