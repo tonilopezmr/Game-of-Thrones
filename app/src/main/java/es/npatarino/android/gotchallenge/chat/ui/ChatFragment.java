@@ -32,7 +32,7 @@ import java.util.List;
 public class ChatFragment extends Fragment implements MessageView, OnBackListener {
 
     private RecyclerView messageRecyclerView;
-    private RVRendererAdapter adapter;
+    private RVRendererAdapter<Message> adapter;
     private View rootView;
 
     //emoji section
@@ -162,6 +162,7 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
         SortedMessageCollection sortedMessageCollection = new SortedMessageCollection();
         adapter = new RVRendererAdapter<Message>(new MessageRenderBuilder(), sortedMessageCollection);
         sortedMessageCollection.init(adapter);
+
         initRecyclerView(adapter);
         hideKeyboard();
     }
