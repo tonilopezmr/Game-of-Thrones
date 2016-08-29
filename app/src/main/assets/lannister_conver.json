@@ -9,6 +9,33 @@
       "imageUrl": "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg",
       "name": "Tyrion",
       "state": ""
-    }
+    },
+    "messageImageUrl": "http://mediad.publicbroadcasting.net/p/krcu/files/201604/beer_10.jpg"
+  },
+  {
+    "fromMe": false,
+    "id": "2",
+    "message": "",
+    "timestamp": 2,
+    "userFrom": {
+      "id": "",
+      "imageUrl": "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg",
+      "name": "Tyrion",
+      "state": ""
+    },
+    "messageImageUrl": "http://images.crateandbarrel.com/is/image/Crate/SpiegelauWheatBeerGlass26ozSHS16"
+  },
+  {
+    "fromMe": false,
+    "id": "3",
+    "message": "",
+    "timestamp": 3,
+    "userFrom": {
+      "id": "2",
+      "imageUrl": "https://s3-eu-west-1.amazonaws.com/npatarino/got/fc0eae6d-bdc9-478a-b470-5e2196d3f54e.jpg",
+      "name": "Cersei",
+      "state": ""
+    },
+    "sticker": "sticker1842540969984021.webp"
   }
 ]

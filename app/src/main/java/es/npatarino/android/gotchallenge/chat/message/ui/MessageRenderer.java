@@ -1,40 +1,60 @@
 package es.npatarino.android.gotchallenge.chat.message.ui;
 
 import android.support.v7.widget.AppCompatDrawableManager;
-import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.pedrogomez.renderers.Renderer;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.ImagePayload;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;
+import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.ImagePayload;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 
-public class MessageCellViewHolder extends RecyclerView.ViewHolder {
+public class MessageRenderer extends Renderer<Message> {
 
     private TextView displayNameTextView;
     private TextView messageTextView;
     private ImageView avatarImageView;
     private LinearLayout messageContainer;
+    private ImageView messageImageView;
 
     private LinearLayout rootView;
 
-    public MessageCellViewHolder(View itemView) {
-        super(itemView);
-        this.rootView = (LinearLayout) itemView;
-        displayNameTextView = (TextView) itemView.findViewById(R.id.display_name);
-        messageTextView = (TextView) itemView.findViewById(R.id.message_text);
-        avatarImageView = (ImageView) itemView.findViewById(R.id.avatar_image);
-        messageContainer = (LinearLayout) itemView.findViewById(R.id.message_container);
+    @Override
+    protected void setUpView(View rootView) {
+        this.rootView = (LinearLayout) rootView;
+        displayNameTextView = (TextView) rootView.findViewById(R.id.display_name);
+        messageTextView = (TextView) rootView.findViewById(R.id.message_text);
+        messageImageView = (ImageView) rootView.findViewById(R.id.message_image);
+        avatarImageView = (ImageView) rootView.findViewById(R.id.avatar_image);
+        messageContainer = (LinearLayout) rootView.findViewById(R.id.message_container);
     }
 
-    public void render(Message message) {
+    @Override
+    protected void hookListeners(View rootView) {
+
+    }
+
+    @Override
+    protected View inflate(LayoutInflater inflater, ViewGroup parent) {
+        return LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.cell_message, parent, false);
+    }
+
+    @Override
+    public void render() {
+        Message message = getContent();
+
         if (message.isFromMe()) {
             renderMessageForMe(message);
         } else {
@@ -44,7 +64,7 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
 
     private void renderMessageFromOthers(Message message) {
         User user = message.getUser();
-        rootView.setGravity(Gravity.BOTTOM | Gravity.START | Gravity.LEFT);
+        rootView.setGravity(Gravity.BOTTOM | Gravity.START);
         displayNameTextView.setVisibility(View.VISIBLE);
         avatarImageView.setVisibility(View.VISIBLE);
 
@@ -52,7 +72,7 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
                 .load(user.getImageUrl())
                 .transform(new CircleTransform())
                 .placeholder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
-                                                                        R.drawable.ned_head_light))
+                        R.drawable.ned_head_light))
                 .into(avatarImageView);
 
 
@@ -62,16 +82,24 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void displayPayLoad(Payload payload) {
-        if (payload instanceof TextPayLoad) {
-            TextPayLoad textPayload = (TextPayLoad) payload;
-            messageTextView.setText(textPayload.getMessage());
-        } else if (payload instanceof ImagePayload) {
-            //TODO continue
+        if (payload instanceof ImagePayload) {
+            ImagePayload imagePayload = (ImagePayload) payload;
+            Picasso.with(messageImageView.getContext())
+                    .load(imagePayload.getImageMessage())
+                    .placeholder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
+                            R.drawable.ned_head_light))
+                    .into(messageImageView);
+        } else {
+            messageImageView.setVisibility(View.GONE);
         }
+
+        TextPayLoad textPayload = (TextPayLoad) payload;
+        Spannable textMessage = textPayload.getTextMessage();
+        messageTextView.setText(textMessage);
     }
 
     private void renderMessageForMe(Message message) {
-        rootView.setGravity(Gravity.BOTTOM | Gravity.END | Gravity.RIGHT);
+        rootView.setGravity(Gravity.BOTTOM | Gravity.END);
 
         displayNameTextView.setVisibility(View.GONE);
         avatarImageView.setVisibility(View.GONE);
@@ -79,5 +107,4 @@ public class MessageCellViewHolder extends RecyclerView.ViewHolder {
 
         displayPayLoad(message.getPayload());
     }
-
 }

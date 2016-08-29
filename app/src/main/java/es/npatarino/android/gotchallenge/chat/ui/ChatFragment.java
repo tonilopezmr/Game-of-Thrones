@@ -6,21 +6,22 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.KeyEvent;
+import android.view.*;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import com.pedrogomez.renderers.RVRendererAdapter;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.di.ChatFragmentModule;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;
 import es.npatarino.android.gotchallenge.chat.message.presenter.MessagePresenter;
+import es.npatarino.android.gotchallenge.chat.message.ui.MessageRenderBuilder;
+import es.npatarino.android.gotchallenge.chat.message.ui.SortedMessageCollection;
 import es.npatarino.android.gotchallenge.chat.message.view.MessageView;
+import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.StickerPayLoad;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import net.mobindustry.emojilib.EmojiPanel;
 
@@ -31,7 +32,7 @@ import java.util.List;
 public class ChatFragment extends Fragment implements MessageView, OnBackListener {
 
     private RecyclerView messageRecyclerView;
-    private ChatAdapter adapter;
+    private RVRendererAdapter adapter;
     private View rootView;
 
     //emoji section
@@ -73,18 +74,17 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
     private void initEmojiPanel(View rootView) {
         rootEmojiKeyBoard = (FrameLayout) rootView.findViewById(R.id.root_frame_layout);
         emojiPanel = new EmojiPanel(getActivity(), rootEmojiKeyBoard, new EmojiPanel.EmojiClickCallback() {
+
             @Override
             public void sendClicked(Spannable span) {
                 if (span.length() != 0) {
-                    long timestamp = System.currentTimeMillis();
-                    messagePresenter.send(new Message("" + timestamp, null, timestamp, true, new TextPayLoad(span)));
-                    scrollToBottom();
+                    sendMessage(new TextPayLoad(span));
                 }
             }
 
             @Override
             public void stickerClicked(String path) {
-                //Todo do nothing, show sticker
+                sendMessage(new StickerPayLoad(path));
             }
         });
 
@@ -92,6 +92,12 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
         emojiPanel.init();
 
         initOnBackPressed(rootView);
+    }
+
+    private void sendMessage(Payload payload) {
+        long timestamp = System.currentTimeMillis();
+        messagePresenter.send(new Message("" + timestamp, null, timestamp, true, payload));
+        scrollToBottom();
     }
 
     private void initOnBackPressed(View rootView) {
@@ -108,7 +114,7 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
         });
     }
 
-    private void initRecyclerView(ChatAdapter chatAdapter) {
+    private void initRecyclerView(RVRendererAdapter chatAdapter) {
         messageRecyclerView.setAdapter(chatAdapter);
 
         LinearLayoutManager recyclerViewManager = new LinearLayoutManager(getActivity());
@@ -153,7 +159,9 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
 
     @Override
     public void initUi() {
-        adapter = new ChatAdapter();
+        SortedMessageCollection sortedMessageCollection = new SortedMessageCollection();
+        adapter = new RVRendererAdapter<Message>(new MessageRenderBuilder(), sortedMessageCollection);
+        sortedMessageCollection.init(adapter);
         initRecyclerView(adapter);
         hideKeyboard();
     }

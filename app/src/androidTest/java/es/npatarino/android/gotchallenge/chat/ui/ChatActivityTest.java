@@ -125,7 +125,7 @@ public class ChatActivityTest {
         RecyclerViewInteraction.<Message>onRecyclerView(withId(R.id.recycler_view))
                 .withItems(Arrays.asList(new Message("1", null, 2, true, new TextPayLoad(MESSAGE_TEXT))))
                 .check((item, view, e) -> {
-                    String message = ((TextPayLoad) item.getPayload()).getMessage().toString();
+                    String message = ((TextPayLoad) item.getPayload()).getTextMessage().toString();
                     matches(hasDescendant(withText(message))).check(view, e);
                 });
     }

@@ -6,6 +6,9 @@ import com.google.gson.Gson;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.message.MessageDomain;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;
+import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.ImagePayload;
+import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.StickerPayLoad;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import rx.Observable;
 import rx.subjects.PublishSubject;
@@ -55,11 +58,22 @@ public class MessageRepository implements MessageDomain.Repository {
     private List<Message> transform(MessageEntity[] parsedList) {
         List<Message> messages = new ArrayList<>();
         for (MessageEntity messageEntity : parsedList) {
+            Payload payload = new TextPayLoad(messageEntity.getMessage());
+
+            String sticker = messageEntity.getSticker();
+            String imageUrl = messageEntity.getImageUrl();
+
+            if (imageUrl != null && !imageUrl.isEmpty()){
+                payload = new ImagePayload(imageUrl, messageEntity.getMessage());
+            } else if (sticker != null && !sticker.isEmpty()) {
+                payload = new StickerPayLoad("/data/user/0/es.npatarino.android.gotchallenge.debug/cache/"+messageEntity.getSticker());
+            }
+
             messages.add(new Message(messageEntity.getId(),
                     messageEntity.getUserFrom(),
                     messageEntity.getTimestamp(),
                     messageEntity.isFromMe(),
-                    new TextPayLoad(messageEntity.getMessage())));
+                    payload));
         }
         return messages;
     }
