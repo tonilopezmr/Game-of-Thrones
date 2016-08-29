@@ -37,7 +37,7 @@ public class HouseLocalDataSourceTest {
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder(InstrumentationRegistry.getTargetContext())
                 .name("test.realm")
-                .schemaVersion(6)
+                .schemaVersion(7)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);

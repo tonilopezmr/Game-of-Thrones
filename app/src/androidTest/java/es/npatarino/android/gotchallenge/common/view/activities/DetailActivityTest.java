@@ -3,6 +3,7 @@ package es.npatarino.android.gotchallenge.common.view.activities;
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
@@ -10,6 +11,7 @@ import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarTitleViewAssertion;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +41,12 @@ public class DetailActivityTest {
 
     @Mock
     CharactersDomain.Repository repository;
+
+    @After
+    public void tearDown() throws Exception {
+        GotChallengeApplication app = EspressoDaggerMockRule.getApp();
+        app.releaseCharacterComponent();
+    }
 
     @Test
     public void

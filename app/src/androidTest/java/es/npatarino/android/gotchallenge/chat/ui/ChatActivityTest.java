@@ -1,7 +1,11 @@
 package es.npatarino.android.gotchallenge.chat.ui;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.v7.widget.RecyclerView;
+import com.pedrogomez.renderers.RVRendererAdapter;
+import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.chat.conversation.ConversationDomain;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
@@ -9,8 +13,10 @@ import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
 import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
+import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerSortedViewAssertion;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,6 +24,7 @@ import rx.Observable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -54,6 +61,13 @@ public class ChatActivityTest {
 
     @Mock
     ConversationDomain.Repository conversationRepository;
+
+    @After
+    public void tearDown() throws Exception {
+        GotChallengeApplication app = EspressoDaggerMockRule.getApp();
+        app.releaseConversationComponent();
+        app.releaseMessageComponent();
+    }
 
     @Test
     public void
@@ -140,10 +154,7 @@ public class ChatActivityTest {
         initActivity();
 
         onView(withId(R.id.recycler_view))
-                .check(RecyclerSortedViewAssertion.isSorted(recyclerView -> {
-                    ChatAdapter adapter = (ChatAdapter) recyclerView.getAdapter();
-                    return adapter.getItems();
-                }));
+                .check(RecyclerSortedViewAssertion.isSorted(this::getAdapterMessages));
     }
 
     @Test
@@ -173,10 +184,21 @@ public class ChatActivityTest {
         messageRepository.sendMessage(conversation);
 
         onView(withId(R.id.recycler_view))
-                .check(RecyclerSortedViewAssertion.isSorted(recyclerView -> {
-                    ChatAdapter adapter = (ChatAdapter) recyclerView.getAdapter();
-                    return adapter.getItems();
-                }));
+                .check(RecyclerSortedViewAssertion.isSorted(this::getAdapterMessages));
+    }
+
+    private List<Message> getAdapterMessages(RecyclerView recyclerView) {
+        RVRendererAdapter<Message> adapter = (RVRendererAdapter<Message>) recyclerView.getAdapter();
+        return getMessages(adapter);
+    }
+
+    @NonNull
+    private LinkedList<Message> getMessages(RVRendererAdapter<Message> adapter) {
+        LinkedList<Message> messages = new LinkedList<Message>();
+        for (int i = 0, size = adapter.getItemCount(); i < size; i++) {
+            messages.add(adapter.getItem(i));
+        }
+        return messages;
     }
 
     private Observable<Conversation> getConversationObservable() {
