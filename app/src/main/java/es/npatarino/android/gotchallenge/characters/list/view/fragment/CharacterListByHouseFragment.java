@@ -12,6 +12,7 @@ import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.detail.view.DetailView;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.characters.di.CharacterListActivityModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
@@ -31,6 +32,8 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
 
     @Inject
     CharacterListByHousePresenter characterListByHousePresenter;
+    @Inject
+    ImageLoader imageLoader;
 
 
     @Override
@@ -62,7 +65,7 @@ public class CharacterListByHouseFragment extends Fragment implements DetailView
 
     @Override
     public void initUi() {
-        adp = new CharacterAdapter(getActivity());
+        adp = new CharacterAdapter(imageLoader, getActivity());
         rv.setAdapter(adp);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);

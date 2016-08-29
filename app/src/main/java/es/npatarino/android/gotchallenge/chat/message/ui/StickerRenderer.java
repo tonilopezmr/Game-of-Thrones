@@ -9,18 +9,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.pedrogomez.renderers.Renderer;
-import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.StickerPayLoad;
 
 public class StickerRenderer extends Renderer<Message> {
 
+    private final ImageLoader imageLoader;
     private ImageView stickerImageView;
     private ImageView avatarImageView;
 
     private LinearLayout rootView;
+
+    public StickerRenderer(ImageLoader imageLoader) {
+        this.imageLoader = imageLoader;
+    }
 
     @Override
     protected void setUpView(View rootView) {
@@ -55,12 +59,13 @@ public class StickerRenderer extends Renderer<Message> {
             avatarImageView.setVisibility(View.VISIBLE);
             rootView.setGravity(Gravity.BOTTOM | Gravity.START);
 
-            Picasso.with(avatarImageView.getContext())
+            imageLoader.Builder()
                     .load(message.getUser().getImageUrl())
-                    .transform(new CircleTransform())
-                    .placeholder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
+                    .placeHolder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
                             R.drawable.ned_head_light))
-                    .into(avatarImageView);
+                    .into(avatarImageView)
+                    .circle()
+                    .show();
         }
     }
 }

@@ -2,6 +2,7 @@ package es.npatarino.android.gotchallenge.chat.message.ui;
 
 import android.support.v7.widget.AppCompatDrawableManager;
 import android.text.Spannable;
+import android.text.style.IconMarginSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.pedrogomez.renderers.Renderer;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;
@@ -21,6 +23,7 @@ import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad
 
 public class MessageRenderer extends Renderer<Message> {
 
+    private final ImageLoader imageLoader;
     private TextView displayNameTextView;
     private TextView messageTextView;
     private ImageView avatarImageView;
@@ -28,6 +31,10 @@ public class MessageRenderer extends Renderer<Message> {
     private ImageView messageImageView;
 
     private LinearLayout rootView;
+
+    public MessageRenderer(ImageLoader imageLoader) {
+        this.imageLoader = imageLoader;
+    }
 
     @Override
     protected void setUpView(View rootView) {
@@ -68,13 +75,13 @@ public class MessageRenderer extends Renderer<Message> {
         displayNameTextView.setVisibility(View.VISIBLE);
         avatarImageView.setVisibility(View.VISIBLE);
 
-        Picasso.with(avatarImageView.getContext())
+        imageLoader.Builder()
                 .load(user.getImageUrl())
-                .transform(new CircleTransform())
-                .placeholder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
+                .placeHolder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
                         R.drawable.ned_head_light))
-                .into(avatarImageView);
-
+                .into(avatarImageView)
+                .circle()
+                .show();
 
         displayNameTextView.setText(user.getName());
         displayPayLoad(message.getPayload());
@@ -84,11 +91,12 @@ public class MessageRenderer extends Renderer<Message> {
     private void displayPayLoad(Payload payload) {
         if (payload instanceof ImagePayload) {
             ImagePayload imagePayload = (ImagePayload) payload;
-            Picasso.with(messageImageView.getContext())
+            imageLoader.Builder()
                     .load(imagePayload.getImageMessage())
-                    .placeholder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
+                    .placeHolder(AppCompatDrawableManager.get().getDrawable(avatarImageView.getContext(),
                             R.drawable.ned_head_light))
-                    .into(messageImageView);
+                    .into(messageImageView)
+                    .show();
         } else {
             messageImageView.setVisibility(View.GONE);
         }

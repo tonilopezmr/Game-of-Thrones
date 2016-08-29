@@ -17,6 +17,7 @@ import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
 import es.npatarino.android.gotchallenge.base.ui.Utilities;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.conversation.presenter.ConversationPresenter;
@@ -40,6 +41,8 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
     ConversationPresenter presenter;
     @Inject
     Context context;
+    @Inject
+    ImageLoader imageLoader;
 
     private Conversation conversation;
 
@@ -109,12 +112,14 @@ public class ChatActivity extends AppCompatActivity implements ConversationView 
                 setAvatar(placeHolderDrawable);
             }
         };
-        Picasso.with(getApplicationContext())
+        imageLoader.Builder()  //TODO: Because garbage collector destroy target
+                .with(context)
                 .load(imageUrl)
-                .transform(new CircleTransform())
+                .circle()
                 .resize(px, px)
                 .centerCrop()
-                .into(target);
+                .into(target)
+                .show();
         toolbar.setTag(target);
     }
 

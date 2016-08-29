@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.chat.ui.navigator.ChatActivityNavigator;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
@@ -19,10 +20,12 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     private final List<GoTHouse> houseList;
     private Activity activity;
+    private ImageLoader imageLoader;
 
-    public HouseAdapter(Activity activity) {
-        this.houseList = new ArrayList<>();
+    public HouseAdapter(ImageLoader imageLoader, Activity activity) {
         this.activity = activity;
+        this.imageLoader = imageLoader;
+        this.houseList = new ArrayList<>();
     }
 
 
@@ -68,10 +71,11 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
 
         public void render(final GoTHouse house) {
-            Picasso.with(imp.getContext())
+            imageLoader.Builder()
                     .load(house.getHouseImageUrl())
                     .fit()
-                    .into(imp);
+                    .into(imp)
+                    .show();
         }
     }
 
