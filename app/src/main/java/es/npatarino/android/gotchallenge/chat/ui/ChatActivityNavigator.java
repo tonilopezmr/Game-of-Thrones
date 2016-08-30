@@ -3,7 +3,6 @@ package es.npatarino.android.gotchallenge.chat.ui;
 import android.app.Activity;
 import android.content.Intent;
 import es.npatarino.android.gotchallenge.base.navigator.Navigator;
-import es.npatarino.android.gotchallenge.chat.ui.ChatActivity;
 
 import java.lang.ref.WeakReference;
 

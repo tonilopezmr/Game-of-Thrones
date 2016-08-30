@@ -10,11 +10,12 @@ import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterList
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
 import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
 import es.npatarino.android.gotchallenge.common.di.UiThread;
+import es.npatarino.android.gotchallenge.common.di.activity.ActivityModule;
 import es.npatarino.android.gotchallenge.common.di.activity.ActivityScope;
 import rx.Scheduler;
 
 @Module
-public class CharacterListActivityModule {
+public class CharacterListActivityModule extends ActivityModule {
 
     @Provides
     @ActivityScope

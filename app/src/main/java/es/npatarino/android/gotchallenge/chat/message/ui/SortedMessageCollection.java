@@ -13,10 +13,7 @@ public class SortedMessageCollection implements AdapteeCollection<Message> {
 
     private SortedList<Message> messageList;
 
-    public SortedMessageCollection() {
-    }
-
-    public void init(RecyclerView.Adapter adapter) {
+    public SortedMessageCollection(RecyclerView.Adapter adapter) {
         messageList = new SortedList<Message>(Message.class, new SortedListAdapterCallback<Message>(adapter) {
             @Override
             public int compare(Message o1, Message o2) {

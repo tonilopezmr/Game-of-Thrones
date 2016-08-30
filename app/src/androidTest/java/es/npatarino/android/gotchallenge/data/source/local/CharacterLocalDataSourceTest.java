@@ -38,7 +38,7 @@ public class CharacterLocalDataSourceTest {
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder(InstrumentationRegistry.getTargetContext())
                 .name("test.realm")
-                .schemaVersion(7)
+                .schemaVersion(8)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
@@ -53,7 +53,6 @@ public class CharacterLocalDataSourceTest {
         final List<GoTCharacter> goTCharacters = getGotCharacters(10);
 
         dataSource.save(goTCharacters);
-
 
         dataSource.getAll()
                 .subscribe(list -> assertGotCharacterList(goTCharacters, list), throwable -> fail());
