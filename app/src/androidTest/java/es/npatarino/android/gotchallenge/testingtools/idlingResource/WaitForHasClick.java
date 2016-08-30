@@ -3,12 +3,12 @@ package es.npatarino.android.gotchallenge.testingtools.idlingResource;
 import android.support.test.espresso.IdlingResource;
 import android.view.View;
 
-public class WaitForLoadChatKeyboard implements IdlingResource {
+public class WaitForHasClick implements IdlingResource {
 
     private View view;
     private ResourceCallback callback;
 
-    public WaitForLoadChatKeyboard(View view) {
+    public WaitForHasClick(View view) {
         this.view = view;
     }
 

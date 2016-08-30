@@ -17,7 +17,7 @@ import es.npatarino.android.gotchallenge.chat.message.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.viewmodel.TextPayLoad;
 import es.npatarino.android.gotchallenge.common.ui.activities.DetailActivity;
 import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
-import es.npatarino.android.gotchallenge.testingtools.idlingResource.WaitForLoadChatKeyboard;
+import es.npatarino.android.gotchallenge.testingtools.idlingResource.WaitForHasClick;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerSortedViewAssertion;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
 import org.junit.After;
@@ -130,7 +130,7 @@ public class ChatActivityTest {
 
         initActivity();
 
-        WaitForLoadChatKeyboard waitForLoadChatKeyboard = registerKeyboardIdlingResource();
+        WaitForHasClick waitForHasClick = registerKeyboardIdlingResource();
 
         onView(withId(R.id.message_edit_text))
                 .perform(typeText(MESSAGE_TEXT));
@@ -145,7 +145,7 @@ public class ChatActivityTest {
                     matches(hasDescendant(withText(message))).check(view, e);
                 });
 
-        unregisterIdlingResources(waitForLoadChatKeyboard);
+        unregisterIdlingResources(waitForHasClick);
     }
 
     @Test
@@ -171,7 +171,7 @@ public class ChatActivityTest {
 
         initActivity();
 
-        WaitForLoadChatKeyboard waitForLoadChatKeyboard = registerKeyboardIdlingResource();
+        WaitForHasClick waitForHasClick = registerKeyboardIdlingResource();
 
         onView(withId(R.id.message_edit_text))
                 .perform(typeText(MESSAGE_TEXT));
@@ -192,17 +192,17 @@ public class ChatActivityTest {
         onView(withId(R.id.recycler_view))
                 .check(RecyclerSortedViewAssertion.isSorted(this::getAdapterMessages));
 
-        unregisterIdlingResources(waitForLoadChatKeyboard);
+        unregisterIdlingResources(waitForHasClick);
     }
 
     @NonNull
-    private WaitForLoadChatKeyboard registerKeyboardIdlingResource() {
+    private WaitForHasClick registerKeyboardIdlingResource() {
         FragmentManager supportFragmentManager = activityTestRule.getActivity().getSupportFragmentManager();
         Fragment fragmentByTag = supportFragmentManager.findFragmentByTag(ChatActivity.CHAT_ACTIVITY_FRAGMENT);
         View viewById = fragmentByTag.getView().findViewById(R.id.attach);
-        WaitForLoadChatKeyboard waitForLoadChatKeyboard = new WaitForLoadChatKeyboard(viewById);
-        registerIdlingResources(waitForLoadChatKeyboard);
-        return waitForLoadChatKeyboard;
+        WaitForHasClick waitForHasClick = new WaitForHasClick(viewById);
+        registerIdlingResources(waitForHasClick);
+        return waitForHasClick;
     }
 
     private List<Message> getAdapterMessages(RecyclerView recyclerView) {
