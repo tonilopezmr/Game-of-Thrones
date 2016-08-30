@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.houses.di;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.base.list.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.base.list.usecases.GetListUseCase;
 import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
 import es.npatarino.android.gotchallenge.common.di.UiThread;
 import es.npatarino.android.gotchallenge.common.di.activity.ActivityModule;

@@ -1,6 +1,6 @@
 package es.npatarino.android.gotchallenge.chat.conversation;
 
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.conversation.model.Conversation;
 import rx.Observable;
 
 public interface ConversationDomain {

@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import com.pedrogomez.renderers.Renderer;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.chat.message.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.viewmodel.StickerPayLoad;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.StickerPayLoad;
 
 public class StickerRenderer extends Renderer<Message> {
 

@@ -8,11 +8,11 @@ import com.pedrogomez.renderers.RVRendererAdapter;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.chat.conversation.ConversationDomain;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
-import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
+import es.npatarino.android.gotchallenge.chat.conversation.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.conversation.model.User;
+import es.npatarino.android.gotchallenge.chat.message.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.viewmodel.TextPayLoad;
+import es.npatarino.android.gotchallenge.common.ui.activities.DetailActivity;
 import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerSortedViewAssertion;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
@@ -29,18 +29,14 @@ import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar
-        .ToolbarLogoViewAssertion.hasLogo;
-import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar
-        .ToolbarSubtitleViewAssertion.withSubtitle;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarLogoViewAssertion.hasLogo;
+import static
+        es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarSubtitleViewAssertion.withSubtitle;
 import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarTitleViewAssertion.withTitle;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
@@ -131,7 +127,7 @@ public class ChatActivityTest {
         initActivity();
 
         onView(withId(R.id.message_edit_text))
-                .perform(typeText(MESSAGE_TEXT), closeSoftKeyboard());
+                .perform(typeText(MESSAGE_TEXT));
 
         onView(withId(R.id.attach))
                 .perform(click());

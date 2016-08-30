@@ -8,7 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 import es.npatarino.android.gotchallenge.base.navigator.Navigator;
-import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
+import es.npatarino.android.gotchallenge.common.ui.activities.DetailActivity;
 
 import java.lang.ref.WeakReference;
 

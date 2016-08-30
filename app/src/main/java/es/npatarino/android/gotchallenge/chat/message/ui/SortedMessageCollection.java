@@ -4,7 +4,7 @@ import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
 import com.pedrogomez.renderers.AdapteeCollection;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.model.Message;
 
 import java.util.Collection;
 import java.util.List;

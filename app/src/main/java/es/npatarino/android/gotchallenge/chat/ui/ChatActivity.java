@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
@@ -18,20 +17,19 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.Utilities;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.conversation.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.conversation.presenter.ConversationPresenter;
-import es.npatarino.android.gotchallenge.chat.conversation.view.ConversationView;
 import es.npatarino.android.gotchallenge.chat.di.ChatActivityModule;
 import es.npatarino.android.gotchallenge.common.navigation.DetailActivityNavigatorBuilder;
 
 import javax.inject.Inject;
 
-public class ChatActivity extends AppCompatActivity implements ConversationView {
+public class ChatActivity extends AppCompatActivity implements ConversationPresenter.View {
 
     public static final String CONVER_ID_KEY = "_conver_id_key";
     public static final String CHAT_ACTIVITY_FRAGMENT = "chat_activity_fragment";
 
-    private View rootView;
+    private android.view.View rootView;
     private Toolbar toolbar;
 
     @Inject

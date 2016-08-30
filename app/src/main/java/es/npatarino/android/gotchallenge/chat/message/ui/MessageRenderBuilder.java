@@ -2,9 +2,10 @@ package es.npatarino.android.gotchallenge.chat.message.ui;
 
 import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
+
+import es.npatarino.android.gotchallenge.chat.message.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.viewmodel.StickerPayLoad;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.StickerPayLoad;
 
 import java.util.LinkedList;
 import java.util.List;

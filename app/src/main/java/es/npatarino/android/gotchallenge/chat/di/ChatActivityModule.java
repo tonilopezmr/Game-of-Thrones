@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.chat.di;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.interactor.GetConversation;
+import es.npatarino.android.gotchallenge.chat.conversation.usecases.GetConversation;
 import es.npatarino.android.gotchallenge.chat.conversation.presenter.ConversationPresenter;
 import es.npatarino.android.gotchallenge.common.di.activity.ActivityModule;
 import es.npatarino.android.gotchallenge.common.di.activity.ActivityScope;
