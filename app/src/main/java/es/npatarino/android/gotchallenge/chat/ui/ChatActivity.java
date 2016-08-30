@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
 import es.npatarino.android.gotchallenge.base.ui.Utilities;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
@@ -109,14 +110,20 @@ public class ChatActivity extends AppCompatActivity implements ConversationPrese
                 setAvatar(placeHolderDrawable);
             }
         };
-        imageLoader.builder()
-                .with(context)
+        Picasso.with(context)
                 .load(imageUrl)
-                .circle()
+                .transform(new CircleTransform())
                 .resize(px, px)
                 .centerCrop()
-                .into(target)
-                .show();
+                .into(target);
+//        imageLoader.builder()
+//                .with(context)
+//                .load(imageUrl)
+//                .circle()
+//                .resize(px, px)
+//                .centerCrop()
+//                .into(target)
+//                .show();
         toolbar.setTag(target);
     }
 
