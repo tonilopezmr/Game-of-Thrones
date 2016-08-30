@@ -109,7 +109,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationPrese
                 setAvatar(placeHolderDrawable);
             }
         };
-        imageLoader.builder()  //TODO: Because garbage collector destroy target
+        imageLoader.builder()
                 .with(context)
                 .load(imageUrl)
                 .circle()
@@ -148,6 +148,7 @@ public class ChatActivity extends AppCompatActivity implements ConversationPrese
 
 
     public void setAvatar(Drawable avatar) {
+        toolbar.setLogoDescription("chat logo");
         if (avatar == null) return;
 
         toolbar.setLogo(avatar);

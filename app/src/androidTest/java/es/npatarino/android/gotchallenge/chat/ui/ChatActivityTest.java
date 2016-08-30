@@ -6,6 +6,7 @@ import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import com.pedrogomez.renderers.RVRendererAdapter;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
@@ -18,6 +19,7 @@ import es.npatarino.android.gotchallenge.chat.message.viewmodel.TextPayLoad;
 import es.npatarino.android.gotchallenge.common.ui.activities.DetailActivity;
 import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
 import es.npatarino.android.gotchallenge.testingtools.idlingResource.WaitForHasClick;
+import es.npatarino.android.gotchallenge.testingtools.idlingResource.WaitForToolbarLogo;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerSortedViewAssertion;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
 import org.junit.After;
@@ -104,8 +106,14 @@ public class ChatActivityTest {
 
         initActivity();
 
+        Toolbar toolbar = (Toolbar) activityTestRule.getActivity().findViewById(R.id.toolbar);
+        WaitForToolbarLogo waitForToolbarLogo = new WaitForToolbarLogo(toolbar);
+        registerIdlingResources(waitForToolbarLogo);
+
         onView(withId(R.id.toolbar))
                 .check(hasLogo());
+
+        unregisterIdlingResources(waitForToolbarLogo);
     }
 
     @Test
