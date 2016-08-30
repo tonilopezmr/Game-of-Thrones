@@ -61,6 +61,7 @@ configurations.all {
 
 dependencies {
     def daggerVersion = "2.6.1"
+    def espressoVersion = "2.2.2"
 
     //android test
     androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
@@ -69,15 +70,16 @@ dependencies {
     }
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1') {
+    androidTestCompile "com.android.support.test.espresso:espresso-intents:${espressoVersion}"
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${espressoVersion}") {
         exclude group: 'javax.inject', module: 'javax.inject'
         exclude group: 'com.squareup', module: 'javawriter'
     }
-    androidTestCompile('com.android.support.test.espresso:espresso-contrib:2.2.1') {
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:${espressoVersion}") {
         exclude module: 'support-annotations'
         exclude module: 'recyclerview-v7'
         exclude module: 'support-v4'
+        exclude group: 'com.android.support'
     }
     androidTestCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
 

@@ -42,7 +42,6 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
         realm.close();
     }
 
-
     @Override
     public boolean isExpired() {
         return !cachingStrategy.isValid(timeProvider.getPersistedTime());

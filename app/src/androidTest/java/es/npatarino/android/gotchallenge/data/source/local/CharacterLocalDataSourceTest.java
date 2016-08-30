@@ -37,8 +37,8 @@ public class CharacterLocalDataSourceTest {
     public void setUp() {
         RealmConfiguration realmConfiguration = new RealmConfiguration
                 .Builder(InstrumentationRegistry.getTargetContext())
-                .name("test.realm")
-                .schemaVersion(8)
+                .name("es.npatarino.android.gotchallenge.realm.test")
+                .schemaVersion(1)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
