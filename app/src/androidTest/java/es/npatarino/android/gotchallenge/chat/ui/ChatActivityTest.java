@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -196,7 +197,8 @@ public class ChatActivityTest {
 
     @NonNull
     private WaitForLoadChatKeyboard registerKeyboardIdlingResource() {
-        Fragment fragmentByTag = activityTestRule.getActivity().getSupportFragmentManager().findFragmentByTag(ChatActivity.CHAT_ACTIVITY_FRAGMENT);
+        FragmentManager supportFragmentManager = activityTestRule.getActivity().getSupportFragmentManager();
+        Fragment fragmentByTag = supportFragmentManager.findFragmentByTag(ChatActivity.CHAT_ACTIVITY_FRAGMENT);
         View viewById = fragmentByTag.getView().findViewById(R.id.attach);
         WaitForLoadChatKeyboard waitForLoadChatKeyboard = new WaitForLoadChatKeyboard(viewById);
         registerIdlingResources(waitForLoadChatKeyboard);
