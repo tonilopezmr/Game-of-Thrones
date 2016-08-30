@@ -1,7 +1,7 @@
 package es.npatarino.android.gotchallenge.chat.message;
 
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
+import es.npatarino.android.gotchallenge.chat.conversation.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.message.model.Message;
 import rx.Observable;
 
 import java.util.List;

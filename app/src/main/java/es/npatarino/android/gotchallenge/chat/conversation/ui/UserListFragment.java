@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.conversation.model.User;
 
 import java.util.List;
 

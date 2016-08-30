@@ -2,9 +2,9 @@ package es.npatarino.android.gotchallenge.characters.di;
 
 import dagger.Module;
 import dagger.Provides;
-import es.npatarino.android.gotchallenge.base.list.interactor.GetListUseCase;
+import es.npatarino.android.gotchallenge.base.list.usecases.GetListUseCase;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
-import es.npatarino.android.gotchallenge.characters.domain.interactor.GetCharactersByHouseUseCase;
+import es.npatarino.android.gotchallenge.characters.domain.usecases.GetCharactersByHouseUseCase;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListByHousePresenter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;

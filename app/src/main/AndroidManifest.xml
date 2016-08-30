@@ -12,16 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".common.view.activities.DetailActivity"
-            android:parentActivityName=".common.view.activities.HomeActivity">
+            android:name=".common.ui.activities.DetailActivity"
+            android:parentActivityName=".common.ui.activities.HomeActivity">
         </activity>
         <activity
                 android:name=".chat.ui.ChatActivity"
                 android:windowSoftInputMode="stateVisible|adjustResize"
-                android:parentActivityName=".common.view.activities.HomeActivity">
+                android:parentActivityName=".common.ui.activities.HomeActivity">
         </activity>
         <activity
-            android:name=".common.view.activities.HomeActivity"
+            android:name=".common.ui.activities.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme">
             <intent-filter>

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.conversation.model.User;
 
 public class UserViewHolder extends RecyclerView.ViewHolder {
 

@@ -1,11 +1,11 @@
 package es.npatarino.android.gotchallenge.chat.ui;
 
 import android.content.Context;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.conversation.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.conversation.model.User;
 import es.npatarino.android.gotchallenge.chat.message.data.MessageRepository;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
+import es.npatarino.android.gotchallenge.chat.message.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.viewmodel.TextPayLoad;
 import rx.Observable;
 
 import java.util.ArrayList;

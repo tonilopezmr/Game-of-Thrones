@@ -7,6 +7,7 @@ import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.common.ui.activities.HomeActivity;
 import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
 import org.junit.After;

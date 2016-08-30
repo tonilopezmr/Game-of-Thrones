@@ -1,12 +1,18 @@
 package es.npatarino.android.gotchallenge.chat.conversation.presenter;
 
 import android.util.Log;
+import es.npatarino.android.gotchallenge.base.Mvp;
 import es.npatarino.android.gotchallenge.base.list.presenter.BasePresenter;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.interactor.GetConversation;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
-import es.npatarino.android.gotchallenge.chat.conversation.view.ConversationView;
+import es.npatarino.android.gotchallenge.chat.conversation.usecases.GetConversation;
+import es.npatarino.android.gotchallenge.chat.conversation.model.Conversation;
 
-public class ConversationPresenter extends BasePresenter<ConversationView> {
+public class ConversationPresenter extends BasePresenter<ConversationPresenter.View> {
+
+    public interface View extends Mvp.View {
+
+        void show(Conversation conversation);
+        void initChat();
+    }
 
     private final String TAG = ConversationPresenter.class.getSimpleName();
 

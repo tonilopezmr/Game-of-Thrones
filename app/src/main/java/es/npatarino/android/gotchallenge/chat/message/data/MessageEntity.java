@@ -1,6 +1,6 @@
 package es.npatarino.android.gotchallenge.chat.message.data;
 
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.User;
+import es.npatarino.android.gotchallenge.chat.conversation.model.User;
 
 public class MessageEntity {
 

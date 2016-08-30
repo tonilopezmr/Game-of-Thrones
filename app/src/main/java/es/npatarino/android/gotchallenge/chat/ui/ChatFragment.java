@@ -13,23 +13,22 @@ import com.pedrogomez.renderers.RVRendererAdapter;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
-import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.conversation.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.di.ChatFragmentModule;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Message;
-import es.npatarino.android.gotchallenge.chat.message.domain.model.Payload;
+import es.npatarino.android.gotchallenge.chat.message.model.Message;
+import es.npatarino.android.gotchallenge.chat.message.model.Payload;
 import es.npatarino.android.gotchallenge.chat.message.presenter.MessagePresenter;
 import es.npatarino.android.gotchallenge.chat.message.ui.MessageRenderBuilder;
 import es.npatarino.android.gotchallenge.chat.message.ui.SortedMessageCollection;
-import es.npatarino.android.gotchallenge.chat.message.view.MessageView;
-import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.StickerPayLoad;
-import es.npatarino.android.gotchallenge.chat.message.view.viewmodel.TextPayLoad;
+import es.npatarino.android.gotchallenge.chat.message.viewmodel.StickerPayLoad;
+import es.npatarino.android.gotchallenge.chat.message.viewmodel.TextPayLoad;
 import net.mobindustry.emojilib.EmojiPanel;
 
 import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 
-public class ChatFragment extends Fragment implements MessageView, OnBackListener {
+public class ChatFragment extends Fragment implements MessagePresenter.View, OnBackListener {
 
     private RecyclerView messageRecyclerView;
     private RVRendererAdapter<Message> adapter;
