@@ -159,9 +159,9 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
 
     @Override
     public void initUi() {
-        SortedMessageCollection sortedMessageCollection = new SortedMessageCollection();
-        adapter = new RVRendererAdapter<Message>(new MessageRenderBuilder(), sortedMessageCollection);
-        sortedMessageCollection.init(adapter);
+        adapter = new RVRendererAdapter<Message>(new MessageRenderBuilder());
+        SortedMessageCollection sortedMessageCollection = new SortedMessageCollection(adapter);
+        adapter.setCollection(sortedMessageCollection);
 
         initRecyclerView(adapter);
         hideKeyboard();

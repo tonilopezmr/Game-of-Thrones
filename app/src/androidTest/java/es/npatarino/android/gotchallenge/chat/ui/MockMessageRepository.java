@@ -46,7 +46,7 @@ public class MockMessageRepository extends MessageRepository {
                         + "The red woman\nBeric Dondarrion\nThoros of myr\nIlyn payne\nThe mountain\nThe hound")),
                 new Message("2", new User("2", "Daenerys Targaryen", "",
                         "http://winteriscoming.net/wp-content/uploads/2016/03/Daenerys-Targaryen-crop-630x371.jpg"),
-                        2, false, new TextPayLoad("where my dwarf is?")),
+                        6, false, new TextPayLoad("where my dwarf is?")),
                 new Message("3", new User("3", "Tyrion Lannister", "",
                         "https://pbs.twimg.com/profile_images/668279339838935040/8sUE9d4C.jpg"),
                         3, false, new TextPayLoad("Tell me blonde who never burns")));
