@@ -3,7 +3,9 @@ package es.npatarino.android.gotchallenge.chat.ui;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import com.pedrogomez.renderers.RVRendererAdapter;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
@@ -14,6 +16,7 @@ import es.npatarino.android.gotchallenge.chat.message.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.viewmodel.TextPayLoad;
 import es.npatarino.android.gotchallenge.common.ui.activities.DetailActivity;
 import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
+import es.npatarino.android.gotchallenge.testingtools.idlingResource.WaitForLoadChatKeyboard;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerSortedViewAssertion;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
 import org.junit.After;
@@ -27,7 +30,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.*;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -126,6 +129,8 @@ public class ChatActivityTest {
 
         initActivity();
 
+        WaitForLoadChatKeyboard waitForLoadChatKeyboard = registerKeyboardIdlingResource();
+
         onView(withId(R.id.message_edit_text))
                 .perform(typeText(MESSAGE_TEXT));
 
@@ -138,6 +143,8 @@ public class ChatActivityTest {
                     String message = ((TextPayLoad) item.getPayload()).getTextMessage().toString();
                     matches(hasDescendant(withText(message))).check(view, e);
                 });
+
+        unregisterIdlingResources(waitForLoadChatKeyboard);
     }
 
     @Test
@@ -163,6 +170,8 @@ public class ChatActivityTest {
 
         initActivity();
 
+        WaitForLoadChatKeyboard waitForLoadChatKeyboard = registerKeyboardIdlingResource();
+
         onView(withId(R.id.message_edit_text))
                 .perform(typeText(MESSAGE_TEXT));
 
@@ -181,6 +190,17 @@ public class ChatActivityTest {
 
         onView(withId(R.id.recycler_view))
                 .check(RecyclerSortedViewAssertion.isSorted(this::getAdapterMessages));
+
+        unregisterIdlingResources(waitForLoadChatKeyboard);
+    }
+
+    @NonNull
+    private WaitForLoadChatKeyboard registerKeyboardIdlingResource() {
+        Fragment fragmentByTag = activityTestRule.getActivity().getSupportFragmentManager().findFragmentByTag(ChatActivity.CHAT_ACTIVITY_FRAGMENT);
+        View viewById = fragmentByTag.getView().findViewById(R.id.attach);
+        WaitForLoadChatKeyboard waitForLoadChatKeyboard = new WaitForLoadChatKeyboard(viewById);
+        registerIdlingResources(waitForLoadChatKeyboard);
+        return waitForLoadChatKeyboard;
     }
 
     private List<Message> getAdapterMessages(RecyclerView recyclerView) {
