@@ -3,7 +3,11 @@ package es.npatarino.android.gotchallenge.chat.ui;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import com.pedrogomez.renderers.RVRendererAdapter;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
@@ -14,6 +18,8 @@ import es.npatarino.android.gotchallenge.chat.message.model.Message;
 import es.npatarino.android.gotchallenge.chat.message.viewmodel.TextPayLoad;
 import es.npatarino.android.gotchallenge.common.ui.activities.DetailActivity;
 import es.npatarino.android.gotchallenge.testingtools.EspressoDaggerMockRule;
+import es.npatarino.android.gotchallenge.testingtools.idlingResource.WaitForHasClick;
+import es.npatarino.android.gotchallenge.testingtools.idlingResource.WaitForToolbarLogo;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerSortedViewAssertion;
 import es.npatarino.android.gotchallenge.testingtools.viewassertions.recyclerview.RecyclerViewInteraction;
 import org.junit.After;
@@ -27,7 +33,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.*;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -100,8 +106,14 @@ public class ChatActivityTest {
 
         initActivity();
 
+        Toolbar toolbar = (Toolbar) activityTestRule.getActivity().findViewById(R.id.toolbar);
+        WaitForToolbarLogo waitForToolbarLogo = new WaitForToolbarLogo(toolbar);
+        registerIdlingResources(waitForToolbarLogo);
+
         onView(withId(R.id.toolbar))
                 .check(hasLogo());
+
+        unregisterIdlingResources(waitForToolbarLogo);
     }
 
     @Test
@@ -126,6 +138,8 @@ public class ChatActivityTest {
 
         initActivity();
 
+        WaitForHasClick waitForHasClick = registerKeyboardIdlingResource();
+
         onView(withId(R.id.message_edit_text))
                 .perform(typeText(MESSAGE_TEXT));
 
@@ -138,6 +152,8 @@ public class ChatActivityTest {
                     String message = ((TextPayLoad) item.getPayload()).getTextMessage().toString();
                     matches(hasDescendant(withText(message))).check(view, e);
                 });
+
+        unregisterIdlingResources(waitForHasClick);
     }
 
     @Test
@@ -163,6 +179,8 @@ public class ChatActivityTest {
 
         initActivity();
 
+        WaitForHasClick waitForHasClick = registerKeyboardIdlingResource();
+
         onView(withId(R.id.message_edit_text))
                 .perform(typeText(MESSAGE_TEXT));
 
@@ -181,6 +199,18 @@ public class ChatActivityTest {
 
         onView(withId(R.id.recycler_view))
                 .check(RecyclerSortedViewAssertion.isSorted(this::getAdapterMessages));
+
+        unregisterIdlingResources(waitForHasClick);
+    }
+
+    @NonNull
+    private WaitForHasClick registerKeyboardIdlingResource() {
+        FragmentManager supportFragmentManager = activityTestRule.getActivity().getSupportFragmentManager();
+        Fragment fragmentByTag = supportFragmentManager.findFragmentByTag(ChatActivity.CHAT_ACTIVITY_FRAGMENT);
+        View viewById = fragmentByTag.getView().findViewById(R.id.attach);
+        WaitForHasClick waitForHasClick = new WaitForHasClick(viewById);
+        registerIdlingResources(waitForHasClick);
+        return waitForHasClick;
     }
 
     private List<Message> getAdapterMessages(RecyclerView recyclerView) {
