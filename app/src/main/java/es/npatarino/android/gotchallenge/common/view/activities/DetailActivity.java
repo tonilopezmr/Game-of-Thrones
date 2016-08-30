@@ -8,13 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
-import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListByHouseFragment;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.PicassoImageLoader;
 import es.npatarino.android.gotchallenge.characters.detail.CharacterDescriptionFragment;
+import es.npatarino.android.gotchallenge.characters.list.view.fragment.CharacterListByHouseFragment;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -27,6 +26,8 @@ public class DetailActivity extends AppCompatActivity {
     public static final String IMAGE_URL = "imageUrl";
 
     private String transitionName;
+
+    ImageLoader imageLoader = new PicassoImageLoader();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,12 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void showImage(String imageUrl) {
-        ImageView ivp = (ImageView) findViewById(R.id.iv_photo);
-        initTransitionInImageView(ivp);
-        Picasso.with(getApplicationContext()).load(imageUrl).into(ivp);
+        ImageView photoImageView = (ImageView) findViewById(R.id.photoImageView);
+        initTransitionInImageView(photoImageView);
+        imageLoader.builder()
+                .load(imageUrl)
+                .into(photoImageView)
+                .show();
     }
 
     private void initTransitionInImageView(ImageView ivp) {

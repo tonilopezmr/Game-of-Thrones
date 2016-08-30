@@ -12,6 +12,7 @@ import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.characters.di.CharacterListActivityModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.characters.list.presenter.CharacterListPresenter;
@@ -29,6 +30,8 @@ public class CharacterListFragment extends Fragment implements ViewList<GoTChara
 
     @Inject
     CharacterListPresenter gotCharacterListPresenter;
+    @Inject
+    ImageLoader imageLoader;
 
 
     public CharacterListFragment() {
@@ -65,7 +68,7 @@ public class CharacterListFragment extends Fragment implements ViewList<GoTChara
 
     @Override
     public void initUi() {
-        adapter = new CharacterAdapter(getActivity());
+        adapter = new CharacterAdapter(imageLoader, getActivity());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);

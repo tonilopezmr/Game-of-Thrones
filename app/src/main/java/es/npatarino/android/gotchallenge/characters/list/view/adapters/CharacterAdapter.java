@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.common.navigation.DetailActivityNavigatorBuilder;
 import es.npatarino.android.gotchallenge.common.view.activities.DetailActivity;
@@ -21,10 +21,12 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.GotC
 
     private final List<GoTCharacter> gcs;
     private Activity activity;
+    private ImageLoader imageLoader;
 
-    public CharacterAdapter(Activity activity) {
-        this.gcs = new ArrayList<>();
+    public CharacterAdapter(ImageLoader imageLoader, Activity activity) {
         this.activity = activity;
+        this.imageLoader = imageLoader;
+        this.gcs = new ArrayList<>();
     }
 
     public void addAll(Collection<GoTCharacter> collection) {
@@ -74,10 +76,11 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.GotC
         }
 
         void render(final GoTCharacter character) {
-            Picasso.with(imp.getContext())
+            imageLoader.builder()
                     .load(character.getImageUrl())
                     .fit()
-                    .into(imp);
+                    .into(imp)
+                    .show();
             tvn.setText(character.getName());
         }
     }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.base.list.view.ViewList;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.houses.di.HouseListActivityModule;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import es.npatarino.android.gotchallenge.houses.list.presenter.HouseListPresenter;
@@ -29,6 +30,8 @@ public class HousesListFragment extends Fragment implements ViewList<GoTHouse> {
 
     @Inject
     HouseListPresenter gotHouseListPresenter;
+    @Inject
+    ImageLoader imageLoader;
 
     public HousesListFragment() {
     }
@@ -63,7 +66,7 @@ public class HousesListFragment extends Fragment implements ViewList<GoTHouse> {
 
     @Override
     public void initUi() {
-        adp = new HouseAdapter(getActivity());
+        adp = new HouseAdapter(imageLoader, getActivity());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setHasFixedSize(true);
         rv.setAdapter(adp);

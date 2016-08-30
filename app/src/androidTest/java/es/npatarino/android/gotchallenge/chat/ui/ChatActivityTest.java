@@ -99,7 +99,7 @@ public class ChatActivityTest {
 
     @Test
     public void
-    show_conversation_image_in_toolbar_subtitle_when_init_activity() throws Exception {
+    show_conversation_image_in_toolbar_when_init_activity() throws Exception {
         given(conversationRepository.get(any(Conversation.class))).willReturn(getConversationObservable());
 
         initActivity();

@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.pedrogomez.renderers.RVRendererAdapter;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
 import es.npatarino.android.gotchallenge.chat.conversation.domain.model.Conversation;
 import es.npatarino.android.gotchallenge.chat.di.ChatFragmentModule;
@@ -43,6 +44,8 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
     ErrorManager errorManager;
     @Inject
     MessagePresenter messagePresenter;
+    @Inject
+    ImageLoader imageLoader;
 
     @Nullable
     @Override
@@ -159,7 +162,7 @@ public class ChatFragment extends Fragment implements MessageView, OnBackListene
 
     @Override
     public void initUi() {
-        adapter = new RVRendererAdapter<Message>(new MessageRenderBuilder());
+        adapter = new RVRendererAdapter<Message>(new MessageRenderBuilder(imageLoader));
         SortedMessageCollection sortedMessageCollection = new SortedMessageCollection(adapter);
         adapter.setCollection(sortedMessageCollection);
 
