@@ -32,7 +32,7 @@ This behaviour it's done in two different Activities, one for the two lists and 
 1. **Refactoring and practice TDD**
 2. **Clean Architecture with MVP**
 3. **Package by feature, not layer**
-4. **Reactive with RxJava**
+4. **Reactive with RxJava1**
 5. **Play with Dagger2**
 6. **Capability to work offline**
 7. **Testing with Espresso and Mockito**
