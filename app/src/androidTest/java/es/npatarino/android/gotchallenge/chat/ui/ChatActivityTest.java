@@ -106,14 +106,14 @@ public class ChatActivityTest {
 
         initActivity();
 
-        Toolbar toolbar = (Toolbar) activityTestRule.getActivity().findViewById(R.id.toolbar);
-        WaitForToolbarLogo waitForToolbarLogo = new WaitForToolbarLogo(toolbar);
-        registerIdlingResources(waitForToolbarLogo);
+//        Toolbar toolbar = (Toolbar) activityTestRule.getActivity().findViewById(R.id.toolbar);
+//        WaitForToolbarLogo waitForToolbarLogo = new WaitForToolbarLogo(toolbar);
+//        registerIdlingResources(waitForToolbarLogo);
 
         onView(withId(R.id.toolbar))
                 .check(hasLogo());
 
-        unregisterIdlingResources(waitForToolbarLogo);
+//        unregisterIdlingResources(waitForToolbarLogo);
     }
 
     @Test

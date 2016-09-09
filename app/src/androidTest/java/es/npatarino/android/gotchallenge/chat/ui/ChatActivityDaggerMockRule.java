@@ -2,9 +2,11 @@ package es.npatarino.android.gotchallenge.chat.ui;
 
 import android.support.test.InstrumentationRegistry;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
+import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.chat.message.MessageDomain;
 import es.npatarino.android.gotchallenge.common.di.application.AppComponent;
 import es.npatarino.android.gotchallenge.common.di.application.AppModule;
+import es.npatarino.android.gotchallenge.testingtools.TestPicassoImageLoader;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 public class ChatActivityDaggerMockRule extends DaggerMockRule<AppComponent> {
@@ -15,6 +17,7 @@ public class ChatActivityDaggerMockRule extends DaggerMockRule<AppComponent> {
         super(AppComponent.class, new AppModule(getApp()));
         this.mockMessageRepository = new MockMessageRepository(getApp());
         provides(MessageDomain.Repository.class, mockMessageRepository);
+        provides(ImageLoader.class, new TestPicassoImageLoader());
         set(component -> getApp().setAppComponent(component));
     }
 

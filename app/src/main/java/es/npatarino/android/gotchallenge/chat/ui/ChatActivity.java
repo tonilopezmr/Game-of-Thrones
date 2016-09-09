@@ -110,20 +110,15 @@ public class ChatActivity extends AppCompatActivity implements ConversationPrese
                 setAvatar(placeHolderDrawable);
             }
         };
-        Picasso.with(context)
+
+        imageLoader.builder()
+                .with(context)
                 .load(imageUrl)
-                .transform(new CircleTransform())
+                .circle()
                 .resize(px, px)
                 .centerCrop()
-                .into(target);
-//        imageLoader.builder()
-//                .with(context)
-//                .load(imageUrl)
-//                .circle()
-//                .resize(px, px)
-//                .centerCrop()
-//                .into(target)
-//                .show();
+                .into(target)
+                .show();
         toolbar.setTag(target);
     }
 
