@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
-import es.npatarino.android.gotchallenge.base.ui.CircleTransform;
 import es.npatarino.android.gotchallenge.base.ui.Utilities;
 import es.npatarino.android.gotchallenge.base.ui.imageloader.ImageLoader;
 import es.npatarino.android.gotchallenge.base.ui.messages.ErrorManager;
