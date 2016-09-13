@@ -39,10 +39,7 @@
 
     <!-- Checks for imports                              -->
     <!-- See http://checkstyle.sf.net/config_import.html -->
-    <module name="AvoidStarImport">
-      <property name="allowClassImports" value="true" />
-      <property name="allowStaticMemberImports" value="true" />
-    </module>
+    <module name="AvoidStarImport"/>
     <module name="IllegalImport"/>
     <!-- defaults to sun.* packages -->
     <module name="RedundantImport"/>

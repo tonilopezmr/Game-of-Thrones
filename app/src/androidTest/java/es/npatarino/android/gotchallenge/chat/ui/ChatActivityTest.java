@@ -31,13 +31,17 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import static android.support.test.espresso.Espresso.*;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.Espresso.registerIdlingResources;
+import static android.support.test.espresso.Espresso.unregisterIdlingResources;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarLogoViewAssertion.hasLogo;
 import static
         es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarSubtitleViewAssertion.withSubtitle;
