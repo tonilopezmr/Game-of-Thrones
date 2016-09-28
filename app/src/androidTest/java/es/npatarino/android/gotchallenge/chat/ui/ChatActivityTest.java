@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import com.pedrogomez.renderers.RVRendererAdapter;
+import com.squareup.spoon.Spoon;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.chat.conversation.ConversationDomain;
@@ -97,6 +98,8 @@ public class ChatActivityTest {
 
         initActivity();
 
+        Spoon.screenshot(activityTestRule.getActivity(), "init_state_conversation");
+
         onView(withId(R.id.toolbar))
                 .check(withSubtitle(getUserListSubtitle()));
     }
@@ -142,6 +145,8 @@ public class ChatActivityTest {
         onView(withId(R.id.attach))
                 .perform(click());
 
+        Spoon.screenshot(activityTestRule.getActivity(), "after_type_a_message");
+
         RecyclerViewInteraction.<Message>onRecyclerView(withId(R.id.recycler_view))
                 .withItems(Arrays.asList(new Message("1", null, 2, true, new TextPayLoad(MESSAGE_TEXT))))
                 .check((item, view, e) -> {
@@ -160,6 +165,8 @@ public class ChatActivityTest {
         messageRepository.enableMessages();
 
         initActivity();
+
+        Spoon.screenshot(activityTestRule.getActivity(), "after_show_message_from_others");
 
         onView(withId(R.id.recycler_view))
                 .check(RecyclerSortedViewAssertion.isSorted(this::getAdapterMessages));
@@ -192,6 +199,8 @@ public class ChatActivityTest {
                 .perform(click());
 
         messageRepository.sendMessage(conversation);
+
+        Spoon.screenshot(activityTestRule.getActivity(), "show_messages_and_type_text");
 
         onView(withId(R.id.recycler_view))
                 .check(RecyclerSortedViewAssertion.isSorted(this::getAdapterMessages));

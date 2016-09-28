@@ -3,6 +3,7 @@ package es.npatarino.android.gotchallenge.common.view.activities;
 import android.content.Intent;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import com.squareup.spoon.Spoon;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
@@ -58,6 +59,8 @@ public class DetailActivityTest {
 
         startActivity(character);
 
+        Spoon.screenshot(activityTestRule.getActivity(), "init_state_character_detail");
+
         onView(withId(R.id.toolbar))
                 .check(ToolbarTitleViewAssertion.withTitle(character.getName()));
     }
@@ -89,6 +92,8 @@ public class DetailActivityTest {
         given(repository.read(house)).willReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
 
         startActivity(house);
+
+        Spoon.screenshot(activityTestRule.getActivity(), "init_state_house_detail");
 
         onView(withId(R.id.content_loading_progress_bar)).check(matches(not(isDisplayed())));
     }
