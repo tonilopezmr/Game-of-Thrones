@@ -44,7 +44,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarLogoViewAssertion.hasLogo;
-import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarSubtitleViewAssertion.withSubtitle;
+import static
+        es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarSubtitleViewAssertion.withSubtitle;
 import static es.npatarino.android.gotchallenge.testingtools.viewassertions.toolbar.ToolbarTitleViewAssertion.withTitle;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
