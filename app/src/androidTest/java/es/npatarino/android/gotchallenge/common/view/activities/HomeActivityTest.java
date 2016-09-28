@@ -2,6 +2,7 @@ package es.npatarino.android.gotchallenge.common.view.activities;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import com.squareup.spoon.Spoon;
 import es.npatarino.android.gotchallenge.GotChallengeApplication;
 import es.npatarino.android.gotchallenge.R;
 import es.npatarino.android.gotchallenge.TestUtils;
@@ -61,6 +62,8 @@ public class HomeActivityTest {
         given(local.getAll()).willReturn(charactersObservable);
 
         activityTestRule.launchActivity(null);
+
+        Spoon.screenshot(activityTestRule.getActivity(), "Character_list");
 
         RecyclerViewInteraction.<GoTCharacter>onRecyclerView(allOf(withId(R.id.recycler_view), isDisplayed()))
                 .withItems(characterList)
