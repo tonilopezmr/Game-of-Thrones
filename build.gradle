@@ -40,3 +40,11 @@ checkstyle {
     configFile rootProject.file('checkstyle.xml')
     showViolations true
 }
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.enabled false
+        html.enabled true
+        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+    }
+}
