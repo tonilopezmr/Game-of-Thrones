@@ -7,7 +7,7 @@ Cloned from [https://github.com/idealista-tech/got-challenge-for-android](https:
 
 I have participated in challenge and I will continue improving!
 
-You can follow the commits flow to see how I refactoring.
+You can follow the commits flow to see my refactoring progress.
 
 Android developers face challenges almost everyday during development: performance, security, backwards compatibility, testing... And mainly refactoring for it's own or legacy code.
 This repository contains a project to face an small challenge where the developer should add some new features, detect (and implement) patterns, add tests, re-think the architecture and do a clean code.
