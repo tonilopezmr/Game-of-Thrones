@@ -1,11 +1,15 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.compileSdk = 25
+    ext.buildTools = '25.0.1'
+    ext.minSdk = 14
+
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.2.3'
         classpath "io.realm:realm-gradle-plugin:1.2.0"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -39,12 +43,4 @@ apply plugin: 'checkstyle'
 checkstyle {
     configFile rootProject.file('checkstyle.xml')
     showViolations true
-}
-
-tasks.withType(Checkstyle) {
-    reports {
-        xml.enabled false
-        html.enabled true
-        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
-    }
 }
