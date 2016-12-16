@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class BddGoTCharacterMapperTest {
@@ -54,8 +53,6 @@ public class BddGoTCharacterMapperTest {
     assertThat(goTCharacter.getImageUrl(), is(IMAGE_URL));
     assertThat(goTCharacter.getDescription(), is(DES));
     assertThat(goTCharacter.getHouse().getId(), is(HOUSE_ID));
-    assertNull(goTCharacter.getHouse().getImageUrl());
-    assertNull(goTCharacter.getHouse().getName());
   }
 
   @Test
