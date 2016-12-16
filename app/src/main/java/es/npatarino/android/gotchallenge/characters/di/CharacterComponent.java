@@ -6,6 +6,6 @@ import dagger.Subcomponent;
 @Subcomponent(modules = CharacterModule.class)
 public interface CharacterComponent {
 
-    CharacterListActivityComponent plus(CharacterListActivityModule activityModule);
+  CharacterListActivityComponent plus(CharacterListActivityModule activityModule);
 
 }

@@ -9,14 +9,14 @@ import static org.junit.Assert.assertNotNull;
 
 public class ToolbarLogoViewAssertion implements ViewAssertion {
 
-    @Override
-    public void check(View view, NoMatchingViewException noViewFoundException) {
-        Toolbar toolbar = ((Toolbar) view);
+  public static ToolbarLogoViewAssertion hasLogo() {
+    return new ToolbarLogoViewAssertion();
+  }
 
-        assertNotNull(toolbar.getLogo());
-    }
+  @Override
+  public void check(View view, NoMatchingViewException noViewFoundException) {
+    Toolbar toolbar = ((Toolbar) view);
 
-    public static ToolbarLogoViewAssertion hasLogo() {
-        return new ToolbarLogoViewAssertion();
-    }
+    assertNotNull(toolbar.getLogo());
+  }
 }

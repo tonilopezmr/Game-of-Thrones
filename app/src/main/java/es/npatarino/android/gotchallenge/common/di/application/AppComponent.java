@@ -17,8 +17,11 @@ import javax.inject.Singleton;
 public interface AppComponent {
 
 
-    CharacterComponent plus(CharacterModule characterModule);
-    HouseComponent plus(HouseModule houseModule);
-    ConversationComponent plus(ConversationModule conversationModule);
-    MessageComponent plus(MessageModule messageModule);
+  CharacterComponent plus(CharacterModule characterModule);
+
+  HouseComponent plus(HouseModule houseModule);
+
+  ConversationComponent plus(ConversationModule conversationModule);
+
+  MessageComponent plus(MessageModule messageModule);
 }

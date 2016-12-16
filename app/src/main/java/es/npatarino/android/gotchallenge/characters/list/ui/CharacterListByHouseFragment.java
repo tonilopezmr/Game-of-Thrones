@@ -23,62 +23,60 @@ import java.util.List;
 
 public class CharacterListByHouseFragment extends Fragment implements DetailView<List<GoTCharacter>> {
 
-    private static final String TAG = CharacterListByHouseFragment.class.getSimpleName();
-    private RecyclerView rv;
-    private ContentLoadingProgressBar pb;
-    private CharacterAdapter adp;
-    private GoTHouse house;
+  private static final String TAG = CharacterListByHouseFragment.class.getSimpleName();
+  @Inject
+  CharacterListByHousePresenter characterListByHousePresenter;
+  @Inject
+  ImageLoader imageLoader;
+  private RecyclerView rv;
+  private ContentLoadingProgressBar pb;
+  private CharacterAdapter adp;
+  private GoTHouse house;
 
-    @Inject
-    CharacterListByHousePresenter characterListByHousePresenter;
-    @Inject
-    ImageLoader imageLoader;
+  @Override
+  public View onCreateView(final LayoutInflater inflater,
+                           final ViewGroup container,
+                           final Bundle savedInstanceState) {
+    initDagger();
 
+    View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+    rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+    pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
 
-    @Override
-    public View onCreateView(final LayoutInflater inflater,
-                             final ViewGroup container,
-                             final Bundle savedInstanceState) {
-        initDagger();
+    characterListByHousePresenter.setView(this);
+    characterListByHousePresenter.init(house);
+    return rootView;
+  }
 
-        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        rv = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        pb = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
+  private void initDagger() {
+    GotChallengeApplication.get(getContext())
+        .getCharacterComponent()
+        .plus(new CharacterListActivityModule())
+        .inject(this);
+  }
 
-        characterListByHousePresenter.setView(this);
-        characterListByHousePresenter.init(house);
-        return rootView;
-    }
-
-    private void initDagger() {
-        GotChallengeApplication.get(getContext())
-                .getCharacterComponent()
-                .plus(new CharacterListActivityModule())
-                .inject(this);
-    }
-
-    public void setHouse(GoTHouse house) {
-        this.house = house;
-    }
+  public void setHouse(GoTHouse house) {
+    this.house = house;
+  }
 
 
-    @Override
-    public void initUi() {
-        adp = new CharacterAdapter(imageLoader, getActivity());
-        rv.setAdapter(adp);
-        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
-        rv.setHasFixedSize(true);
-    }
+  @Override
+  public void initUi() {
+    adp = new CharacterAdapter(imageLoader, getActivity());
+    rv.setAdapter(adp);
+    rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+    rv.setHasFixedSize(true);
+  }
 
-    @Override
-    public void error() {
-        Toast.makeText(getActivity().getApplicationContext(), "ERRRRRORRR ONEEE", Toast.LENGTH_SHORT).show();
-    }
+  @Override
+  public void error() {
+    Toast.makeText(getActivity().getApplicationContext(), "ERRRRRORRR ONEEE", Toast.LENGTH_SHORT).show();
+  }
 
-    @Override
-    public void show(List<GoTCharacter> list) {
-        adp.addAll(list);
-        adp.notifyDataSetChanged();
-        pb.hide();
-    }
+  @Override
+  public void show(List<GoTCharacter> list) {
+    adp.addAll(list);
+    adp.notifyDataSetChanged();
+    pb.hide();
+  }
 }

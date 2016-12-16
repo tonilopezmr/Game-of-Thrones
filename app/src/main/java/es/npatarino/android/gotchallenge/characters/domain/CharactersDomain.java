@@ -9,25 +9,32 @@ import java.util.List;
 
 public interface CharactersDomain {
 
-    interface LocalDataSource {
-        void save(List<GoTCharacter> save);
-        boolean isExpired();
-        void removeAll(List<GoTCharacter> remove);
+  interface LocalDataSource {
+    void save(List<GoTCharacter> save);
 
-        Observable<GoTCharacter> read(GoTCharacter entity);
-        Observable<List<GoTCharacter>> read(GoTHouse house);
-        Observable<List<GoTCharacter>> getAll();
-    }
+    boolean isExpired();
 
-    interface NetworkDataSource {
-        Observable<GoTCharacter> read(GoTCharacter entity);
-        Observable<List<GoTCharacter>> read(GoTHouse house);
-        Observable<List<GoTCharacter>> getAll();
-    }
+    void removeAll(List<GoTCharacter> remove);
 
-    interface Repository extends ListRepository<GoTCharacter> {
-        Observable<GoTCharacter> read(GoTCharacter entity);
-        Observable<List<GoTCharacter>> read(GoTHouse house);
-    }
+    Observable<GoTCharacter> read(GoTCharacter entity);
+
+    Observable<List<GoTCharacter>> read(GoTHouse house);
+
+    Observable<List<GoTCharacter>> getAll();
+  }
+
+  interface NetworkDataSource {
+    Observable<GoTCharacter> read(GoTCharacter entity);
+
+    Observable<List<GoTCharacter>> read(GoTHouse house);
+
+    Observable<List<GoTCharacter>> getAll();
+  }
+
+  interface Repository extends ListRepository<GoTCharacter> {
+    Observable<GoTCharacter> read(GoTCharacter entity);
+
+    Observable<List<GoTCharacter>> read(GoTHouse house);
+  }
 
 }

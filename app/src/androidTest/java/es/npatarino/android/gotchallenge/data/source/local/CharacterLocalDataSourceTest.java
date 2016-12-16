@@ -5,8 +5,8 @@ import android.support.test.runner.AndroidJUnit4;
 import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
-import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.characters.data.source.local.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import io.realm.Realm;
@@ -26,83 +26,83 @@ import static org.junit.Assert.fail;
 @RunWith(AndroidJUnit4.class)
 public class CharacterLocalDataSourceTest {
 
-    private BddGoTCharacterMapper mapper = new BddGoTCharacterMapper();
-    private TTLCachingStrategy ttlCachingStrategy = new TTLCachingStrategy(2, TimeUnit.MINUTES);
-    private TimeProvider timeProvider = new TimeProvider(InstrumentationRegistry.getTargetContext());
+  private BddGoTCharacterMapper mapper = new BddGoTCharacterMapper();
+  private TTLCachingStrategy ttlCachingStrategy = new TTLCachingStrategy(2, TimeUnit.MINUTES);
+  private TimeProvider timeProvider = new TimeProvider(InstrumentationRegistry.getTargetContext());
 
-    private CharactersDomain.LocalDataSource dataSource;
+  private CharactersDomain.LocalDataSource dataSource;
 
-    @Before
-    public void setUp() {
-        RealmConfiguration realmConfiguration = new RealmConfiguration
-                .Builder(InstrumentationRegistry.getTargetContext())
-                .name("es.npatarino.android.gotchallenge.realm.test")
-                .schemaVersion(1)
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(realmConfiguration);
+  @Before
+  public void setUp() {
+    RealmConfiguration realmConfiguration = new RealmConfiguration
+        .Builder(InstrumentationRegistry.getTargetContext())
+        .name("es.npatarino.android.gotchallenge.realm.test")
+        .schemaVersion(1)
+        .deleteRealmIfMigrationNeeded()
+        .build();
+    Realm.setDefaultConfiguration(realmConfiguration);
 
-        dataSource =
-                new CharacterLocalDataSource(ttlCachingStrategy, timeProvider, mapper);
+    dataSource =
+        new CharacterLocalDataSource(ttlCachingStrategy, timeProvider, mapper);
+  }
+
+  @Test
+  public void
+  save_characters_and_get_all() {
+    final List<GoTCharacter> goTCharacters = getGotCharacters(10);
+
+    dataSource.save(goTCharacters);
+
+    dataSource.getAll()
+        .subscribe(list -> assertGotCharacterList(goTCharacters, list), throwable -> fail());
+
+    dataSource.removeAll(goTCharacters);
+  }
+
+  @Test
+  public void
+  delete_characters() {
+    final List<GoTCharacter> goTCharacters = getGotCharacters(10);
+
+    dataSource.save(goTCharacters);
+    dataSource.removeAll(goTCharacters);
+
+    dataSource.getAll()
+        .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
+  }
+
+  @Test
+  public void
+  caching_characters_is_not_expired() {
+    final List<GoTCharacter> goTCharacters = getGotCharacters(10);
+
+    dataSource.save(goTCharacters);
+
+    assertFalse(dataSource.isExpired());
+    dataSource.removeAll(goTCharacters);
+  }
+
+
+  private void assertGotCharacterList(List<GoTCharacter> expected, List<GoTCharacter> list) {
+    assertThat(list.size(), is(expected.size()));
+
+    for (int i = 0; i < list.size(); i++) {
+      GoTCharacter charExpected = expected.get(i);
+      GoTCharacter character = list.get(i);
+
+      assertGotCharacter(charExpected, character);
     }
+  }
 
-    @Test
-    public void
-    save_characters_and_get_all() {
-        final List<GoTCharacter> goTCharacters = getGotCharacters(10);
+  private void assertGotCharacter(GoTCharacter charExpected, GoTCharacter character) {
+    assertThat(character.getName(), is(charExpected.getName() + " cache"));
+    assertThat(character.getDescription(), is(charExpected.getDescription()));
+    assertThat(character.getHouse().getId(), is(charExpected.getHouse().getId()));
+    assertThat(character.getImageUrl(), is(charExpected.getImageUrl()));
+  }
 
-        dataSource.save(goTCharacters);
-
-        dataSource.getAll()
-                .subscribe(list -> assertGotCharacterList(goTCharacters, list), throwable -> fail());
-
-        dataSource.removeAll(goTCharacters);
-    }
-
-    @Test
-    public void
-    delete_characters() {
-        final List<GoTCharacter> goTCharacters = getGotCharacters(10);
-
-        dataSource.save(goTCharacters);
-        dataSource.removeAll(goTCharacters);
-
-        dataSource.getAll()
-                .subscribe(list -> assertThat(list.size(), is(0)), throwable -> fail());
-    }
-
-    @Test
-    public void
-    caching_characters_is_not_expired() {
-        final List<GoTCharacter> goTCharacters = getGotCharacters(10);
-
-        dataSource.save(goTCharacters);
-
-        assertFalse(dataSource.isExpired());
-        dataSource.removeAll(goTCharacters);
-    }
-
-
-    private void assertGotCharacterList(List<GoTCharacter> expected, List<GoTCharacter> list) {
-        assertThat(list.size(), is(expected.size()));
-
-        for (int i = 0; i < list.size(); i++) {
-            GoTCharacter charExpected = expected.get(i);
-            GoTCharacter character = list.get(i);
-
-            assertGotCharacter(charExpected, character);
-        }
-    }
-
-    private void assertGotCharacter(GoTCharacter charExpected, GoTCharacter character) {
-        assertThat(character.getName(), is(charExpected.getName() + " cache"));
-        assertThat(character.getDescription(), is(charExpected.getDescription()));
-        assertThat(character.getHouse().getId(), is(charExpected.getHouse().getId()));
-        assertThat(character.getImageUrl(), is(charExpected.getImageUrl()));
-    }
-
-    private List<GoTCharacter> getGotCharacters(int numCharacters) {
-        return TestUtils.getGoTCharacters(numCharacters);
-    }
+  private List<GoTCharacter> getGotCharacters(int numCharacters) {
+    return TestUtils.getGoTCharacters(numCharacters);
+  }
 
 }

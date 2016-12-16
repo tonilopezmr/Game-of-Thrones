@@ -23,7 +23,8 @@ public class RecyclerItemViewAssertion<A> implements ViewAssertion {
     this.itemViewAssertion = itemViewAssertion;
   }
 
-  @Override public final void check(View view, NoMatchingViewException e) {
+  @Override
+  public final void check(View view, NoMatchingViewException e) {
     RecyclerView recyclerView = (RecyclerView) view;
     RecyclerView.ViewHolder viewHolderForPosition =
         recyclerView.findViewHolderForLayoutPosition(position);

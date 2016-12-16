@@ -22,59 +22,58 @@ import java.util.List;
 
 public class CharacterListFragment extends Fragment implements ViewList<GoTCharacter> {
 
-    private static final String TAG = CharacterListFragment.class.getSimpleName();
-    private RecyclerView recyclerView;
-    private ContentLoadingProgressBar progressBar;
-    private CharacterAdapter adapter;
+  private static final String TAG = CharacterListFragment.class.getSimpleName();
+  @Inject
+  CharacterListPresenter gotCharacterListPresenter;
+  @Inject
+  ImageLoader imageLoader;
+  private RecyclerView recyclerView;
+  private ContentLoadingProgressBar progressBar;
+  private CharacterAdapter adapter;
 
-    @Inject
-    CharacterListPresenter gotCharacterListPresenter;
-    @Inject
-    ImageLoader imageLoader;
 
+  public CharacterListFragment() {
+  }
 
-    public CharacterListFragment() {
-    }
+  @Override
+  public View onCreateView(final LayoutInflater inflater,
+                           final ViewGroup container,
+                           final Bundle savedInstanceState) {
+    initDagger();
 
-    @Override
-    public View onCreateView(final LayoutInflater inflater,
-                             final ViewGroup container,
-                             final Bundle savedInstanceState) {
-        initDagger();
+    View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+    recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+    progressBar = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
 
-        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        progressBar = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
+    gotCharacterListPresenter.setView(this);
+    gotCharacterListPresenter.init();
+    return rootView;
+  }
 
-        gotCharacterListPresenter.setView(this);
-        gotCharacterListPresenter.init();
-        return rootView;
-    }
+  private void initDagger() {
+    GotChallengeApplication.get(getContext())
+        .getCharacterComponent()
+        .plus(new CharacterListActivityModule())
+        .inject(this);
+  }
 
-    private void initDagger() {
-        GotChallengeApplication.get(getContext())
-                .getCharacterComponent()
-                .plus(new CharacterListActivityModule())
-                .inject(this);
-    }
+  @Override
+  public void showList(List<GoTCharacter> list) {
+    adapter.addAll(list);
+    adapter.notifyDataSetChanged();
+    progressBar.hide();
+  }
 
-    @Override
-    public void showList(List<GoTCharacter> list) {
-        adapter.addAll(list);
-        adapter.notifyDataSetChanged();
-        progressBar.hide();
-    }
+  @Override
+  public void initUi() {
+    adapter = new CharacterAdapter(imageLoader, getActivity());
+    recyclerView.setAdapter(adapter);
+    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    recyclerView.setHasFixedSize(true);
+  }
 
-    @Override
-    public void initUi() {
-        adapter = new CharacterAdapter(imageLoader, getActivity());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
-    }
-
-    @Override
-    public void error() {
-        Toast.makeText(getActivity().getApplicationContext(), "ERRRRRORRR ONEEE", Toast.LENGTH_SHORT).show();
-    }
+  @Override
+  public void error() {
+    Toast.makeText(getActivity().getApplicationContext(), "ERRRRRORRR ONEEE", Toast.LENGTH_SHORT).show();
+  }
 }

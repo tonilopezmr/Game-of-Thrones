@@ -8,18 +8,18 @@ import java.lang.ref.WeakReference;
 
 public class ChatActivityNavigator implements Navigator {
 
-    private WeakReference<Activity> activity;
-    private String id;
+  private WeakReference<Activity> activity;
+  private String id;
 
-    public ChatActivityNavigator(Activity activity, String id) {
-        this.activity = new WeakReference<Activity>(activity);
-        this.id = id;
-    }
+  public ChatActivityNavigator(Activity activity, String id) {
+    this.activity = new WeakReference<Activity>(activity);
+    this.id = id;
+  }
 
-    @Override
-    public void navigate() {
-        Intent intent = new Intent(activity.get(), ChatActivity.class);
-        intent.putExtra(ChatActivity.CONVER_ID_KEY, id);
-        activity.get().startActivity(intent);
-    }
+  @Override
+  public void navigate() {
+    Intent intent = new Intent(activity.get(), ChatActivity.class);
+    intent.putExtra(ChatActivity.CONVER_ID_KEY, id);
+    activity.get().startActivity(intent);
+  }
 }

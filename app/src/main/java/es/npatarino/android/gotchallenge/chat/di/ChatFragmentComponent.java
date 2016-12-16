@@ -8,5 +8,5 @@ import es.npatarino.android.gotchallenge.common.di.activity.ActivityScope;
 @Subcomponent(modules = ChatFragmentModule.class)
 public interface ChatFragmentComponent {
 
-    ChatFragment inject(ChatFragment fragment);
+  ChatFragment inject(ChatFragment fragment);
 }

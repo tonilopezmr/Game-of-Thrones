@@ -18,7 +18,6 @@ package es.npatarino.android.gotchallenge.testingtools.matchers;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -31,17 +30,19 @@ public class RecyclerViewItemsCountMatcher extends BaseMatcher<View> {
     this.expectedItemCount = expectedItemCount;
   }
 
-  @Override public boolean matches(Object item) {
+  public static Matcher<View> recyclerViewHasItemCount(int itemCount) {
+    return new RecyclerViewItemsCountMatcher(itemCount);
+  }
+
+  @Override
+  public boolean matches(Object item) {
     RecyclerView recyclerView = (RecyclerView) item;
     return recyclerView.getAdapter().getItemCount() == expectedItemCount;
   }
 
-  @Override public void describeTo(Description description) {
+  @Override
+  public void describeTo(Description description) {
     description.appendText("recycler view does not contains " + expectedItemCount + " items");
-  }
-
-  public static Matcher<View> recyclerViewHasItemCount(int itemCount) {
-    return new RecyclerViewItemsCountMatcher(itemCount);
   }
 }
 

@@ -31,43 +31,43 @@ import static org.mockito.BDDMockito.given;
 @RunWith(AndroidJUnit4.class)
 public class HomeActivityTest {
 
-    private static final int NUMBER_OF_CHARACTERS = 4;
+  private static final int NUMBER_OF_CHARACTERS = 4;
 
-    @Rule
-    public EspressoDaggerMockRule daggerMockRule = new EspressoDaggerMockRule();
+  @Rule
+  public EspressoDaggerMockRule daggerMockRule = new EspressoDaggerMockRule();
 
-    @Rule
-    public ActivityTestRule<HomeActivity> activityTestRule =
-            new ActivityTestRule<>(HomeActivity.class, true, false);
+  @Rule
+  public ActivityTestRule<HomeActivity> activityTestRule =
+      new ActivityTestRule<>(HomeActivity.class, true, false);
 
-    @Mock
-    CharactersDomain.NetworkDataSource remote;
+  @Mock
+  CharactersDomain.NetworkDataSource remote;
 
-    @Mock
-    CharactersDomain.LocalDataSource local;
+  @Mock
+  CharactersDomain.LocalDataSource local;
 
-    @After
-    public void tearDown() throws Exception {
-        GotChallengeApplication app = EspressoDaggerMockRule.getApp();
-        app.releaseCharacterComponent();
-    }
+  @After
+  public void tearDown() throws Exception {
+    GotChallengeApplication app = EspressoDaggerMockRule.getApp();
+    app.releaseCharacterComponent();
+  }
 
-    @Test
-    public void
-    show_characters_name() throws Exception {
-        Observable<List<GoTCharacter>> charactersObservable = TestUtils.getCharacters(NUMBER_OF_CHARACTERS);
-        List<GoTCharacter> characterList = charactersObservable.toBlocking().first();
+  @Test
+  public void
+  show_characters_name() throws Exception {
+    Observable<List<GoTCharacter>> charactersObservable = TestUtils.getCharacters(NUMBER_OF_CHARACTERS);
+    List<GoTCharacter> characterList = charactersObservable.toBlocking().first();
 
-        given(remote.getAll()).willReturn(charactersObservable);
-        given(local.getAll()).willReturn(charactersObservable);
+    given(remote.getAll()).willReturn(charactersObservable);
+    given(local.getAll()).willReturn(charactersObservable);
 
-        activityTestRule.launchActivity(null);
+    activityTestRule.launchActivity(null);
 
-        Spoon.screenshot(activityTestRule.getActivity(), "Character_list");
+    Spoon.screenshot(activityTestRule.getActivity(), "Character_list");
 
-        RecyclerViewInteraction.<GoTCharacter>onRecyclerView(allOf(withId(R.id.recycler_view), isDisplayed()))
-                .withItems(characterList)
-                .check((character, view, e) -> matches(hasDescendant(withText(character.getName()))).check(view, e));
-    }
+    RecyclerViewInteraction.<GoTCharacter>onRecyclerView(allOf(withId(R.id.recycler_view), isDisplayed()))
+        .withItems(characterList)
+        .check((character, view, e) -> matches(hasDescendant(withText(character.getName()))).check(view, e));
+  }
 
 }

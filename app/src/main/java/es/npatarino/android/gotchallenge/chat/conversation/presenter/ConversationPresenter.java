@@ -3,43 +3,43 @@ package es.npatarino.android.gotchallenge.chat.conversation.presenter;
 import android.util.Log;
 import es.npatarino.android.gotchallenge.base.Mvp;
 import es.npatarino.android.gotchallenge.base.list.presenter.BasePresenter;
-import es.npatarino.android.gotchallenge.chat.conversation.usecases.GetConversation;
 import es.npatarino.android.gotchallenge.chat.conversation.model.Conversation;
+import es.npatarino.android.gotchallenge.chat.conversation.usecases.GetConversation;
 
 public class ConversationPresenter extends BasePresenter<ConversationPresenter.View> {
 
-    public interface View extends Mvp.View {
+  private final String TAG = ConversationPresenter.class.getSimpleName();
+  private GetConversation getConversation;
 
-        void show(Conversation conversation);
-        void initChat();
-    }
+  public ConversationPresenter(GetConversation getConversation) {
+    this.getConversation = getConversation;
+  }
 
-    private final String TAG = ConversationPresenter.class.getSimpleName();
+  public void init(Conversation conversation) {
+    super.init();
 
-    private GetConversation getConversation;
+    get(conversation);
+  }
 
-    public ConversationPresenter(GetConversation getConversation) {
-        this.getConversation = getConversation;
-    }
+  private void get(Conversation conversation) {
+    addSubscription(getConversation.execute(conversation)
+        .subscribe(this::show, this::onError));
+  }
 
-    public void init(Conversation conversation) {
-        super.init();
+  private void onError(Throwable throwable) {
+    view.error();
+    Log.e(TAG, "onError: " + throwable.getMessage(), throwable);
+  }
 
-        get(conversation);
-    }
+  private void show(Conversation conversation) {
+    view.show(conversation);
+    view.initChat();
+  }
 
-    private void get(Conversation conversation) {
-        addSubscription(getConversation.execute(conversation)
-                .subscribe(this::show, this::onError));
-    }
+  public interface View extends Mvp.View {
 
-    private void onError(Throwable throwable) {
-        view.error();
-        Log.e(TAG, "onError: " + throwable.getMessage(), throwable);
-    }
+    void show(Conversation conversation);
 
-    private void show(Conversation conversation) {
-        view.show(conversation);
-        view.initChat();
-    }
+    void initChat();
+  }
 }

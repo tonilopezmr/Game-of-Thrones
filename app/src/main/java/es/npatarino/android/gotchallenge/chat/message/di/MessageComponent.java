@@ -9,5 +9,5 @@ import es.npatarino.android.gotchallenge.chat.di.ChatScope;
 @Subcomponent(modules = MessageModule.class)
 public interface MessageComponent {
 
-    ChatFragmentComponent plus(ChatFragmentModule module);
+  ChatFragmentComponent plus(ChatFragmentModule module);
 }

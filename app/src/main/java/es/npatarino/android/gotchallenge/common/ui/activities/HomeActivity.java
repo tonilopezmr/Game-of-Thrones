@@ -15,75 +15,75 @@ import es.npatarino.android.gotchallenge.common.ui.adapters.SectionsPagerAdapter
 
 public class HomeActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-    TabLayout tabLayout;
+  Toolbar toolbar;
+  TabLayout tabLayout;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        initUi();
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_home);
+    initUi();
+  }
 
-    public void initUi() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+  public void initUi() {
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
-        setupTabs();
-    }
+    setupTabs();
+  }
 
-    private void setupTabs() {
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
-        viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
+  private void setupTabs() {
+    final ViewPager viewPager = (ViewPager) findViewById(R.id.container);
+    viewPager.setAdapter(new SectionsPagerAdapter(getSupportFragmentManager()));
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setCustomView(getCustomIcon(R.drawable.ned_head_light));
-        tabLayout.getTabAt(0).setText("");
-        tabLayout.getTabAt(1).setCustomView(getCustomIcon(R.drawable.insignia_light, 100));
-        tabLayout.getTabAt(1).setText("");
+    tabLayout = (TabLayout) findViewById(R.id.tabs);
+    tabLayout.setupWithViewPager(viewPager);
+    tabLayout.getTabAt(0).setCustomView(getCustomIcon(R.drawable.ned_head_light));
+    tabLayout.getTabAt(0).setText("");
+    tabLayout.getTabAt(1).setCustomView(getCustomIcon(R.drawable.insignia_light, 100));
+    tabLayout.getTabAt(1).setText("");
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                ImageView imageView = (ImageView) tab.getCustomView();
-                imageView.getDrawable().mutate().setAlpha(255);
-                viewPager.setCurrentItem(tab.getPosition(), true);
-            }
+    tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+      @Override
+      public void onTabSelected(TabLayout.Tab tab) {
+        ImageView imageView = (ImageView) tab.getCustomView();
+        imageView.getDrawable().mutate().setAlpha(255);
+        viewPager.setCurrentItem(tab.getPosition(), true);
+      }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                ImageView imageView = (ImageView) tab.getCustomView();
-                imageView.getDrawable().mutate().setAlpha(100);
-            }
+      @Override
+      public void onTabUnselected(TabLayout.Tab tab) {
+        ImageView imageView = (ImageView) tab.getCustomView();
+        imageView.getDrawable().mutate().setAlpha(100);
+      }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+      @Override
+      public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
-    }
+      }
+    });
+  }
 
-    private View getCustomIcon(int resId, int alpha) {
-        return getCustomIcon(AppCompatDrawableManager.get().getDrawable(tabLayout.getContext(), resId), alpha);
-    }
+  private View getCustomIcon(int resId, int alpha) {
+    return getCustomIcon(AppCompatDrawableManager.get().getDrawable(tabLayout.getContext(), resId), alpha);
+  }
 
-    private View getCustomIcon(int resId) {
-        return getCustomIcon(AppCompatDrawableManager.get().getDrawable(tabLayout.getContext(), resId), 255);
-    }
+  private View getCustomIcon(int resId) {
+    return getCustomIcon(AppCompatDrawableManager.get().getDrawable(tabLayout.getContext(), resId), 255);
+  }
 
-    private View getCustomIcon(Drawable icon, int alpha) {
-        ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.custom_tab, null);
-        imageView.setImageDrawable(icon);
-        imageView.getDrawable().mutate().setAlpha(alpha);
-        return imageView;
-    }
+  private View getCustomIcon(Drawable icon, int alpha) {
+    ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.custom_tab, null);
+    imageView.setImageDrawable(icon);
+    imageView.getDrawable().mutate().setAlpha(alpha);
+    return imageView;
+  }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        GotChallengeApplication app = GotChallengeApplication.get(getApplicationContext());
-        app.releaseHouseComponent();
-        app.releaseCharacterComponent();
-    }
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    GotChallengeApplication app = GotChallengeApplication.get(getApplicationContext());
+    app.releaseHouseComponent();
+    app.releaseCharacterComponent();
+  }
 }

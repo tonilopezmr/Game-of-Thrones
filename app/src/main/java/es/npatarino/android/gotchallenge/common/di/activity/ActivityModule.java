@@ -10,15 +10,15 @@ import es.npatarino.android.gotchallenge.base.ui.messages.SnackbarError;
 @Module
 public class ActivityModule {
 
-    @Provides
-    @ActivityScope
-    public ErrorManager provideErrorManager() {
-        return new SnackbarError();
-    }
+  @Provides
+  @ActivityScope
+  public ErrorManager provideErrorManager() {
+    return new SnackbarError();
+  }
 
-    @Provides
-    @ActivityScope
-    public ImageLoader provideImageLoader() {
-        return new PicassoImageLoader();
-    }
+  @Provides
+  @ActivityScope
+  public ImageLoader provideImageLoader() {
+    return new PicassoImageLoader();
+  }
 }

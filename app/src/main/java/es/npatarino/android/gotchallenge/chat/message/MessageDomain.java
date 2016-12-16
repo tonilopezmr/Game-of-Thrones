@@ -8,11 +8,13 @@ import java.util.List;
 
 public interface MessageDomain {
 
-    interface Repository {
-        Observable<List<Message>> getMessages(Conversation conversation);
-        //TODO: Observable<Message> getLastMessage(Conversation conversation);
-        Observable<Void> sendMessage(Message message, Conversation conversation);
-        Observable<Message> subscribeToMessages(Conversation conversation);
-    }
+  interface Repository {
+    Observable<List<Message>> getMessages(Conversation conversation);
+
+    //TODO: Observable<Message> getLastMessage(Conversation conversation);
+    Observable<Void> sendMessage(Message message, Conversation conversation);
+
+    Observable<Message> subscribeToMessages(Conversation conversation);
+  }
 
 }

@@ -14,18 +14,18 @@ import rx.Scheduler;
 @Module
 public class ConversationModule {
 
-    @Provides
-    @ChatScope
-    public ConversationDomain.Repository getConversationRepository(Context context) {
-        return new ConversationRepository(context);
-    }
+  @Provides
+  @ChatScope
+  public ConversationDomain.Repository getConversationRepository(Context context) {
+    return new ConversationRepository(context);
+  }
 
-    @Provides
-    @ChatScope
-    public GetConversation getConversation(ConversationDomain.Repository repository,
-                                           @UiThread Scheduler ui,
-                                           @ExecutorThread Scheduler executor) {
-        return new GetConversation(repository, ui, executor);
-    }
+  @Provides
+  @ChatScope
+  public GetConversation getConversation(ConversationDomain.Repository repository,
+                                         @UiThread Scheduler ui,
+                                         @ExecutorThread Scheduler executor) {
+    return new GetConversation(repository, ui, executor);
+  }
 
 }

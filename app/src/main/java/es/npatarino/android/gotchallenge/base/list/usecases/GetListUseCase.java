@@ -25,17 +25,17 @@ import java.util.List;
 
 public class GetListUseCase<T> extends UseCase<List<T>> {
 
-    protected final ListRepository<T> repository;
+  protected final ListRepository<T> repository;
 
-    public GetListUseCase(ListRepository<T> repository,
-                          Scheduler uiThread,
-                          Scheduler executorThread) {
-        super(uiThread, executorThread);
-        this.repository = repository;
-    }
+  public GetListUseCase(ListRepository<T> repository,
+                        Scheduler uiThread,
+                        Scheduler executorThread) {
+    super(uiThread, executorThread);
+    this.repository = repository;
+  }
 
-    @Override
-    protected Observable<List<T>> buildUseCaseObservable() {
-        return scheduleOn(repository.getList());
-    }
+  @Override
+  protected Observable<List<T>> buildUseCaseObservable() {
+    return scheduleOn(repository.getList());
+  }
 }

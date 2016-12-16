@@ -10,20 +10,20 @@ import static org.hamcrest.Matchers.is;
 
 public class ToolbarTitleViewAssertion implements ViewAssertion {
 
-    private final String toolbarTitle;
+  private final String toolbarTitle;
 
-    public ToolbarTitleViewAssertion(String toolbarTitle) {
-        this.toolbarTitle = toolbarTitle;
-    }
+  public ToolbarTitleViewAssertion(String toolbarTitle) {
+    this.toolbarTitle = toolbarTitle;
+  }
 
-    @Override
-    public void check(View view, NoMatchingViewException noViewFoundException) {
-        Toolbar toolbar = ((Toolbar) view);
+  public static ToolbarTitleViewAssertion withTitle(String toolbarTitle) {
+    return new ToolbarTitleViewAssertion(toolbarTitle);
+  }
 
-        assertThat(toolbarTitle, is(toolbar.getTitle()));
-    }
+  @Override
+  public void check(View view, NoMatchingViewException noViewFoundException) {
+    Toolbar toolbar = ((Toolbar) view);
 
-    public static ToolbarTitleViewAssertion withTitle(String toolbarTitle) {
-        return new ToolbarTitleViewAssertion(toolbarTitle);
-    }
+    assertThat(toolbarTitle, is(toolbar.getTitle()));
+  }
 }

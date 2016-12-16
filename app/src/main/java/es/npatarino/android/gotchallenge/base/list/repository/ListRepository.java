@@ -16,10 +16,10 @@
 
 package es.npatarino.android.gotchallenge.base.list.repository;
 
-import java.util.List;
-
 import rx.Observable;
 
+import java.util.List;
+
 public interface ListRepository<T> {
-    Observable<List<T>> getList();
+  Observable<List<T>> getList();
 }

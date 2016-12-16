@@ -7,10 +7,11 @@ import es.npatarino.android.gotchallenge.common.di.activity.ActivityScope;
 
 @ActivityScope
 @Subcomponent(modules = {
-        CharacterListActivityModule.class
+    CharacterListActivityModule.class
 })
 public interface CharacterListActivityComponent {
 
-    CharacterListByHouseFragment inject(CharacterListByHouseFragment fragment);
-    CharacterListFragment inject(CharacterListFragment fragment);
+  CharacterListByHouseFragment inject(CharacterListByHouseFragment fragment);
+
+  CharacterListFragment inject(CharacterListFragment fragment);
 }

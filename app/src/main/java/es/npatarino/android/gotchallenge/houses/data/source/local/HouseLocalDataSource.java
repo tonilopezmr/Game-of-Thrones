@@ -13,75 +13,75 @@ import java.util.List;
 
 public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
 
-    private TTLCachingStrategy cachingStrategy;
-    private TimeProvider timeProvider;
-    private TwoWaysMapper<GoTHouse, BddHouse> mapper;
+  private TTLCachingStrategy cachingStrategy;
+  private TimeProvider timeProvider;
+  private TwoWaysMapper<GoTHouse, BddHouse> mapper;
 
-    public HouseLocalDataSource(TTLCachingStrategy cachingStrategy,
-                                TimeProvider timeProvider,
-                                TwoWaysMapper<GoTHouse,
-                                BddHouse> mapper) {
-        this.cachingStrategy = cachingStrategy;
-        this.timeProvider = timeProvider;
-        this.mapper = mapper;
-    }
+  public HouseLocalDataSource(TTLCachingStrategy cachingStrategy,
+                              TimeProvider timeProvider,
+                              TwoWaysMapper<GoTHouse,
+                                  BddHouse> mapper) {
+    this.cachingStrategy = cachingStrategy;
+    this.timeProvider = timeProvider;
+    this.mapper = mapper;
+  }
 
-    @Override
-    public void save(List<GoTHouse> save) {
-        List<BddHouse> list = mapper.map(save);
-        for (int i = 0, size = list.size(); i < size; i++) {
-            save(list.get(i));
-        }
+  @Override
+  public void save(List<GoTHouse> save) {
+    List<BddHouse> list = mapper.map(save);
+    for (int i = 0, size = list.size(); i < size; i++) {
+      save(list.get(i));
     }
+  }
 
-    private void save(BddHouse house) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 -> {
-            realm1.copyToRealmOrUpdate(house);
-        });
-        realm.close();
-    }
+  private void save(BddHouse house) {
+    Realm realm = Realm.getDefaultInstance();
+    realm.executeTransaction(realm1 -> {
+      realm1.copyToRealmOrUpdate(house);
+    });
+    realm.close();
+  }
 
-    @Override
-    public boolean isExpired() {
-        return !cachingStrategy.isValid(timeProvider.getPersistedTime());
-    }
+  @Override
+  public boolean isExpired() {
+    return !cachingStrategy.isValid(timeProvider.getPersistedTime());
+  }
 
-    @Override
-    public void removeAll(List<GoTHouse> remove) {
-        for (int i = 0, size = remove.size(); i < size; i++) {
-            remove(remove.get(i));
-        }
+  @Override
+  public void removeAll(List<GoTHouse> remove) {
+    for (int i = 0, size = remove.size(); i < size; i++) {
+      remove(remove.get(i));
     }
+  }
 
-    private void remove(GoTHouse house) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(realm1 -> {
-            BddHouse bddHouse = find(house);
-            if (bddHouse != null) {
-                bddHouse.deleteFromRealm();
-            }
-        });
-        realm.close();
-    }
+  private void remove(GoTHouse house) {
+    Realm realm = Realm.getDefaultInstance();
+    realm.executeTransaction(realm1 -> {
+      BddHouse bddHouse = find(house);
+      if (bddHouse != null) {
+        bddHouse.deleteFromRealm();
+      }
+    });
+    realm.close();
+  }
 
-    @Override
-    public Observable<List<GoTHouse>> getAll() {
-        return Observable.fromCallable(() -> {
-            Realm realm = Realm.getDefaultInstance();
-            List<BddHouse> result = realm.where(BddHouse.class).findAll();
-            List<GoTHouse> goTHouses = mapper.inverseMap(result);
-            realm.close();
-            return goTHouses;
-        });
-    }
+  @Override
+  public Observable<List<GoTHouse>> getAll() {
+    return Observable.fromCallable(() -> {
+      Realm realm = Realm.getDefaultInstance();
+      List<BddHouse> result = realm.where(BddHouse.class).findAll();
+      List<GoTHouse> goTHouses = mapper.inverseMap(result);
+      realm.close();
+      return goTHouses;
+    });
+  }
 
-    private BddHouse find(GoTHouse house) {
-        Realm realm = Realm.getDefaultInstance();
-        BddHouse bddHouse = realm.where(BddHouse.class)
-                .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getId())
-                .findFirst();
-        realm.close();
-        return bddHouse;
-    }
+  private BddHouse find(GoTHouse house) {
+    Realm realm = Realm.getDefaultInstance();
+    BddHouse bddHouse = realm.where(BddHouse.class)
+        .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getId())
+        .findFirst();
+    realm.close();
+    return bddHouse;
+  }
 }

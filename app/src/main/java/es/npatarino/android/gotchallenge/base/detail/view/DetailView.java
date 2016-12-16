@@ -19,5 +19,5 @@ package es.npatarino.android.gotchallenge.base.detail.view;
 import es.npatarino.android.gotchallenge.base.Mvp;
 
 public interface DetailView<T> extends Mvp.View {
-    void show(T viewModel);
+  void show(T viewModel);
 }

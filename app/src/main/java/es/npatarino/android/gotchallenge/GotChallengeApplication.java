@@ -19,89 +19,89 @@ import io.realm.RealmConfiguration;
 
 public class GotChallengeApplication extends Application {
 
-    private AppComponent appComponent;
-    private CharacterComponent characterComponent;
-    private ConversationComponent conversationComponent;
-    private MessageComponent messageComponent;
-    private HouseComponent houseComponent;
+  private AppComponent appComponent;
+  private CharacterComponent characterComponent;
+  private ConversationComponent conversationComponent;
+  private MessageComponent messageComponent;
+  private HouseComponent houseComponent;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
+  public static GotChallengeApplication get(Context context) {
+    return (GotChallengeApplication) context.getApplicationContext();
+  }
 
-        this.appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(getApplicationContext()))
-                .build();
+  @Override
+  public void onCreate() {
+    super.onCreate();
 
-        initializeRealmConfiguration();
+    this.appComponent = DaggerAppComponent.builder()
+        .appModule(new AppModule(getApplicationContext()))
+        .build();
+
+    initializeRealmConfiguration();
+  }
+
+  public AppComponent getAppComponent() {
+    return appComponent;
+  }
+
+  @VisibleForTesting
+  public void setAppComponent(AppComponent appComponent) {
+    this.appComponent = appComponent;
+  }
+
+  public CharacterComponent getCharacterComponent() {
+    if (characterComponent == null) {
+      characterComponent = appComponent.plus(new CharacterModule());
     }
 
-    public AppComponent getAppComponent() {
-        return appComponent;
+    return characterComponent;
+  }
+
+  public ConversationComponent getConversationComponent() {
+    if (conversationComponent == null) {
+      conversationComponent = appComponent.plus(new ConversationModule());
     }
 
-    @VisibleForTesting
-    public void setAppComponent(AppComponent appComponent) {
-        this.appComponent = appComponent;
+    return conversationComponent;
+  }
+
+  public MessageComponent getMessageComponent() {
+    if (messageComponent == null) {
+      messageComponent = appComponent.plus(new MessageModule());
     }
 
-    public CharacterComponent getCharacterComponent() {
-        if (characterComponent == null) {
-            characterComponent = appComponent.plus(new CharacterModule());
-        }
+    return messageComponent;
+  }
 
-        return characterComponent;
+  public HouseComponent getHouseComponent() {
+    if (houseComponent == null) {
+      houseComponent = appComponent.plus(new HouseModule());
     }
 
-    public ConversationComponent getConversationComponent() {
-        if (conversationComponent == null) {
-            conversationComponent = appComponent.plus(new ConversationModule());
-        }
+    return houseComponent;
+  }
 
-        return conversationComponent;
-    }
+  public void releaseMessageComponent() {
+    messageComponent = null;
+  }
 
-    public MessageComponent getMessageComponent() {
-        if (messageComponent == null) {
-            messageComponent = appComponent.plus(new MessageModule());
-        }
+  public void releaseConversationComponent() {
+    conversationComponent = null;
+  }
 
-        return messageComponent;
-    }
+  public void releaseHouseComponent() {
+    houseComponent = null;
+  }
 
-    public HouseComponent getHouseComponent() {
-        if (houseComponent == null) {
-            houseComponent = appComponent.plus(new HouseModule());
-        }
+  public void releaseCharacterComponent() {
+    characterComponent = null;
+  }
 
-        return houseComponent;
-    }
-
-    public void releaseMessageComponent() {
-        messageComponent = null;
-    }
-
-    public void releaseConversationComponent() {
-        conversationComponent = null;
-    }
-
-    public void releaseHouseComponent() {
-        houseComponent = null;
-    }
-
-    public void releaseCharacterComponent() {
-        characterComponent = null;
-    }
-
-    public static GotChallengeApplication get(Context context) {
-        return (GotChallengeApplication) context.getApplicationContext();
-    }
-
-    private void initializeRealmConfiguration() {
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(getApplicationContext())
-                .name("com.tonilopezmr.got.realm")
-                .schemaVersion(1)
-                .build();
-        Realm.setDefaultConfiguration(realmConfiguration);
-    }
+  private void initializeRealmConfiguration() {
+    RealmConfiguration realmConfiguration = new RealmConfiguration.Builder(getApplicationContext())
+        .name("com.tonilopezmr.got.realm")
+        .schemaVersion(1)
+        .build();
+    Realm.setDefaultConfiguration(realmConfiguration);
+  }
 }

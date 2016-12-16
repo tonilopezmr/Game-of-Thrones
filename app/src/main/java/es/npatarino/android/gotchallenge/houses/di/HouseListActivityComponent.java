@@ -8,5 +8,5 @@ import es.npatarino.android.gotchallenge.houses.list.ui.HousesListFragment;
 @Subcomponent(modules = HouseListActivityModule.class)
 public interface HouseListActivityComponent {
 
-    HousesListFragment inject(HousesListFragment housesListFragment);
+  HousesListFragment inject(HousesListFragment housesListFragment);
 }

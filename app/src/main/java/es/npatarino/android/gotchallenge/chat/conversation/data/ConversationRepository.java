@@ -14,38 +14,38 @@ import java.util.HashMap;
 
 public class ConversationRepository implements ConversationDomain.Repository {
 
-    private final String TAG = getClass().getSimpleName();
+  private final String TAG = getClass().getSimpleName();
 
-    private HashMap<String, Conversation> conversations;
-    private Context context;
+  private HashMap<String, Conversation> conversations;
+  private Context context;
 
-    public ConversationRepository(Context context) {
-        this.context = context;
-        conversations = new HashMap<>();
-        initConversations();
+  public ConversationRepository(Context context) {
+    this.context = context;
+    conversations = new HashMap<>();
+    initConversations();
+  }
+
+  private void initConversations() {
+    try {
+      Gson gson = new Gson();
+      InputStream inputStream = context.getAssets().open("conversations.json");
+      Reader reader = new InputStreamReader(inputStream, "UTF-8");
+      Conversation[] parsedList = gson.fromJson(reader, Conversation[].class);
+      for (Conversation conversation : parsedList) {
+        conversations.put(conversation.getId(), conversation);
+      }
+    } catch (Exception e) {
+      Log.e(TAG, "initConversations: ", e);
     }
+  }
 
-    private void initConversations() {
-        try {
-            Gson gson = new Gson();
-            InputStream inputStream = context.getAssets().open("conversations.json");
-            Reader reader = new InputStreamReader(inputStream, "UTF-8");
-            Conversation[] parsedList = gson.fromJson(reader, Conversation[].class);
-            for (Conversation conversation : parsedList) {
-                conversations.put(conversation.getId(), conversation);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "initConversations: ", e);
-        }
-    }
-
-    @Override
-    public Observable<Conversation> get(Conversation conversation) {
-        return Observable.fromCallable(() -> {
-            Conversation conversation1 = conversations.get(conversation.getId());
-            if (conversation1 == null) conversation1 = conversations.get("50fab25b");
-            return conversation1;
-        });
-    }
+  @Override
+  public Observable<Conversation> get(Conversation conversation) {
+    return Observable.fromCallable(() -> {
+      Conversation conversation1 = conversations.get(conversation.getId());
+      if (conversation1 == null) conversation1 = conversations.get("50fab25b");
+      return conversation1;
+    });
+  }
 
 }

@@ -11,24 +11,24 @@ import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 public class ChatActivityDaggerMockRule extends DaggerMockRule<AppComponent> {
 
-    private MockMessageRepository mockMessageRepository;
+  private MockMessageRepository mockMessageRepository;
 
-    public ChatActivityDaggerMockRule() {
-        super(AppComponent.class, new AppModule(getApp()));
-        this.mockMessageRepository = new MockMessageRepository(getApp());
-        provides(MessageDomain.Repository.class, mockMessageRepository);
-        provides(ImageLoader.class, new TestPicassoImageLoader());
-        set(component -> getApp().setAppComponent(component));
-    }
+  public ChatActivityDaggerMockRule() {
+    super(AppComponent.class, new AppModule(getApp()));
+    this.mockMessageRepository = new MockMessageRepository(getApp());
+    provides(MessageDomain.Repository.class, mockMessageRepository);
+    provides(ImageLoader.class, new TestPicassoImageLoader());
+    set(component -> getApp().setAppComponent(component));
+  }
 
-    public MockMessageRepository getMockMessageRepository() {
-        return mockMessageRepository;
-    }
+  private static GotChallengeApplication getApp() {
+    return (GotChallengeApplication) InstrumentationRegistry
+        .getInstrumentation()
+        .getTargetContext()
+        .getApplicationContext();
+  }
 
-    private static GotChallengeApplication getApp() {
-        return (GotChallengeApplication) InstrumentationRegistry
-                .getInstrumentation()
-                .getTargetContext()
-                .getApplicationContext();
-    }
+  public MockMessageRepository getMockMessageRepository() {
+    return mockMessageRepository;
+  }
 }

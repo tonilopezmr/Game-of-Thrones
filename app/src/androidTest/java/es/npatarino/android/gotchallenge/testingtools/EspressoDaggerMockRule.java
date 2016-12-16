@@ -8,16 +8,16 @@ import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 public class EspressoDaggerMockRule extends DaggerMockRule<AppComponent> {
 
-    public EspressoDaggerMockRule() {
-        super(AppComponent.class, new AppModule(getApp().getApplicationContext()));
-        set(component -> getApp().setAppComponent(component));
-    }
+  public EspressoDaggerMockRule() {
+    super(AppComponent.class, new AppModule(getApp().getApplicationContext()));
+    set(component -> getApp().setAppComponent(component));
+  }
 
-    public static GotChallengeApplication getApp() {
-        return (GotChallengeApplication) InstrumentationRegistry
-                .getInstrumentation()
-                .getTargetContext()
-                .getApplicationContext();
-    }
+  public static GotChallengeApplication getApp() {
+    return (GotChallengeApplication) InstrumentationRegistry
+        .getInstrumentation()
+        .getTargetContext()
+        .getApplicationContext();
+  }
 }
 

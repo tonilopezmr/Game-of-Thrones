@@ -11,31 +11,31 @@ import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
-    private List<User> userList;
+  private List<User> userList;
 
-    public UserAdapter() {
-        userList = new ArrayList<>();
-    }
+  public UserAdapter() {
+    userList = new ArrayList<>();
+  }
 
-    @Override
-    public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new UserViewHolder(LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.cell_user, parent, false));
-    }
+  @Override
+  public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    return new UserViewHolder(LayoutInflater
+        .from(parent.getContext())
+        .inflate(R.layout.cell_user, parent, false));
+  }
 
-    @Override
-    public void onBindViewHolder(UserViewHolder holder, int position) {
-        holder.render(userList.get(position));
-    }
+  @Override
+  public void onBindViewHolder(UserViewHolder holder, int position) {
+    holder.render(userList.get(position));
+  }
 
-    @Override
-    public int getItemCount() {
-        return userList.size();
-    }
+  @Override
+  public int getItemCount() {
+    return userList.size();
+  }
 
-    public void addAll(List<User> list) {
-        userList.addAll(list);
-        notifyDataSetChanged();
-    }
+  public void addAll(List<User> list) {
+    userList.addAll(list);
+    notifyDataSetChanged();
+  }
 }

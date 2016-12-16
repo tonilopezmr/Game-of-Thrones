@@ -35,7 +35,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug{
+        debug {
             applicationIdSuffix ".debug"
         }
     }
@@ -108,5 +108,5 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.2'
     compile 'com.github.pedrovgs:renderers:3.2.0'
 
-    compile project (':emojis')
+    compile project(':emojis')
 }

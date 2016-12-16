@@ -22,71 +22,71 @@ import static org.mockito.Mockito.when;
 
 public class HouseRepositoryTest {
 
-    private static final boolean EXPIRED = true;
+  private static final boolean EXPIRED = true;
 
-    @Mock
-    HousesDomain.NetworkDataSource networkDataSource;
-    @Mock
-    HousesDomain.LocalDataSource localDataSource;
+  @Mock
+  HousesDomain.NetworkDataSource networkDataSource;
+  @Mock
+  HousesDomain.LocalDataSource localDataSource;
 
-    HouseRepository repository;
+  HouseRepository repository;
 
-    @Before
-    public void setUp() throws Exception {
-        // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
-        // inject the mocks in the test the initMocks method needs to be called.
-        MockitoAnnotations.initMocks(this);
+  @Before
+  public void setUp() throws Exception {
+    // Mockito has a very convenient way to inject mocks by using the @Mock annotation. To
+    // inject the mocks in the test the initMocks method needs to be called.
+    MockitoAnnotations.initMocks(this);
 
-        repository = new HouseRepository(networkDataSource, localDataSource);
+    repository = new HouseRepository(networkDataSource, localDataSource);
+  }
+
+  @Test
+  public void
+  should_not_return_any_house() throws Exception {
+    when(localDataSource.isExpired()).thenReturn(EXPIRED);
+    when(networkDataSource.getAll()).thenReturn(getEmptyHouseListObservable());
+
+    repository.getList()
+        .subscribe(list -> Assert.assertThat(list.size(), Is.is(0)), throwable -> fail());
+
+    verify(networkDataSource).getAll();
+    verify(localDataSource).save(anyList());
+    verify(localDataSource, never()).getAll();
+  }
+
+  @Test
+  public void
+  should_return_all_houses() throws Exception {
+    when(localDataSource.isExpired()).thenReturn(EXPIRED);
+    when(networkDataSource.getAll()).thenReturn(getSevenHousesObservable());
+
+    repository.getList()
+        .subscribe(list -> Assert.assertThat(list.size(), Is.is(7)), throwable -> fail());
+
+    verify(networkDataSource).getAll();
+    verify(localDataSource).save(anyList());
+    verify(localDataSource, never()).getAll();
+  }
+
+  private List<GoTHouse> getSevenHouses() {
+    List<GoTHouse> houses = new ArrayList<>();
+    for (int i = 0; i < 7; i++) {
+      houses.add(dummyHouse());
     }
+    return houses;
+  }
 
-    @Test
-    public void
-    should_not_return_any_house() throws Exception {
-        when(localDataSource.isExpired()).thenReturn(EXPIRED);
-        when(networkDataSource.getAll()).thenReturn(getEmptyHouseListObservable());
+  @NonNull
+  private GoTHouse dummyHouse() {
+    return new GoTHouse(null, null);
+  }
 
-        repository.getList()
-                .subscribe(list -> Assert.assertThat(list.size(), Is.is(0)), throwable -> fail());
+  private Observable<List<GoTHouse>> getSevenHousesObservable() {
+    return Observable.just(getSevenHouses());
+  }
 
-        verify(networkDataSource).getAll();
-        verify(localDataSource).save(anyList());
-        verify(localDataSource, never()).getAll();
-    }
-
-    @Test
-    public void
-    should_return_all_houses() throws Exception {
-        when(localDataSource.isExpired()).thenReturn(EXPIRED);
-        when(networkDataSource.getAll()).thenReturn(getSevenHousesObservable());
-
-        repository.getList()
-                .subscribe(list -> Assert.assertThat(list.size(), Is.is(7)), throwable -> fail());
-
-        verify(networkDataSource).getAll();
-        verify(localDataSource).save(anyList());
-        verify(localDataSource, never()).getAll();
-    }
-
-    private List<GoTHouse> getSevenHouses() {
-        List<GoTHouse> houses = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            houses.add(dummyHouse());
-        }
-        return houses;
-    }
-
-    @NonNull
-    private GoTHouse dummyHouse() {
-        return new GoTHouse(null, null);
-    }
-
-    private Observable<List<GoTHouse>> getSevenHousesObservable() {
-        return Observable.just(getSevenHouses());
-    }
-
-    private Observable<List<GoTHouse>> getEmptyHouseListObservable() {
-        return Observable.just(new ArrayList<>());
-    }
+  private Observable<List<GoTHouse>> getEmptyHouseListObservable() {
+    return Observable.just(new ArrayList<>());
+  }
 
 }

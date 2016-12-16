@@ -6,5 +6,5 @@ import dagger.Subcomponent;
 @Subcomponent(modules = HouseModule.class)
 public interface HouseComponent {
 
-    HouseListActivityComponent plus(HouseListActivityModule activityModule);
+  HouseListActivityComponent plus(HouseListActivityModule activityModule);
 }

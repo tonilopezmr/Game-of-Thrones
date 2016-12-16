@@ -15,19 +15,19 @@ import rx.Scheduler;
 @Module
 public class HouseListActivityModule extends ActivityModule {
 
-    @Provides
-    @ActivityScope
-    @House
-    public GetListUseCase<GoTHouse> provideGotHouseListUseCase(@ExecutorThread Scheduler executor,
-                                                               @UiThread Scheduler uiThread,
-                                                               HousesDomain.Repository repository) {
-        return new GetListUseCase<>(repository, uiThread, executor);
-    }
+  @Provides
+  @ActivityScope
+  @House
+  public GetListUseCase<GoTHouse> provideGotHouseListUseCase(@ExecutorThread Scheduler executor,
+                                                             @UiThread Scheduler uiThread,
+                                                             HousesDomain.Repository repository) {
+    return new GetListUseCase<>(repository, uiThread, executor);
+  }
 
-    @Provides
-    @ActivityScope
-    public HouseListPresenter provideGotHouseListPresenter(@House GetListUseCase<GoTHouse> houseGetListUseCase) {
-        return new HouseListPresenter(houseGetListUseCase);
-    }
+  @Provides
+  @ActivityScope
+  public HouseListPresenter provideGotHouseListPresenter(@House GetListUseCase<GoTHouse> houseGetListUseCase) {
+    return new HouseListPresenter(houseGetListUseCase);
+  }
 
 }

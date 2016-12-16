@@ -18,40 +18,40 @@ import java.util.List;
 
 public class UserListFragment extends Fragment implements ViewList<User> {
 
-    private RecyclerView recyclerView;
-    private ContentLoadingProgressBar progressBar;
-    private UserAdapter adapter;
+  private RecyclerView recyclerView;
+  private ContentLoadingProgressBar progressBar;
+  private UserAdapter adapter;
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_list, container, false);
+  @Nullable
+  @Override
+  public View onCreateView(LayoutInflater inflater,
+                           @Nullable ViewGroup container,
+                           @Nullable Bundle savedInstanceState) {
+    View rootView = inflater.inflate(R.layout.fragment_list, container, false);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        progressBar = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
+    recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+    progressBar = (ContentLoadingProgressBar) rootView.findViewById(R.id.content_loading_progress_bar);
 
-        initUi();
-        return rootView;
-    }
+    initUi();
+    return rootView;
+  }
 
-    @Override
-    public void showList(List<User> list) {
-        adapter.addAll(list);
-        progressBar.setVisibility(View.GONE);
-    }
+  @Override
+  public void showList(List<User> list) {
+    adapter.addAll(list);
+    progressBar.setVisibility(View.GONE);
+  }
 
-    @Override
-    public void initUi() {
-        adapter = new UserAdapter();
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
-    }
+  @Override
+  public void initUi() {
+    adapter = new UserAdapter();
+    recyclerView.setAdapter(adapter);
+    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    recyclerView.setHasFixedSize(true);
+  }
 
-    @Override
-    public void error() {
-        Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
-    }
+  @Override
+  public void error() {
+    Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
+  }
 }

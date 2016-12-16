@@ -13,7 +13,7 @@
     <ImageView
             android:id="@+id/avatar_image"
             android:layout_width="@dimen/avatar_cell"
-            android:layout_height="@dimen/avatar_cell" />
+            android:layout_height="@dimen/avatar_cell"/>
 
 
     <LinearLayout

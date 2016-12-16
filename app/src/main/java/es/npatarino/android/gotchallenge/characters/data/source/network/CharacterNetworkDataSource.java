@@ -14,57 +14,57 @@ import java.util.List;
 
 public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataSource {
 
-    private OkHttpClient client;
-    private EndPoint endPoint;
-    private final CharacterJsonMapper characterCharacterJsonMapper;
+  private final CharacterJsonMapper characterCharacterJsonMapper;
+  private OkHttpClient client;
+  private EndPoint endPoint;
 
-    public CharacterNetworkDataSource(CharacterJsonMapper jsonMapper,
-                                      EndPoint endPoint,
-                                      OkHttpClient client) {
-        this.characterCharacterJsonMapper = jsonMapper;
-        this.endPoint = endPoint;
-        this.client = client;
-    }
-
-
-    protected StringBuffer getCharactersFromUrl(String endPoint) throws Exception {
-        Request request = new Request.Builder()
-                .url(endPoint)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        return new StringBuffer(response.body().string());
-    }
-
-    @Override
-    public Observable<List<GoTCharacter>> getAll() {
-        return Observable.fromCallable(() -> {
-            StringBuffer response = getCharactersFromUrl(endPoint.toString());
-            return characterCharacterJsonMapper.transformList(response.toString());
-        });
-    }
+  public CharacterNetworkDataSource(CharacterJsonMapper jsonMapper,
+                                    EndPoint endPoint,
+                                    OkHttpClient client) {
+    this.characterCharacterJsonMapper = jsonMapper;
+    this.endPoint = endPoint;
+    this.client = client;
+  }
 
 
-    @Override
-    public Observable<GoTCharacter> read(GoTCharacter entity) {
-        return getAll().map(characters -> {
-            int index = characters.indexOf(entity);
-            return index == -1 ? null : characters.get(index);
-        });
-    }
+  protected StringBuffer getCharactersFromUrl(String endPoint) throws Exception {
+    Request request = new Request.Builder()
+        .url(endPoint)
+        .build();
 
-    @Override
-    public Observable<List<GoTCharacter>> read(GoTHouse house) {
-        return getAll().map(characters -> {
-            Iterator<GoTCharacter> iterator = characters.iterator();
-            while (iterator.hasNext()) {
-                GoTCharacter character = iterator.next();
-                GoTHouse houseCharacter = character.getHouse();
-                if (!houseCharacter.getId().equals(house.getId())) {
-                    iterator.remove();
-                }
-            }
-            return characters;
-        });
-    }
+    Response response = client.newCall(request).execute();
+    return new StringBuffer(response.body().string());
+  }
+
+  @Override
+  public Observable<List<GoTCharacter>> getAll() {
+    return Observable.fromCallable(() -> {
+      StringBuffer response = getCharactersFromUrl(endPoint.toString());
+      return characterCharacterJsonMapper.transformList(response.toString());
+    });
+  }
+
+
+  @Override
+  public Observable<GoTCharacter> read(GoTCharacter entity) {
+    return getAll().map(characters -> {
+      int index = characters.indexOf(entity);
+      return index == -1 ? null : characters.get(index);
+    });
+  }
+
+  @Override
+  public Observable<List<GoTCharacter>> read(GoTHouse house) {
+    return getAll().map(characters -> {
+      Iterator<GoTCharacter> iterator = characters.iterator();
+      while (iterator.hasNext()) {
+        GoTCharacter character = iterator.next();
+        GoTHouse houseCharacter = character.getHouse();
+        if (!houseCharacter.getId().equals(house.getId())) {
+          iterator.remove();
+        }
+      }
+      return characters;
+    });
+  }
 }

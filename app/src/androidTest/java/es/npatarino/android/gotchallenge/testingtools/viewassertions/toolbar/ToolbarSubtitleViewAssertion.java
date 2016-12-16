@@ -10,20 +10,20 @@ import static org.hamcrest.Matchers.is;
 
 public class ToolbarSubtitleViewAssertion implements ViewAssertion {
 
-    private final String toolbarSubtitle;
+  private final String toolbarSubtitle;
 
-    public ToolbarSubtitleViewAssertion(String toolbarSubtitle) {
-        this.toolbarSubtitle = toolbarSubtitle;
-    }
+  public ToolbarSubtitleViewAssertion(String toolbarSubtitle) {
+    this.toolbarSubtitle = toolbarSubtitle;
+  }
 
-    @Override
-    public void check(View view, NoMatchingViewException noViewFoundException) {
-        Toolbar toolbar = ((Toolbar) view);
+  public static ToolbarSubtitleViewAssertion withSubtitle(String subtitle) {
+    return new ToolbarSubtitleViewAssertion(subtitle);
+  }
 
-        assertThat(toolbarSubtitle, is(toolbar.getSubtitle()));
-    }
+  @Override
+  public void check(View view, NoMatchingViewException noViewFoundException) {
+    Toolbar toolbar = ((Toolbar) view);
 
-    public static ToolbarSubtitleViewAssertion withSubtitle(String subtitle) {
-        return new ToolbarSubtitleViewAssertion(subtitle);
-    }
+    assertThat(toolbarSubtitle, is(toolbar.getSubtitle()));
+  }
 }

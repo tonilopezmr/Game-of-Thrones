@@ -8,5 +8,5 @@ import es.npatarino.android.gotchallenge.common.di.activity.ActivityScope;
 @Subcomponent(modules = ChatActivityModule.class)
 public interface ChatActivityComponent {
 
-    ChatActivity inject(ChatActivity activity);
+  ChatActivity inject(ChatActivity activity);
 }

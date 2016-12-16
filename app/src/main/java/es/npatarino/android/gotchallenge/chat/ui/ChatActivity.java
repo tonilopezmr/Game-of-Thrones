@@ -26,160 +26,157 @@ import javax.inject.Inject;
 
 public class ChatActivity extends AppCompatActivity implements ConversationPresenter.View {
 
-    public static final String CONVER_ID_KEY = "_conver_id_key";
-    public static final String CHAT_ACTIVITY_FRAGMENT = "chat_activity_fragment";
+  public static final String CONVER_ID_KEY = "_conver_id_key";
+  public static final String CHAT_ACTIVITY_FRAGMENT = "chat_activity_fragment";
+  @Inject
+  ErrorManager errorManager;
+  @Inject
+  ConversationPresenter presenter;
+  @Inject
+  Context context;
+  @Inject
+  ImageLoader imageLoader;
+  private android.view.View rootView;
+  private Toolbar toolbar;
+  private Conversation conversation;
 
-    private android.view.View rootView;
-    private Toolbar toolbar;
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_chat);
+    initDagger();
 
-    @Inject
-    ErrorManager errorManager;
-    @Inject
-    ConversationPresenter presenter;
-    @Inject
-    Context context;
-    @Inject
-    ImageLoader imageLoader;
+    final String id = getIntent().getStringExtra(CONVER_ID_KEY);
 
-    private Conversation conversation;
+    presenter.setView(this);
+    presenter.init(new Conversation(id, null, null, null, null));
+  }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
-        initDagger();
+  private void initToolbar() {
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
+    setSupportActionBar(toolbar);
 
-        final String id = getIntent().getStringExtra(CONVER_ID_KEY);
+    toolbar.setOnClickListener(view -> moveToDetailActivity(conversation));
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+  }
 
-        presenter.setView(this);
-        presenter.init(new Conversation(id, null, null, null, null));
+  private void moveToDetailActivity(Conversation conversation) {
+    new DetailActivityNavigatorBuilder(this)
+        .id(conversation.getId())
+        .name(conversation.getName())
+        .imageUrl(conversation.getImageUrl())
+        .navigate();
+  }
+
+  private void initDagger() {
+    GotChallengeApplication.get(this)
+        .getConversationComponent()
+        .plus(new ChatActivityModule())
+        .inject(this);
+  }
+
+  @Override
+  public void show(Conversation conversation) {
+    this.conversation = conversation;
+    getAvatarDrawable(conversation.getImageUrl());
+    toolbar.setTitle(conversation.getName());
+    toolbar.setSubtitle(conversation.getUsers()
+        .toString()
+        .replace("[", "")
+        .replace("]", "")); //Todo could be house words
+  }
+
+  private void getAvatarDrawable(String imageUrl) {
+    int px = Utilities.dp(context, 40);
+    Target target = new Target() {
+      @Override
+      public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+        setAvatar(new BitmapDrawable(getResources(), bitmap));
+      }
+
+      @Override
+      public void onBitmapFailed(Drawable errorDrawable) {
+        setAvatar(errorDrawable);
+      }
+
+      @Override
+      public void onPrepareLoad(Drawable placeHolderDrawable) {
+        setAvatar(placeHolderDrawable);
+      }
+    };
+
+    imageLoader.builder()
+        .with(context)
+        .load(imageUrl)
+        .circle()
+        .resize(px, px)
+        .centerCrop()
+        .into(target)
+        .show();
+    toolbar.setTag(target);
+  }
+
+  @Override
+  public void initChat() {
+    attachFragment(new ChatFragment());
+  }
+
+  @Override
+  public void initUi() {
+    rootView = findViewById(R.id.container);
+    initToolbar();
+  }
+
+  @Override
+  public void error() {
+    errorManager.showError(rootView, "ERROR :(");
+  }
+
+  private void attachFragment(Fragment fragment) {
+    Bundle args = new Bundle();
+    args.putString(ChatActivity.CONVER_ID_KEY, conversation.getId());
+    fragment.setArguments(args);
+
+    getSupportFragmentManager().beginTransaction()
+        .replace(R.id.frame_layout, fragment, CHAT_ACTIVITY_FRAGMENT)
+        .commitAllowingStateLoss();
+  }
+
+
+  public void setAvatar(Drawable avatar) {
+    toolbar.setLogoDescription("chat logo");
+    if (avatar == null) return;
+
+    toolbar.setLogo(avatar);
+    toolbar.setTitleMarginStart(Utilities.dp(context, 25));
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    if (item.getItemId() == android.R.id.home) onBackPressed();
+    return true;
+  }
+
+  @Override
+  public void onBackPressed() {
+    Fragment fragment = getSupportFragmentManager().findFragmentByTag(CHAT_ACTIVITY_FRAGMENT);
+    if (fragment != null && fragment instanceof OnBackListener) {
+      boolean isOnBackFragment = ((OnBackListener) fragment).onBackListener();
+      if (isOnBackFragment) {
+        return;
+      }
     }
 
-    private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    super.onBackPressed();
+  }
 
-        toolbar.setOnClickListener(view -> moveToDetailActivity(conversation));
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    private void moveToDetailActivity(Conversation conversation) {
-        new DetailActivityNavigatorBuilder(this)
-                .id(conversation.getId())
-                .name(conversation.getName())
-                .imageUrl(conversation.getImageUrl())
-                .navigate();
-    }
-
-    private void initDagger() {
-        GotChallengeApplication.get(this)
-                .getConversationComponent()
-                .plus(new ChatActivityModule())
-                .inject(this);
-    }
-
-    @Override
-    public void show(Conversation conversation) {
-        this.conversation = conversation;
-        getAvatarDrawable(conversation.getImageUrl());
-        toolbar.setTitle(conversation.getName());
-        toolbar.setSubtitle(conversation.getUsers()
-                .toString()
-                .replace("[", "")
-                .replace("]", "")); //Todo could be house words
-    }
-
-    private void getAvatarDrawable(String imageUrl) {
-        int px = Utilities.dp(context, 40);
-        Target target = new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                setAvatar(new BitmapDrawable(getResources(), bitmap));
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-                setAvatar(errorDrawable);
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                setAvatar(placeHolderDrawable);
-            }
-        };
-
-        imageLoader.builder()
-                .with(context)
-                .load(imageUrl)
-                .circle()
-                .resize(px, px)
-                .centerCrop()
-                .into(target)
-                .show();
-        toolbar.setTag(target);
-    }
-
-    @Override
-    public void initChat() {
-        attachFragment(new ChatFragment());
-    }
-
-    @Override
-    public void initUi() {
-        rootView = findViewById(R.id.container);
-        initToolbar();
-    }
-
-    @Override
-    public void error() {
-        errorManager.showError(rootView, "ERROR :(");
-    }
-
-    private void attachFragment(Fragment fragment) {
-        Bundle args = new Bundle();
-        args.putString(ChatActivity.CONVER_ID_KEY, conversation.getId());
-        fragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.frame_layout, fragment, CHAT_ACTIVITY_FRAGMENT)
-                .commitAllowingStateLoss();
-    }
-
-
-    public void setAvatar(Drawable avatar) {
-        toolbar.setLogoDescription("chat logo");
-        if (avatar == null) return;
-
-        toolbar.setLogo(avatar);
-        toolbar.setTitleMarginStart(Utilities.dp(context, 25));
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) onBackPressed();
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(CHAT_ACTIVITY_FRAGMENT);
-        if (fragment != null && fragment instanceof OnBackListener) {
-            boolean isOnBackFragment = ((OnBackListener) fragment).onBackListener();
-            if (isOnBackFragment) {
-                return;
-            }
-        }
-
-        super.onBackPressed();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        GotChallengeApplication gotChallengeApplication = GotChallengeApplication.get(getApplicationContext());
-        gotChallengeApplication.releaseConversationComponent();
-        gotChallengeApplication.releaseMessageComponent();
-    }
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    GotChallengeApplication gotChallengeApplication = GotChallengeApplication.get(getApplicationContext());
+    gotChallengeApplication.releaseConversationComponent();
+    gotChallengeApplication.releaseMessageComponent();
+  }
 }
