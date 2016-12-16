@@ -78,7 +78,7 @@ public class HouseRepositoryTest {
 
   @NonNull
   private GoTHouse dummyHouse() {
-    return new GoTHouse(null, null);
+    return new GoTHouse(null, null, null);
   }
 
   private Observable<List<GoTHouse>> getSevenHousesObservable() {
