@@ -1,7 +1,6 @@
 package es.npatarino.android.gotchallenge.characters.data.source.network;
 
 import es.npatarino.android.gotchallenge.base.network.EndPoint;
-import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
@@ -60,7 +59,8 @@ public class CharacterNetworkDataSource implements CharactersDomain.NetworkDataS
             Iterator<GoTCharacter> iterator = characters.iterator();
             while (iterator.hasNext()) {
                 GoTCharacter character = iterator.next();
-                if (!character.getHouseId().equals(house.getHouseId())) {
+                GoTHouse houseCharacter = character.getHouse();
+                if (!houseCharacter.getId().equals(house.getId())) {
                     iterator.remove();
                 }
             }

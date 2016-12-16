@@ -79,7 +79,7 @@ public class HouseLocalDataSource implements HousesDomain.LocalDataSource {
     private BddHouse find(GoTHouse house) {
         Realm realm = Realm.getDefaultInstance();
         BddHouse bddHouse = realm.where(BddHouse.class)
-                .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getHouseId())
+                .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getId())
                 .findFirst();
         realm.close();
         return bddHouse;

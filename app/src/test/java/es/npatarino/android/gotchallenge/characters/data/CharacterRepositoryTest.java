@@ -115,9 +115,14 @@ public class CharacterRepositoryTest {
     private List<GoTCharacter> getCharacters(int numCharacters) {
         List<GoTCharacter> characters = new ArrayList<>();
         for (int i = 0; i < numCharacters; i++) {
-            characters.add(new GoTCharacter());
+            characters.add(dummyCharacter());
         }
         return characters;
+    }
+
+    @NonNull
+    private GoTCharacter dummyCharacter() {
+        return new GoTCharacter(null, null, null, null);
     }
 
     @NonNull

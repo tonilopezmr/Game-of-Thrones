@@ -18,18 +18,14 @@ public class TestUtils {
     private static final String KHAL_DROGO_HOUSE_NAME = "House Khal Drogo";
 
     public static GoTHouse defaultGotHouse() {
-        GoTHouse house = new GoTHouse();
-        house.setHouseId(KHAL_DROGO_HOUSE_ID);
-        house.setHouseName(KHAL_DROGO_HOUSE_NAME);
-        house.setHouseImageUrl(KHAL_DROGO_URL);
-        return house;
+        return new GoTHouse(KHAL_DROGO_HOUSE_ID,KHAL_DROGO_HOUSE_NAME,KHAL_DROGO_URL);
     }
 
     @NonNull
     public static List<GoTCharacter> getGoTCharacters(int numberOfGotCharacters) {
         List<GoTCharacter> characters = new LinkedList<>();
         for (int i = 0; i < numberOfGotCharacters; i++) {
-            characters.add(defaultGotCharacter());
+            characters.add(defaultGotCharacter(i));
         }
         return characters;
     }
@@ -39,17 +35,9 @@ public class TestUtils {
         return Observable.just(characters);
     }
 
-
-    public static GoTCharacter defaultGotCharacter() {
-        GoTCharacter gotCharacter = new GoTCharacter();
-        gotCharacter.setName(KHAL_DROGO_NAME);
-        gotCharacter.setImageUrl(KHAL_DROGO_URL);
-        gotCharacter.setDescription(KHAL_DROGO_DESCRIPTION);
-        gotCharacter.setHouseId(KHAL_DROGO_HOUSE_ID);
-        gotCharacter.setHouseName(KHAL_DROGO_HOUSE_NAME);
-        gotCharacter.setHouseImageUrl(KHAL_DROGO_URL);
-        return gotCharacter;
+    public static GoTCharacter defaultGotCharacter(int id) {
+        GoTHouse house = defaultGotHouse();
+        return new GoTCharacter(KHAL_DROGO_NAME + id, KHAL_DROGO_URL, KHAL_DROGO_DESCRIPTION, house);
     }
-
 
 }

@@ -88,7 +88,7 @@ dependencies {
         exclude group: 'com.android.support'
     }
     androidTestCompile 'com.github.fabioCollini:DaggerMock:0.6.1'
-    androidTestCompile 'com.squareup.spoon:spoon-client:1.6.4'
+    androidTestCompile 'com.squareup.spoon:spoon-client:1.7.0'
 
     //test
     testCompile 'junit:junit:4.12'

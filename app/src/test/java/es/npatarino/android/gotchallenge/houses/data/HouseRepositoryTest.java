@@ -1,5 +1,6 @@
 package es.npatarino.android.gotchallenge.houses.data;
 
+import android.support.annotation.NonNull;
 import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
 import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import org.hamcrest.core.Is;
@@ -70,9 +71,14 @@ public class HouseRepositoryTest {
     private List<GoTHouse> getSevenHouses() {
         List<GoTHouse> houses = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            houses.add(new GoTHouse());
+            houses.add(dummyHouse());
         }
         return houses;
+    }
+
+    @NonNull
+    private GoTHouse dummyHouse() {
+        return new GoTHouse(null, null);
     }
 
     private Observable<List<GoTHouse>> getSevenHousesObservable() {

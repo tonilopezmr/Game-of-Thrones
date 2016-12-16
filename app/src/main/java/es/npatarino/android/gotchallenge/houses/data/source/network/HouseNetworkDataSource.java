@@ -2,7 +2,7 @@ package es.npatarino.android.gotchallenge.houses.data.source.network;
 
 import es.npatarino.android.gotchallenge.base.network.EndPoint;
 import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSource;
-import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.domain.HousesDomain;
@@ -30,15 +30,7 @@ public class HouseNetworkDataSource implements HousesDomain.NetworkDataSource {
     }
 
     private boolean isValidHouse(GoTHouse house) {
-        return house.getHouseId() != null && !house.getHouseId().isEmpty();
-    }
-
-    private GoTHouse getHouseFromCharacter(GoTCharacter character) {
-        GoTHouse h = new GoTHouse();
-        h.setHouseId(character.getHouseId());
-        h.setHouseName(character.getHouseName());
-        h.setHouseImageUrl(character.getHouseImageUrl());
-        return h;
+        return house.getId() != null && !house.getId().isEmpty();
     }
 
     @Override
@@ -47,7 +39,7 @@ public class HouseNetworkDataSource implements HousesDomain.NetworkDataSource {
             ArrayList<GoTHouse> hs = new ArrayList<GoTHouse>();
             for (int i = 0, size = characters.size(); i < size; i++) {
                 GoTCharacter character = characters.get(i);
-                GoTHouse house = getHouseFromCharacter(character);
+                GoTHouse house = character.getHouse();
                 addHouseInList(house, hs);
             }
             return hs;

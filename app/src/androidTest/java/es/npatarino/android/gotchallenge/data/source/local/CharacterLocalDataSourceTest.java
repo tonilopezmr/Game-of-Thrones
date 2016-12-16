@@ -6,7 +6,7 @@ import es.npatarino.android.gotchallenge.TestUtils;
 import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
-import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.local.BddGoTCharacterMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import io.realm.Realm;
@@ -18,11 +18,10 @@ import org.junit.runner.RunWith;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 @RunWith(AndroidJUnit4.class)
 public class CharacterLocalDataSourceTest {
@@ -98,21 +97,12 @@ public class CharacterLocalDataSourceTest {
     private void assertGotCharacter(GoTCharacter charExpected, GoTCharacter character) {
         assertThat(character.getName(), is(charExpected.getName() + " cache"));
         assertThat(character.getDescription(), is(charExpected.getDescription()));
-        assertThat(character.getHouseId(), is(charExpected.getHouseId()));
+        assertThat(character.getHouse().getId(), is(charExpected.getHouse().getId()));
         assertThat(character.getImageUrl(), is(charExpected.getImageUrl()));
-        assertNull(character.getHouseImageUrl());
-        assertNull(character.getHouseName());
     }
 
     private List<GoTCharacter> getGotCharacters(int numCharacters) {
-        List<GoTCharacter> list = TestUtils.getGoTCharacters(numCharacters);
-
-        for (int i = 0; i < list.size(); i++) {
-            GoTCharacter character = list.get(i);
-            character.setName(character.getName() + i);
-        }
-
-        return list;
+        return TestUtils.getGoTCharacters(numCharacters);
     }
 
 }

@@ -7,9 +7,9 @@ import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrateg
 import es.npatarino.android.gotchallenge.base.network.EndPoint;
 import es.npatarino.android.gotchallenge.characters.data.CharacterRepository;
 import es.npatarino.android.gotchallenge.characters.data.source.local.CharacterLocalDataSource;
-import es.npatarino.android.gotchallenge.characters.data.source.local.mapper.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.local.BddGoTCharacterMapper;
 import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSource;
-import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import okhttp3.OkHttpClient;
 

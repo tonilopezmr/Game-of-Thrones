@@ -2,60 +2,43 @@ package es.npatarino.android.gotchallenge.houses.domain.model;
 
 public class GoTHouse {
 
-    private String houseId;
-    private String houseName;
-    private String houseImageUrl;
+    private String id;
+    private String name;
+    private String imageUrl;
 
-    public GoTHouse() {
+    public GoTHouse(String id, String name, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.imageUrl = imageUrl;
     }
 
-    public GoTHouse(String houseId, String houseName, String houseImageUrl) {
-        this.houseId = houseId;
-        this.houseName = houseName;
-        this.houseImageUrl = houseImageUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public String getHouseImageUrl() {
-        return houseImageUrl;
+    public String getName() {
+        return name;
     }
 
-    public void setHouseImageUrl(String houseImageUrl) {
-        this.houseImageUrl = houseImageUrl;
-    }
-
-    public String getHouseName() {
-        return houseName;
-    }
-
-    public void setHouseName(String houseName) {
-        this.houseName = houseName;
-    }
-
-    public String getHouseId() {
-        return houseId;
-    }
-
-    public void setHouseId(String houseId) {
-        this.houseId = houseId;
+    public String getId() {
+        return id;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        GoTHouse goTHouse = (GoTHouse) o;
 
-        GoTHouse house = (GoTHouse) o;
+        if (!id.equals(goTHouse.id)) return false;
+        if (!name.equals(goTHouse.name)) return false;
+        return imageUrl != null ? imageUrl.equals(goTHouse.imageUrl) : goTHouse.imageUrl == null;
 
-        return houseId != null ? houseId.equals(house.houseId) : house.houseId == null;
     }
 
     @Override
     public int hashCode() {
-        return houseId.hashCode();
+        return id.hashCode();
     }
 }

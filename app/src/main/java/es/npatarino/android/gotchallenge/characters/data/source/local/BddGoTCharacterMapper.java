@@ -1,9 +1,9 @@
-package es.npatarino.android.gotchallenge.characters.data.source.local.mapper;
+package es.npatarino.android.gotchallenge.characters.data.source.local;
 
 import es.npatarino.android.gotchallenge.BuildConfig;
 import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
-import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,7 @@ public class BddGoTCharacterMapper implements TwoWaysMapper<GoTCharacter, BddGoT
         return new GoTCharacter(BuildConfig.DEBUG ? model.getName() + " cache" : model.getName(),
                 model.getImageUrl(),
                 model.getDescription(),
-                null,
-                null,
-                model.getHouseId());
+                new GoTHouse(model.getHouseId(), "", ""));
     }
 
     @Override
@@ -38,7 +36,7 @@ public class BddGoTCharacterMapper implements TwoWaysMapper<GoTCharacter, BddGoT
         character.setName(model.getName());
         character.setDescription(model.getDescription());
         character.setImageUrl(model.getImageUrl());
-        character.setHouseId(model.getHouseId());
+        character.setHouseId(model.getHouse().getId());
         return character;
     }
 

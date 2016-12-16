@@ -7,7 +7,7 @@ import dagger.Provides;
 import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.base.network.EndPoint;
-import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.common.di.ExecutorThread;
 import es.npatarino.android.gotchallenge.common.di.UiThread;
 import okhttp3.OkHttpClient;

@@ -51,7 +51,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void moveToDetailActivity(GoTHouse house) {
-        new ChatActivityNavigator(activity, house.getHouseId())
+        new ChatActivityNavigator(activity, house.getId())
                 .navigate();
     }
 
@@ -71,7 +71,7 @@ public class HouseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         public void render(final GoTHouse house) {
             imageLoader.builder()
-                    .load(house.getHouseImageUrl())
+                    .load(house.getImageUrl())
                     .fit()
                     .into(imp)
                     .show();

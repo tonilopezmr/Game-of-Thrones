@@ -41,7 +41,7 @@ public class DetailActivity extends AppCompatActivity {
         final String imageUrl = getIntent().getStringExtra(IMAGE_URL);
 
         initToolbar(name);
-        initFragment(id, description, name);
+        initFragment(id, description, name, imageUrl);
         showImage(imageUrl);
     }
 
@@ -60,9 +60,9 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    private void initFragment(String id, String description, String name) {
+    private void initFragment(String id, String description, String name, String imageUrl) {
         if (id != null) {
-            initGotCharacterListByHouseFragment(id, name);
+            initGotCharacterListByHouseFragment(id, name, imageUrl);
         } else {
             initDescriptionFragment(description, name);
         }
@@ -93,10 +93,8 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private void initGotCharacterListByHouseFragment(String id, String name) {
-        GoTHouse house = new GoTHouse();
-        house.setHouseId(id);
-        house.setHouseName(name);
+    private void initGotCharacterListByHouseFragment(String id, String name, String imageUrl) {
+        GoTHouse house = new GoTHouse(id, name, imageUrl);
 
         CharacterListByHouseFragment characterFragment = new CharacterListByHouseFragment();
         characterFragment.setHouse(house);

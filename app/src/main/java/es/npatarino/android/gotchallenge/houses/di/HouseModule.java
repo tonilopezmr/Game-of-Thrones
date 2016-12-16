@@ -5,7 +5,7 @@ import dagger.Provides;
 import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.base.network.EndPoint;
-import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.houses.data.HouseRepository;
 import es.npatarino.android.gotchallenge.houses.data.source.local.HouseLocalDataSource;
 import es.npatarino.android.gotchallenge.houses.data.source.local.mapper.BddHouseMapper;

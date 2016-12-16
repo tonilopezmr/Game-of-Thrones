@@ -1,4 +1,4 @@
-package es.npatarino.android.gotchallenge.characters.data.source.local.entities;
+package es.npatarino.android.gotchallenge.characters.data.source.local;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

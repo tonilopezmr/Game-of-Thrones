@@ -32,9 +32,9 @@ public class BddHouseMapper implements TwoWaysMapper<GoTHouse, BddHouse> {
     @Override
     public BddHouse map(GoTHouse model) {
         BddHouse house = new BddHouse();
-        house.setHouseName(model.getHouseName());
-        house.setHouseId(model.getHouseId());
-        house.setHouseImageUrl(model.getHouseImageUrl());
+        house.setHouseName(model.getName());
+        house.setHouseId(model.getId());
+        house.setHouseImageUrl(model.getImageUrl());
         return house;
     }
 

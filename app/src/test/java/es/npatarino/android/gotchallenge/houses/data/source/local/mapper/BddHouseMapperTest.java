@@ -41,9 +41,9 @@ public class BddHouseMapperTest {
 
         GoTHouse house = mapper.inverseMap(bddHouse);
 
-        assertThat(house.getHouseId(), is(HOUSE_ID));
-        assertThat(house.getHouseName(), is(BuildConfig.DEBUG ? HOUSE_NAME + " cache" : HOUSE_NAME));
-        assertThat(house.getHouseImageUrl(), is(HOUSE_IMAGE_URL));
+        assertThat(house.getId(), is(HOUSE_ID));
+        assertThat(house.getName(), is(BuildConfig.DEBUG ? HOUSE_NAME + " cache" : HOUSE_NAME));
+        assertThat(house.getImageUrl(), is(HOUSE_IMAGE_URL));
     }
 
     @Test

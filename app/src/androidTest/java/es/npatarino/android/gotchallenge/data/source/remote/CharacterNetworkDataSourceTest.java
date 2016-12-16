@@ -10,7 +10,7 @@ import java.util.List;
 import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterNetworkDataSource;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.base.network.EndPoint;
-import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.common.di.application.AppModule;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import okhttp3.OkHttpClient;

@@ -3,7 +3,6 @@ package es.npatarino.android.gotchallenge.characters.data.source.local;
 import es.npatarino.android.gotchallenge.base.caching.TimeProvider;
 import es.npatarino.android.gotchallenge.base.caching.strategy.TTLCachingStrategy;
 import es.npatarino.android.gotchallenge.base.mapper.TwoWaysMapper;
-import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.characters.domain.CharactersDomain;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import es.npatarino.android.gotchallenge.houses.data.source.local.entities.BddHouse;
@@ -85,7 +84,7 @@ public class CharacterLocalDataSource implements CharactersDomain.LocalDataSourc
         return Observable.fromCallable(() -> {
             Realm realm = Realm.getDefaultInstance();
             List<BddGoTCharacter> result = realm.where(BddGoTCharacter.class)
-                    .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getHouseId())
+                    .equalTo(BddHouse.PRIMARY_KEY_NAME, house.getId())
                     .findAll();
             List<GoTCharacter> goTCharacters = mapper.inverseMap(result);
             realm.close();

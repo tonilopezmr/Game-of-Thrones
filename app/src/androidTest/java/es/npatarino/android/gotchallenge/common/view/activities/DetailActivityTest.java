@@ -18,14 +18,16 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import rx.Observable;
+
+import java.util.List;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static
-        es.npatarino.android.gotchallenge.testingtools.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
+import static es.npatarino.android.gotchallenge.testingtools.matchers.RecyclerViewItemsCountMatcher.recyclerViewHasItemCount;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsNot.not;
 import static org.mockito.BDDMockito.given;
@@ -55,7 +57,7 @@ public class DetailActivityTest {
     @Test
     public void
     should_character_name_as_toolbar_tittle() throws Exception {
-        GoTCharacter character = TestUtils.defaultGotCharacter();
+        GoTCharacter character = TestUtils.defaultGotCharacter(0);
 
         startActivity(character);
 
@@ -68,7 +70,7 @@ public class DetailActivityTest {
     @Test
     public void
     should_display_description_given_is_character() throws Exception {
-        GoTCharacter character = TestUtils.defaultGotCharacter();
+        GoTCharacter character = TestUtils.defaultGotCharacter(0);
 
         startActivity(character);
 
@@ -78,7 +80,7 @@ public class DetailActivityTest {
     @Test
     public void
     should_display_name_given_is_character() throws Exception {
-        GoTCharacter character = TestUtils.defaultGotCharacter();
+        GoTCharacter character = TestUtils.defaultGotCharacter(0);
 
         startActivity(character);
 
@@ -89,7 +91,8 @@ public class DetailActivityTest {
     public void
     should_does_not_show_loading_view_once_character_are_shown() throws Exception {
         GoTHouse house = TestUtils.defaultGotHouse();
-        given(repository.read(house)).willReturn(TestUtils.getCharacters(NUMBER_OF_CHARACTERS));
+        Observable<List<GoTCharacter>> characters = TestUtils.getCharacters(NUMBER_OF_CHARACTERS);
+        given(repository.read(house)).willReturn(characters);
 
         startActivity(house);
 
@@ -130,9 +133,9 @@ public class DetailActivityTest {
 
     private DetailActivity startActivity(GoTHouse house) {
         Intent intent = new Intent();
-        intent.putExtra(DetailActivity.HOUSE_ID, house.getHouseId());
-        intent.putExtra(DetailActivity.NAME, house.getHouseName());
-        intent.putExtra(DetailActivity.IMAGE_URL, house.getHouseImageUrl());
+        intent.putExtra(DetailActivity.HOUSE_ID, house.getId());
+        intent.putExtra(DetailActivity.NAME, house.getName());
+        intent.putExtra(DetailActivity.IMAGE_URL, house.getImageUrl());
         return activityTestRule.launchActivity(intent);
     }
 

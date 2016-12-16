@@ -1,7 +1,7 @@
 package es.npatarino.android.gotchallenge.characters.data.source.remote.mapper;
 
 import com.google.gson.Gson;
-import es.npatarino.android.gotchallenge.characters.data.source.network.mapper.CharacterJsonMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.network.CharacterJsonMapper;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
 import org.junit.Test;
 
@@ -80,7 +80,7 @@ public class CharacterJsonMapperTest {
         GoTCharacter character = characterList.get(0);
 
         assertThat(character.getName(), is(TYRION_LANNISTER));
-        assertThat(character.getHouseId(), is(HOUSE_ID));
+        assertThat(character.getHouse().getId(), is(HOUSE_ID));
         assertNotNull(character.getDescription());
         assertNotNull(character.getImageUrl());
 

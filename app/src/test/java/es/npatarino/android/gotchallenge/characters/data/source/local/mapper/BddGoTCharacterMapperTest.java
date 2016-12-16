@@ -2,8 +2,10 @@ package es.npatarino.android.gotchallenge.characters.data.source.local.mapper;
 
 import android.support.annotation.NonNull;
 import es.npatarino.android.gotchallenge.BuildConfig;
-import es.npatarino.android.gotchallenge.characters.data.source.local.entities.BddGoTCharacter;
+import es.npatarino.android.gotchallenge.characters.data.source.local.BddGoTCharacterMapper;
+import es.npatarino.android.gotchallenge.characters.data.source.local.BddGoTCharacter;
 import es.npatarino.android.gotchallenge.characters.domain.model.GoTCharacter;
+import es.npatarino.android.gotchallenge.houses.domain.model.GoTHouse;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -51,9 +53,9 @@ public class BddGoTCharacterMapperTest {
         assertThat(goTCharacter.getName(), is(BuildConfig.DEBUG ? NAME + " cache" : NAME));
         assertThat(goTCharacter.getImageUrl(), is(IMAGE_URL));
         assertThat(goTCharacter.getDescription(), is(DES));
-        assertThat(goTCharacter.getHouseId(), is(HOUSE_ID));
-        assertNull(goTCharacter.getHouseImageUrl());
-        assertNull(goTCharacter.getHouseName());
+        assertThat(goTCharacter.getHouse().getId(), is(HOUSE_ID));
+        assertNull(goTCharacter.getHouse().getImageUrl());
+        assertNull(goTCharacter.getHouse().getName());
     }
 
     @Test
@@ -84,6 +86,7 @@ public class BddGoTCharacterMapperTest {
 
     @NonNull
     private GoTCharacter getGoTCharacter() {
-        return new GoTCharacter(NAME, IMAGE_URL, DES, HOUSE_IMAGE_URL, HOUSE_NAME, HOUSE_ID);
+        GoTHouse house = new GoTHouse(HOUSE_ID, HOUSE_NAME, HOUSE_IMAGE_URL);
+        return new GoTCharacter(NAME, IMAGE_URL, DES, house);
     }
 }
